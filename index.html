@@ -367,7 +367,15 @@
                 color: var(--color-accent-1);
                 font-size: 2rem;
                 margin-top: 0;
-                margin-bottom: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .featured-games .container p {
+                color: var(--color-text-2);
+                font-size: 1.5rem;
+                max-width: -webkit-fill-available;
+                margin: 0 auto 1.5rem auto;
+                line-height: 1.5;
             }
 
             .games-grid {
@@ -523,8 +531,7 @@
             <section class="showcase">
                 <h2>Streaming Platforms</h2>
                 <p>
-                    You can tune in live and well as catch up on past streams or highlights on any of the following
-                    platforms.
+                    You can tune in live and well as catch up on past streams or highlights on any of the following platforms.
                 </p>
                 <div class="platforms">
                     <a class="platform-link" href="https://twitch.tv/jamieharperuk" target="_blank" title="Twitch"
@@ -566,6 +573,9 @@
             <section class="featured-games">
                 <div class="container">
                     <h2>My Featured Picks</h2>
+                    <p>
+                        The below titles are ones that I would personally recommend playing.
+                    </p>
                     <div class="games-grid" id="gamesGrid"></div>
                 </div>
             </section>
