@@ -17,7 +17,7 @@
                 --color-text-2: #BBBBBB;
                 --color-accent-1: #26AE80;
             }
-        
+
             body {
                 margin: 0;
                 font-family: var(--font-family-base);
@@ -26,20 +26,20 @@
                 background: linear-gradient(0deg, rgba(27, 27, 27, 0.9), rgba(4, 4, 4, 0.9)), url(assets/icons/cosmic-bg.jpg);
                 background-size: cover;
             }
-        
+
             .container {
                 max-width: -webkit-fill-available;
                 margin: 0 auto;
                 padding: 0 1.5rem;
                 text-align: center;
             }
-        
+
             header {
                 background: #26ae808a;
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
                 padding: 1.5rem 0 1rem 0;
             }
-        
+
             .site-title {
                 font-size: 2.5rem;
                 letter-spacing: 2px;
@@ -47,33 +47,33 @@
                 margin: 0 0 0.5rem 0;
                 text-align: center;
             }
-        
+
             .social-links {
                 display: flex;
                 justify-content: center;
                 gap: 1.5rem;
                 margin-bottom: 0.5rem;
             }
-        
+
             .social-link {
                 color: var(--color-text-2);
                 font-size: 1.5rem;
                 transition: color 0.2s;
                 text-decoration: none;
             }
-        
+
             .social-link:hover {
                 color: #ffffff;
             }
-        
+
             .social-link img:hover {
                 fill: var(--color-accent-1);
             }
-        
+
             main {
                 padding: 2rem;
             }
-        
+
             .about {
                 background: rgb(78 78 78 / 70%);
                 border-radius: 12px;
@@ -81,14 +81,14 @@
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
                 padding: 2rem 0 1.5rem 0;
             }
-        
+
             .about h2 {
                 color: var(--color-accent-1);
                 margin-top: 0;
                 font-size: 2rem;
                 margin-bottom: 1rem;
             }
-        
+
             .about p {
                 color: var(--color-text-2);
                 font-size: 1.25rem;
@@ -96,18 +96,18 @@
                 margin: 0rem;
                 line-height: 1.6;
             }
-        
+
             .gallery {
                 margin-top: 2.5rem;
             }
-        
+
             .gallery h2 {
                 color: var(--color-accent-1);
                 margin-bottom: 1.2rem;
                 font-size: 2rem;
                 margin-bottom: 1rem;
             }
-        
+
             .gallery-grid {
                 display: flex;
                 flex-wrap: wrap;
@@ -115,32 +115,38 @@
                 margin-bottom: 1rem;
                 justify-content: flex-start;
             }
-        
+
             @media (min-width: 900px) {
                 .gallery-grid {
                     grid-template-columns: repeat(4, 1fr);
                 }
             }
-        
+
             @media (max-width: 899px) and (min-width: 600px) {
                 .gallery-img {
                     flex-basis: 48%;
-                    max-width: 48%;
+                    max-width: -webkit-fill-available !important;
+                }
+                div.gallery-img-wrapper {
+                    max-width: -webkit-fill-available !important;
                 }
             }
-        
+
             @media (max-width: 599px) {
                 .gallery-img {
                     flex-basis: 100%;
-                    max-width: 100%;
+                    max-width: -webkit-fill-available !important;
+                }
+                div.gallery-img-wrapper {
+                    max-width: -webkit-fill-available !important;
                 }
             }
-        
+
             /* Center last row if not full (modern browsers) */
             .gallery-grid {
                 justify-items: center;
             }
-        
+
             /* Modal styles */
             .modal {
                 display: none;
@@ -155,11 +161,11 @@
                 align-items: center;
                 transition: opacity 0.2s;
             }
-        
+
             .modal.active {
                 display: flex;
             }
-        
+
             .modal-content {
                 background: var(--color-bg-2);
                 border-radius: 12px;
@@ -172,14 +178,14 @@
                 align-items: center;
                 position: relative;
             }
-        
+
             .modal-img {
                 max-width: 70vw;
                 max-height: 60vh;
                 border-radius: 10px;
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
             }
-        
+
             .modal-close {
                 position: absolute;
                 top: 0.5rem;
@@ -192,11 +198,11 @@
                 transition: color 0.2s;
                 z-index: 999;
             }
-        
+
             .modal-close:hover {
                 color: var(--color-accent-1);
             }
-        
+
             .modal-website {
                 background: var(--color-accent-1);
                 color: var(--color-bg-1);
@@ -212,19 +218,20 @@
                 font-family: var(--font-family-base);
                 font-weight: bold;
             }
-        
+
             .modal-website:hover {
                 background: var(--color-bg-1);
                 color: var(--color-accent-1);
                 border: 1px solid var(--color-accent-1);
             }
-        
+
             .gallery-img-wrapper {
                 position: relative;
                 display: inline-block;
                 width: 100%;
                 height: 100%;
             }
+
             .gallery-img {
                 width: 100%;
                 border-radius: 10px;
@@ -235,24 +242,25 @@
                 transition: transform 0.2s, box-shadow 0.2s;
                 display: block;
             }
-        
+
             .gallery-img:hover {
                 transform: scale(1.04) rotate(-1deg);
                 box-shadow: 0 6px 24px rgba(38, 174, 128, 0.18);
                 cursor: pointer;
             }
+
             .gallery-img-wrapper:hover .gallery-img-alt {
                 transform: scale(1.04) rotate(-1deg);
                 border-radius: 10px;
                 background: rgb(38 174 128 / 85%);
                 color: var(--color-text-1);
             }
-        
+
             .gallery-img-alt {
                 position: absolute;
                 left: 0;
                 bottom: 0;
-                background: rgba(28,28,28,0.85);
+                background: rgba(28, 28, 28, 0.85);
                 color: var(--color-text-2);
                 font-size: 0.95rem;
                 padding: 0.35em 0.8em 0.35em 0.8em;
@@ -263,7 +271,7 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
-        
+
             .modal-img-wrapper {
                 margin-top: 1.5rem;
                 position: relative;
@@ -271,12 +279,12 @@
                 display: flex;
                 justify-content: center;
             }
-        
+
             .modal-img-alt {
                 position: absolute;
                 left: 0;
                 bottom: 0;
-                background: rgba(28,28,28,0.85);
+                background: rgba(28, 28, 28, 0.85);
                 color: var(--color-text-2);
                 font-size: 1.1rem;
                 padding: 0.5em 1em 0.5em 1em;
@@ -287,11 +295,11 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
-        
+
             .showcase {
                 text-align: center;
             }
-        
+
             .showcase h2 {
                 font-size: 2rem;
                 color: var(--color-accent-1);
@@ -305,19 +313,19 @@
                 margin: 0 auto 1rem auto;
                 line-height: 1.5;
             }
-        
+
             .platforms {
                 display: flex;
                 justify-content: center;
                 gap: 2rem;
                 flex-wrap: wrap;
             }
-        
+
             .platform-icon {
                 width: 28px;
                 height: 28px;
             }
-        
+
             .platform-link {
                 background: var(--color-bg-2);
                 border-radius: 12px;
@@ -332,11 +340,11 @@
                 gap: 0.8rem;
                 outline: none;
             }
-        
+
             .platform-link:focus {
                 box-shadow: 0 0 0 3px var(--color-accent-1);
             }
-        
+
             footer {
                 background: var(--color-bg-2);
                 color: var(--color-text-2);
@@ -344,6 +352,103 @@
                 padding: 1rem 0;
                 font-size: 1rem;
                 margin-top: 1rem;
+            }
+
+            /* Featured Games Section */
+            .featured-games {
+                margin-top: 2.5rem;
+                background: rgb(78 78 78 / 70%);
+                border-radius: 12px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
+                padding: 2rem 0 2.5rem 0;
+            }
+
+            .featured-games h2 {
+                color: var(--color-accent-1);
+                font-size: 2rem;
+                margin-top: 0;
+                margin-bottom: 1.5rem;
+            }
+
+            .games-grid {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1.5rem;
+                justify-content: center;
+            }
+
+            .game-card {
+                background: var(--color-bg-2);
+                border-radius: 12px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+                padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+                width: 270px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                transition: transform 0.2s, box-shadow 0.2s;
+                text-align: center;
+            }
+
+            .game-card:hover {
+                transform: scale(1.04) rotate(-1deg);
+                box-shadow: 0 6px 24px rgba(38, 174, 128, 0.18);
+            }
+
+            .game-logo {
+                width: 80px;
+                height: 80px;
+                object-fit: contain;
+                border-radius: 10px;
+                margin-bottom: 1rem;
+                background: #222;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+                padding: 10px;
+            }
+
+            .game-title {
+                font-size: 1.25rem;
+                color: var(--color-accent-1);
+                margin-bottom: 0.5rem;
+                font-weight: bold;
+            }
+
+            .game-desc {
+                color: var(--color-text-2);
+                font-size: 1.05rem;
+                margin-bottom: 1.1rem;
+            }
+
+            .game-link {
+                background: var(--color-accent-1);
+                color: var(--color-bg-1);
+                border: 1px solid var(--color-accent-1);
+                border-radius: 6px;
+                padding: 0.5rem 1.2rem;
+                font-size: 1.05rem;
+                cursor: pointer;
+                text-decoration: none;
+                font-family: var(--font-family-base);
+                font-weight: bold;
+                transition: background 0.2s, color 0.2s;
+                display: inline-block;
+            }
+
+            .game-link:hover {
+                background: var(--color-bg-1);
+                color: var(--color-accent-1);
+                border: 1px solid var(--color-accent-1);
+            }
+
+            @media (max-width: 900px) {
+                .games-grid {
+                    gap: 1rem;
+                }
+
+                .game-card {
+                    width: 90vw;
+                    max-width: 350px;
+                }
             }
         </style>
     </head>
@@ -418,7 +523,8 @@
             <section class="showcase">
                 <h2>Streaming Platforms</h2>
                 <p>
-                    You can tune in live and well as catch up on past streams or highlights on any of the following platforms.
+                    You can tune in live and well as catch up on past streams or highlights on any of the following
+                    platforms.
                 </p>
                 <div class="platforms">
                     <a class="platform-link" href="https://twitch.tv/jamieharperuk" target="_blank" title="Twitch"
@@ -440,7 +546,7 @@
             </section>
             <section class="gallery">
                 <div class="container">
-                    <h2>Gallery & Highlights</h2>
+                    <h2>My Gallery & Highlights</h2>
                     <div class="gallery-grid" id="galleryGrid"></div>
                     <div class="modal" id="imgModal" aria-modal="true" role="dialog">
                         <div class="modal-content">
@@ -457,6 +563,12 @@
                         with the community!</p>
                 </div>
             </section>
+            <section class="featured-games">
+                <div class="container">
+                    <h2>My Featured Picks</h2>
+                    <div class="games-grid" id="gamesGrid"></div>
+                </div>
+            </section>
         </main>
         <footer>
             <div class="container">
@@ -464,6 +576,65 @@
             </div>
         </footer>
         <script>
+            // Featured Games Data
+            const featuredGames = [
+                {
+                    title: 'Young Suns',
+                    description: 'A sci-fi MMO adventure with dynamic worlds and epic space battles.',
+                    logo: 'assets/icons/ys-logo.png',
+                    url: 'https://www.youngsuns.com'
+                },
+                {
+                    title: 'Throne and Liberty',
+                    description: 'A next-gen MMORPG with massive battles and a living, breathing world.',
+                    logo: 'assets/icons/tnl-logo.png',
+                    url: 'https://www.playthroneandliberty.com/en-us/'
+                },
+                {
+                    title: 'Police Simulator: Patrol Officers',
+                    description: 'Experience the day-to-day life of a police officer in a bustling city.',
+                    logo: 'assets/icons/pspo-logo.png',
+                    url: 'https://www.patrol-officers.com'
+                },
+                {
+                    title: 'Helldivers 2',
+                    description: 'Co-op action shooter where teamwork is the key to galactic survival.',
+                    logo: 'assets/icons/hd-logo.png',
+                    url: 'https://www.arrowheadgamestudios.com'
+                }
+            ];
+
+            function renderGamesGrid() {
+                const grid = document.getElementById('gamesGrid');
+                if (!grid) return;
+                grid.innerHTML = '';
+                featuredGames.forEach(game => {
+                    const card = document.createElement('div');
+                    card.className = 'game-card';
+                    const logo = document.createElement('img');
+                    logo.className = 'game-logo';
+                    logo.src = game.logo;
+                    logo.alt = game.title + ' Logo';
+                    const title = document.createElement('div');
+                    title.className = 'game-title';
+                    title.textContent = game.title;
+                    const desc = document.createElement('div');
+                    desc.className = 'game-desc';
+                    desc.textContent = game.description;
+                    const link = document.createElement('a');
+                    link.className = 'game-link';
+                    link.href = game.url;
+                    link.target = '_blank';
+                    link.rel = 'noopener noreferrer';
+                    link.textContent = 'Learn More';
+                    card.appendChild(logo);
+                    card.appendChild(title);
+                    card.appendChild(desc);
+                    card.appendChild(link);
+                    grid.appendChild(card);
+                });
+            }
+            document.addEventListener('DOMContentLoaded', renderGamesGrid);
             // Animate social icons on hover
             document.querySelectorAll('.social-link').forEach(link => {
                 link.addEventListener('mouseenter', () => {
@@ -533,14 +704,38 @@
 
             // Dynamically render gallery images
             const galleryImages = [
-                { src: 'assets/scs/ys01.png', alt: 'Young Suns', website: 'https://www.youngsuns.com' },
-                { src: 'assets/scs/ys02.png', alt: 'Young Suns', website: 'https://www.youngsuns.com' },
-                { src: 'assets/scs/tnl01.png', alt: 'Throne and Liberty', website: 'https://www.playthroneandliberty.com/en-us/' },
-                { src: 'assets/scs/tnl02.png', alt: 'Throne and Liberty', website: 'https://www.playthroneandliberty.com/en-us/' },
-                { src: 'assets/scs/pspo01.png', alt: 'Police Simulator: Patrol Officers', website: 'https://www.patrol-officers.com' },
-                { src: 'assets/scs/pspo02.png', alt: 'Police Simulator: Patrol Officers', website: 'https://www.patrol-officers.com' },
-                { src: 'assets/scs/hd01.png', alt: 'Helldivers 2', website: 'https://www.arrowheadgamestudios.com' },
-                { src: 'assets/scs/hd02.png', alt: 'Helldivers 2', website: 'https://www.arrowheadgamestudios.com' }
+                { 
+                    src: 'assets/scs/ys01.png', 
+                    alt: 'Young Suns', website: 'https://www.youngsuns.com'
+                },
+                { 
+                    src: 'assets/scs/ys02.png', 
+                    alt: 'Young Suns', website: 'https://www.youngsuns.com' 
+                },
+                { 
+                    src: 'assets/scs/tnl01.png', 
+                    alt: 'Throne and Liberty', website: 'https://www.playthroneandliberty.com/en-us/' 
+                },
+                { 
+                    src: 'assets/scs/tnl02.png', 
+                    alt: 'Throne and Liberty', website: 'https://www.playthroneandliberty.com/en-us/' 
+                },
+                { 
+                    src: 'assets/scs/pspo01.png', 
+                    alt: 'Police Simulator: Patrol Officers', website: 'https://www.patrol-officers.com' 
+                },
+                { 
+                    src: 'assets/scs/pspo02.png', 
+                    alt: 'Police Simulator: Patrol Officers', website: 'https://www.patrol-officers.com' 
+                },
+                { 
+                    src: 'assets/scs/hd01.png', 
+                    alt: 'Helldivers 2', website: 'https://www.arrowheadgamestudios.com' 
+                },
+                { 
+                    src: 'assets/scs/hd02.png', 
+                    alt: 'Helldivers 2', website: 'https://www.arrowheadgamestudios.com' 
+                }
             ];
 
             function renderGalleryGrid() {
