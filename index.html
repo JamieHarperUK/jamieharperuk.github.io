@@ -175,7 +175,6 @@
                 max-width: 70vw;
                 max-height: 60vh;
                 border-radius: 10px;
-                margin-bottom: 1rem;
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
             }
         
@@ -189,36 +188,42 @@
                 font-size: 2rem;
                 cursor: pointer;
                 transition: color 0.2s;
+                z-index: 999;
             }
         
             .modal-close:hover {
                 color: var(--color-accent-1);
             }
         
-            .modal-share {
+            .modal-website {
                 background: var(--color-accent-1);
                 color: var(--color-bg-1);
-                border: none;
+                border: 1px solid var(--color-accent-1);
                 border-radius: 6px;
                 padding: 0.5rem 1.2rem;
                 font-size: 1.1rem;
                 cursor: pointer;
-                margin-top: 0.5rem;
+                margin-top: 1.5rem;
                 transition: background 0.2s, color 0.2s;
-                border: 1px solid var(--color-accent-1);
+                text-decoration: none;
+                display: inline-block;
+                font-family: var(--font-family-base);
+                font-weight: bold;
             }
         
-            .modal-share:hover {
+            .modal-website:hover {
                 background: var(--color-bg-1);
                 color: var(--color-accent-1);
                 border: 1px solid var(--color-accent-1);
             }
         
+            .gallery-img-wrapper {
+                position: relative;
+                display: inline-block;
+                width: 100%;
+                height: 100%;
+            }
             .gallery-img {
-                flex: 1 0 21%;
-                max-width: 23%;
-                min-width: 200px;
-                box-sizing: border-box;
                 width: 100%;
                 border-radius: 10px;
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
@@ -226,6 +231,7 @@
                 background: #222;
                 aspect-ratio: 16/9;
                 transition: transform 0.2s, box-shadow 0.2s;
+                display: block;
             }
         
             .gallery-img:hover {
@@ -233,11 +239,51 @@
                 box-shadow: 0 6px 24px rgba(38, 174, 128, 0.18);
                 cursor: pointer;
             }
+            .gallery-img-wrapper:hover .gallery-img-alt {
+                transform: scale(1.04) rotate(-1deg);
+                border-radius: 10px;
+                background: rgb(38 174 128 / 85%);
+                color: var(--color-text-1);
+            }
         
-            .gallery-caption {
+            .gallery-img-alt {
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                background: rgba(28,28,28,0.85);
                 color: var(--color-text-2);
-                text-align: center;
-                font-size: 1.25rem;
+                font-size: 0.95rem;
+                padding: 0.35em 0.8em 0.35em 0.8em;
+                border-radius: 0 10px 0 10px;
+                pointer-events: none;
+                max-width: 90%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        
+            .modal-img-wrapper {
+                margin-top: 1.5rem;
+                position: relative;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+        
+            .modal-img-alt {
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                background: rgba(28,28,28,0.85);
+                color: var(--color-text-2);
+                font-size: 1.1rem;
+                padding: 0.5em 1em 0.5em 1em;
+                border-radius: 0 10px 0 10px;
+                pointer-events: none;
+                max-width: 90%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
         
             .showcase {
@@ -386,8 +432,12 @@
                     <div class="modal" id="imgModal" aria-modal="true" role="dialog">
                         <div class="modal-content">
                             <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
-                            <img src="" alt="Selected Screenshot" class="modal-img" id="modalImg" />
-                            <button class="modal-share" id="modalShare">Share Image</button>
+                            <div class="modal-img-wrapper">
+                                <img src="" alt="Selected Screenshot" class="modal-img" id="modalImg" />
+                                <div class="modal-img-alt"></div>
+                            </div>
+                            <a class="modal-website" id="modalWebsiteBtn" target="_blank" rel="noopener noreferrer"
+                                style="display:none;">Developer's Website</a>
                         </div>
                     </div>
                     <p class="gallery-caption">Screenshots and highlights from recent streams. Share your favorite moments
@@ -433,65 +483,96 @@
             const modal = document.getElementById('imgModal');
             const modalImg = document.getElementById('modalImg');
             const modalClose = document.getElementById('modalClose');
-            const modalShare = document.getElementById('modalShare');
+            const modalWebsiteBtn = document.getElementById('modalWebsiteBtn');
             let currentImgSrc = '';
-
+            let currentImgAlt = '';
+            let currentImgWebsite = '';
+            // Add modal alt overlay
+            let modalAltOverlay = document.querySelector('.modal-img-alt');
+            if (!modalAltOverlay) {
+                modalAltOverlay = document.createElement('div');
+                modalAltOverlay.className = 'modal-img-alt';
+                modalImg.parentNode.appendChild(modalAltOverlay);
+            }
             function openModal(src, alt) {
                 modalImg.src = src;
                 modalImg.alt = alt;
                 currentImgSrc = src;
+                currentImgAlt = alt;
+                modalAltOverlay.textContent = alt;
+                // Find website for this image
+                const found = galleryImages.find(img => img.src === src && img.alt === alt);
+                currentImgWebsite = found && found.website ? found.website : '';
+                // Update modal website button href
+                if (modalWebsiteBtn) {
+                    modalWebsiteBtn.style.display = currentImgWebsite ? '' : 'none';
+                    modalWebsiteBtn.href = currentImgWebsite;
+                }
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
             }
-
             function closeModal() {
                 modal.classList.remove('active');
                 modalImg.src = '';
+                modalAltOverlay.textContent = '';
                 document.body.style.overflow = '';
             }
 
             // Dynamically render gallery images
             const galleryImages = [
-                { src: 'assets/scs/ys01.png', alt: 'Young Suns' },
-                { src: 'assets/scs/ys02.png', alt: 'Young Suns' },
-                { src: 'assets/scs/tnl01.png', alt: 'Throne and Liberty' },
-                { src: 'assets/scs/tnl02.png', alt: 'Throne and Liberty' },
-                { src: 'assets/scs/pspo01.png', alt: 'Police Simulator: Patrol Officers' },
-                { src: 'assets/scs/pspo02.png', alt: 'Police Simulator: Patrol Officers' },
-                { src: 'assets/scs/hd01.png', alt: 'Helldivers 2' },
-                { src: 'assets/scs/hd02.png', alt: 'Helldivers 2' }
+                { src: 'assets/scs/ys01.png', alt: 'Young Suns', website: 'https://www.youngsuns.com' },
+                { src: 'assets/scs/ys02.png', alt: 'Young Suns', website: 'https://www.youngsuns.com' },
+                { src: 'assets/scs/tnl01.png', alt: 'Throne and Liberty', website: 'https://www.playthroneandliberty.com/en-us/' },
+                { src: 'assets/scs/tnl02.png', alt: 'Throne and Liberty', website: 'https://www.playthroneandliberty.com/en-us/' },
+                { src: 'assets/scs/pspo01.png', alt: 'Police Simulator: Patrol Officers', website: 'https://www.patrol-officers.com' },
+                { src: 'assets/scs/pspo02.png', alt: 'Police Simulator: Patrol Officers', website: 'https://www.patrol-officers.com' },
+                { src: 'assets/scs/hd01.png', alt: 'Helldivers 2', website: 'https://www.arrowheadgamestudios.com' },
+                { src: 'assets/scs/hd02.png', alt: 'Helldivers 2', website: 'https://www.arrowheadgamestudios.com' }
             ];
 
             function renderGalleryGrid() {
                 const grid = document.getElementById('galleryGrid');
                 grid.innerHTML = '';
                 galleryImages.forEach((img) => {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'gallery-img-wrapper';
+                    wrapper.style.flex = '1 0 21%';
+                    wrapper.style.maxWidth = '23%';
+                    wrapper.style.minWidth = '200px';
+                    wrapper.style.boxSizing = 'border-box';
+                    wrapper.style.position = 'relative';
                     const el = document.createElement('img');
                     el.src = img.src;
                     el.alt = img.alt;
                     el.className = 'gallery-img';
                     el.tabIndex = 0;
                     el.setAttribute('data-img', img.src);
-                    // Bind modal open events directly here
+                    // Overlay for alt text
+                    const altOverlay = document.createElement('div');
+                    altOverlay.className = 'gallery-img-alt';
+                    altOverlay.textContent = img.alt;
+                    wrapper.appendChild(el);
+                    wrapper.appendChild(altOverlay);
+                    // Modal open events
                     el.addEventListener('click', () => openModal(img.src, img.alt));
                     el.addEventListener('keydown', (e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
                             openModal(img.src, img.alt);
                         }
                     });
-                    grid.appendChild(el);
+                    grid.appendChild(wrapper);
                 });
                 // Center last row if not full
                 setTimeout(() => {
-                    const imgs = Array.from(grid.children);
+                    const wrappers = Array.from(grid.children);
                     const perRow = window.innerWidth >= 900 ? 4 : (window.innerWidth >= 600 ? 2 : 1);
-                    const rows = Math.ceil(imgs.length / perRow);
-                    const lastRowCount = imgs.length % perRow || perRow;
-                    imgs.forEach(img => img.style.marginBottom = '');
+                    const rows = Math.ceil(wrappers.length / perRow);
+                    const lastRowCount = wrappers.length % perRow || perRow;
+                    wrappers.forEach(w => w.style.marginBottom = '');
                     if (lastRowCount < perRow) {
-                        const lastRowStart = imgs.length - lastRowCount;
-                        for (let i = lastRowStart; i < imgs.length; i++) {
-                            imgs[i].style.marginBottom = '0';
+                        const lastRowStart = wrappers.length - lastRowCount;
+                        for (let i = lastRowStart; i < wrappers.length; i++) {
+                            wrappers[i].style.marginBottom = '0';
                         }
                         grid.style.justifyContent = 'flex-start';
                         if (perRow > 1) {
@@ -511,22 +592,6 @@
             });
             document.addEventListener('keydown', (e) => {
                 if (modal.classList.contains('active') && e.key === 'Escape') closeModal();
-            });
-            // Share button logic
-            modalShare.addEventListener('click', () => {
-                if (navigator.share) {
-                    navigator.share({
-                        title: modalImg.alt,
-                        url: window.location.origin + '/' + currentImgSrc
-                    });
-                } else {
-                    // fallback: copy link to clipboard
-                    const shareUrl = window.location.origin + '/' + currentImgSrc;
-                    navigator.clipboard.writeText(shareUrl).then(() => {
-                        modalShare.textContent = 'Link Copied!';
-                        setTimeout(() => { modalShare.textContent = 'Share Image'; }, 1500);
-                    });
-                }
             });
         </script>
     </body>
