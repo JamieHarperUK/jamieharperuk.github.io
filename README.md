@@ -1,2 +1,2 @@
-# jamieharperuk.github.io
-JHUK Home
+# JamieHarperUK Home Site
+(jamieharperuk.github.io)
