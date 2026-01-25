@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="assets/icons/jhuk-self.png" type="image/png">
+        <title>JamieHarperUK</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Share+Tech&display=swap" rel="stylesheet">
+        <style>
+            :root {
+                --font-family-base: "Share Tech", sans-serif;
+                --color-bg-1: #1c1c1c;
+                --color-bg-2: #303030;
+                --color-text-1: #FFFFFF;
+                --color-text-2: #BBBBBB;
+                --color-accent-1: #26AE80;
+            }
+        
+            body {
+                margin: 0;
+                font-family: var(--font-family-base);
+                color: var(--color-text-1);
+                min-height: 100%;
+                background: linear-gradient(0deg, rgba(27, 27, 27, 0.9), rgba(4, 4, 4, 0.9)), url(assets/icons/cosmic-bg.jpg);
+                background-size: cover;
+            }
+        
+            .container {
+                max-width: -webkit-fill-available;
+                margin: 0 auto;
+                padding: 0 1.5rem;
+                text-align: center;
+            }
+        
+            header {
+                background: var(--color-bg-2);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+                padding: 1.5rem 0 1rem 0;
+            }
+        
+            .site-title {
+                font-size: 2.5rem;
+                letter-spacing: 2px;
+                color: var(--color-accent-1);
+                margin: 0 0 0.5rem 0;
+                text-align: center;
+            }
+        
+            .social-links {
+                display: flex;
+                justify-content: center;
+                gap: 1.5rem;
+                margin-bottom: 0.5rem;
+            }
+        
+            .social-link {
+                color: var(--color-text-2);
+                font-size: 1.5rem;
+                transition: color 0.2s;
+                text-decoration: none;
+            }
+        
+            .social-link:hover {
+                color: var(--color-accent-1);
+            }
+        
+            .social-link img:hover {
+                fill: var(--color-accent-1);
+            }
+        
+            main {
+                padding: 2rem;
+            }
+        
+            .about {
+                background: rgb(78 78 78 / 70%);
+                border-radius: 12px;
+                margin-bottom: 2.5rem;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
+                padding: 2rem 0 1.5rem 0;
+            }
+        
+            .about h2 {
+                color: var(--color-accent-1);
+                margin-top: 0;
+                font-size: 2rem;
+            }
+        
+            .about p {
+                color: var(--color-text-2);
+                font-size: 1.25rem;
+                max-width: -webkit-fill-available;
+                margin: 0rem;
+                line-height: 1.6;
+            }
+        
+            .gallery {
+                margin-top: 2.5rem;
+            }
+        
+            .gallery h2 {
+                color: var(--color-accent-1);
+                margin-bottom: 1.2rem;
+                font-size: 2rem;
+            }
+        
+            .gallery-grid {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1.5rem;
+                margin-bottom: 1rem;
+                justify-content: flex-start;
+            }
+        
+            @media (min-width: 900px) {
+                .gallery-grid {
+                    grid-template-columns: repeat(4, 1fr);
+                }
+            }
+        
+            @media (max-width: 899px) and (min-width: 600px) {
+                .gallery-img {
+                    flex-basis: 48%;
+                    max-width: 48%;
+                }
+            }
+        
+            @media (max-width: 599px) {
+                .gallery-img {
+                    flex-basis: 100%;
+                    max-width: 100%;
+                }
+            }
+        
+            /* Center last row if not full (modern browsers) */
+            .gallery-grid {
+                justify-items: center;
+            }
+        
+            /* Modal styles */
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 1000;
+                left: 0;
+                top: 0;
+                width: 100vw;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.85);
+                justify-content: center;
+                align-items: center;
+                transition: opacity 0.2s;
+            }
+        
+            .modal.active {
+                display: flex;
+            }
+        
+            .modal-content {
+                background: var(--color-bg-2);
+                border-radius: 12px;
+                padding: 1.5rem;
+                box-shadow: 0 4px 32px rgba(0, 0, 0, 0.4);
+                max-width: 90vw;
+                max-height: 90vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                position: relative;
+            }
+        
+            .modal-img {
+                max-width: 70vw;
+                max-height: 60vh;
+                border-radius: 10px;
+                margin-bottom: 1rem;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+            }
+        
+            .modal-close {
+                position: absolute;
+                top: 0.5rem;
+                right: 0.5rem;
+                background: none;
+                border: none;
+                color: var(--color-text-1);
+                font-size: 2rem;
+                cursor: pointer;
+                transition: color 0.2s;
+            }
+        
+            .modal-close:hover {
+                color: var(--color-accent-1);
+            }
+        
+            .modal-share {
+                background: var(--color-accent-1);
+                color: var(--color-bg-1);
+                border: none;
+                border-radius: 6px;
+                padding: 0.5rem 1.2rem;
+                font-size: 1.1rem;
+                cursor: pointer;
+                margin-top: 0.5rem;
+                transition: background 0.2s, color 0.2s;
+                border: 1px solid var(--color-accent-1);
+            }
+        
+            .modal-share:hover {
+                background: var(--color-bg-1);
+                color: var(--color-accent-1);
+                border: 1px solid var(--color-accent-1);
+            }
+        
+            .gallery-img {
+                flex: 1 0 21%;
+                max-width: 23%;
+                min-width: 200px;
+                box-sizing: border-box;
+                width: 100%;
+                border-radius: 10px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+                object-fit: cover;
+                background: #222;
+                aspect-ratio: 16/9;
+                transition: transform 0.2s, box-shadow 0.2s;
+            }
+        
+            .gallery-img:hover {
+                transform: scale(1.04) rotate(-1deg);
+                box-shadow: 0 6px 24px rgba(38, 174, 128, 0.18);
+                cursor: pointer;
+            }
+        
+            .gallery-caption {
+                color: var(--color-text-2);
+                text-align: center;
+                font-size: 1.25rem;
+            }
+        
+            .showcase {
+                text-align: center;
+            }
+        
+            .showcase h2 {
+                font-size: 2rem;
+                color: var(--color-accent-1);
+                margin-bottom: 1.5rem;
+            }
+        
+            .platforms {
+                display: flex;
+                justify-content: center;
+                gap: 2rem;
+                flex-wrap: wrap;
+            }
+        
+            .platform-icon {
+                width: 28px;
+                height: 28px;
+            }
+        
+            .platform-link {
+                background: var(--color-bg-2);
+                border-radius: 12px;
+                padding: 1.2rem 2rem;
+                color: var(--color-text-1);
+                font-size: 1.3rem;
+                text-decoration: none;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+                transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+                display: flex;
+                align-items: center;
+                gap: 0.8rem;
+                outline: none;
+            }
+        
+            .platform-link:focus {
+                box-shadow: 0 0 0 3px var(--color-accent-1);
+            }
+        
+            footer {
+                background: var(--color-bg-2);
+                color: var(--color-text-2);
+                text-align: center;
+                padding: 1rem 0;
+                font-size: 1rem;
+                margin-top: 1rem;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="container">
+                <img src="assets/icons/jhuk-self.png" alt="JHUK"
+                    style="width:80px; height:80px; border-radius:50%; margin-bottom:10px;" />
+                <h1 class="site-title">JamieHarperUK</h1>
+                <nav class="social-links">
+                    <a class="social-link" href="https://twitter.com/jamieharperuk" target="_blank" title="X"
+                        aria-label="X">
+                        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            className="bi bi-twitter-x" viewBox="0 0 24 24" id="Twitter-X--Streamline-Bootstrap" height={24}
+                            width={24}>
+                            <title>X</title>
+                            <desc>X Icon</desc>
+                            <path
+                                d="M18.9 1.125h3.681l-8.040000000000001 9.213000000000001L24 22.875h-7.4055l-5.8004999999999995 -7.605 -6.637499999999999 7.605H0.474l8.599499999999999 -9.855L0 1.125h7.5945l5.2425 6.9495000000000005L18.901500000000002 1.125Zm-1.29 19.542h2.04L6.484500000000001 3.2175000000000002H4.2975z"
+                                strokeWidth={1.5} />
+                        </svg>
+                    </a>
+                    <a class="social-link" href="https://www.tiktok.com/@jamieharperuk" target="_blank" title="X"
+                        aria-label="X">
+                        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            className="bi bi-tiktok" viewBox="0 0 24 24" id="Tiktok--Streamline-Bootstrap" height={24}
+                            width={24}>
+                            <title>Tiktok</title>
+                            <desc>Tiktok Icon</desc>
+                            <path
+                                d="M13.5 0h2.9699999999999998c0.21599999999999997 1.0725 0.81 2.4255 1.8525 3.768C19.3425 5.0835 20.695500000000003 6 22.5 6v3c-2.6294999999999997 0 -4.6049999999999995 -1.2209999999999999 -6 -2.7435V16.5a7.5 7.5 0 1 1 -7.5 -7.5v3a4.5 4.5 0 1 0 4.5 4.5z"
+                                strokeWidth={1.5} />
+                        </svg>
+                    </a>
+                    <a class="social-link" href="https://discord.gg/kxbFtS6tKn" target="_blank" title="Discord"
+                        aria-label="Discord">
+                        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            className="bi bi-discord" viewBox="0 0 24 24" id="Discord--Streamline-Bootstrap" height={24}
+                            width={24}>
+                            <title>Discord</title>
+                            <desc>Discord Icon</desc>
+                            <path
+                                d="M20.3175 4.3605a19.799999999999997 19.799999999999997 0 0 0 -4.8855 -1.5164999999999997 0.07500000000000001 0.07500000000000001 0 0 0 -0.078 0.037500000000000006c-0.21149999999999997 0.375 -0.4455 0.8654999999999999 -0.609 1.2494999999999998a18.299999999999997 18.299999999999997 0 0 0 -5.487 0 12 12 0 0 0 -0.618 -1.2494999999999998 0.07500000000000001 0.07500000000000001 0 0 0 -0.078 -0.037500000000000006c-1.6875 0.29100000000000004 -3.33 0.801 -4.8855 1.5164999999999997a0.06 0.06 0 0 0 -0.0315 0.026999999999999996C0.534 9.036 -0.3195 13.570500000000001 0.099 18.048000000000002q0.0045000000000000005 0.033 0.0315 0.055499999999999994a19.950000000000003 19.950000000000003 0 0 0 5.9925 3.0300000000000002 0.07500000000000001 0.07500000000000001 0 0 0 0.084 -0.028499999999999998q0.6945 -0.9450000000000001 1.2269999999999999 -1.9935a0.07500000000000001 0.07500000000000001 0 0 0 -0.015 -0.0885l-0.026999999999999996 -0.0165a13.5 13.5 0 0 1 -1.8719999999999999 -0.8925 0.07500000000000001 0.07500000000000001 0 0 1 -0.03 -0.099l0.0225 -0.028499999999999998q0.1905 -0.14250000000000002 0.372 -0.2925a0.07500000000000001 0.07500000000000001 0 0 1 0.0765 -0.0105c3.9285000000000005 1.794 8.181 1.794 12.0615 0a0.07500000000000001 0.07500000000000001 0 0 1 0.0795 0.0105q0.1815 0.15000000000000002 0.372 0.2925a0.07500000000000001 0.07500000000000001 0 0 1 -0.006 0.1275 12 12 0 0 1 -1.8735000000000002 0.891 0.07500000000000001 0.07500000000000001 0 0 0 -0.045 0.045 0.07500000000000001 0.07500000000000001 0 0 0 0.0045000000000000005 0.0615c0.36 0.6975 0.7725 1.3635000000000002 1.2254999999999998 1.9935a0.07500000000000001 0.07500000000000001 0 0 0 0.084 0.028499999999999998 19.799999999999997 19.799999999999997 0 0 0 6.0015 -3.0300000000000002 0.07500000000000001 0.07500000000000001 0 0 0 0.0315 -0.055499999999999994c0.501 -5.1765 -0.8385 -9.6735 -3.5490000000000004 -13.658999999999999a0.045 0.045 0 0 0 -0.03 -0.028499999999999998m-12.297 10.9605c-1.1835 0 -2.157 -1.0859999999999999 -2.157 -2.418s0.9555 -2.4195 2.157 -2.4195c1.2105000000000001 0 2.175 1.095 2.157 2.4195 0 1.332 -0.9555 2.418 -2.157 2.418m7.974 0c-1.182 0 -2.157 -1.0859999999999999 -2.157 -2.418s0.9555 -2.4195 2.157 -2.4195c1.2105000000000001 0 2.1765 1.095 2.157 2.4195 0 1.332 -0.9465 2.418 -2.157 2.418"
+                                strokeWidth={1.5} />
+                        </svg>
+                    </a>
+                    <a class="social-link" href="mailto:jhuk.contact@gmail.com" title="Email" aria-label="Email">
+                        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            className="bi bi-envelope-fill" viewBox="0 0 24 24" id="Envelope-Fill--Streamline-Bootstrap"
+                            height={24} width={24}>
+                            <title>Email</title>
+                            <desc>Envelope Fill Icon</desc>
+                            <path
+                                d="M0.07500000000000001 5.3325000000000005A3 3 0 0 1 3 3h18a3 3 0 0 1 2.925 2.3325L12 12.620999999999999zM0 7.0455000000000005v10.656l8.7045 -5.337zM10.1415 13.245000000000001l-9.855 6.0405A3 3 0 0 0 3 21h18a3 3 0 0 0 2.712 -1.7159999999999997l-9.855 -6.0405L12 14.379000000000001zm5.154 -0.879L24 17.7015V7.0455000000000005z"
+                                strokeWidth={1.5} />
+                        </svg>
+                    </a>
+                </nav>
+            </div>
+        </header>
+        <main>
+            <section class="about">
+                <div class="container">
+                    <h2>About Me</h2>
+                    <p>
+                        Hi there! I'm Jamie, a passionate streamer sharing my gaming, tech, and creative adventures. Whether
+                        it's live gameplay, tech talk, or just hanging out, I love building a positive and interactive
+                        community. Join me on my journey across multiple platforms!
+                    </p>
+                </div>
+            </section>
+            <section class="showcase">
+                <h2>Streaming Platforms</h2>
+                <div class="platforms">
+                    <a class="platform-link" href="https://twitch.tv/jamieharperuk" target="_blank" title="Twitch"
+                        aria-label="Twitch">
+                        <img class="platform-icon" src="assets/icons/twitch.png" alt="Twitch" />
+                        Twitch
+                    </a>
+                    <a class="platform-link" href="https://youtube.com/@jamieharperuk" target="_blank" title="YouTube"
+                        aria-label="YouTube">
+                        <img class="platform-icon" src="assets/icons/youtube.png" alt="YouTube" />
+                        YouTube
+                    </a>
+                    <a class="platform-link" href="https://rumble.com/user/JamieHarperUK" target="_blank" title="Rumble"
+                        aria-label="Rumble">
+                        <img class="platform-icon" src="assets/icons/rumble.png" alt="Rumble" />
+                        Rumble
+                    </a>
+                </div>
+            </section>
+            <section class="gallery">
+                <div class="container">
+                    <h2>Gallery & Highlights</h2>
+                    <div class="gallery-grid" id="galleryGrid"></div>
+                    <div class="modal" id="imgModal" aria-modal="true" role="dialog">
+                        <div class="modal-content">
+                            <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+                            <img src="" alt="Selected Screenshot" class="modal-img" id="modalImg" />
+                            <button class="modal-share" id="modalShare">Share Image</button>
+                        </div>
+                    </div>
+                    <p class="gallery-caption">Screenshots and highlights from recent streams. Share your favorite moments
+                        with the community!</p>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <div class="container">
+                <p>&copy; 2026 JamieHarperUK. All rights reserved.</p>
+            </div>
+        </footer>
+        <script>
+            // Animate social icons on hover
+            document.querySelectorAll('.social-link').forEach(link => {
+                link.addEventListener('mouseenter', () => {
+                    link.style.transform = 'scale(1.2)';
+                });
+                link.addEventListener('mouseleave', () => {
+                    link.style.transform = 'scale(1)';
+                });
+            });
+
+            // Highlight platform cards on hover
+            document.querySelectorAll('.platform-link').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.boxShadow = '0 4px 16px rgba(38,174,128,0.3)';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.boxShadow = '0 2px 8px rgba(0,0,0,0.15)';
+                });
+            });
+
+            // Accent color theme changer (click site title)
+            const accentColors = ['#26AE80', '#FF0055', '#FFD600', '#00AEEF'];
+            let accentIndex = 0;
+            document.querySelector('.site-title').addEventListener('click', () => {
+                accentIndex = (accentIndex + 1) % accentColors.length;
+                document.documentElement.style.setProperty('--color-accent-1', accentColors[accentIndex]);
+            });
+
+            // Modal logic for gallery images
+            const modal = document.getElementById('imgModal');
+            const modalImg = document.getElementById('modalImg');
+            const modalClose = document.getElementById('modalClose');
+            const modalShare = document.getElementById('modalShare');
+            let currentImgSrc = '';
+
+            function openModal(src, alt) {
+                modalImg.src = src;
+                modalImg.alt = alt;
+                currentImgSrc = src;
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal() {
+                modal.classList.remove('active');
+                modalImg.src = '';
+                document.body.style.overflow = '';
+            }
+
+            // Dynamically render gallery images
+            const galleryImages = [
+                { src: 'assets/scs/ys01.png', alt: 'Young Suns' },
+                { src: 'assets/scs/ys02.png', alt: 'Young Suns' },
+                { src: 'assets/scs/tnl01.png', alt: 'Throne and Liberty' },
+                { src: 'assets/scs/tnl02.png', alt: 'Throne and Liberty' },
+                { src: 'assets/scs/pspo01.png', alt: 'Police Simulator: Patrol Officers' },
+                { src: 'assets/scs/pspo02.png', alt: 'Police Simulator: Patrol Officers' },
+                { src: 'assets/scs/hd01.png', alt: 'Helldivers 2' },
+                { src: 'assets/scs/hd02.png', alt: 'Helldivers 2' }
+            ];
+
+            function renderGalleryGrid() {
+                const grid = document.getElementById('galleryGrid');
+                grid.innerHTML = '';
+                galleryImages.forEach((img) => {
+                    const el = document.createElement('img');
+                    el.src = img.src;
+                    el.alt = img.alt;
+                    el.className = 'gallery-img';
+                    el.tabIndex = 0;
+                    el.setAttribute('data-img', img.src);
+                    // Bind modal open events directly here
+                    el.addEventListener('click', () => openModal(img.src, img.alt));
+                    el.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            openModal(img.src, img.alt);
+                        }
+                    });
+                    grid.appendChild(el);
+                });
+                // Center last row if not full
+                setTimeout(() => {
+                    const imgs = Array.from(grid.children);
+                    const perRow = window.innerWidth >= 900 ? 4 : (window.innerWidth >= 600 ? 2 : 1);
+                    const rows = Math.ceil(imgs.length / perRow);
+                    const lastRowCount = imgs.length % perRow || perRow;
+                    imgs.forEach(img => img.style.marginBottom = '');
+                    if (lastRowCount < perRow) {
+                        const lastRowStart = imgs.length - lastRowCount;
+                        for (let i = lastRowStart; i < imgs.length; i++) {
+                            imgs[i].style.marginBottom = '0';
+                        }
+                        grid.style.justifyContent = 'flex-start';
+                        if (perRow > 1) {
+                            grid.style.justifyContent = 'center';
+                        }
+                    } else {
+                        grid.style.justifyContent = 'flex-start';
+                    }
+                }, 10);
+            }
+            window.addEventListener('resize', renderGalleryGrid);
+            document.addEventListener('DOMContentLoaded', renderGalleryGrid);
+
+            modalClose.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+            document.addEventListener('keydown', (e) => {
+                if (modal.classList.contains('active') && e.key === 'Escape') closeModal();
+            });
+            // Share button logic
+            modalShare.addEventListener('click', () => {
+                if (navigator.share) {
+                    navigator.share({
+                        title: modalImg.alt,
+                        url: window.location.origin + '/' + currentImgSrc
+                    });
+                } else {
+                    // fallback: copy link to clipboard
+                    const shareUrl = window.location.origin + '/' + currentImgSrc;
+                    navigator.clipboard.writeText(shareUrl).then(() => {
+                        modalShare.textContent = 'Link Copied!';
+                        setTimeout(() => { modalShare.textContent = 'Share Image'; }, 1500);
+                    });
+                }
+            });
+        </script>
+    </body>
+</html>
