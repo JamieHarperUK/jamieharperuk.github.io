@@ -1,0 +1,109 @@
+:root {
+    /* Global Positioning Constants */
+    --wfa: -webkit-fill-available;
+
+    /* Global Color Palette */
+    --color-1: #0077c2;
+    --color-2: #f0f0f0;
+    --color-3: #ffffff;
+    --color-4: #ffcb09;
+    --color-5: #d1ab1c;
+    --color-6: #333333;
+    --text-color: #333333;
+
+    /* Global Typography */
+    --font-family: 'Arial', sans-serif;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-family);
+    background-color: var(--color-2);
+    color: var(--text-color);
+}
+
+/* Header Styles */
+header {
+    width: var(--wfa);
+    background-color: var(--color-6);
+    color: var(--color-2);
+    padding: 1rem;
+    display: inline-flex;
+    text-align: center;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.site-brand {
+    width: var(--wfa);
+    display: inline-flex;
+    align-items: center;
+}
+
+.site-logo {
+    width: auto;
+    height: 45px;
+}
+
+.site-text h1,
+.site-text p {
+    margin: 0;
+}
+
+.site-text {
+    margin-left: 10px;
+    text-align: left;
+    color: var(--color-3);
+}
+
+#navbar {
+    width: var(--wfa);
+    display: flex;
+    justify-content: end;
+    gap: 1rem;
+}
+
+.nav-link {
+    padding: 10px;
+    background-color: var(--color-4);
+    text-decoration: none;
+    border-radius: 5px;
+    color: var(--text-color);
+    font-weight: bold;
+}
+
+.nav-link:hover {
+    background-color: var(--color-5);
+    color: var(--color-3);
+}
+
+/* Main Content Styles */
+main {
+    width: var(--wfa);
+    padding: 1rem;
+}
+
+#app {
+    display: block;
+    color: var(--text-color);
+}
+
+h2.page-title {
+    margin: 0 0 1rem 0;
+}
+
+/* Footer Styles */
+footer {
+    width: var(--wfa);
+    background-color: var(--color-6);
+    color: var(--color-3);
+    text-align: center;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+}
+
+footer p {
+    font-style: italic;
+    margin: 0;
+}
