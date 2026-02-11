@@ -1,0 +1,67 @@
+{
+    "name": "Jamie Harper",
+    "rank": "Commander",
+    "assignment": "USS Genesis",
+    "faction": "Federation",
+    "characterRole": "Executive Officer",
+    "speciesTraits": "Human",
+    "reputation": 3,
+    "personnelDetails": {
+        "environment": "Starship or Starbase",
+        "upbringing": "Starfleet (A)",
+        "careerPath": "Starfleet / Command Track",
+        "experience": "Experienced",
+        "careerEvent1": "Death of a Friend",
+        "careerEvent2": "Mentored"
+    },
+    "attributes": {
+        "control": 12,
+        "fitness": 10,
+        "presence": 8,
+        "daring": 10,
+        "insight": 9,
+        "reason": 7
+    },
+    "departments": {
+        "command": 5,
+        "engineering": 2,
+        "science": 1,
+        "conn": 2,
+        "security": 4,
+        "medicine": 2
+    },
+    "values": [
+        "Diplomacy is the first and last solution to anything.",
+        "Trust, but verify.",
+        "Good leaders get their hands dirty.",
+        "The mission comes first."
+    ],
+    "focuses": [
+        "Starfleet Protocol",
+        "Strategy/Tactics",
+        "Fleet Commander",
+        "Persuasion",
+        "Counselling",
+        "Combat Maneuvers"
+    ],
+    "pastimes": [
+        "Programmer"
+    ],
+    "attacks": [
+        "Unarmed Strike: Melee, Stun 2, Size 1H",
+        "Phaser type-2: Ranged, Stun/Deadly 4, Charge, Size 1H"
+    ],
+    "speciesAbility": "Faith of the Heart",
+    "talents": [
+        "Well-Informed",
+        "Back-Up Plans",
+        "Interrogation",
+        "Extra Effort"
+    ],
+    "specialRules": [],
+    "equipment": [
+        "Uniform",
+        "Communicator",
+        "Tricorder"
+    ]
+}
