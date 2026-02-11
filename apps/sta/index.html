@@ -1,1 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- OG Meta Tags -->
+        <meta property="og:title" content="Star Trek Adventures (Jamie Harper's Mission Logs)" />
+        <meta property="og:description" content="" />
+        <meta property="og:image" content="#" />
+        <!-- Twitter Card Meta Tags -->
+        <meta property="twitter:title" content="Star Trek Adventures (Jamie Harper's Mission Logs)" />
+        <meta property="twitter:description" content="" />
+        <meta property="twitter:image" content="#" />
 
+        <title>Star Trek Adventures (Jamie Harper's Mission Logs)</title>
+        <link rel="stylesheet" href="source/assets/styles.css">
+    </head>
+
+    <body>
+        <header>
+            <div class="site-brand">
+                <img src="source/assets/images/stac.png" alt="STA Logo" class="site-logo">
+                <div class="site-text">
+                    <h1>Mission Logs</h1>
+                    <p>by Jamie Harper</p>
+                </div>
+            </div>
+            <nav id="navbar">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#characters" class="nav-link">Characters</a>
+                <a href="#ships" class="nav-link">Ships</a>
+                <a href="#about" class="nav-link">About</a>
+            </nav>
+        </header>
+        <main id="app">
+            <div id="page-home">
+                <h2 class="page-title">Home Page</h2>
+            </div>
+            <div id="page-characters">
+                <h2 class="page-title">Characters Page</h2>
+                <div id="charactersContainer"></div>
+            </div>
+            <div id="page-ships">
+                <h2 class="page-title">Ships Page</h2>
+                <div id="shipsContainer"></div>
+            </div>
+            <div id="page-about">
+                <h2 class="page-title">About Page</h2>
+            </div>
+        </main>
+        <footer>
+            <p><small>&copy; 2026 Jamie Harper.<br />All rights reserved.</small></p>
+        </footer>
+        <script src="source/assets/main.js"></script>
+        <script>
+            /*
+                This application is built using vanilla JavaScript, HTML, and CSS. It only very lightly relies on external libraries or frameworks.
+                It uses a '#' hash-based routing system to navigate between different pages and views, which are all built dynamically using JavaScript and pull campaign (and subsequent) data from JSON files, dynamically building the relevant links as outlined below.
+
+                'homeUrl' in the config file is used as a base URL for all links and resources pertaining to this application.
+
+                Campaign data files are stored in the 'source/campaigns' directory.
+                Each campaign has its own JSON file, which contains:
+                    - all relevant information about the campaign
+                    - the file names of the linked character and ship
+                        (the URL for each linked file is built in the following format '<homeUrl>/source/campaigns/<characters OR ships>/<file-name>.json')
+            */
+
+            // Define and fetch the configuration data and initialize the application
+            const configUrl = "source/config.json";
+
+        </script>
+    </body>
+</html>
