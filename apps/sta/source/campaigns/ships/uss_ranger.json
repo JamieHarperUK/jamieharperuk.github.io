@@ -1,0 +1,78 @@
+{
+    "name": "USS Ranger",
+    "registry": "NCC-1761",
+    "serviceDate": "2270",
+    "refits": "+1 Comms, +1 Structure",
+    "shipClass": "Consttution",
+    "missionProfile": "Multirole Explorer",
+    "serviceRecord" : "Prototype",
+    "traits": "Federation Starship",
+    "coreStats": {
+        "resistance": 5,
+        "scale": 4,
+        "crewSupport": 4
+    },
+    "systems": {
+        "comms": 8,
+        "engines": 8,
+        "structure": 8,
+        "computer": 7,
+        "sensors": 8,
+        "weapons": 7
+    },
+    "departments": {
+        "command": 3,
+        "engineering": 2,
+        "medicine": 2,
+        "conn": 2,
+        "security": 3,
+        "science": 3
+    },
+    "shields": 11,
+    "shuttleBay": [
+        "Ares",
+        "Hera",
+        "Poseidon",
+        "Prometheus",
+        "Hermes (Destroyed)",
+        "Artemis"
+    ],
+    "atatcks": [
+        {
+            "name": "Phaser Banks",
+            "details": "Energy Weapon, 8, Versatile 2, Area or Spread"
+        },
+        {
+            "name": "Photon Torpedoes",
+            "details": "Torpedo, 6, High Yield"
+        },
+        {
+            "name": "Tractor Beam",
+            "details": "Tractor, 3"
+        }
+    ],
+    "specialRules": [
+        {
+            "name": "Constitution Saucer Separation",
+            "details": "Vessels of this class have the capability to detach their saucer section in an emergency. Once the saucer has detached, the two sections of the ship cannot be reconnected outside of a drydock. Ship’s systems are halved (round up) for the saucer and the secondary hull when separated, the saucer is unable to enter warp speeds or launch small craft, and each section is considered a separate vessel with Scale 1 less than the original vessel; the secondary hull is commanded from main engineering. The saucer can land on a planetary surface with emergency landing gear."
+        }
+    ],
+    "talents": [
+        {
+            "name": "Rugged Design",
+            "details": "Whenever a task roll is attempted to patch or repair a breach, a d20 may be re-rolled. Further, if the task is successful, the crew may spend Momentum to patch a second breach; this will cost 2 Momentum, +1 per additional step of Potency on that second breach."
+        },
+        {
+            "name": "Modular Laboratories",
+            "details": "The opportunity cost of establishing a science lab is reduced to 0 for the first laboratory established, and to 1 for the second."
+        },
+        {
+            "name": "Improved Power Systems",
+            "details": "When a character attempts the Regain Power action, the Difficulty is reduced by 1, to a minimum of 1, and you may spend 1 Momentum (Immediate) to ignore complications suffered on that task roll."
+        },
+        {
+            "name": "Advanced Sensor Suites",
+            "details": "Whenever a character performs a task roll assisted by the ship’s Sensors, the ship may roll 2d20 for assistance rather than only one (if Reserve Power is rerouted to Sensors, one of these dice is set to a 1). This talent cannot be used if the ship is suffering one or more breaches to Sensors."
+        }
+    ]
+}
