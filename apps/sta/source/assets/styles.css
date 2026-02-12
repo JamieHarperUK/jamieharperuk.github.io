@@ -73,7 +73,7 @@ header {
     background: none;
     border: none;
     font-size: 2rem;
-    margin-right: 1rem;
+    margin: 0.5rem 0;
     cursor: pointer;
     z-index: 3;
 }
@@ -112,7 +112,8 @@ header {
 .modal-menu-content {
     background: var(--color-3);
     border-radius: 10px;
-    padding: 2rem 2.5rem 1.5rem 2.5rem;
+    padding: 1rem;
+    gap: 1rem;
     box-shadow: 0 4px 24px rgba(0,0,0,0.18);
     display: flex;
     flex-direction: column;
@@ -120,11 +121,12 @@ header {
     min-width: 220px;
 }
 .modal-link {
-    margin: 0.5rem 0;
+    margin: 0;
     font-size: 1.2rem;
     color: var(--color-1);
     text-decoration: none;
     font-weight: bold;
+    width: var(--wfa);
 }
 .close-menu-btn {
     background: none;
@@ -132,7 +134,6 @@ header {
     font-size: 2rem;
     color: var(--color-6);
     align-self: flex-end;
-    margin-bottom: 1rem;
     cursor: pointer;
 }
 
@@ -184,7 +185,8 @@ main {
     border-radius: 8px;
     padding: 1rem 1.5rem;
     box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-    min-width: 160px;
+    /* min-width: 160px; */
+    flex: 1 1 100px;
     text-align: center;
 }
 .tracker h4 {
@@ -221,7 +223,7 @@ main {
     margin-top: 1.5rem;
 }
 .notes-section textarea {
-    width: 100%;
+    width: var(--wfa);
     border-radius: 6px;
     border: 1px solid var(--color-2);
     padding: 0.75rem;
