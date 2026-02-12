@@ -197,7 +197,11 @@ main {
     padding: 1rem;
 }
 
-
+.about-image {
+    width: var(--wfa);
+    border-radius: 8px;
+    opacity: 0.9;
+}
 
 #app {
     display: block;
