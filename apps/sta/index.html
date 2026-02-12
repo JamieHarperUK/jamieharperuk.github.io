@@ -26,6 +26,9 @@
                     <p>by Jamie Harper</p>
                 </div>
             </div>
+            <button id="menuBtn" aria-label="Open menu" class="menu-btn">
+                <span class="menu-icon"></span>
+            </button>
             <nav id="navbar">
                 <a href="#home" class="nav-link">Home</a>
                 <a href="#characters" class="nav-link">Characters</a>
@@ -33,6 +36,16 @@
                 <a href="#companion" class="nav-link">Companion</a>
                 <a href="#about" class="nav-link">About</a>
             </nav>
+            <div id="modalMenu" class="modal-menu">
+                <div class="modal-menu-content">
+                    <button id="closeMenuBtn" aria-label="Close menu" class="close-menu-btn">&times;</button>
+                    <a href="#home" class="nav-link modal-link">Home</a>
+                    <a href="#characters" class="nav-link modal-link">Characters</a>
+                    <a href="#ships" class="nav-link modal-link">Ships</a>
+                    <a href="#companion" class="nav-link modal-link">Companion</a>
+                    <a href="#about" class="nav-link modal-link">About</a>
+                </div>
+            </div>
         </header>
         <main id="app">
             <div id="page-home">
@@ -49,7 +62,30 @@
             </div>
             <div id="page-companion">
                 <h2 class="page-title">Companion Page</h2>
-                <div id="companionContainer"><!-- An STA game companion page (momentum tracker / threat tracker / notes / etc..) --></div>
+                <div id="companionContainer">
+                    <div class="tracker-row">
+                        <div class="tracker">
+                            <h4>Momentum</h4>
+                            <div class="tracker-controls">
+                                <button class="tracker-btn" id="momentumDec">-</button>
+                                <span id="momentumValue">0</span>
+                                <button class="tracker-btn" id="momentumInc">+</button>
+                            </div>
+                        </div>
+                        <div class="tracker">
+                            <h4>Threat</h4>
+                            <div class="tracker-controls">
+                                <button class="tracker-btn" id="threatDec">-</button>
+                                <span id="threatValue">0</span>
+                                <button class="tracker-btn" id="threatInc">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="notes-section">
+                        <h4>Notes</h4>
+                        <textarea id="companionNotes" rows="6" placeholder="Write your session notes here..."></textarea>
+                    </div>
+                </div>
             </div>
             <div id="page-about">
                 <h2 class="page-title">About Page</h2>
@@ -63,5 +99,61 @@
             <p><small>&copy; 2026 Jamie Harper. All rights reserved.</small></p>
         </footer>
         <script src="source/assets/main.js"></script>
+        <script>
+        // Modal menu logic
+        const menuBtn = document.getElementById('menuBtn');
+        const modalMenu = document.getElementById('modalMenu');
+        const closeMenuBtn = document.getElementById('closeMenuBtn');
+        const modalLinks = document.querySelectorAll('.modal-link');
+        menuBtn.addEventListener('click', () => {
+            modalMenu.classList.add('open');
+        });
+        closeMenuBtn.addEventListener('click', () => {
+            modalMenu.classList.remove('open');
+        });
+        modalLinks.forEach(link => link.addEventListener('click', () => {
+            modalMenu.classList.remove('open');
+        }));
+
+        // Hide menu button on desktop, show on mobile
+        function handleMenuBtnDisplay() {
+            if (window.innerWidth <= 700) {
+                menuBtn.style.display = 'inline-block';
+            } else {
+                menuBtn.style.display = 'none';
+                modalMenu.classList.remove('open');
+            }
+        }
+        window.addEventListener('resize', handleMenuBtnDisplay);
+        document.addEventListener('DOMContentLoaded', handleMenuBtnDisplay);
+
+        // Companion page logic
+        function clamp(val, min, max) { return Math.max(min, Math.min(max, val)); }
+        let momentum = 0, threat = 0;
+        const momentumValue = document.getElementById('momentumValue');
+        const threatValue = document.getElementById('threatValue');
+        document.getElementById('momentumInc').onclick = () => {
+            momentum = clamp(momentum + 1, 0, 6);
+            momentumValue.textContent = momentum;
+        };
+        document.getElementById('momentumDec').onclick = () => {
+            momentum = clamp(momentum - 1, 0, 6);
+            momentumValue.textContent = momentum;
+        };
+        document.getElementById('threatInc').onclick = () => {
+            threat = clamp(threat + 1, 0, 20);
+            threatValue.textContent = threat;
+        };
+        document.getElementById('threatDec').onclick = () => {
+            threat = clamp(threat - 1, 0, 20);
+            threatValue.textContent = threat;
+        };
+        // Persist notes in localStorage
+        const notesArea = document.getElementById('companionNotes');
+        notesArea.value = localStorage.getItem('staCompanionNotes') || '';
+        notesArea.addEventListener('input', () => {
+            localStorage.setItem('staCompanionNotes', notesArea.value);
+        });
+        </script>
     </body>
 </html>
