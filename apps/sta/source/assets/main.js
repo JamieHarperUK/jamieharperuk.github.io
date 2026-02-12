@@ -35,6 +35,18 @@ async function initializeApp() {
         const configResp = await fetch(configUrl);
         configData = await configResp.json();
 
+        // Load all campaigns
+        let campaignData = {};
+        if (Array.isArray(configData.campaigns)) {
+            await Promise.all(configData.campaigns.map(async (filename) => {
+                const url = `source/campaigns/${filename}`;
+                const resp = await fetch(url);
+                if (resp.ok) {
+                    campaignData[filename] = await resp.json();
+                }
+            }));
+        }
+
         // Load all characters
         if (Array.isArray(configData.characters)) {
             await Promise.all(configData.characters.map(async (filename) => {
@@ -57,60 +69,54 @@ async function initializeApp() {
             }));
         }
 
-        await populateCampaignsPage();
+        populateCampaignsPage(campaignData);
         populateCharactersPage();
         populateShipsPage();
-    let campaignData = {};
-
-    async function populateCampaignsPage() {
-        const container = document.getElementById('campaignsContainer');
-        if (!configData || !configData.campaigns || configData.campaigns.length === 0) {
-            container.innerHTML = '<p>No campaign data found.</p>';
-            return;
-        }
-        // Load all campaigns
-        await Promise.all(configData.campaigns.map(async (filename) => {
-            const url = `source/campaigns/${filename}`;
-            const resp = await fetch(url);
-            if (resp.ok) {
-                campaignData[filename] = await resp.json();
-            }
-        }));
-        container.innerHTML = '';
-        configData.campaigns.forEach(filename => {
-            const campaign = campaignData[filename];
-            if (!campaign) return;
-            const div = document.createElement('div');
-            div.className = 'campaign-card';
-            div.innerHTML = `
-                <h3>${campaign.campaignName || 'Unnamed Campaign'} <small>(${campaign.campaignType || ''})</small></h3>
-                <p><strong>Ship:</strong> ${shipData[campaign.ship]?.name || campaign.ship || ''}</p>
-                <p><strong>Location:</strong> ${campaign.information?.location || ''}</p>
-                <p><strong>Mission:</strong> ${campaign.information?.mission || ''}</p>
-                <p><strong>Outcome:</strong> ${campaign.information?.outcome || ''}</p>
-                <details><summary>Stardates</summary>
-                    <ul>
-                        <li><strong>Start:</strong> ${campaign.information?.startStardate || ''}</li>
-                        <li><strong>End:</strong> ${campaign.information?.endStardate || ''}</li>
-                    </ul>
-                </details>
-                <details><summary>Characters</summary>
-                    <ul>
-                        ${(campaign.characters||[]).map(c => `<li>${characterData[c]?.name || c}</li>`).join('')}
-                    </ul>
-                </details>
-                <details><summary>Summary</summary>
-                    <ul>${(campaign.summary||[]).map(s => s ? `<li>${s}</li>` : '').join('') || '<li>No summary available.</li>'}</ul>
-                </details>
-            `;
-            container.appendChild(div);
-        });
-    }
     } catch (e) {
-        // Optionally show error to user
+        document.getElementById('campaignsContainer').innerHTML = '<p>Failed to load campaign data.</p>';
         document.getElementById('charactersContainer').innerHTML = '<p>Failed to load character data.</p>';
         document.getElementById('shipsContainer').innerHTML = '<p>Failed to load ship data.</p>';
     }
+}
+
+function populateCampaignsPage(campaignData) {
+    const container = document.getElementById('campaignsContainer');
+    if (!configData || !configData.campaigns || Object.keys(campaignData).length === 0) {
+        container.innerHTML = '<p>No campaign data found.</p>';
+        return;
+    }
+    container.innerHTML = '';
+    configData.campaigns.forEach(filename => {
+        const camp = campaignData[filename];
+        if (!camp) return;
+        const div = document.createElement('div');
+        div.className = 'campaign-card';
+        div.innerHTML = `
+            <h3>${camp.campaignName || filename}</h3>
+            <p><strong>Type:</strong> ${camp.campaignType || ''}</p>
+            <p><strong>Location:</strong> ${camp.information?.location || ''}</p>
+            <p><strong>Mission:</strong> ${camp.information?.mission || ''}</p>
+            <p><strong>Outcome:</strong> ${camp.information?.outcome || ''}</p>
+            <p><strong>Stardate:</strong> ${camp.information?.startStardate || ''} - ${camp.information?.endStardate || ''}</p>
+            <details><summary>Characters</summary>
+                <ul>
+                    ${(camp.characters||[]).map(charFile => {
+                        const char = characterData[charFile];
+                        return char ? `<li>${char.name} <small>(${char.rank})</small></li>` : `<li>${charFile}</li>`;
+                    }).join('')}
+                </ul>
+            </details>
+            <details><summary>Ship</summary>
+                <ul>
+                    <li>${shipData[camp.ship]?.name || camp.ship || ''}</li>
+                </ul>
+            </details>
+            <details><summary>Summary</summary>
+                <ul>${(camp.summary||[]).map(s => s ? `<li>${s}</li>` : '').join('')}</ul>
+            </details>
+        `;
+        container.appendChild(div);
+    });
 }
 
 function populateCharactersPage() {
@@ -204,4 +210,3 @@ function populateShipsPage() {
 function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
-
