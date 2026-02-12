@@ -11,6 +11,8 @@
     --color-6: #333333;
     --text-color: #333333;
 
+    --header-footer-bg: var(--color-6);
+
     /* Global Typography */
     --font-family: 'Arial', sans-serif;
 }
@@ -25,7 +27,7 @@ body {
 /* Header Styles */
 header {
     width: var(--wfa);
-    background-color: var(--color-6);
+    background-color: var(--header-footer-bg);
     color: var(--color-2);
     padding: 1rem;
     display: inline-flex;
@@ -95,7 +97,7 @@ h2.page-title {
 /* Footer Styles */
 footer {
     width: var(--wfa);
-    background-color: var(--color-6);
+    background-color: var(--header-footer-bg);
     color: var(--color-3);
     text-align: center;
     padding: 1rem;
