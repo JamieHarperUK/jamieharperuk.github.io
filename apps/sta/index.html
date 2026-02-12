@@ -64,6 +64,7 @@
             <div id="page-companion">
                 <h2 class="page-title">Companion</h2>
                 <div id="companionContainer">
+                    <h4 class="section-title">Tracker</h4>
                     <div class="tracker-row">
                         <div class="tracker">
                             <h4>Momentum</h4>
@@ -83,7 +84,7 @@
                         </div>
                     </div>
                     <div class="notes-section">
-                        <h4>Notes</h4>
+                        <h4 class="section-title">Notes</h4>
                         <textarea id="companionNotes" rows="6" placeholder="Write your session notes here..."></textarea>
                     </div>
                 </div>
@@ -115,7 +116,7 @@
             modalLinks.forEach(link => link.addEventListener('click', () => {
                 modalMenu.classList.remove('open');
             }));
-    
+
             // Hide menu button on desktop, show on mobile
             function handleMenuBtnDisplay() {
                 if (window.innerWidth <= 700) {
@@ -127,7 +128,7 @@
             }
             window.addEventListener('resize', handleMenuBtnDisplay);
             document.addEventListener('DOMContentLoaded', handleMenuBtnDisplay);
-    
+
             // Companion page logic
             function clamp(val, min, max) { return Math.max(min, Math.min(max, val)); }
             let momentum = 0, threat = 0;
