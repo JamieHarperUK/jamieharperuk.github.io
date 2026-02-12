@@ -4,7 +4,8 @@
         "sogi.json"
     ],
     "characters": [
-        "jamie_harper.json"
+        "jamie_harper.json",
+        "taamiss_duvon.json"
     ],
     "ships": [
         "uss_genesis.json",
