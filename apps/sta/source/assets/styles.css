@@ -15,7 +15,7 @@
     --header-footer-bg: var(--color-6);
 
     /* Global Typography */
-    --font-family: 'Arial', sans-serif;
+    --font-family: "Michroma", sans-serif;
 }
 
 body {
@@ -75,7 +75,7 @@ header {
 
 .site-logo {
     width: auto;
-    height: 45px;
+    height: 50px;
 }
 
 .site-text h1,
