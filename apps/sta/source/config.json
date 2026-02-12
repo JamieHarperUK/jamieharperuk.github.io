@@ -1,0 +1,13 @@
+{
+    "homeUrl": "https://jamieharperuk.github.io/apps/sta",
+    "campaigns": [
+        "sogi.json"
+    ],
+    "characters": [
+        "jamie_harper.json",
+        "taamiss_duvon.json"
+    ],
+    "ships": [
+        "uss_genesis.json"
+    ]
+}
