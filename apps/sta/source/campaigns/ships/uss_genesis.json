@@ -1,0 +1,75 @@
+{
+    "name": "USS Genesis",
+    "registry": "NCC-74883-E",
+    "serviceDate": "2376",
+    "refits": "+1 Sensors, +1 Weapons",
+    "shipClass": "Intrepid",
+    "missionProfile": "Multirole Explorer",
+    "serviceRecord" : "Prototype",
+    "traits": "Federation Starship, Intrepid Class, Prototype",
+    "coreStats": {
+        "resistance": 3,
+        "scale": 4,
+        "crewSupport": 4
+    },
+    "systems": {
+        "comms": 9,
+        "engines": 11,
+        "structure": 8,
+        "computer": 12,
+        "sensors": 11,
+        "weapons": 9
+    },
+    "departments": {
+        "command": 2,
+        "engineering": 3,
+        "medicine": 2,
+        "conn": 3,
+        "security": 2,
+        "science": 3
+    },
+    "shields": 14,
+    "shuttleBay": [],
+    "atatcks": [
+        {
+            "name": "Phaser Arrays",
+            "details": "Energy Weapon, 6, Versatile 2, Area or Spread"
+        },
+        {
+            "name": "Photon Torpedoes",
+            "details": "Torpedo, 5, High Yield"
+        },
+        {
+            "name": "Tractor Beam",
+            "details": "Tractor/Grappler, 3"
+        }
+    ],
+    "specialRules": [
+        {
+            "name": "Landing Gear",
+            "details": "The vessel is equipped to land safely on a planetary surface, and can return to space afterward. To land a ship requires Reserve Power be rerouted to Structure, and then requires someone at the helm to attempt a Control + Conn task with a Difficulty equal to the ship’s Scale, assisted by the ship’s Structure + Conn. This can Succeed at Cost. Success means the ship lands on the planet’s surface. Taking off requires the same task attempt, but the Difficulty is reduced by 2."
+        },
+        {
+            "name": "Experimental Vessel",
+            "details": "When the ship is created, apply two additional refits to the ship. In addition, whenever the ship assists a task attempt, the ship’s die increases its complication range by 2 (to 18–20). A milestone refit can remove this complication range increase, representing the ship’s crew working out the problems in the prototype design."
+        }
+    ],
+    "talents": [
+        {
+            "name": "Improved Warp Drive [Rank: 1]",
+            "details": "Whenever the ship takes the Warp major action, roll a d20; if you roll equal to or under the ship’s Engines, you do not spend Reserve Power for the ship."
+        },
+        {
+            "name": "Advanced Sensor Suites",
+            "details": "Whenever a character performs a task roll assisted by the ship’s Sensors, the ship may roll 2d20 for assistance rather than only one (if Reserve Power is rerouted to Sensors, one of these dice is set to a 1). This talent cannot be used if the ship is suffering one or more breaches to Sensors."
+        },
+        {
+            "name": "Emergency Medical Hologram",
+            "details": "The ship has one additional supporting character, an Emergency Medical Hologram (EMH), using the attributes, departments, and so forth as shown in the sidebar, which does not cost any Crew Support to introduce, and which does not automatically improve when introduced. This character can only go to locations on the ship which are equipped with holo-emitters. After 2380, this talent is obsolete, as all Starfleet vessels are outfitted with an EMH."
+        },
+        {
+            "name": "Redundant Systems",
+            "details": "Select a single system when this talent is chosen. When that system suffers a breach, the crew may choose to activate this talent in response; doing so immediately patches the breach inflicted. These redundant systems may only be activated once per adventure. (Selected System: Structure)"
+        }
+    ]
+}
