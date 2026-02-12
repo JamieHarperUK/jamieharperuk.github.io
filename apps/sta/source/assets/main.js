@@ -91,30 +91,49 @@ function populateCampaignsPage(campaignData) {
         if (!camp) return;
         const div = document.createElement('div');
         div.className = 'campaign-card';
-        div.innerHTML = `
-            <h3>${camp.campaignName || filename}</h3>
-            <p><strong>Type:</strong> ${camp.campaignType || ''}</p>
-            <p><strong>Location:</strong> ${camp.information?.location || ''}</p>
-            <p><strong>Mission:</strong> ${camp.information?.mission || ''}</p>
-            <p><strong>Outcome:</strong> ${camp.information?.outcome || ''}</p>
-            <p><strong>Stardate:</strong> ${camp.information?.startStardate || ''} - ${camp.information?.endStardate || ''}</p>
-            <details><summary>Character(s)</summary>
-                <ul>
-                    ${(camp.characters||[]).map(charFile => {
-                        const char = characterData[charFile];
-                        return char ? `<li>${char.name} <small>(${char.rank})</small></li>` : `<li>${charFile}</li>`;
-                    }).join('')}
-                </ul>
-            </details>
-            <details><summary>Ship</summary>
-                <ul>
-                    <li>${shipData[camp.ship]?.name || camp.ship || ''}</li>
-                </ul>
-            </details>
-            <details><summary>Summary</summary>
-                <ul>${(camp.summary||[]).map(s => s ? `<li>${s}</li>` : '').join('')}</ul>
-            </details>
-        `;
+            // Render summary as paragraphs, and logs if present
+            let summaryHtml = '';
+            if (Array.isArray(camp.summary) && camp.summary.length > 0) {
+                summaryHtml = camp.summary.filter(s => s && s.trim()).map(s => `<p class="campaign-summary">${s}</p>`).join('');
+            } else {
+                summaryHtml = '<p class="campaign-summary"><em>No summary available.</em></p>';
+            }
+
+            let logsHtml = '';
+            if (Array.isArray(camp.logs) && camp.logs.length > 0) {
+                logsHtml = `<div class="campaign-logs"><h4>Logs</h4>${camp.logs.map(log => `
+                    <div class="campaign-log-entry">
+                        <div class="log-meta"><span class="log-stardate">Stardate: ${log.stardate || ''}</span> &mdash; <span class="log-crew">${log.crewMember || ''}</span></div>
+                        <div class="log-entry">${log.logEntry || ''}</div>
+                    </div>
+                `).join('')}</div>`;
+            }
+
+            div.innerHTML = `
+                <h3>${camp.campaignName || filename}</h3>
+                <p><strong>Type:</strong> ${camp.campaignType || ''}</p>
+                <p><strong>Location:</strong> ${camp.information?.location || ''}</p>
+                <p><strong>Mission:</strong> ${camp.information?.mission || ''}</p>
+                <p><strong>Outcome:</strong> ${camp.information?.outcome || ''}</p>
+                <p><strong>Stardate:</strong> ${camp.information?.startStardate || ''} - ${camp.information?.endStardate || ''}</p>
+                <details><summary>Character(s)</summary>
+                    <ul>
+                        ${(camp.characters||[]).map(charFile => {
+                            const char = characterData[charFile];
+                            return char ? `<li>${char.name} <small>(${char.rank})</small></li>` : `<li>${charFile}</li>`;
+                        }).join('')}
+                    </ul>
+                </details>
+                <details><summary>Ship</summary>
+                    <ul>
+                        <li>${shipData[camp.ship]?.name || camp.ship || ''}</li>
+                    </ul>
+                </details>
+                <details open><summary>Summary</summary>
+                    ${summaryHtml}
+                </details>
+                ${logsHtml}
+            `;
         container.appendChild(div);
     });
 }
