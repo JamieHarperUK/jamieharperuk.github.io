@@ -96,7 +96,7 @@ main {
     background: var(--color-3);
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 1.5px 4px rgba(0,0,0,0.04);
-    margin: 0 0 1rem 0;
+    margin: 0;
     padding: 1.25rem 1.5rem;
     transition: box-shadow 0.2s;
     border: 1px solid var(--color-2);
@@ -154,7 +154,7 @@ footer {
     color: var(--color-3);
     text-align: center;
     padding: 1rem;
-    position: fixed;
+    position: relative;
     bottom: 0;
 }
 
