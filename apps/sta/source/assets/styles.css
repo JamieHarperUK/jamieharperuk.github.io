@@ -1,3 +1,44 @@
+.campaign-summary {
+    margin: 0.5em 0 0.5em 0;
+    color: var(--text-color);
+    font-size: 1.05em;
+    line-height: 1.6;
+}
+
+.campaign-logs {
+    margin-top: 1.2em;
+    background: var(--color-2);
+    border-radius: 8px;
+    padding: 1em 1.2em;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.campaign-logs h4 {
+    margin: 0 0 0.5em 0;
+    color: var(--color-1);
+}
+.campaign-log-entry {
+    margin-bottom: 1em;
+    padding-bottom: 0.7em;
+    border-bottom: 1px solid var(--color-2);
+}
+.campaign-log-entry:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+.log-meta {
+    font-size: 0.98em;
+    color: var(--color-6);
+    margin-bottom: 0.2em;
+}
+.log-stardate {
+    font-weight: bold;
+}
+.log-entry {
+    font-size: 1.04em;
+    color: var(--text-color);
+    margin-left: 0.5em;
+}
 :root {
     /* Global Positioning Constants */
     --wfa: -webkit-fill-available;
