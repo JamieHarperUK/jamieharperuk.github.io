@@ -98,7 +98,7 @@ function populateCampaignsPage(campaignData) {
             <p><strong>Mission:</strong> ${camp.information?.mission || ''}</p>
             <p><strong>Outcome:</strong> ${camp.information?.outcome || ''}</p>
             <p><strong>Stardate:</strong> ${camp.information?.startStardate || ''} - ${camp.information?.endStardate || ''}</p>
-            <details><summary>Characters</summary>
+            <details><summary>Character(s)</summary>
                 <ul>
                     ${(camp.characters||[]).map(charFile => {
                         const char = characterData[charFile];
