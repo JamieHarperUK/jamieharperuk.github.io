@@ -73,9 +73,9 @@ async function initializeApp() {
         populateCharactersPage();
         populateShipsPage();
     } catch (e) {
-        document.getElementById('campaignsContainer').innerHTML = '<p>Failed to load campaign data.</p>';
-        document.getElementById('charactersContainer').innerHTML = '<p>Failed to load character data.</p>';
-        document.getElementById('shipsContainer').innerHTML = '<p>Failed to load ship data.</p>';
+        document.getElementById('campaignsContainer').innerHTML = '<p class="error">Failed to load campaign data.</p>';
+        document.getElementById('charactersContainer').innerHTML = '<p class="error">Failed to load character data.</p>';
+        document.getElementById('shipsContainer').innerHTML = '<p class="error">Failed to load ship data.</p>';
     }
 }
 
@@ -210,3 +210,4 @@ function populateShipsPage() {
 function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
