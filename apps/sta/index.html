@@ -5,15 +5,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <!-- OG Meta Tags -->
-        <meta property="og:title" content="Star Trek Adventures (Jamie Harper's Mission Logs)" />
+        <meta property="og:title" content="Star Trek Adventures (Jamie Harper's Mission Reports)" />
         <meta property="og:description" content="" />
         <meta property="og:image" content="#" />
         <!-- Twitter Card Meta Tags -->
-        <meta property="twitter:title" content="Star Trek Adventures (Jamie Harper's Mission Logs)" />
+        <meta property="twitter:title" content="Star Trek Adventures (Jamie Harper's Mission Reports)" />
         <meta property="twitter:description" content="" />
         <meta property="twitter:image" content="#" />
 
-        <title>Star Trek Adventures (Jamie Harper's Mission Logs)</title>
+        <title>Star Trek Adventures (Jamie Harper's Mission Reports)</title>
         <link rel="stylesheet" href="source/assets/styles.css">
     </head>
 
@@ -22,7 +22,7 @@
             <div class="site-brand">
                 <img src="source/assets/images/stac.png" alt="STA Logo" class="site-logo">
                 <div class="site-text">
-                    <h1>Mission Logs</h1>
+                    <h1>Mission Reports</h1>
                     <p>by Jamie Harper</p>
                 </div>
             </div>
@@ -30,6 +30,7 @@
                 <a href="#home" class="nav-link">Home</a>
                 <a href="#characters" class="nav-link">Characters</a>
                 <a href="#ships" class="nav-link">Ships</a>
+                <a href="#companion" class="nav-link">Companion</a>
                 <a href="#about" class="nav-link">About</a>
             </nav>
         </header>
@@ -39,14 +40,22 @@
             </div>
             <div id="page-characters">
                 <h2 class="page-title">Characters Page</h2>
-                <div id="charactersContainer"></div>
+                <div id="charactersContainer"><!-- Lists STA characters outlined in the config.json file --></div>
             </div>
             <div id="page-ships">
                 <h2 class="page-title">Ships Page</h2>
-                <div id="shipsContainer"></div>
+                <div id="shipsContainer"><!-- Lists STA ships outlined in the config.json file --></div>
+            </div>
+            <div id="page-companion">
+                <h2 class="page-title">Companion Page</h2>
+                <div id="companionContainer"><!-- An STA game companion page (momentum tracker / threat tracker / notes / etc..) --></div>
             </div>
             <div id="page-about">
                 <h2 class="page-title">About Page</h2>
+                <div id="aboutContainer">
+                    <h4>Star Trek Adventures (Jamie Harper's Mission Reports)</h4>
+                    <p>This application is a collection of mission reports written by Jamie Harper, a player of the Star Trek Adventures tabletop RPG.</p>
+                </div>
             </div>
         </main>
         <footer>
@@ -64,7 +73,7 @@
                 Each campaign has its own JSON file, which contains:
                     - all relevant information about the campaign
                     - the file names of the linked character and ship
-                        (the URL for each linked file is built in the following format '<homeUrl>/source/campaigns/<characters OR ships>/<file-name>.json')
+                        (the URL for each linked file is built in the following format '<homeUrl>/source/campaigns/<characters OR ships>/<file-name>')
             */
 
             // Define and fetch the configuration data and initialize the application
