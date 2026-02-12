@@ -1,0 +1,20 @@
+{
+    "campaignName": "Shadows of Good Intentions",
+    "campaignType": "Solo",
+    "characters": [
+        "jamie_harper.json"
+    ],
+    "ship": "uss_genesis.json",
+    "information": {
+        "startStardate": "78421.4",
+        "endStardate": "78424.1",
+        "location": "Virex III (Virex System)",
+        "mission": "Mediation / Civil Dispute",
+        "outcome": "Resolved - No Escalation"
+    },
+    "summary": [
+        "",
+        "",
+        ""
+    ]
+}
