@@ -1,0 +1,67 @@
+{
+    "name": "Taamiss Duvon",
+    "rank": "Lieutenant",
+    "assignment": "USS Ranger",
+    "faction": "Federation",
+    "characterRole": "Science Officer",
+    "speciesTraits": "Trill, Symbiont",
+    "reputation": 3,
+    "personnelDetails": {
+        "environment": "Isolated Colony",
+        "upbringing": "Science ad Technology (A)",
+        "careerPath": "Starfleet / Sciences Track",
+        "experience": "Experienced",
+        "careerEvent1": "Encounter with a Truly Alien Being",
+        "careerEvent2": "Learns Unique Language"
+    },
+    "attributes": {
+        "control": 10,
+        "fitness": 7,
+        "presence": 9,
+        "daring": 7,
+        "insight": 12,
+        "reason": 11
+    },
+    "departments": {
+        "command": 2,
+        "engineering": 3,
+        "science": 5,
+        "conn": 1,
+        "security": 1,
+        "medicine": 4
+    },
+    "values": [
+        "Trying to learn, to better understand.",
+        "Looking for answers to the universe.",
+        "Life comes first.",
+        "Question everything."
+    ],
+    "focuses": [
+        "Xenobiology",
+        "Genetics",
+        "Xenobiology",
+        "Virology",
+        "Empathy",
+        "Linguistics"
+    ],
+    "pastimes": [
+        "Reading"
+    ],
+    "attacks": [
+        "Unarmed Strike: Melee, Stun 2, Size 1H",
+        "Phaser type-2: Ranged, Stun/Deadly 3, Charge, Size 1H"
+    ],
+    "speciesAbility": "Patient",
+    "talents": [
+        "Field Medicine",
+        "Joined",
+        "Applied Research",
+        "Doctor’s Orders"
+    ],
+    "specialRules": [],
+    "equipment": [
+        "Uniform",
+        "Communicator",
+        "Tricorder"
+    ]
+}
