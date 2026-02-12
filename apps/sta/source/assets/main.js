@@ -206,6 +206,9 @@ function populateShipsPage() {
                     ${ship.shields ? `<li><strong>Shields:</strong> ${ship.shields}</li>` : ''}
                 </ul>
             </details>
+            <details><summary>Shuttlebay</summary>
+                <ul>${(ship.shuttleBay||[]).map(s => `<li>${s}</li>`).join('')}</ul>
+            </details>
             <details><summary>Systems</summary>
                 <ul>
                     ${Object.entries(ship.systems || {}).map(([k,v]) => `<li><strong>${capitalize(k)}:</strong> ${v}</li>`).join('')}
