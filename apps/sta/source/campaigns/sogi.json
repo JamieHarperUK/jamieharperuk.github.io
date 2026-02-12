@@ -17,5 +17,12 @@
         "Starfleet Intelligence has flagged the system for advisory observation but has issued no direct operational mandate beyond de-escalation and investigation within legal authority.",
         "Primary objectives include; preventing civilian escalation, verification of allegations via independent analysis, preservation of Federation legal and diplomatic integrity and facilitate peaceful resolution consistent with Starfleet principles.",
         "Executive Officer Cmdr. Jamie Harper has been tasked with leading the preliminary investigation and mediation efforts."
+    ],
+    "logs": [
+        {
+            "stardate": "78421.6",
+            "crewMember": "Cmdr. Jamie Harper",
+            "logEntry": "log entry data"
+        }
     ]
 }
