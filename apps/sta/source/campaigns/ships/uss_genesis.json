@@ -6,7 +6,7 @@
     "shipClass": "Intrepid",
     "missionProfile": "Multirole Explorer",
     "serviceRecord" : "Prototype",
-    "traits": "Federation Starship, Intrepid Class, Prototype",
+    "traits": "Federation Starship, Prototype",
     "coreStats": {
         "resistance": 3,
         "scale": 4,
