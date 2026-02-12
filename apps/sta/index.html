@@ -8,6 +8,7 @@
         <meta property="og:title" content="Star Trek Adventures (Jamie Harper's Mission Reports)" />
         <meta property="og:description" content="A collection of mission reports for the Star Trek Adventures RPG by Jamie Harper." />
         <meta property="og:image" content="#" />
+
         <!-- Twitter Card Meta Tags -->
         <meta property="twitter:title" content="Star Trek Adventures (Jamie Harper's Mission Reports)" />
         <meta property="twitter:description" content="A collection of mission reports for the Star Trek Adventures RPG by Jamie Harper." />
@@ -49,19 +50,19 @@
         </header>
         <main id="app">
             <div id="page-home">
-                <h2 class="page-title">Home Page</h2>
+                <h2 class="page-title">Campaigns</h2>
                 <div id="campaignsContainer"><!-- Lists STA campaigns outlined in the config.json file --></div>
             </div>
             <div id="page-characters">
-                <h2 class="page-title">Characters Page</h2>
+                <h2 class="page-title">Characters</h2>
                 <div id="charactersContainer"><!-- Lists STA characters outlined in the config.json file --></div>
             </div>
             <div id="page-ships">
-                <h2 class="page-title">Ships Page</h2>
+                <h2 class="page-title">Ships</h2>
                 <div id="shipsContainer"><!-- Lists STA ships outlined in the config.json file --></div>
             </div>
             <div id="page-companion">
-                <h2 class="page-title">Companion Page</h2>
+                <h2 class="page-title">Companion</h2>
                 <div id="companionContainer">
                     <div class="tracker-row">
                         <div class="tracker">
@@ -88,7 +89,7 @@
                 </div>
             </div>
             <div id="page-about">
-                <h2 class="page-title">About Page</h2>
+                <h2 class="page-title">About</h2>
                 <div id="aboutContainer">
                     <h4>Star Trek Adventures (Jamie Harper's Mission Reports)</h4>
                     <p>This application is a collection of mission reports written by Jamie Harper, a player of the Star Trek Adventures tabletop RPG.</p>
@@ -100,60 +101,60 @@
         </footer>
         <script src="source/assets/main.js"></script>
         <script>
-        // Modal menu logic
-        const menuBtn = document.getElementById('menuBtn');
-        const modalMenu = document.getElementById('modalMenu');
-        const closeMenuBtn = document.getElementById('closeMenuBtn');
-        const modalLinks = document.querySelectorAll('.modal-link');
-        menuBtn.addEventListener('click', () => {
-            modalMenu.classList.add('open');
-        });
-        closeMenuBtn.addEventListener('click', () => {
-            modalMenu.classList.remove('open');
-        });
-        modalLinks.forEach(link => link.addEventListener('click', () => {
-            modalMenu.classList.remove('open');
-        }));
-
-        // Hide menu button on desktop, show on mobile
-        function handleMenuBtnDisplay() {
-            if (window.innerWidth <= 700) {
-                menuBtn.style.display = 'inline-block';
-            } else {
-                menuBtn.style.display = 'none';
+            // Modal menu logic
+            const menuBtn = document.getElementById('menuBtn');
+            const modalMenu = document.getElementById('modalMenu');
+            const closeMenuBtn = document.getElementById('closeMenuBtn');
+            const modalLinks = document.querySelectorAll('.modal-link');
+            menuBtn.addEventListener('click', () => {
+                modalMenu.classList.add('open');
+            });
+            closeMenuBtn.addEventListener('click', () => {
                 modalMenu.classList.remove('open');
+            });
+            modalLinks.forEach(link => link.addEventListener('click', () => {
+                modalMenu.classList.remove('open');
+            }));
+    
+            // Hide menu button on desktop, show on mobile
+            function handleMenuBtnDisplay() {
+                if (window.innerWidth <= 700) {
+                    menuBtn.style.display = 'inline-block';
+                } else {
+                    menuBtn.style.display = 'none';
+                    modalMenu.classList.remove('open');
+                }
             }
-        }
-        window.addEventListener('resize', handleMenuBtnDisplay);
-        document.addEventListener('DOMContentLoaded', handleMenuBtnDisplay);
-
-        // Companion page logic
-        function clamp(val, min, max) { return Math.max(min, Math.min(max, val)); }
-        let momentum = 0, threat = 0;
-        const momentumValue = document.getElementById('momentumValue');
-        const threatValue = document.getElementById('threatValue');
-        document.getElementById('momentumInc').onclick = () => {
-            momentum = clamp(momentum + 1, 0, 6);
-            momentumValue.textContent = momentum;
-        };
-        document.getElementById('momentumDec').onclick = () => {
-            momentum = clamp(momentum - 1, 0, 6);
-            momentumValue.textContent = momentum;
-        };
-        document.getElementById('threatInc').onclick = () => {
-            threat = clamp(threat + 1, 0, 20);
-            threatValue.textContent = threat;
-        };
-        document.getElementById('threatDec').onclick = () => {
-            threat = clamp(threat - 1, 0, 20);
-            threatValue.textContent = threat;
-        };
-        // Persist notes in localStorage
-        const notesArea = document.getElementById('companionNotes');
-        notesArea.value = localStorage.getItem('staCompanionNotes') || '';
-        notesArea.addEventListener('input', () => {
-            localStorage.setItem('staCompanionNotes', notesArea.value);
-        });
+            window.addEventListener('resize', handleMenuBtnDisplay);
+            document.addEventListener('DOMContentLoaded', handleMenuBtnDisplay);
+    
+            // Companion page logic
+            function clamp(val, min, max) { return Math.max(min, Math.min(max, val)); }
+            let momentum = 0, threat = 0;
+            const momentumValue = document.getElementById('momentumValue');
+            const threatValue = document.getElementById('threatValue');
+            document.getElementById('momentumInc').onclick = () => {
+                momentum = clamp(momentum + 1, 0, 6);
+                momentumValue.textContent = momentum;
+            };
+            document.getElementById('momentumDec').onclick = () => {
+                momentum = clamp(momentum - 1, 0, 6);
+                momentumValue.textContent = momentum;
+            };
+            document.getElementById('threatInc').onclick = () => {
+                threat = clamp(threat + 1, 0, 20);
+                threatValue.textContent = threat;
+            };
+            document.getElementById('threatDec').onclick = () => {
+                threat = clamp(threat - 1, 0, 20);
+                threatValue.textContent = threat;
+            };
+            // Persist notes in localStorage
+            const notesArea = document.getElementById('companionNotes');
+            notesArea.value = localStorage.getItem('staCompanionNotes') || '';
+            notesArea.addEventListener('input', () => {
+                localStorage.setItem('staCompanionNotes', notesArea.value);
+            });
         </script>
     </body>
 </html>
