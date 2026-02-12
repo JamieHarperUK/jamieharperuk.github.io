@@ -9,6 +9,7 @@
     --color-4: #ffcb09;
     --color-5: #d1ab1c;
     --color-6: #333333;
+    --color-7: #813030;
     --text-color: #333333;
 
     --header-footer-bg: var(--color-6);
@@ -43,8 +44,15 @@ body::after {
     pointer-events: none;
 }
 
-div h2 {
-    color: var(--color-2);
+h2, #aboutContainer {
+    color: var(--color-3);
+}
+h4.section-title {
+    color: var(--color-3);
+    margin: 0 0 0.75rem 0;
+}
+.error {
+    color: var(--color-7);
 }
 
 /* Header Styles */
@@ -200,7 +208,7 @@ main {
 .tracker-row {
     display: flex;
     gap: 2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     flex-wrap: wrap;
 }
 .tracker {
