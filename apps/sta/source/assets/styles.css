@@ -154,6 +154,7 @@ footer {
     color: var(--color-3);
     text-align: center;
     padding: 1rem;
+    position: fixed;
     bottom: 0;
 }
 
