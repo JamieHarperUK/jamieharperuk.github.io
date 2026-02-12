@@ -57,8 +57,55 @@ async function initializeApp() {
             }));
         }
 
+        await populateCampaignsPage();
         populateCharactersPage();
         populateShipsPage();
+    let campaignData = {};
+
+    async function populateCampaignsPage() {
+        const container = document.getElementById('campaignsContainer');
+        if (!configData || !configData.campaigns || configData.campaigns.length === 0) {
+            container.innerHTML = '<p>No campaign data found.</p>';
+            return;
+        }
+        // Load all campaigns
+        await Promise.all(configData.campaigns.map(async (filename) => {
+            const url = `source/campaigns/${filename}`;
+            const resp = await fetch(url);
+            if (resp.ok) {
+                campaignData[filename] = await resp.json();
+            }
+        }));
+        container.innerHTML = '';
+        configData.campaigns.forEach(filename => {
+            const campaign = campaignData[filename];
+            if (!campaign) return;
+            const div = document.createElement('div');
+            div.className = 'campaign-card';
+            div.innerHTML = `
+                <h3>${campaign.campaignName || 'Unnamed Campaign'} <small>(${campaign.campaignType || ''})</small></h3>
+                <p><strong>Ship:</strong> ${shipData[campaign.ship]?.name || campaign.ship || ''}</p>
+                <p><strong>Location:</strong> ${campaign.information?.location || ''}</p>
+                <p><strong>Mission:</strong> ${campaign.information?.mission || ''}</p>
+                <p><strong>Outcome:</strong> ${campaign.information?.outcome || ''}</p>
+                <details><summary>Stardates</summary>
+                    <ul>
+                        <li><strong>Start:</strong> ${campaign.information?.startStardate || ''}</li>
+                        <li><strong>End:</strong> ${campaign.information?.endStardate || ''}</li>
+                    </ul>
+                </details>
+                <details><summary>Characters</summary>
+                    <ul>
+                        ${(campaign.characters||[]).map(c => `<li>${characterData[c]?.name || c}</li>`).join('')}
+                    </ul>
+                </details>
+                <details><summary>Summary</summary>
+                    <ul>${(campaign.summary||[]).map(s => s ? `<li>${s}</li>` : '').join('') || '<li>No summary available.</li>'}</ul>
+                </details>
+            `;
+            container.appendChild(div);
+        });
+    }
     } catch (e) {
         // Optionally show error to user
         document.getElementById('charactersContainer').innerHTML = '<p>Failed to load character data.</p>';
