@@ -203,6 +203,7 @@ function populateShipsPage() {
             <details><summary>Core Stats</summary>
                 <ul>
                     ${Object.entries(ship.coreStats || {}).map(([k,v]) => `<li><strong>${capitalize(k)}:</strong> ${v}</li>`).join('')}
+                    ${ship.shields ? `<li><strong>Shields:</strong> ${ship.shields}</li>` : ''}
                 </ul>
             </details>
             <details><summary>Systems</summary>
