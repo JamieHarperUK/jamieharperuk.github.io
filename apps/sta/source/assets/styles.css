@@ -162,3 +162,48 @@ footer p {
     font-style: italic;
     margin: 0;
 }
+
+@media (max-width: 900px) {
+    /*  */
+    header, .site-brand {
+        display: block;
+    }
+    .site-text {
+        margin: 0;
+        text-align: center;
+    }
+    #navbar {
+        margin-top: 1rem;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 700px) {
+    /*  */
+    header, .site-brand {
+        display: block;
+    }
+    .site-text {
+        margin: 0;
+        text-align: center;
+    }
+    #navbar {
+        margin-top: 1rem;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 600px) {
+    /*  */
+    header, .site-brand {
+        display: block;
+    }
+    .site-text {
+        margin: 0;
+        text-align: center;
+    }
+    #navbar {
+        margin-top: 1rem;
+        justify-content: center;
+    }
+}
