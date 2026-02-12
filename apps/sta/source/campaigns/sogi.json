@@ -38,6 +38,16 @@
             "stardate": "78423.4",
             "crewMember": "Cmdr. Jamie Harper",
             "logEntry": "The results of the focused material analysis is complete. And no weapons of any kind were found.<br /><br />Instead, large-scale defensive shielding infrastructure manufacturing (potentially planetary in scale) was discovered.<br /><br />The technology itself it quite impressive I must say - and somewhat understandable. The Dominion War left many scars, and entire worlds do still feel a sense of incredible vulnerability.<br /><br />That being said, the secrecy that has bred this technology has also sown suspicion, fear and mistrust.<br /><br />Inthe interest of transparency and fairness, we have since shared the results simultaneously with both parties. Starfleet must remain a neutral party throughout the process."
+        },
+        {
+            "stardate": "78423.9",
+            "crewMember": "Cmdr. Jamie Harper",
+            "logEntry": "Federation legal counsel arrived today, in advance of the second mediation session - Commander T'Vrenn, JAG Corps. Precise, efficient and unimpressed by ambiguity.<br /><br />She was requested to address the colony charter's wording and help establish clarity on a few issues which may avoid similar situations in the future. The issue, as she succinctly put it, is that the charter is not inherently flawed but incomplete.<br /><br />This does not address the large-scale shielding manufacturing that we discovered, but is an important step for a lasting resolution when one is reached."
+        },
+        {
+            "stardate": "78424.1",
+            "crewMember": "Cmdr. Jamie Harper",
+            "logEntry": "The second mediation session exceeded all of my expectations.<br /><br />The colony rightly demanded answers, and surprisingly the research collective did in fact misjudgment in withholding disclosure. It was tense, but not hostile.<br /><br />I proposed that the defensive technology be shared openly and freely with the colony, with operational control resting in the colony's hands. In return the collective would retain commercial rights to the technology beyond the limits of the Virex system.<br /><br />It seemed that neither side had considered this approach prior to the meeting, and they were both very receptive to it.<br /><br />With both sides agreeing to these terms, the USS Genesis will remain in orbit to support Commander T'vrenn in solidifying the legalities, the conflict does now appear to be resolved though.<br /><br />It's remarkable just how much transparency and discussion can solve."
         }
     ]
 }
