@@ -207,7 +207,7 @@ function populateShipsPage() {
                 </ul>
             </details>
             <details><summary>Shuttlebay</summary>
-                <ul>${(ship.shuttleBay||[]).map(s => `<li>${s}</li>`).join('')}</ul>
+                <ul>${(ship.shuttleBay||[]).map(s => `<li>${s}</li>`).join('')||`<li><i>None</i></li>`}</ul>
             </details>
             <details><summary>Systems</summary>
                 <ul>
