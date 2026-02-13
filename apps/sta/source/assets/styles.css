@@ -1,3 +1,64 @@
+#resetCompanion {
+    background: #b54040;
+    color: var(--color-3);
+    margin-left: 0.5em;
+}
+#resetCompanion:hover {
+    background: var(--color-7);
+    color: var(--color-3);
+}
+#companionContainer .companion-usage {
+    background: #ffffff66;
+    border-radius: 8px;
+    padding: 1.2em 1.5em 1em 1.5em;
+    margin-bottom: 1.5em;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+#companionContainer .companion-usage ul {
+    margin: 0 0 0 1.2em;
+    padding: 0;
+    color: var(--color-6);
+    font-size: 1.01em;
+}
+#companionContainer .companion-usage li {
+    margin-bottom: 0.5em;
+    line-height: 1.5;
+}
+#companionContainer .companion-usage a {
+    color: var(--color-1);
+    text-decoration: underline;
+}
+.companion-usage .section-title {
+    color: var(--text-color);
+}
+#companionContainer .companion-actions {
+    margin: 1em 0 0.5em 0;
+    display: flex;
+    gap: 1em;
+    flex-wrap: wrap;
+}
+.companion-action-btn {
+    background: var(--color-4);
+    color: var(--color-6);
+    border: none;
+    border-radius: 5px;
+    padding: 0.5em 1.2em;
+    font-size: 1em;
+    font-family: var(--font-family);
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.15s;
+    flex: 1 1 100px;
+    text-align: center;
+}
+.companion-action-btn:hover, .label-btn:hover {
+    background: var(--color-5);
+    color: var(--color-3);
+}
+.label-btn {
+    display: inline-block;
+    cursor: pointer;
+}
 :root {
     /* Global Positioning Constants */
     --wfa: -webkit-fill-available;
