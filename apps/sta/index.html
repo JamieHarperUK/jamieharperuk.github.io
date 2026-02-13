@@ -69,6 +69,17 @@
             <div id="page-companion">
                 <h2 class="page-title">Companion</h2>
                 <div id="companionContainer">
+                    <div class="companion-usage">
+                        <h4 class="section-title">How to Use the Companion</h4>
+                        <ul>
+                            <li><strong>Momentum</strong> and <strong>Threat</strong> are core mechanics in Star Trek Adventures. Use the tracker to keep count for your table or solo play. Momentum max is 6, Threat max is 20.</li>
+                            <li><strong>Notes</strong> are for session tracking, reminders, or anything you want to jot down. Notes are saved automatically in your browser.</li>
+                            <li>You can <strong>Export</strong> your current settings (Momentum, Threat, Notes) as a JSON file for backup or sharing.</li>
+                            <li>You can <strong>Load</strong> a previously exported JSON file to restore your session state.</li>
+                            <li>Momentum and Threat are tracked per session. For campaign play, consider exporting after each session.</li>
+                            <li>For more on STA rules, see <a href="https://www.modiphius.net/pages/star-trek-adventures" target="_blank" rel="noopener">Modiphius: Star Trek Adventures</a>.</li>
+                        </ul>
+                    </div>
                     <h4 class="section-title">Tracker</h4>
                     <div class="tracker-row">
                         <div class="tracker">
@@ -92,6 +103,12 @@
                         <h4 class="section-title">Notes</h4>
                         <textarea id="companionNotes" rows="6" placeholder="Write your session notes here..."></textarea>
                     </div>
+                    <div class="companion-actions">
+                        <button id="exportCompanion" class="companion-action-btn">Export Settings</button>
+                        <label for="importCompanion" class="companion-action-btn label-btn">Load Settings</label>
+                        <input type="file" id="importCompanion" accept="application/json" style="display:none;">
+                        <button id="resetCompanion" class="companion-action-btn">Reset All</button>
+                    </div>
                 </div>
             </div>
             <div id="page-about">
@@ -107,61 +124,5 @@
             <p><small>&copy; 2026 Jamie Harper. All rights reserved.</small></p>
         </footer>
         <script src="source/assets/main.js"></script>
-        <script>
-            // Modal menu logic
-            const menuBtn = document.getElementById('menuBtn');
-            const modalMenu = document.getElementById('modalMenu');
-            const closeMenuBtn = document.getElementById('closeMenuBtn');
-            const modalLinks = document.querySelectorAll('.modal-link');
-            menuBtn.addEventListener('click', () => {
-                modalMenu.classList.add('open');
-            });
-            closeMenuBtn.addEventListener('click', () => {
-                modalMenu.classList.remove('open');
-            });
-            modalLinks.forEach(link => link.addEventListener('click', () => {
-                modalMenu.classList.remove('open');
-            }));
-
-            // Hide menu button on desktop, show on mobile
-            function handleMenuBtnDisplay() {
-                if (window.innerWidth <= 700) {
-                    menuBtn.style.display = 'inline-block';
-                } else {
-                    menuBtn.style.display = 'none';
-                    modalMenu.classList.remove('open');
-                }
-            }
-            window.addEventListener('resize', handleMenuBtnDisplay);
-            document.addEventListener('DOMContentLoaded', handleMenuBtnDisplay);
-
-            // Companion page logic
-            function clamp(val, min, max) { return Math.max(min, Math.min(max, val)); }
-            let momentum = 0, threat = 0;
-            const momentumValue = document.getElementById('momentumValue');
-            const threatValue = document.getElementById('threatValue');
-            document.getElementById('momentumInc').onclick = () => {
-                momentum = clamp(momentum + 1, 0, 6);
-                momentumValue.textContent = momentum;
-            };
-            document.getElementById('momentumDec').onclick = () => {
-                momentum = clamp(momentum - 1, 0, 6);
-                momentumValue.textContent = momentum;
-            };
-            document.getElementById('threatInc').onclick = () => {
-                threat = clamp(threat + 1, 0, 20);
-                threatValue.textContent = threat;
-            };
-            document.getElementById('threatDec').onclick = () => {
-                threat = clamp(threat - 1, 0, 20);
-                threatValue.textContent = threat;
-            };
-            // Persist notes in localStorage
-            const notesArea = document.getElementById('companionNotes');
-            notesArea.value = localStorage.getItem('staCompanionNotes') || '';
-            notesArea.addEventListener('input', () => {
-                localStorage.setItem('staCompanionNotes', notesArea.value);
-            });
-        </script>
     </body>
 </html>
