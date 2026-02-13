@@ -101,12 +101,17 @@ function populateCampaignsPage(campaignData) {
 
             let logsHtml = '';
             if (Array.isArray(camp.logs) && camp.logs.length > 0) {
-                logsHtml = `<div class="campaign-logs"><h4>Logs</h4>${camp.logs.map(log => `
-                    <div class="campaign-log-entry">
-                        <div class="log-meta"><span class="log-stardate">Stardate: ${log.stardate || ''}</span> &mdash; <span class="log-crew">${log.crewMember || ''}</span></div>
-                        <div class="log-entry">${log.logEntry || ''}</div>
-                    </div>
-                `).join('')}</div>`;
+                logsHtml = `<div class="campaign-logs">
+                    <details>
+                        <summary>Logs</summary>
+                        ${camp.logs.map(log => `
+                            <details class="log-details">
+                                <summary><span class="log-stardate">Stardate: ${log.stardate || ''}</span> &mdash; <span class="log-crew">${log.crewMember || ''}</span></summary>
+                                <div class="log-entry">${log.logEntry || ''}</div>
+                            </details>
+                        `).join('')}
+                    </details>
+                </div>`;
             }
 
             div.innerHTML = `
