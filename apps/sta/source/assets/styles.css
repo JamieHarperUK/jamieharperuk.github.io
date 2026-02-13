@@ -1,7 +1,6 @@
 #resetCompanion {
     background: #b54040;
     color: var(--color-3);
-    margin-left: 0.5em;
 }
 #resetCompanion:hover {
     background: var(--color-7);
@@ -463,6 +462,9 @@ footer p {
         margin-top: 1rem;
         justify-content: center;
     }
+    #companionContainer .companion-actions {
+        display: grid;
+    }
 }
 
 @media (max-width: 700px) {
@@ -478,6 +480,9 @@ footer p {
         margin-top: 1rem;
         justify-content: center;
     }
+    #companionContainer .companion-actions {
+        display: grid;
+    }
 }
 
 @media (max-width: 600px) {
@@ -492,5 +497,8 @@ footer p {
     #navbar {
         margin-top: 1rem;
         justify-content: center;
+    }
+    #companionContainer .companion-actions {
+        display: grid;
     }
 }
