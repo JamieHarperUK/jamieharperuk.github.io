@@ -91,17 +91,17 @@ function populateCampaignsPage(campaignData) {
         if (!camp) return;
         const div = document.createElement('div');
         div.className = 'campaign-card';
-            // Render summary as paragraphs, and logs if present
-            let summaryHtml = '';
-            if (Array.isArray(camp.summary) && camp.summary.length > 0) {
-                summaryHtml = camp.summary.filter(s => s && s.trim()).map(s => `<p class="campaign-summary">${s}</p>`).join('');
-            } else {
-                summaryHtml = '<p class="campaign-summary"><em>No summary available.</em></p>';
-            }
+        // Render summary as paragraphs, and logs if present
+        let summaryHtml = '';
+        if (Array.isArray(camp.summary) && camp.summary.length > 0) {
+            summaryHtml = camp.summary.filter(s => s && s.trim()).map(s => `<p class="campaign-summary">${s}</p>`).join('');
+        } else {
+            summaryHtml = '<p class="campaign-summary"><em>No summary available.</em></p>';
+        }
 
-            let logsHtml = '';
-            if (Array.isArray(camp.logs) && camp.logs.length > 0) {
-                logsHtml = `<div class="campaign-logs">
+        let logsHtml = '';
+        if (Array.isArray(camp.logs) && camp.logs.length > 0) {
+            logsHtml = `<div class="campaign-logs">
                     <details>
                         <summary>Logs</summary>
                         ${camp.logs.map(log => `
@@ -112,9 +112,9 @@ function populateCampaignsPage(campaignData) {
                         `).join('')}
                     </details>
                 </div>`;
-            }
+        }
 
-            div.innerHTML = `
+        div.innerHTML = `
                 <h3>${camp.campaignName || filename}</h3>
                 <p><strong>Type:</strong> ${camp.campaignType || ''}</p>
                 <p><strong>Location:</strong> ${camp.information?.location || ''}</p>
@@ -123,10 +123,10 @@ function populateCampaignsPage(campaignData) {
                 <p><strong>Stardate:</strong> ${camp.information?.startStardate || ''} - ${camp.information?.endStardate || ''}</p>
                 <details><summary>Character(s)</summary>
                     <ul>
-                        ${(camp.characters||[]).map(charFile => {
-                            const char = characterData[charFile];
-                            return char ? `<li>${char.name} <small>(${char.rank})</small></li>` : `<li>${charFile}</li>`;
-                        }).join('')}
+                        ${(camp.characters || []).map(charFile => {
+            const char = characterData[charFile];
+            return char ? `<li>${char.name} <small>(${char.rank})</small></li>` : `<li>${charFile}</li>`;
+        }).join('')}
                     </ul>
                 </details>
                 <details><summary>Ship</summary>
@@ -163,25 +163,25 @@ function populateCharactersPage() {
             <p><strong>Reputation:</strong> ${char.reputation ?? ''}</p>
             <details><summary>Attributes</summary>
                 <ul>
-                    ${Object.entries(char.attributes || {}).map(([k,v]) => `<li><strong>${capitalize(k)}:</strong> ${v}</li>`).join('')}
+                    ${Object.entries(char.attributes || {}).map(([k, v]) => `<li><strong>${capitalize(k)}:</strong> ${v}</li>`).join('')}
                 </ul>
             </details>
             <details><summary>Departments</summary>
                 <ul>
-                    ${Object.entries(char.departments || {}).map(([k,v]) => `<li><strong>${capitalize(k)}:</strong> ${v}</li>`).join('')}
+                    ${Object.entries(char.departments || {}).map(([k, v]) => `<li><strong>${capitalize(k)}:</strong> ${v}</li>`).join('')}
                 </ul>
             </details>
             <details><summary>Values</summary>
-                <ul>${(char.values||[]).map(v => `<li>${v}</li>`).join('')}</ul>
+                <ul>${(char.values || []).map(v => `<li>${v}</li>`).join('')}</ul>
             </details>
             <details><summary>Focuses</summary>
-                <ul>${(char.focuses||[]).map(f => `<li>${f}</li>`).join('')}</ul>
+                <ul>${(char.focuses || []).map(f => `<li>${f}</li>`).join('')}</ul>
             </details>
             <details><summary>Talents</summary>
-                <ul>${(char.talents||[]).map(t => `<li>${t}</li>`).join('')}</ul>
+                <ul>${(char.talents || []).map(t => `<li>${t}</li>`).join('')}</ul>
             </details>
             <details><summary>Equipment</summary>
-                <ul>${(char.equipment||[]).map(e => `<li>${e}</li>`).join('')}</ul>
+                <ul>${(char.equipment || []).map(e => `<li>${e}</li>`).join('')}</ul>
             </details>
         `;
         container.appendChild(div);
@@ -207,28 +207,28 @@ function populateShipsPage() {
             <p><strong>Traits:</strong> ${ship.traits || ''}</p>
             <details><summary>Core Stats</summary>
                 <ul>
-                    ${Object.entries(ship.coreStats || {}).map(([k,v]) => `<li><strong>${capitalize(k)}:</strong> ${v}</li>`).join('')}
+                    ${Object.entries(ship.coreStats || {}).map(([k, v]) => `<li><strong>${capitalize(k)}:</strong> ${v}</li>`).join('')}
                     ${ship.shields ? `<li><strong>Shields:</strong> ${ship.shields}</li>` : ''}
                 </ul>
             </details>
             <details><summary>Shuttlebay</summary>
-                <ul>${(ship.shuttleBay||[]).map(s => `<li>${s}</li>`).join('')||`<li><i>None</i></li>`}</ul>
+                <ul>${(ship.shuttleBay || []).map(s => `<li>${s}</li>`).join('') || `<li><i>None</i></li>`}</ul>
             </details>
             <details><summary>Systems</summary>
                 <ul>
-                    ${Object.entries(ship.systems || {}).map(([k,v]) => `<li><strong>${capitalize(k)}:</strong> ${v}</li>`).join('')}
+                    ${Object.entries(ship.systems || {}).map(([k, v]) => `<li><strong>${capitalize(k)}:</strong> ${v}</li>`).join('')}
                 </ul>
             </details>
             <details><summary>Departments</summary>
                 <ul>
-                    ${Object.entries(ship.departments || {}).map(([k,v]) => `<li><strong>${capitalize(k)}:</strong> ${v}</li>`).join('')}
+                    ${Object.entries(ship.departments || {}).map(([k, v]) => `<li><strong>${capitalize(k)}:</strong> ${v}</li>`).join('')}
                 </ul>
             </details>
             <details><summary>Talents</summary>
-                <ul>${(ship.talents||[]).map(t => `<li><strong>${t.name}:</strong> ${t.details}</li>`).join('')}</ul>
+                <ul>${(ship.talents || []).map(t => `<li><strong>${t.name}:</strong> ${t.details}</li>`).join('')}</ul>
             </details>
             <details><summary>Special Rules</summary>
-                <ul>${(ship.specialRules||[]).map(r => `<li><strong>${r.name}:</strong> ${r.details}</li>`).join('')}</ul>
+                <ul>${(ship.specialRules || []).map(r => `<li><strong>${r.name}:</strong> ${r.details}</li>`).join('')}</ul>
             </details>
         `;
         container.appendChild(div);
@@ -239,3 +239,132 @@ function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
+// Modal menu logic
+const menuBtn = document.getElementById('menuBtn');
+const modalMenu = document.getElementById('modalMenu');
+const closeMenuBtn = document.getElementById('closeMenuBtn');
+const modalLinks = document.querySelectorAll('.modal-link');
+menuBtn.addEventListener('click', () => {
+    modalMenu.classList.add('open');
+});
+closeMenuBtn.addEventListener('click', () => {
+    modalMenu.classList.remove('open');
+});
+modalLinks.forEach(link => link.addEventListener('click', () => {
+    modalMenu.classList.remove('open');
+}));
+
+// Hide menu button on desktop, show on mobile
+function handleMenuBtnDisplay() {
+    if (window.innerWidth <= 700) {
+        menuBtn.style.display = 'inline-block';
+    } else {
+        menuBtn.style.display = 'none';
+        modalMenu.classList.remove('open');
+    }
+}
+window.addEventListener('resize', handleMenuBtnDisplay);
+document.addEventListener('DOMContentLoaded', handleMenuBtnDisplay);
+
+// Companion page logic
+function clamp(val, min, max) { return Math.max(min, Math.min(max, val)); }
+let momentum = 0, threat = 0;
+const momentumValue = document.getElementById('momentumValue');
+const threatValue = document.getElementById('threatValue');
+const notesArea = document.getElementById('companionNotes');
+// Load from localStorage if available
+function loadCompanionFromStorage() {
+    momentum = parseInt(localStorage.getItem('staCompanionMomentum')) || 0;
+    threat = parseInt(localStorage.getItem('staCompanionThreat')) || 0;
+    momentumValue.textContent = momentum;
+    threatValue.textContent = threat;
+    notesArea.value = localStorage.getItem('staCompanionNotes') || '';
+}
+loadCompanionFromStorage();
+document.getElementById('momentumInc').onclick = () => {
+    momentum = clamp(momentum + 1, 0, 6);
+    momentumValue.textContent = momentum;
+    localStorage.setItem('staCompanionMomentum', momentum);
+};
+document.getElementById('momentumDec').onclick = () => {
+    momentum = clamp(momentum - 1, 0, 6);
+    momentumValue.textContent = momentum;
+    localStorage.setItem('staCompanionMomentum', momentum);
+};
+document.getElementById('threatInc').onclick = () => {
+    threat = clamp(threat + 1, 0, 20);
+    threatValue.textContent = threat;
+    localStorage.setItem('staCompanionThreat', threat);
+};
+document.getElementById('threatDec').onclick = () => {
+    threat = clamp(threat - 1, 0, 20);
+    threatValue.textContent = threat;
+    localStorage.setItem('staCompanionThreat', threat);
+};
+// Persist notes in localStorage
+notesArea.addEventListener('input', () => {
+    localStorage.setItem('staCompanionNotes', notesArea.value);
+});
+
+// Export/Import functionality
+document.getElementById('exportCompanion').onclick = () => {
+    const data = {
+        momentum,
+        threat,
+        notes: notesArea.value
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'sta-companion-settings.json';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => {
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }, 100);
+};
+document.getElementById('importCompanion').addEventListener('change', function (e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function (evt) {
+        try {
+            const data = JSON.parse(evt.target.result);
+            if (typeof data.momentum === 'number') {
+                momentum = clamp(data.momentum, 0, 6);
+                momentumValue.textContent = momentum;
+                localStorage.setItem('staCompanionMomentum', momentum);
+            }
+            if (typeof data.threat === 'number') {
+                threat = clamp(data.threat, 0, 20);
+                threatValue.textContent = threat;
+                localStorage.setItem('staCompanionThreat', threat);
+            }
+            if (typeof data.notes === 'string') {
+                notesArea.value = data.notes;
+                localStorage.setItem('staCompanionNotes', data.notes);
+            }
+            alert('Companion settings loaded!');
+        } catch (err) {
+            alert('Failed to load settings: Invalid file format.');
+        }
+    };
+    reader.readAsText(file);
+    // Reset file input so same file can be loaded again if needed
+    e.target.value = '';
+});
+// Reset functionality
+document.getElementById('resetCompanion').onclick = () => {
+    if (confirm('Reset all companion fields? This will clear Momentum, Threat, and Notes.')) {
+        momentum = 0;
+        threat = 0;
+        momentumValue.textContent = momentum;
+        threatValue.textContent = threat;
+        notesArea.value = '';
+        localStorage.setItem('staCompanionMomentum', momentum);
+        localStorage.setItem('staCompanionThreat', threat);
+        localStorage.setItem('staCompanionNotes', '');
+    }
+};
