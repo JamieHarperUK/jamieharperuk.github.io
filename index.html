@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
     <head>
         <!-- Google tag (gtag.js) -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-W5RFECEMRW"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
+            function gtag() { dataLayer.push(arguments); }
             gtag('js', new Date());
 
             gtag('config', 'G-W5RFECEMRW');
@@ -16,12 +17,14 @@
 
         <!-- OG Meta Tags -->
         <meta property="og:title" content="JamieHarperUK - Portfolio" />
-        <meta property="og:description" content="I'm Jamie, a passionate streamer sharing my gaming, tech, and creative adventures. Whether it's live gameplay, tech talk, or just hanging out, I love building a positive and interactive community. Join me on my journey across multiple platforms!" />
+        <meta property="og:description"
+            content="I'm Jamie, a passionate streamer sharing my gaming, tech, and creative adventures. Whether it's live gameplay, tech talk, or just hanging out, I love building a positive and interactive community. Join me on my journey across multiple platforms!" />
         <meta property="og:image" content="https://jamieharperuk.github.io/assets/images/sinister-exp-bg-1.png" />
 
         <!-- Twitter Card Meta Tags -->
         <meta property="twitter:title" content="JamieHarperUK - Portfolio" />
-        <meta property="twitter:description" content="I'm Jamie, a passionate streamer sharing my gaming, tech, and creative adventures. Whether it's live gameplay, tech talk, or just hanging out, I love building a positive and interactive community. Join me on my journey across multiple platforms!" />
+        <meta property="twitter:description"
+            content="I'm Jamie, a passionate streamer sharing my gaming, tech, and creative adventures. Whether it's live gameplay, tech talk, or just hanging out, I love building a positive and interactive community. Join me on my journey across multiple platforms!" />
         <meta property="twitter:image" content="https://jamieharperuk.github.io/assets/images/sinister-exp-bg-1.png" />
 
         <link rel="icon" href="assets/icons/jhuk-self.png" type="image/png">
@@ -31,6 +34,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Share+Tech&display=swap" rel="stylesheet">
         <style>
             :root {
+                --wfa: -webkit-fill-available;
                 --bg-img: url('assets/icons/portal-bg.png');
                 --font-family-base: "Share Tech", sans-serif;
                 --color-bg-1: #1c1c1c;
@@ -56,10 +60,49 @@
                 text-align: center;
             }
 
+
             header {
                 background: #56565630;
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
                 padding: 1.5rem 0 1rem 0;
+            }
+
+            .site-menu {
+                display: flex;
+                justify-content: center;
+                gap: 1.5rem;
+                margin-top: 1.25rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .page-btn {
+                background: var(--color-bg-2);
+                color: var(--color-accent-1);
+                border: 2px solid var(--color-accent-1);
+                border-radius: 8px;
+                padding: 0.6rem 2rem;
+                font-size: 1.15rem;
+                font-family: var(--font-family-base);
+                font-weight: bold;
+                letter-spacing: 1px;
+                text-decoration: none;
+                transition: background 0.2s, color 0.2s, border 0.2s, box-shadow 0.2s, transform 0.2s;
+                box-shadow: 0 2px 8px rgba(38, 174, 128, 0.10);
+                outline: none;
+                cursor: pointer;
+            }
+
+            .page-btn:hover,
+            .page-btn.active {
+                background: var(--color-accent-1);
+                color: var(--color-bg-1);
+                border: 2px solid var(--color-accent-1);
+                transform: scale(1.04) rotate(-1deg);
+                box-shadow: 0 6px 24px rgba(38, 174, 128, 0.18);
+            }
+
+            .page-btn:focus {
+                box-shadow: 0 0 0 3px var(--color-accent-1);
             }
 
             .site-title {
@@ -72,9 +115,9 @@
 
             .social-links {
                 display: flex;
-                justify-content: center;
-                gap: 1.5rem;
-                margin-bottom: 0.5rem;
+                justify-content: space-evenly;
+                gap: 0.5rem;
+                margin-top: 1rem;
             }
 
             .social-link {
@@ -85,7 +128,7 @@
             }
 
             .social-link:hover {
-                color: #ffffff;
+                color: var(--color-accent-1);
             }
 
             .social-link img:hover {
@@ -149,6 +192,7 @@
                     flex-basis: 48%;
                     max-width: -webkit-fill-available !important;
                 }
+
                 div.gallery-img-wrapper {
                     max-width: -webkit-fill-available !important;
                 }
@@ -159,6 +203,7 @@
                     flex-basis: 100%;
                     max-width: -webkit-fill-available !important;
                 }
+
                 div.gallery-img-wrapper {
                     max-width: -webkit-fill-available !important;
                 }
@@ -475,6 +520,129 @@
                 border: 1px solid var(--color-accent-1);
             }
 
+            .portfolio-item {
+                background: rgba(78, 78, 78, 0.7);
+                margin-bottom: 2rem;
+                border-radius: 12px;
+                padding: 1rem;
+                max-width: 550px;
+            }
+
+            .portfolio-item-title {
+                color: var(--color-text-1);
+                font-size: 1.5rem;
+                margin-bottom: 0.75rem;
+            }
+
+            a.portfolio-link {
+                background: var(--color-accent-1);
+                color: var(--color-bg-1);
+                border: 1px solid var(--color-accent-1);
+                border-radius: 6px;
+                padding: 0.5rem 1.2rem;
+                font-size: 1.05rem;
+                cursor: pointer;
+                text-decoration: none;
+                font-family: var(--font-family-base);
+                font-weight: bold;
+                transition: background 0.2s, color 0.2s;
+                display: inline-block;
+            }
+            a.portfolio-link:hover {
+                background: var(--color-bg-1);
+                color: var(--color-accent-1);
+                border: 1px solid var(--color-accent-1);
+            }
+
+            .skills-list {
+                list-style: none; 
+                display: inline-flex; 
+                gap: 0.5rem; 
+                text-align: center; 
+                flex-wrap: wrap; 
+                justify-content: center;
+                margin-top: 0.5rem;
+                padding: 0;
+            }
+
+            .skills-list li {
+                background: rgba(78, 78, 78, 0.7);
+                padding: 0.5rem;
+                border-radius: 6px;
+            }
+
+            .services-list {
+                list-style: none; 
+                display: inline-flex; 
+                gap: 0.5rem; 
+                text-align: center; 
+                flex-wrap: wrap; 
+                justify-content: center;
+                margin-top: 0.5rem;
+                padding: 0;
+            }
+
+            .services-list li {
+                background: rgba(78, 78, 78, 0.7);
+                padding: 0.5rem;
+                border-radius: 6px;
+            }
+
+            form[action*="web3forms"] {
+                background: rgba(78, 78, 78, 0.7);
+                border-radius: 10px;
+                padding: 1.5rem;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
+                width: var(--wfa);
+                max-width: 550px;
+                display: inline-flex;
+                flex-direction: column;
+                gap: 0;
+                margin-top: 0;
+                margin-bottom: 0;
+                text-align: left;
+            }
+
+            form[action*="web3forms"] label {
+                font-weight: bold;
+                color: var(--color-accent-1);
+                margin-bottom: 0.5rem;
+            }
+
+            form[action*="web3forms"] input, form[action*="web3forms"] textarea {
+                width: var(--wfa);
+                padding: 0.7em;
+                border-radius: 6px;
+                border: 1px solid var(--color-bg-2);
+                background: var(--color-bg-1);
+                color: var(--color-text-2);
+                font-family: var(--font-family-base);
+                font-size: 1rem;
+                resize: vertical;
+                margin-bottom: 1rem;
+            }
+
+            form[action*="web3forms"] button {
+                background: var(--color-accent-1);
+                color: var(--color-bg-1);
+                border: 1px solid var(--color-accent-1);
+                border-radius: 6px;
+                padding: 0.5rem 1.2rem;
+                font-size: 1.05rem;
+                cursor: pointer;
+                text-decoration: none;
+                font-family: var(--font-family-base);
+                font-weight: bold;
+                transition: background 0.2s, color 0.2s;
+                display: inline-block;
+            }
+
+            form[action*="web3forms"] button:hover {
+                background: var(--color-bg-1);
+                color: var(--color-accent-1);
+                border: 1px solid var(--color-accent-1);
+            }
+
             @media (max-width: 900px) {
                 .games-grid {
                     gap: 1rem;
@@ -487,12 +655,17 @@
             }
         </style>
     </head>
+
     <body>
         <header>
             <div class="container">
                 <img src="assets/icons/jhuk-self.png" alt="JHUK"
                     style="width:80px; height:80px; border-radius:50%; margin-bottom:10px;" />
                 <h1 class="site-title">JamieHarperUK</h1>
+                <nav class="site-menu">
+                    <a href="#streamer" class="page-btn">Streaming</a>
+                    <a href="#developer" class="page-btn">Development</a>
+                </nav>
                 <nav class="social-links">
                     <a class="social-link" href="https://twitter.com/jamieharperuk" target="_blank" title="X" aria-label="X">
                         <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -502,40 +675,8 @@
                             <desc>X Icon</desc>
                             <path
                                 d="M18.9 1.125h3.681l-8.040000000000001 9.213000000000001L24 22.875h-7.4055l-5.8004999999999995 -7.605 -6.637499999999999 7.605H0.474l8.599499999999999 -9.855L0 1.125h7.5945l5.2425 6.9495000000000005L18.901500000000002 1.125Zm-1.29 19.542h2.04L6.484500000000001 3.2175000000000002H4.2975z"
-                                strokeWidth={1.5} />
-                        </svg>
-                    </a>
-                    <a class="social-link" href="https://www.tiktok.com/@jamieharperuk" target="_blank" title="TikTok" aria-label="TikTok">
-                        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                            className="bi bi-tiktok" viewBox="0 0 24 24" id="Tiktok--Streamline-Bootstrap" height={24}
-                            width={24}>
-                            <title>TikTok</title>
-                            <desc>TikTok Icon</desc>
-                            <path
-                                d="M13.5 0h2.9699999999999998c0.21599999999999997 1.0725 0.81 2.4255 1.8525 3.768C19.3425 5.0835 20.695500000000003 6 22.5 6v3c-2.6294999999999997 0 -4.6049999999999995 -1.2209999999999999 -6 -2.7435V16.5a7.5 7.5 0 1 1 -7.5 -7.5v3a4.5 4.5 0 1 0 4.5 4.5z"
-                                strokeWidth={1.5} />
-                        </svg>
-                    </a>
-                    <a class="social-link" href="https://discord.gg/kxbFtS6tKn" target="_blank" title="Discord" aria-label="Discord">
-                        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                            className="bi bi-discord" viewBox="0 0 24 24" id="Discord--Streamline-Bootstrap" height={24}
-                            width={24}>
-                            <title>Discord</title>
-                            <desc>Discord Icon</desc>
-                            <path
-                                d="M20.3175 4.3605a19.799999999999997 19.799999999999997 0 0 0 -4.8855 -1.5164999999999997 0.07500000000000001 0.07500000000000001 0 0 0 -0.078 0.037500000000000006c-0.21149999999999997 0.375 -0.4455 0.8654999999999999 -0.609 1.2494999999999998a18.299999999999997 18.299999999999997 0 0 0 -5.487 0 12 12 0 0 0 -0.618 -1.2494999999999998 0.07500000000000001 0.07500000000000001 0 0 0 -0.078 -0.037500000000000006c-1.6875 0.29100000000000004 -3.33 0.801 -4.8855 1.5164999999999997a0.06 0.06 0 0 0 -0.0315 0.026999999999999996C0.534 9.036 -0.3195 13.570500000000001 0.099 18.048000000000002q0.0045000000000000005 0.033 0.0315 0.055499999999999994a19.950000000000003 19.950000000000003 0 0 0 5.9925 3.0300000000000002 0.07500000000000001 0.07500000000000001 0 0 0 0.084 -0.028499999999999998q0.6945 -0.9450000000000001 1.2269999999999999 -1.9935a0.07500000000000001 0.07500000000000001 0 0 0 -0.015 -0.0885l-0.026999999999999996 -0.0165a13.5 13.5 0 0 1 -1.8719999999999999 -0.8925 0.07500000000000001 0.07500000000000001 0 0 1 -0.03 -0.099l0.0225 -0.028499999999999998q0.1905 -0.14250000000000002 0.372 -0.2925a0.07500000000000001 0.07500000000000001 0 0 1 0.0765 -0.0105c3.9285000000000005 1.794 8.181 1.794 12.0615 0a0.07500000000000001 0.07500000000000001 0 0 1 0.0795 0.0105q0.1815 0.15000000000000002 0.372 0.2925a0.07500000000000001 0.07500000000000001 0 0 1 -0.006 0.1275 12 12 0 0 1 -1.8735000000000002 0.891 0.07500000000000001 0.07500000000000001 0 0 0 -0.045 0.045 0.07500000000000001 0.07500000000000001 0 0 0 0.0045000000000000005 0.0615c0.36 0.6975 0.7725 1.3635000000000002 1.2254999999999998 1.9935a0.07500000000000001 0.07500000000000001 0 0 0 0.084 0.028499999999999998 19.799999999999997 19.799999999999997 0 0 0 6.0015 -3.0300000000000002 0.07500000000000001 0.07500000000000001 0 0 0 0.0315 -0.055499999999999994c0.501 -5.1765 -0.8385 -9.6735 -3.5490000000000004 -13.658999999999999a0.045 0.045 0 0 0 -0.03 -0.028499999999999998m-12.297 10.9605c-1.1835 0 -2.157 -1.0859999999999999 -2.157 -2.418s0.9555 -2.4195 2.157 -2.4195c1.2105000000000001 0 2.175 1.095 2.157 2.4195 0 1.332 -0.9555 2.418 -2.157 2.418m7.974 0c-1.182 0 -2.157 -1.0859999999999999 -2.157 -2.418s0.9555 -2.4195 2.157 -2.4195c1.2105000000000001 0 2.1765 1.095 2.157 2.4195 0 1.332 -0.9465 2.418 -2.157 2.418"
-                                strokeWidth={1.5} />
-                        </svg>
-                    </a>
-                    <a class="social-link" href="https://www.xbox.com/en-GB/play/user/JHarperUK" target="_blank" title="Xbox" aria-label="Xbox">
-                        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" 
-                            className="bi bi-xbox" viewBox="0 0 24 24" id="Xbox--Streamline-Bootstrap" 
-                            height={24} width={24} >
-                            <title>Xbox</title>
-                            <desc>Xbox Icon</desc>
-                            <path 
-                            d="M10.803 23.9505a12 12 0 0 1 -5.328 -1.8900000000000001c-1.347 -0.8775 -1.6515 -1.2389999999999999 -1.6515 -1.959 0 -1.4475 1.593 -3.984 4.3185 -6.8745C9.6885 11.5845 11.845500000000001 9.66 12.078 9.712499999999999c0.45299999999999996 0.10200000000000001 4.077 3.6345 5.433 5.2965 2.145 2.6294999999999997 3.132 4.7835 2.6310000000000002 5.7435 -0.381 0.729 -2.745 2.1555 -4.4805 2.7030000000000003 -1.431 0.4515 -3.3104999999999998 0.6435 -4.858499999999999 0.495m-8.799 -5.3549999999999995C0.8835 16.8795 0.318 15.1905 0.045 12.7455c-0.09 -0.8085 -0.056999999999999995 -1.269 0.20550000000000002 -2.925 0.327 -2.0655 1.5030000000000001 -4.455 2.9175 -5.925000000000001 0.6015 -0.6255 0.6555 -0.6405 1.389 -0.3945 0.8925 0.30000000000000004 1.845 0.9570000000000001 3.3195 2.292l0.861 0.7785 -0.46950000000000003 0.5775C6.084 9.8295 3.7800000000000002 13.629000000000001 2.91 15.979500000000002c-0.47250000000000003 1.278 -0.663 2.5605 -0.45899999999999996 3.0945 0.1365 0.36 0.0105 0.22499999999999998 -0.44999999999999996 -0.47850000000000004Zm19.651500000000002 0.2925c0.11099999999999999 -0.54 -0.028499999999999998 -1.53 -0.357 -2.5305 -0.7095 -2.1645000000000003 -3.0825000000000005 -6.192 -5.2620000000000005 -8.9295l-0.6855 -0.8624999999999999 0.741 -0.681c0.9690000000000001 -0.8895 1.6425 -1.422 2.37 -1.875 0.5715 -0.3555 1.3905 -0.672 1.7415 -0.672 0.21749999999999997 0 0.9810000000000001 0.792 1.5975 1.6560000000000001a12.600000000000001 12.600000000000001 0 0 1 2.0145 4.653c0.22949999999999998 1.092 0.249 3.4290000000000003 0.036000000000000004 4.518a14.25 14.25 0 0 1 -0.8999999999999999 2.8395c-0.26849999999999996 0.5895 -0.9359999999999999 1.734 -1.23 2.106 -0.15000000000000002 0.192 -0.15000000000000002 0.1905 -0.0645 -0.22199999999999998ZM11.0025 2.928c-1.0050000000000001 -0.51 -2.556 -1.0574999999999999 -3.4139999999999997 -1.2045000000000001a6 6 0 0 0 -1.1385 -0.0645c-0.7064999999999999 0.036000000000000004 -0.675 0 0.45899999999999996 -0.5369999999999999A11.7 11.7 0 0 1 9.705 0.192c1.2000000000000002 -0.2535 3.459 -0.255 4.641 -0.0075 1.275 0.27 2.7795 0.8280000000000001 3.6270000000000002 1.35l0.252 0.1545 -0.5775 -0.03c-1.149 -0.056999999999999995 -2.82 0.405 -4.617 1.2795 -0.5415 0.264 -1.014 0.474 -1.0485 0.46799999999999997a18 18 0 0 1 -0.9810000000000001 -0.47850000000000004Z" 
-                            strokeWidth={1.5} />
+                                strokeWidth={1.5} 
+                            />
                         </svg>
                     </a>
                     <a class="social-link" href="mailto:jhuk.contact@gmail.com" title="Email" aria-label="Email">
@@ -546,89 +687,200 @@
                             <desc>Envelope Fill Icon</desc>
                             <path
                                 d="M0.07500000000000001 5.3325000000000005A3 3 0 0 1 3 3h18a3 3 0 0 1 2.925 2.3325L12 12.620999999999999zM0 7.0455000000000005v10.656l8.7045 -5.337zM10.1415 13.245000000000001l-9.855 6.0405A3 3 0 0 0 3 21h18a3 3 0 0 0 2.712 -1.7159999999999997l-9.855 -6.0405L12 14.379000000000001zm5.154 -0.879L24 17.7015V7.0455000000000005z"
-                                strokeWidth={1.5} />
-                        </svg>
-                    </a>
-                    
-                    <a class="social-link" href="https://streamlabs.com/jamieharperuk/tip" target="_blank" title="Send Tip" aria-label="Send Tip">
-                        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" 
-                            className="bi bi-cash-stack" viewBox="0 0 16 16" id="Cash-Stack--Streamline-Bootstrap" 
-                            height={24} width={24} >
-                            <title>Send Tip</title>
-                            <desc>Cash Stack Icon</desc>
-                            <path 
-                                d="M1 3a1 1 0 0 1 1 -1h12a1 1 0 0 1 1 1zm7 8a2 2 0 1 0 0 -4 2 2 0 0 0 0 4" 
-                                strokeWidth={1} />
-                            <path 
-                                d="M0 5a1 1 0 0 1 1 -1h14a1 1 0 0 1 1 1v8a1 1 0 0 1 -1 1H1a1 1 0 0 1 -1 -1zm3 0a2 2 0 0 1 -2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2 -2V7a2 2 0 0 1 -2 -2z" 
-                                strokeWidth={1} />
+                                strokeWidth={1.5} 
+                            />
                         </svg>
                     </a>
                 </nav>
             </div>
         </header>
         <main>
-            <section class="about">
-                <div class="container">
-                    <h2>About Me</h2>
+            <!-- Streamer Page (default) -->
+            <div id="page-streamer">
+                <section class="about">
+                    <div class="container">
+                        <h2>About My Content Creation</h2>
+                        <p>
+                            Hi there! I'm Jamie, a passionate streamer sharing my gaming, tech, and creative adventures.
+                            Whether
+                            it's live gameplay, tech talk, or just hanging out, I love building a positive and interactive
+                            community. Join me on my journey across multiple platforms!
+                        </p>
+                        <nav class="social-links">
+                            <a class="social-link" href="https://www.tiktok.com/@jamieharperuk" target="_blank" title="TikTok" aria-label="TikTok">
+                                <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                    className="bi bi-tiktok" viewBox="0 0 24 24" id="Tiktok--Streamline-Bootstrap"
+                                    height={24} width={24}>
+                                    <title>TikTok</title>
+                                    <desc>TikTok Icon</desc>
+                                    <path
+                                        d="M13.5 0h2.9699999999999998c0.21599999999999997 1.0725 0.81 2.4255 1.8525 3.768C19.3425 5.0835 20.695500000000003 6 22.5 6v3c-2.6294999999999997 0 -4.6049999999999995 -1.2209999999999999 -6 -2.7435V16.5a7.5 7.5 0 1 1 -7.5 -7.5v3a4.5 4.5 0 1 0 4.5 4.5z"
+                                        strokeWidth={1.5} 
+                                    />
+                                </svg>
+                            </a>
+                            <a class="social-link" href="https://discord.gg/kxbFtS6tKn" target="_blank" title="Discord" aria-label="Discord">
+                                <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                    className="bi bi-discord" viewBox="0 0 24 24" id="Discord--Streamline-Bootstrap"
+                                    height={24} width={24}>
+                                    <title>Discord</title>
+                                    <desc>Discord Icon</desc>
+                                    <path
+                                        d="M20.3175 4.3605a19.799999999999997 19.799999999999997 0 0 0 -4.8855 -1.5164999999999997 0.07500000000000001 0.07500000000000001 0 0 0 -0.078 0.037500000000000006c-0.21149999999999997 0.375 -0.4455 0.8654999999999999 -0.609 1.2494999999999998a18.299999999999997 18.299999999999997 0 0 0 -5.487 0 12 12 0 0 0 -0.618 -1.2494999999999998 0.07500000000000001 0.07500000000000001 0 0 0 -0.078 -0.037500000000000006c-1.6875 0.29100000000000004 -3.33 0.801 -4.8855 1.5164999999999997a0.06 0.06 0 0 0 -0.0315 0.026999999999999996C0.534 9.036 -0.3195 13.570500000000001 0.099 18.048000000000002q0.0045000000000000005 0.033 0.0315 0.055499999999999994a19.950000000000003 19.950000000000003 0 0 0 5.9925 3.0300000000000002 0.07500000000000001 0.07500000000000001 0 0 0 0.084 -0.028499999999999998q0.6945 -0.9450000000000001 1.2269999999999999 -1.9935a0.07500000000000001 0.07500000000000001 0 0 0 -0.015 -0.0885l-0.026999999999999996 -0.0165a13.5 13.5 0 0 1 -1.8719999999999999 -0.8925 0.07500000000000001 0.07500000000000001 0 0 1 -0.03 -0.099l0.0225 -0.028499999999999998q0.1905 -0.14250000000000002 0.372 -0.2925a0.07500000000000001 0.07500000000000001 0 0 1 0.0765 -0.0105c3.9285000000000005 1.794 8.181 1.794 12.0615 0a0.07500000000000001 0.07500000000000001 0 0 1 0.0795 0.0105q0.1815 0.15000000000000002 0.372 0.2925a0.07500000000000001 0.07500000000000001 0 0 1 -0.006 0.1275 12 12 0 0 1 -1.8735000000000002 0.891 0.07500000000000001 0.07500000000000001 0 0 0 -0.045 0.045 0.07500000000000001 0.07500000000000001 0 0 0 0.0045000000000000005 0.0615c0.36 0.6975 0.7725 1.3635000000000002 1.2254999999999998 1.9935a0.07500000000000001 0.07500000000000001 0 0 0 0.084 0.028499999999999998 19.799999999999997 19.799999999999997 0 0 0 6.0015 -3.0300000000000002 0.07500000000000001 0.07500000000000001 0 0 0 0.0315 -0.055499999999999994c0.501 -5.1765 -0.8385 -9.6735 -3.5490000000000004 -13.658999999999999a0.045 0.045 0 0 0 -0.03 -0.028499999999999998m-12.297 10.9605c-1.1835 0 -2.157 -1.0859999999999999 -2.157 -2.418s0.9555 -2.4195 2.157 -2.4195c1.2105000000000001 0 2.175 1.095 2.157 2.4195 0 1.332 -0.9555 2.418 -2.157 2.418m7.974 0c-1.182 0 -2.157 -1.0859999999999999 -2.157 -2.418s0.9555 -2.4195 2.157 -2.4195c1.2105000000000001 0 2.1765 1.095 2.157 2.4195 0 1.332 -0.9465 2.418 -2.157 2.418"
+                                        strokeWidth={1.5} 
+                                    />
+                                </svg>
+                            </a>
+                            <a class="social-link" href="https://www.xbox.com/en-GB/play/user/JHarperUK" target="_blank" title="Xbox" aria-label="Xbox">
+                                <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                    className="bi bi-xbox" viewBox="0 0 24 24" id="Xbox--Streamline-Bootstrap" height={24}
+                                    width={24}>
+                                    <title>Xbox</title>
+                                    <desc>Xbox Icon</desc>
+                                    <path
+                                        d="M10.803 23.9505a12 12 0 0 1 -5.328 -1.8900000000000001c-1.347 -0.8775 -1.6515 -1.2389999999999999 -1.6515 -1.959 0 -1.4475 1.593 -3.984 4.3185 -6.8745C9.6885 11.5845 11.845500000000001 9.66 12.078 9.712499999999999c0.45299999999999996 0.10200000000000001 4.077 3.6345 5.433 5.2965 2.145 2.6294999999999997 3.132 4.7835 2.6310000000000002 5.7435 -0.381 0.729 -2.745 2.1555 -4.4805 2.7030000000000003 -1.431 0.4515 -3.3104999999999998 0.6435 -4.858499999999999 0.495m-8.799 -5.3549999999999995C0.8835 16.8795 0.318 15.1905 0.045 12.7455c-0.09 -0.8085 -0.056999999999999995 -1.269 0.20550000000000002 -2.925 0.327 -2.0655 1.5030000000000001 -4.455 2.9175 -5.925000000000001 0.6015 -0.6255 0.6555 -0.6405 1.389 -0.3945 0.8925 0.30000000000000004 1.845 0.9570000000000001 3.3195 2.292l0.861 0.7785 -0.46950000000000003 0.5775C6.084 9.8295 3.7800000000000002 13.629000000000001 2.91 15.979500000000002c-0.47250000000000003 1.278 -0.663 2.5605 -0.45899999999999996 3.0945 0.1365 0.36 0.0105 0.22499999999999998 -0.44999999999999996 -0.47850000000000004Zm19.651500000000002 0.2925c0.11099999999999999 -0.54 -0.028499999999999998 -1.53 -0.357 -2.5305 -0.7095 -2.1645000000000003 -3.0825000000000005 -6.192 -5.2620000000000005 -8.9295l-0.6855 -0.8624999999999999 0.741 -0.681c0.9690000000000001 -0.8895 1.6425 -1.422 2.37 -1.875 0.5715 -0.3555 1.3905 -0.672 1.7415 -0.672 0.21749999999999997 0 0.9810000000000001 0.792 1.5975 1.6560000000000001a12.600000000000001 12.600000000000001 0 0 1 2.0145 4.653c0.22949999999999998 1.092 0.249 3.4290000000000003 0.036000000000000004 4.518a14.25 14.25 0 0 1 -0.8999999999999999 2.8395c-0.26849999999999996 0.5895 -0.9359999999999999 1.734 -1.23 2.106 -0.15000000000000002 0.192 -0.15000000000000002 0.1905 -0.0645 -0.22199999999999998ZM11.0025 2.928c-1.0050000000000001 -0.51 -2.556 -1.0574999999999999 -3.4139999999999997 -1.2045000000000001a6 6 0 0 0 -1.1385 -0.0645c-0.7064999999999999 0.036000000000000004 -0.675 0 0.45899999999999996 -0.5369999999999999A11.7 11.7 0 0 1 9.705 0.192c1.2000000000000002 -0.2535 3.459 -0.255 4.641 -0.0075 1.275 0.27 2.7795 0.8280000000000001 3.6270000000000002 1.35l0.252 0.1545 -0.5775 -0.03c-1.149 -0.056999999999999995 -2.82 0.405 -4.617 1.2795 -0.5415 0.264 -1.014 0.474 -1.0485 0.46799999999999997a18 18 0 0 1 -0.9810000000000001 -0.47850000000000004Z"
+                                        strokeWidth={1.5} 
+                                    />
+                                </svg>
+                            </a>
+                            <a class="social-link" href="https://streamlabs.com/jamieharperuk/tip" target="_blank" title="Send Tip" aria-label="Send Tip">
+                                <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                    className="bi bi-cash-stack" viewBox="0 0 16 16" id="Cash-Stack--Streamline-Bootstrap"
+                                    height={24} width={24}>
+                                    <title>Send Tip</title>
+                                    <desc>Cash Stack Icon</desc>
+                                    <path d="M1 3a1 1 0 0 1 1 -1h12a1 1 0 0 1 1 1zm7 8a2 2 0 1 0 0 -4 2 2 0 0 0 0 4"
+                                        strokeWidth={1} 
+                                    />
+                                    <path
+                                        d="M0 5a1 1 0 0 1 1 -1h14a1 1 0 0 1 1 1v8a1 1 0 0 1 -1 1H1a1 1 0 0 1 -1 -1zm3 0a2 2 0 0 1 -2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2 -2V7a2 2 0 0 1 -2 -2z"
+                                        strokeWidth={1} 
+                                    />
+                                </svg>
+                            </a>
+                        </nav>
+                    </div>
+                </section>
+                <section class="showcase">
+                    <h2>Streaming Platforms</h2>
                     <p>
-                        Hi there! I'm Jamie, a passionate streamer sharing my gaming, tech, and creative adventures. Whether
-                        it's live gameplay, tech talk, or just hanging out, I love building a positive and interactive
-                        community. Join me on my journey across multiple platforms!
+                        You can tune in live and well as catch up on past streams or highlights on any of the following
+                        platforms.
                     </p>
-                </div>
-            </section>
-            <section class="showcase">
-                <h2>Streaming Platforms</h2>
-                <p>
-                    You can tune in live and well as catch up on past streams or highlights on any of the following platforms.
-                </p>
-                <div class="platforms">
-                    <a class="platform-link" href="https://twitch.tv/jamieharperuk" target="_blank" title="Twitch"
-                        aria-label="Twitch">
-                        <img class="platform-icon" src="assets/icons/twitch.png" alt="Twitch" />
-                        Twitch
-                    </a>
-                    <a class="platform-link" href="https://youtube.com/@jamieharperuk" target="_blank" title="YouTube"
-                        aria-label="YouTube">
-                        <img class="platform-icon" src="assets/icons/youtube.png" alt="YouTube" />
-                        YouTube
-                    </a>
-                    <a class="platform-link" href="https://rumble.com/user/JamieHarperUK" target="_blank" title="Rumble"
-                        aria-label="Rumble">
-                        <img class="platform-icon" src="assets/icons/rumble.png" alt="Rumble" />
-                        Rumble
-                    </a>
-                </div>
-            </section>
-            <section class="gallery">
-                <div class="container">
-                    <h2>My Gallery & Highlights</h2>
-                    <div class="gallery-grid" id="galleryGrid"></div>
-                    <div class="modal" id="imgModal" aria-modal="true" role="dialog">
-                        <div class="modal-content">
-                            <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
-                            <div class="modal-img-wrapper">
-                                <img src="" alt="Selected Screenshot" class="modal-img" id="modalImg" />
-                                <div class="modal-img-alt"></div>
+                    <div class="platforms">
+                        <a class="platform-link" href="https://twitch.tv/jamieharperuk" target="_blank" title="Twitch"
+                            aria-label="Twitch">
+                            <img class="platform-icon" src="assets/icons/twitch.png" alt="Twitch" />
+                            Twitch
+                        </a>
+                        <a class="platform-link" href="https://youtube.com/@jamieharperuk" target="_blank" title="YouTube"
+                            aria-label="YouTube">
+                            <img class="platform-icon" src="assets/icons/youtube.png" alt="YouTube" />
+                            YouTube
+                        </a>
+                        <a class="platform-link" href="https://rumble.com/user/JamieHarperUK" target="_blank" title="Rumble"
+                            aria-label="Rumble">
+                            <img class="platform-icon" src="assets/icons/rumble.png" alt="Rumble" />
+                            Rumble
+                        </a>
+                    </div>
+                </section>
+                <section class="gallery">
+                    <div class="container">
+                        <h2>My Gallery & Highlights</h2>
+                        <div class="gallery-grid" id="galleryGrid"></div>
+                        <div class="modal" id="imgModal" aria-modal="true" role="dialog">
+                            <div class="modal-content">
+                                <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+                                <div class="modal-img-wrapper">
+                                    <img src="" alt="Selected Screenshot" class="modal-img" id="modalImg" />
+                                    <div class="modal-img-alt"></div>
+                                </div>
+                                <a class="modal-website" id="modalWebsiteBtn" target="_blank" rel="noopener noreferrer"
+                                    style="display:none;">Developer's Website</a>
                             </div>
-                            <a class="modal-website" id="modalWebsiteBtn" target="_blank" rel="noopener noreferrer"
-                                style="display:none;">Developer's Website</a>
+                        </div>
+                        <p class="gallery-caption">Screenshots and highlights from recent streams. Share your favorite
+                            moments
+                            with the community!</p>
+                    </div>
+                </section>
+                <section class="featured-games">
+                    <div class="container">
+                        <h2>My Featured Picks</h2>
+                        <p>
+                            The below titles are ones that I would personally recommend playing.
+                        </p>
+                        <div class="games-grid" id="gamesGrid"></div>
+                    </div>
+                </section>
+            </div>
+            <!-- Developer Portfolio/CV Page -->
+            <div id="page-developer" style="display:none;">
+                <section class="about">
+                    <div class="container">
+                        <h2>About My Software Development</h2>
+                        <p>
+                            I am a passionate software and web developer with experience in building modern, scalable, and
+                            user-friendly applications. My expertise spans full-stack web development, UI/UX design, and
+                            project management. I enjoy turning ideas into reality and collaborating with clients to deliver
+                            impactful solutions.
+                        </p>
+                    </div>
+                </section>
+                <section class="portfolio">
+                    <div class="container">
+                        <h2 style="font-size: 2rem; color: var(--color-accent-1); margin-bottom: 0.5rem;">Portfolio</h2>
+                        <ul id="portfolioList" style="list-style:none;padding:0;display: inline-grid; margin-bottom: 0;"></ul>
+                    </div>
+                </section>
+                <section class="cv">
+                    <div class="container">
+                        <h2 style="font-size: 2rem; color: var(--color-accent-1); margin-bottom: 0.5rem; margin-top: 0;">Curriculum Vitae</h2>
+                        <ul style="list-style: none; padding: 0; display: grid; gap: 1rem;">
+                            <li>
+                                <strong>Skills</strong><br>
+                                <ul class="skills-list">
+                                    <li>Python</li>
+                                    <li>JavaScript</li>
+                                    <li>HTML5</li>
+                                    <li>CSS3</li>
+                                    <li>SQL</li>
+                                    <li>JSON</li>
+                                    <li>Responsive Design</li>
+                                    <li>UI/UX</li>
+                                    <li>Git</li>
+                                    <li>Project Management</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <strong>Services</strong><br>
+                                <ul class="services-list">
+                                    <li>Web Development</li>
+                                    <li>Website Redesign</li>
+                                    <li>Database Design</li>
+                                    <li>Maintenance</li>
+                                    <li>Consulting</li>
+                                    <li>Training</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div>
+                            <h2 style="font-size: 2rem; color: var(--color-accent-1); margin-bottom: 1.5rem;">Contact Me</h2>
+                            <form action="https://api.web3forms.com/submit" method="POST">
+                                <input type="hidden" name="access_key" value="5552e842-7027-4635-9ae9-9f177373292b">
+                                <label for="contact-name">Name</label>
+                                <input type="text" name="name" required="" placeholder="Your name">
+                                <label for="contact-email">Email</label>
+                                <input type="email" name="email" required="" placeholder="Your email">
+                                <label for="contact-message">Message</label>
+                                <textarea name="message" required="" placeholder="How can I help you?"></textarea>
+                                <button type="submit">Send Message</button>
+                            </form>
                         </div>
                     </div>
-                    <p class="gallery-caption">Screenshots and highlights from recent streams. Share your favorite moments
-                        with the community!</p>
-                </div>
-            </section>
-            <section class="featured-games">
-                <div class="container">
-                    <h2>My Featured Picks</h2>
-                    <p>
-                        The below titles are ones that I would personally recommend playing.
-                    </p>
-                    <div class="games-grid" id="gamesGrid"></div>
-                </div>
-            </section>
+                </section>
+            </div>
         </main>
         <footer>
             <div class="container">
@@ -636,6 +888,75 @@
             </div>
         </footer>
         <script>
+            // Highlight active nav button
+            function updateActiveNav() {
+                const hash = window.location.hash.replace('#', '') || 'streamer';
+                document.querySelectorAll('.page-btn').forEach(btn => {
+                    if (btn.getAttribute('href').replace('#', '') === hash) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+            }
+            window.addEventListener('hashchange', updateActiveNav);
+            document.addEventListener('DOMContentLoaded', updateActiveNav);
+
+            // Developer Portfolio Data & Renderer
+            const developerPortfolio = [
+                {
+                    name: 'SinisterEXP',
+                    description: 'Voice acting portfolio website showcasing the client\'s work in various projects, including video games and animations.',
+                    role: 'Sole Developer & Designer',
+                    tech: 'HTML5, CSS3, JavaScript',
+                    url: 'https://SinisterEXP.github.io/'
+                }
+            ];
+            function renderPortfolio() {
+                const list = document.getElementById('portfolioList');
+                if (!list) return;
+                list.innerHTML = '';
+                developerPortfolio.forEach(project => {
+                    const li = document.createElement('li');
+                    li.className = 'portfolio-item';
+                    li.innerHTML = `
+                                            <strong class="portfolio-item-title">${project.name}</strong><br><br>
+                                            <span>${project.description}</span><br><br>
+                                            <span>Role: ${project.role}</span><br><br>
+                                            <span>Tech: ${project.tech}</span><br><br>
+                                            <a class="portfolio-link" href="${project.url}" target="_blank">View Project</a>
+                                        `;
+                    list.appendChild(li);
+                });
+            }
+            document.addEventListener('DOMContentLoaded', renderPortfolio);
+            window.addEventListener('hashchange', renderPortfolio);
+            // Simple SPA Hash Router
+            function showPage(page) {
+                document.getElementById('page-streamer').style.display = (page === 'streamer') ? '' : 'none';
+                document.getElementById('page-developer').style.display = (page === 'developer') ? '' : 'none';
+            }
+            function handleHash() {
+                const hash = window.location.hash.replace('#', '');
+                if (hash === 'developer') {
+                    showPage('developer');
+                } else {
+                    showPage('streamer');
+                }
+            }
+            window.addEventListener('hashchange', handleHash);
+            document.addEventListener('DOMContentLoaded', handleHash);
+
+            // Update nav links to use hashes
+            document.addEventListener('DOMContentLoaded', function () {
+                document.querySelectorAll('.page-btn').forEach(btn => {
+                    btn.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        window.location.hash = this.getAttribute('href');
+                    });
+                });
+            });
+
             // Featured Games Data
             const featuredGames = [
                 {
@@ -715,13 +1036,7 @@
                 });
             });
 
-            // Accent color theme changer (click site title)
-            const accentColors = ['#26AE80', '#FF0055', '#FFD600', '#00AEEF'];
-            let accentIndex = 0;
-            document.querySelector('.site-title').addEventListener('click', () => {
-                accentIndex = (accentIndex + 1) % accentColors.length;
-                document.documentElement.style.setProperty('--color-accent-1', accentColors[accentIndex]);
-            });
+            // ...existing code...
 
             // Modal logic for gallery images
             const modal = document.getElementById('imgModal');
@@ -764,37 +1079,37 @@
 
             // Dynamically render gallery images
             const galleryImages = [
-                { 
-                    src: 'assets/scs/ys01.png', 
+                {
+                    src: 'assets/scs/ys01.png',
                     alt: 'Young Suns', website: 'https://www.youngsuns.com'
                 },
-                { 
-                    src: 'assets/scs/ys02.png', 
-                    alt: 'Young Suns', website: 'https://www.youngsuns.com' 
+                {
+                    src: 'assets/scs/ys02.png',
+                    alt: 'Young Suns', website: 'https://www.youngsuns.com'
                 },
-                { 
-                    src: 'assets/scs/tnl01.png', 
-                    alt: 'Throne and Liberty', website: 'https://www.playthroneandliberty.com/en-us/' 
+                {
+                    src: 'assets/scs/tnl01.png',
+                    alt: 'Throne and Liberty', website: 'https://www.playthroneandliberty.com/en-us/'
                 },
-                { 
-                    src: 'assets/scs/tnl02.png', 
-                    alt: 'Throne and Liberty', website: 'https://www.playthroneandliberty.com/en-us/' 
+                {
+                    src: 'assets/scs/tnl02.png',
+                    alt: 'Throne and Liberty', website: 'https://www.playthroneandliberty.com/en-us/'
                 },
-                { 
-                    src: 'assets/scs/pspo01.png', 
-                    alt: 'Police Simulator: Patrol Officers', website: 'https://www.patrol-officers.com' 
+                {
+                    src: 'assets/scs/pspo01.png',
+                    alt: 'Police Simulator: Patrol Officers', website: 'https://www.patrol-officers.com'
                 },
-                { 
-                    src: 'assets/scs/pspo02.png', 
-                    alt: 'Police Simulator: Patrol Officers', website: 'https://www.patrol-officers.com' 
+                {
+                    src: 'assets/scs/pspo02.png',
+                    alt: 'Police Simulator: Patrol Officers', website: 'https://www.patrol-officers.com'
                 },
-                { 
-                    src: 'assets/scs/hd01.png', 
-                    alt: 'Helldivers 2', website: 'https://www.arrowheadgamestudios.com' 
+                {
+                    src: 'assets/scs/hd01.png',
+                    alt: 'Helldivers 2', website: 'https://www.arrowheadgamestudios.com'
                 },
-                { 
-                    src: 'assets/scs/hd02.png', 
-                    alt: 'Helldivers 2', website: 'https://www.arrowheadgamestudios.com' 
+                {
+                    src: 'assets/scs/hd02.png',
+                    alt: 'Helldivers 2', website: 'https://www.arrowheadgamestudios.com'
                 },
                 {
                     src: 'assets/scs/stv01.jpg',
@@ -879,4 +1194,5 @@
             });
         </script>
     </body>
+
 </html>
