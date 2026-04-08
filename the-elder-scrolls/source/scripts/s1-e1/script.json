@@ -1,0 +1,69 @@
+{
+    "title-page": {
+        "title": "The Elder Scrolls",
+        "subtitle": "Season 1, Episode 1",
+        "credits": [
+            ["written by", "Jamie Harper"],
+            ["directed by", "TBD"],
+            ["produced by", "TBD"],
+            ["starring", {
+                "ARIWYN VALGATA": "TBD",
+                "FRUIT VENDOR": "TBD",
+                "LEGIONNAIRE #1": "TBD",
+                "LEGIONNAIRE #2": "TBD",
+                "ARGONIAN #1": "TBD",
+                "ARGONIAN #2": "TBD"
+            }]
+        ]
+    },
+    "contents": {
+        "prologue": [
+            ["action", "The camera fades in to see a map of TAMRIEL, slowly panning from location to location as a voice over narration sets the current date and tone."],
+            ["action", "It is the 28th of Frostfall, in the Fourth Era 171."]
+        ],
+        "act-1": [
+            ["scene", "EXT. IMPERIAL CITY - MARKET DISTRICT - MORNING"],
+            ["action", "Golden sunlight spills over the white stone walls of THE IMPERIAL CITY. Banners sway gently above, nearby market stalls and shops hum with chatter."],
+            ["action", "Birds can be heard calling out across the stirring streets."],
+            ["action", "A world at peace – or at least pretending to be."],
+            ["action", "The camera glides downward into the MARKET DISTRICT, weaving through a bustling morning crowd."],
+            ["action", "Merchants arrange wares, Legionnaires and City Watch patrol in pairs. Citizens barter, laugh and argue."],
+            ["action", "Then, a young woman moves through it all with a quiet but urgent purpose."],
+            ["action", "ARIWYN VALGATA (19), with determination she pushes through the crowd. She doesn't shove or rush – but she doesn't exactly linger either."],
+            ["action", "Focused. Intent."],
+            ["action", "She clutches a small coin pouch tightly in one hand as she continues on."],
+            ["action", "A FRUIT VENDOR steps into her path."],
+            ["character", "FRUIT VENDOR"],
+            ["dialogue", "Fresh apples? They're straight from Chorrol!"],
+            ["action", "Ariwyn offers a polite smile but keeps moving."],
+            ["character", "ARIWYN VALGATA"],
+            ["parenthetical", "laughs softly"],
+            ["dialogue", "Maybe tomorrow, sorry I can't stop!"],
+            ["action", "She sidesteps a pair of haggling merchants, arguing over the price of grain, without breaking stride."],
+            ["action", "Her eyes then flick upward as they're caught by Legion banners."],
+            ["action", "For a brief moment her pace slows, but doesn't stop."],
+            ["action", "Two IMPERIAL LEGIONNAIRES stand nearby the banner, speaking in hushed tones."],
+            ["character", "LEGIONNAIRE #1"],
+            ["parenthetical", "quietly"],
+            ["dialogue", "I hear they've relaxed the Legion entry requirements."],
+            ["character", "LEGIONNAIRE #2"],
+            ["dialogue", "Since when?"],
+            ["character", "LEGIONNAIRE #1"],
+            ["dialogue", "Last week. No announcement either, it just changed overnight."],
+            ["character", "LEGIONNAIRE #2"],
+            ["dialogue", "Well that doesn't happen for no reason, should we be worried?"],
+            ["action", "Ariwyn catches only part of their conversation, before it trails off, but just enough."],
+            ["action", "As she rounds the corner into a courtyard, she passes two ARGONIANS mid-conversation talking loudly as they walk."],
+            ["character", "ARGONIAN #1"],
+            ["parenthetical", "excited"],
+            ["dialogue", "They say this Arena Champion is even stronger than the last!"],
+            ["character", "ARGONIAN #2"],
+            ["parenthetical", "equally as excited"],
+            ["dialogue", "That's what I heard as well! Isn't she an Argonian too?"],
+            ["character", "ARGONIAN #1"],
+            ["dialogue", "She is. I always thought I might try out for the arena, you know."],
+            ["action", "The Argonians move out of earshot. The determination on her face falters for a moment, nearly getting distracted, then pushing through the feeling and carrying onwards with the same urgency as before."],
+            ["transition", "CUT TO:"]
+        ]
+    }
+}
