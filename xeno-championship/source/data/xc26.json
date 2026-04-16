@@ -8,5 +8,11 @@
             "formLink": "#"
         }
     },
-    "players": []
+    "players": [
+        {
+            "name": "Player Name", 
+            "nmsFriendCode": "", "platform": "Xbox",
+            "results": {"played": 0, "wins": 0, "losses": 0, "forfeits": 0, "points": 0, "omw": 0.0}
+        }
+    ]
 }
