@@ -325,9 +325,9 @@ async function populateXC2026() {
             <h2>Tournament Information</h2>
             <p><strong>Format:</strong> 1v1 Best-of-3 Xeno Arena matches</p>
             <p><strong>Stages:</strong> Qualification Round → Top 8 Playoffs</p>
-            <p><strong>Schedule:</strong> Weekday fixtures in UK time (UTC+00:00)</p>
+            <p><strong>Schedule:</strong> Weekday fixtures in UK time (UTC+01:00)</p>
             <p><strong>Streaming:</strong> All matches are streamed and monitored</p>
-            <button class="btn" onclick="navigateToPage('rules')">View Full Rules</button>
+            <button class="btn" onclick="navigateToPage('rules')" style="margin-top: 1rem;">View Full Rules</button>
         </div>
     `;
 }
