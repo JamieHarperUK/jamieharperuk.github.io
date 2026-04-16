@@ -355,8 +355,8 @@ select.select option {
     }
 
     main {
-        margin-top: 280px;
         padding: 1rem;
+        margin-top: 70px;
     }
 
     .mobile-menu-modal.active {
