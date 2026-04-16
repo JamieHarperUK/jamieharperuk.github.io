@@ -154,7 +154,7 @@ function populateHomePage(data, record) {
         </div>
         <div class="card">
             <h2>Featured Content</h2>
-            <ul>
+            <ul style="margin-bottom: 0px;">
                 <li><strong>Xeno Arena Basics:</strong> Learn the fundamentals of competitive play</li>
                 <li><strong>Live Streams:</strong> Watch ongoing matches and tournaments</li>
                 <li><strong>Hall of Fame:</strong> Celebrate past champions and their achievements</li>
@@ -164,7 +164,7 @@ function populateHomePage(data, record) {
         <div class="card">
             <h2>Quick Links</h2>
             <p>Ready to dive in? Check out these popular sections:</p>
-            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;">
                 <button class="btn" onclick="navigateToPage('rules')">Tournament Rules</button>
                 <button class="btn" onclick="navigateToPage('hof')">Hall of Fame</button>
                 <button class="btn" onclick="navigateToPage('media')">Past Results</button>
@@ -176,26 +176,28 @@ function populateHomePage(data, record) {
 
 function populateHallOfFame() {
     const hofPage = document.getElementById('page-hof');
-    const pastRecords = records.filter(r => r.past);
+    const pastRecords = records.filter(r => r.past).slice().sort((a, b) => getRecordYear(b) - getRecordYear(a));
 
     hofPage.innerHTML = `
         <h1>Hall of Fame</h1>
-        ${pastRecords.map(record => `
-            <div class="card">
-                <h2>${record.title}</h2>
-                <ol>
-                    <li>${record.top3[0]} (Gold)</li>
-                    <li>${record.top3[1]} (Silver)</li>
-                    <li>${record.top3[2]} (Bronze)</li>
-                </ol>
-            </div>
-        `).join('')}
+        <p class="hof-subtitle">Only the champions make it here. Every year a single player wins the right to be immortalized in the Xeno Championship Hall of Fame.</p>
+        <div class="hof-grid">
+            ${pastRecords.map(record => `
+                <div class="card hof-winner-card">
+                    <div class="hof-year">${record.title}</div>
+                    <div class="hof-winner-badge">🏆</div>
+                    <div class="hof-winner-name">${record.top3[0]}</div>
+                    <div class="hof-winner-label">Champion</div>
+                </div>
+            `).join('')}
+        </div>
     `;
 }
 
 function setupPastResultsSelector() {
     const mediaPage = document.getElementById('page-media');
     const pastRecords = records.filter(r => r.past);
+    const sortedPastRecords = pastRecords.slice().sort((a, b) => getRecordYear(b) - getRecordYear(a));
 
     mediaPage.innerHTML = `
         <h1>Past Results</h1>
@@ -203,20 +205,51 @@ function setupPastResultsSelector() {
             <label for="past-select">Select Championship:</label>
             <select id="past-select" class="select">
                 <option value="">Choose a championship...</option>
-                ${pastRecords.map((record, index) => `<option value="${index}">${record.title}</option>`).join('')}
+                ${sortedPastRecords.map((record, index) => `<option value="${index}">${record.title}</option>`).join('')}
             </select>
         </div>
         <div id="past-results"></div>
     `;
 
+    const resultsDiv = document.getElementById('past-results');
+    resultsDiv.innerHTML = renderAllPastRecords(sortedPastRecords);
+
     document.getElementById('past-select').addEventListener('change', function() {
         const index = this.value;
         if (index !== '') {
-            showPastResults(pastRecords[index]);
+            showPastResults(sortedPastRecords[index]);
         } else {
-            document.getElementById('past-results').innerHTML = '';
+            resultsDiv.innerHTML = renderAllPastRecords(sortedPastRecords);
         }
     });
+}
+
+function sortPlayersByStandings(players) {
+    return players.slice().sort((a, b) => {
+        const pointsA = Number(a.results.points ?? 0);
+        const pointsB = Number(b.results.points ?? 0);
+        if (pointsB !== pointsA) return pointsB - pointsA;
+
+        const omwA = Number(a.results.omw ?? 0);
+        const omwB = Number(b.results.omw ?? 0);
+        if (omwB !== omwA) return omwB - omwA;
+
+        const winsA = Number(a.results.wins ?? 0);
+        const winsB = Number(b.results.wins ?? 0);
+        if (winsB !== winsA) return winsB - winsA;
+
+        return a.name.localeCompare(b.name);
+    });
+}
+
+function togglePlayerDetails(index) {
+    const card = document.getElementById(`player-card-${index}`);
+    if (!card) return;
+    card.classList.toggle('expanded');
+    const summary = card.querySelector('.player-summary');
+    if (summary) {
+        summary.setAttribute('aria-expanded', card.classList.contains('expanded') ? 'true' : 'false');
+    }
 }
 
 async function populateXC2026() {
@@ -235,44 +268,58 @@ async function populateXC2026() {
         }
     }
 
+    const standingsHtml = data ? `
+        <div class="standings-accordion">
+            ${sortPlayersByStandings(data.players).map((player, index) => `
+                <div class="player-card" id="player-card-${index}">
+                    <button class="player-summary" type="button" onclick="togglePlayerDetails(${index})" aria-expanded="false">
+                        <span class="rank-badge">${index + 1}</span>
+                        <span class="player-title">
+                            <span class="player-name">${player.name}</span>
+                            <span class="player-platform">${player.platform}</span>
+                        </span>
+                        <span class="player-stats">
+                            <span class="points">${player.results.points} pts</span>
+                            <span class="omw">OMW ${player.results.omw ?? '—'}%</span>
+                        </span>
+                    </button>
+                    <div class="player-details">
+                        <div class="detail-row"><span>Played</span><span>${player.results.played}</span></div>
+                        <div class="detail-row"><span>Wins</span><span>${player.results.wins}</span></div>
+                        <div class="detail-row"><span>Losses</span><span>${player.results.losses}</span></div>
+                        <div class="detail-row"><span>Forfeits</span><span>${player.results.forfeits ?? 0}</span></div>
+                        ${player.results.omw !== undefined ? `<div class="detail-row"><span>OMW%</span><span>${player.results.omw}%</span></div>` : ''}
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    ` : '<p>Registration is now open! Standings will be updated as matches begin.</p>';
+
     xc2026Page.innerHTML = `
         <h1>${currentRecord.title}</h1>
         <div class="card">
             <h2>Current Standings</h2>
-            ${data ? `
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Player</th>
-                            <th>Platform</th>
-                            <th>Played</th>
-                            <th>Wins</th>
-                            <th>Losses</th>
-                            <th>Points</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${data.players.map(player => `
-                            <tr>
-                                <td>${player.name}</td>
-                                <td>${player.platform}</td>
-                                <td>${player.results.played}</td>
-                                <td>${player.results.wins}</td>
-                                <td>${player.results.losses}</td>
-                                <td>${player.results.points}</td>
-                            </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
-            ` : '<p>Registration is now open! Standings will be updated as matches begin.</p>'}
+            ${standingsHtml}
         </div>
-        <div class="card">
+        <div class="card podium-card">
             <h2>Championship Podium</h2>
-            <ol>
-                <li>${currentRecord.top3[0]} (Gold)</li>
-                <li>${currentRecord.top3[1]} (Silver)</li>
-                <li>${currentRecord.top3[2]} (Bronze)</li>
-            </ol>
+            <div class="podium-grid">
+                <div class="podium-item silver">
+                    <span class="medal-badge">2</span>
+                    <div>${currentRecord.top3[1]}</div>
+                    <div class="podium-label">Silver</div>
+                </div>
+                <div class="podium-item gold">
+                    <span class="medal-badge">1</span>
+                    <div>${currentRecord.top3[0]}</div>
+                    <div class="podium-label">Gold</div>
+                </div>
+                <div class="podium-item bronze">
+                    <span class="medal-badge">3</span>
+                    <div>${currentRecord.top3[2]}</div>
+                    <div class="podium-label">Bronze</div>
+                </div>
+            </div>
         </div>
         <div class="card">
             <h2>Tournament Information</h2>
@@ -285,6 +332,42 @@ async function populateXC2026() {
     `;
 }
 
+function renderPodium(top3) {
+    return `
+        <div class="podium-grid">
+            <div class="podium-item silver">
+                <span class="medal-badge">2</span>
+                <div>${top3[1]}</div>
+                <div class="podium-label">Silver</div>
+            </div>
+            <div class="podium-item gold">
+                <span class="medal-badge">1</span>
+                <div>${top3[0]}</div>
+                <div class="podium-label">Gold</div>
+            </div>
+            <div class="podium-item bronze">
+                <span class="medal-badge">3</span>
+                <div>${top3[2]}</div>
+                <div class="podium-label">Bronze</div>
+            </div>
+        </div>
+    `;
+}
+
+function getRecordYear(record) {
+    const match = record.title.match(/(\d{4})/);
+    return match ? Number(match[1]) : 0;
+}
+
+function renderAllPastRecords(records) {
+    return records.map(record => `
+        <div class="card">
+            <h2>${record.title}</h2>
+            ${renderPodium(record.top3)}
+        </div>
+    `).join('');
+}
+
 async function showPastResults(record) {
     const resultsDiv = document.getElementById('past-results');
     resultsDiv.innerHTML = `
@@ -294,12 +377,7 @@ async function showPastResults(record) {
                 <p>Loading data...</p>
             ` : `
                 <p>No detailed results available for this championship.</p>
-                <h3>Top 3:</h3>
-                <ol>
-                    <li>${record.top3[0]} (Gold)</li>
-                    <li>${record.top3[1]} (Silver)</li>
-                    <li>${record.top3[2]} (Bronze)</li>
-                </ol>
+                ${renderPodium(record.top3)}
             `}
         </div>
     `;
@@ -311,6 +389,7 @@ async function showPastResults(record) {
             resultsDiv.innerHTML = `
                 <div class="card">
                     <h2>${record.title} Results</h2>
+                    ${renderPodium(record.top3)}
                     <table class="table">
                         <thead>
                             <tr>
@@ -343,11 +422,7 @@ async function showPastResults(record) {
                 <div class="card">
                     <h2>${record.title} Results</h2>
                     <p>Error loading data. Showing top 3 only.</p>
-                    <ol>
-                        <li>${record.top3[0]} (Gold)</li>
-                        <li>${record.top3[1]} (Silver)</li>
-                        <li>${record.top3[2]} (Bronze)</li>
-                    </ol>
+                    ${renderPodium(record.top3)}
                 </div>
             `;
         }
