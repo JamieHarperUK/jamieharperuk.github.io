@@ -1,0 +1,14 @@
+{
+    "metadata": {
+        "tournamentName": "Xeno Championship 2026",
+        "year": 2026,
+        "organiser": "JamieHarperUK"
+    },
+    "players": [
+        {
+            "name": "Player Name", 
+            "nmsFriendCode": "1234-5678-9012", "platform": "Xbox Series X/S",
+            "results": {"played": 0, "wins": 0, "losses": 0, "forfeits": 0, "points": 0}
+        }
+    ]
+}
