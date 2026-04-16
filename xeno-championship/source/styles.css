@@ -415,6 +415,10 @@ select.select option {
         top: 110px;
     }
 
+    .mobile-menu-modal.active {
+        margin-top: -32px;
+    }
+
     main {
         margin-top: 75px;
         padding: 0.75rem;
