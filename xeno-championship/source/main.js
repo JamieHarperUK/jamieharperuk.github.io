@@ -143,32 +143,37 @@ function populateHomePage(data, record) {
     const homePage = document.getElementById('page-home');
     homePage.innerHTML = `
         <h1>Welcome to the NMS Xeno Championship</h1>
-        <div class="card">
-            <h2>Discover Xeno Arena Battles</h2>
-            <p>Experience the thrill of competitive No Man's Sky gameplay! Watch epic 1v1 battles in the Xeno Arena, where players showcase their skills in intense, strategic combat.</p>
-            <p>Whether you're a seasoned explorer or new to the universe, there's something for everyone. Learn about the championship, watch live streams, and join the community!</p>
-            <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-                <button class="btn" onclick="navigateToPage('about')">Learn More</button>
-                <button class="btn" onclick="navigateToPage('xc2026')">View Current Championship</button>
+        <div class="card home-hero">
+            <div class="home-content">
+                <h2><i class="fas fa-globe"></i> Discover Xeno Arena Battles</h2>
+                <p style="margin-bottom: 1rem;">Experience the thrill of competitive No Man's Sky gameplay! Watch epic 1v1 battles in the Xeno Arena, where players showcase their skills in intense, strategic combat.</p>
+                <p>Whether you're a seasoned explorer or new to the universe, there's something for everyone. Learn about the championship, watch live streams, and join the community!</p>
+                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                    <button class="btn" onclick="navigateToPage('about')"><i class="fas fa-info-circle"></i> Learn More</button>
+                    <button class="btn" onclick="navigateToPage('xc2026')"><i class="fas fa-trophy"></i> View Current Championship</button>
+                </div>
+            </div>
+            <div class="home-image">
+                <i class="fas fa-rocket"></i>
             </div>
         </div>
         <div class="card">
-            <h2>Featured Content</h2>
+            <h2><i class="fas fa-play-circle"></i> Featured Content</h2>
             <ul style="margin-bottom: 0px;">
-                <li><strong>Xeno Arena Basics:</strong> Learn the fundamentals of competitive play</li>
-                <li><strong>Live Streams:</strong> Watch ongoing matches and tournaments</li>
-                <li><strong>Hall of Fame:</strong> Celebrate past champions and their achievements</li>
-                <li><strong>Community:</strong> Connect with fellow explorers and players</li>
+                <li><strong><i class="fas fa-gamepad"></i> Xeno Arena Basics:</strong> Learn the fundamentals of competitive play</li>
+                <li><strong><i class="fas fa-video"></i> Live Streams:</strong> Watch ongoing matches and tournaments</li>
+                <li><strong><i class="fas fa-crown"></i> Hall of Fame:</strong> Celebrate past champions and their achievements</li>
+                <li><strong><i class="fas fa-users"></i> Community:</strong> Connect with fellow explorers and players</li>
             </ul>
         </div>
         <div class="card">
-            <h2>Quick Links</h2>
+            <h2><i class="fas fa-compass"></i> Quick Links</h2>
             <p>Ready to dive in? Check out these popular sections:</p>
             <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;">
-                <button class="btn" onclick="navigateToPage('rules')">Tournament Rules</button>
-                <button class="btn" onclick="navigateToPage('hof')">Hall of Fame</button>
-                <button class="btn" onclick="navigateToPage('media')">Past Results</button>
-                <button class="btn" onclick="navigateToPage('contact')">Get Involved</button>
+                <button class="btn" onclick="navigateToPage('rules')"><i class="fas fa-book"></i> Tournament Rules</button>
+                <button class="btn" onclick="navigateToPage('hof')"><i class="fas fa-star"></i> Hall of Fame</button>
+                <button class="btn" onclick="navigateToPage('media')"><i class="fas fa-history"></i> Past Results</button>
+                <button class="btn" onclick="navigateToPage('contact')"><i class="fas fa-envelope"></i> Get Involved</button>
             </div>
         </div>
     `;
@@ -185,7 +190,7 @@ function populateHallOfFame() {
             ${pastRecords.map(record => `
                 <div class="card hof-winner-card">
                     <div class="hof-year">${record.title}</div>
-                    <div class="hof-winner-badge">🏆</div>
+                    <div class="hof-winner-badge"><i class="fas fa-trophy" style="color: rgb(251 171 0);"></i></div>
                     <div class="hof-winner-name">${record.top3[0]}</div>
                     <div class="hof-winner-label">Champion</div>
                 </div>
@@ -268,35 +273,42 @@ async function populateXC2026() {
         }
     }
 
-    const standingsHtml = data ? `
-        <div class="standings-accordion">
-            ${sortPlayersByStandings(data.players).map((player, index) => `
-                <div class="player-card" id="player-card-${index}">
-                    <button class="player-summary" type="button" onclick="togglePlayerDetails(${index})" aria-expanded="false">
-                        <span class="rank-badge">${index + 1}</span>
-                        <span class="player-title">
-                            <span class="player-name">${player.name}</span>
-                            <span class="player-platform">${player.platform}</span>
-                        </span>
-                        <span class="player-stats">
-                            <span class="points">${player.results.points} pts</span>
-                            <span class="omw">OMW ${player.results.omw ?? '—'}%</span>
-                        </span>
-                    </button>
-                    <div class="player-details">
-                        <div class="detail-row"><span>Played</span><span>${player.results.played}</span></div>
-                        <div class="detail-row"><span>Wins</span><span>${player.results.wins}</span></div>
-                        <div class="detail-row"><span>Losses</span><span>${player.results.losses}</span></div>
-                        <div class="detail-row"><span>Forfeits</span><span>${player.results.forfeits ?? 0}</span></div>
-                        ${player.results.omw !== undefined ? `<div class="detail-row"><span>OMW%</span><span>${player.results.omw}%</span></div>` : ''}
-                    </div>
+    const registrationHtml = data ? renderRegistrationCard(data.metadata) : '';
+    const standingsHtml = (!data || !data.players || data.players.length === 0) 
+        ? '<div class="card" style="margin-bottom: 0px;"><p>No players registered yet. Check back soon!</p></div>'
+        : (() => {
+            const hasScores = data.players.some(p => p.results.points > 0 || p.results.played > 0);
+            return `
+                <div class="standings-accordion">
+                    ${sortPlayersByStandings(data.players).map((player, index) => `
+                        <div class="player-card" id="player-card-${index}">
+                            <button class="player-summary" type="button" onclick="togglePlayerDetails(${index})" aria-expanded="false" style="grid-template-columns: ${hasScores ? 'auto 1fr auto' : '1fr auto'};">
+                                ${hasScores ? `<span class="rank-badge">${index + 1}</span>` : ''}
+                                <span class="player-title">
+                                    <span class="player-name">${player.name}</span>
+                                    <span class="player-platform">${player.platform}</span>
+                                </span>
+                                <span class="player-stats">
+                                    <span class="points">${player.results.points} pts</span>
+                                    <span class="omw">OMW ${player.results.omw ?? '—'}%</span>
+                                </span>
+                            </button>
+                            <div class="player-details">
+                                <div class="detail-row"><span>Played</span><span>${player.results.played}</span></div>
+                                <div class="detail-row"><span>Wins</span><span>${player.results.wins}</span></div>
+                                <div class="detail-row"><span>Losses</span><span>${player.results.losses}</span></div>
+                                <div class="detail-row"><span>Forfeits</span><span>${player.results.forfeits ?? 0}</span></div>
+                                ${player.results.omw !== undefined ? `<div class="detail-row"><span>OMW%</span><span>${player.results.omw}%</span></div>` : ''}
+                            </div>
+                        </div>
+                    `).join('')}
                 </div>
-            `).join('')}
-        </div>
-    ` : '<p>Registration is now open! Standings will be updated as matches begin.</p>';
+            `;
+        })();
 
     xc2026Page.innerHTML = `
         <h1>${currentRecord.title}</h1>
+        ${registrationHtml}
         <div class="card">
             <h2>Current Standings</h2>
             ${standingsHtml}
@@ -350,6 +362,48 @@ function renderPodium(top3) {
                 <div>${top3[2]}</div>
                 <div class="podium-label">Bronze</div>
             </div>
+        </div>
+    `;
+}
+
+function renderRegistrationCard(metadata) {
+    if (!metadata || !metadata.registration) return '';
+
+    const registration = metadata.registration;
+    const status = Number(registration.open);
+
+    if (status === 3) return ''; // Tournament started, no card
+
+    let statusText = '';
+    let buttonHtml = '';
+    let extraLine = '';
+
+    switch (status) {
+        case 0:
+            statusText = 'Registration is not open yet. Check back soon for the sign-up window.';
+            if (registration.opensOn) {
+                extraLine = `<p><strong>Opens:</strong> ${registration.opensOn}</p>`;
+            }
+            break;
+        case 1:
+            statusText = 'Registration is now open. Secure your place in the XC 2026 tournament before slots fill up.';
+            if (registration.formLink) {
+                buttonHtml = `<a href="${registration.formLink}" class="btn registration-btn" target="_blank" rel="noopener">Register Now</a>`;
+            }
+            break;
+        case 2:
+            statusText = 'Registration is now closed. The tournament will begin soon!';
+            break;
+        default:
+            return ''; // Invalid status, don't show card
+    }
+
+    return `
+        <div class="card registration-card">
+            <h2>Registration</h2>
+            <p>${statusText}</p>
+            ${extraLine}
+            ${buttonHtml}
         </div>
     `;
 }
