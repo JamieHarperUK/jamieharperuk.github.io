@@ -328,6 +328,23 @@ h1, h2, h3 {
     letter-spacing: 0.12em;
 }
 
+.pr-search-card {
+    width: var(--wfa);
+    display: flex;
+    justify-content: space-between;
+}
+
+.pr-search-label {
+    height: fit-content; 
+    margin: auto 0; 
+    font-size: 20px; 
+    font-weight: bold;
+}
+
+.pr-search-select {
+    font-size: 15px;
+}
+
 .standings-accordion {
     display: grid;
     gap: 1rem;
@@ -675,6 +692,19 @@ select.select option {
     .card {
         padding: 0.75rem;
         margin: 0.5rem 0;
+    }
+
+    .pr-search-card {
+        display: block;
+    }
+
+    .pr-search-label {
+        width: var(--wfa);
+    }
+
+    .pr-search-select {
+        width: var(--wfa);
+        margin-top: 0.5rem;
     }
 
     .btn {
