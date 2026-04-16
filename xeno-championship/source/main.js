@@ -201,9 +201,9 @@ function setupPastResultsSelector() {
 
     mediaPage.innerHTML = `
         <h1>Past Results</h1>
-        <div class="card">
-            <label for="past-select">Select Championship:</label>
-            <select id="past-select" class="select">
+        <div class="card pr-search-card">
+            <label for="past-select" class="pr-search-label">Select Championship</label>
+            <select id="past-select" class="select pr-search-select">
                 <option value="">Choose a championship...</option>
                 ${sortedPastRecords.map((record, index) => `<option value="${index}">${record.title}</option>`).join('')}
             </select>
