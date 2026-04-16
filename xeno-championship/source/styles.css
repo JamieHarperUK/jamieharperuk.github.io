@@ -245,7 +245,7 @@ header {
 
 main {
     flex: 1;
-    margin-top: 100px;
+    margin-top: 110px;
     padding: 2rem;
 }
 
@@ -646,7 +646,7 @@ select.select option {
 
     main {
         padding: 1rem;
-        margin-top: 70px;
+        margin-top: 80px;
     }
 
     .mobile-menu-modal.active {
@@ -734,7 +734,7 @@ select.select option {
     }
 
     main {
-        margin-top: 75px;
+        margin-top: 80px;
         padding: 0.75rem;
     }
 
