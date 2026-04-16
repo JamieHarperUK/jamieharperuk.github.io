@@ -83,7 +83,7 @@ header {
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--primary-color);
     position: fixed;
-    top: 40px;
+    top: 0px;
     width: var(--wfa);
     z-index: 1000;
 }
