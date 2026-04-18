@@ -142,15 +142,18 @@ async function loadCurrentChampionship() {
 function populateHomePage(data, record) {
     const homePage = document.getElementById('page-home');
     homePage.innerHTML = `
-        <h1>Welcome to the NMS Xeno Championship</h1>
+        <!-- <h1>Welcome to the NMS Xeno Championship</h1> -->
+        <div class="card hero-card">
+            <img src="https://www.nomanssky.com/media/eohnnwwy/no-mans-sky-xeno-arena-screenshot-3-5mb.jpg" alt="Xeno Championship Image" class="home-hero-image">
+        </div>
         <div class="card home-hero">
             <div class="home-content">
-                <h2><i class="fas fa-globe"></i> Discover Xeno Arena Battles</h2>
-                <p style="margin-bottom: 1rem;">Experience the thrill of competitive No Man's Sky gameplay! Watch epic 1v1 battles in the Xeno Arena, where players showcase their skills in intense, strategic combat.</p>
-                <p>Whether you're a seasoned explorer or new to the universe, there's something for everyone. Learn about the championship, watch live streams, and join the community!</p>
+                <h2 class="para-h1">Discover Xeno Arena Battles</h2>
+                <p style="margin-bottom: 1rem;" class="para-txt">Experience the thrill of competitive No Man's Sky gameplay! Watch epic 1v1 battles in the Xeno Arena, where players showcase their skills in intense, strategic combat.</p>
+                <p class="para-txt">Whether you're a seasoned explorer or new to the universe, there's something for everyone. Learn about the championship, watch live streams, and join the community!</p>
                 <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-                    <button class="btn" onclick="navigateToPage('about')"><i class="fas fa-info-circle"></i> Learn More</button>
-                    <button class="btn" onclick="navigateToPage('xc2026')"><i class="fas fa-trophy"></i> View Current Championship</button>
+                    <button class="btn site-btn" onclick="navigateToPage('about')"><i class="fas fa-info-circle"></i> Learn More</button>
+                    <button class="btn site-btn" onclick="navigateToPage('xc2026')"><i class="fas fa-trophy"></i> Current Championship</button>
                 </div>
             </div>
             <div class="home-image">
@@ -158,8 +161,8 @@ function populateHomePage(data, record) {
             </div>
         </div>
         <div class="card">
-            <h2><i class="fas fa-play-circle"></i> Featured Content</h2>
-            <ul style="margin-bottom: 0px;">
+            <h2 class="para-h1">Featured Content</h2>
+            <ul class="para-ul" style="margin-bottom: 0px;">
                 <li><strong><i class="fas fa-gamepad"></i> Xeno Arena Basics:</strong> Learn the fundamentals of competitive play</li>
                 <li><strong><i class="fas fa-video"></i> Live Streams:</strong> Watch ongoing matches and tournaments</li>
                 <li><strong><i class="fas fa-crown"></i> Hall of Fame:</strong> Celebrate past champions and their achievements</li>
@@ -167,13 +170,13 @@ function populateHomePage(data, record) {
             </ul>
         </div>
         <div class="card">
-            <h2><i class="fas fa-compass"></i> Quick Links</h2>
-            <p>Ready to dive in? Check out these popular sections:</p>
+            <h2 class="para-h1">Quick Links</h2>
+            <p class="para-txt">Ready to dive in? Check out these popular sections:</p>
             <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;">
-                <button class="btn" onclick="navigateToPage('rules')"><i class="fas fa-book"></i> Tournament Rules</button>
-                <button class="btn" onclick="navigateToPage('hof')"><i class="fas fa-star"></i> Hall of Fame</button>
-                <button class="btn" onclick="navigateToPage('media')"><i class="fas fa-history"></i> Past Results</button>
-                <button class="btn" onclick="navigateToPage('contact')"><i class="fas fa-envelope"></i> Get Involved</button>
+                <button class="btn site-btn" onclick="navigateToPage('rules')"><i class="fas fa-book"></i> Tournament Rules</button>
+                <button class="btn site-btn" onclick="navigateToPage('hof')"><i class="fas fa-star"></i> Hall of Fame</button>
+                <button class="btn site-btn" onclick="navigateToPage('media')"><i class="fas fa-history"></i> Past Results</button>
+                <button class="btn site-btn" onclick="navigateToPage('contact')"><i class="fas fa-envelope"></i> Get Involved</button>
             </div>
         </div>
     `;
@@ -185,7 +188,7 @@ function populateHallOfFame() {
 
     hofPage.innerHTML = `
         <h1>Hall of Fame</h1>
-        <p class="hof-subtitle">Only the champions make it here. Every year a single player wins the right to be immortalized in the Xeno Championship Hall of Fame.</p>
+        <p class="hof-subtitle para-txt">Only the champions make it here. Every year a single player wins the right to be immortalized in the Xeno Championship Hall of Fame.</p>
         <div class="hof-grid">
             ${pastRecords.map(record => `
                 <div class="card hof-winner-card">
@@ -275,7 +278,7 @@ async function populateXC2026() {
 
     const registrationHtml = data ? renderRegistrationCard(data.metadata) : '';
     const standingsHtml = (!data || !data.players || data.players.length === 0) 
-        ? '<div class="card" style="margin-bottom: 0px;"><p>No players registered yet. Check back soon!</p></div>'
+        ? '<div class="card" style="margin-bottom: 0px;"><p class="para-txt">No players registered yet. Check back soon!</p></div>'
         : (() => {
             const hasScores = data.players.some(p => p.results.points > 0 || p.results.played > 0);
             return `
@@ -307,14 +310,15 @@ async function populateXC2026() {
         })();
 
     xc2026Page.innerHTML = `
-        <h1>${currentRecord.title}</h1>
+        <h1 style="margin-bottom: 0;">${currentRecord.title}</h1>
+        <p class="para-txt" style="margin-top: 0; margin-bottom: 1rem; font-style: italic;">(${currentRecord.dates})</p>
         ${registrationHtml}
         <div class="card">
-            <h2>Current Standings</h2>
+            <h2 class="para-h1">Current Standings</h2>
             ${standingsHtml}
         </div>
         <div class="card podium-card">
-            <h2>Championship Podium</h2>
+            <h2 class="para-h1">Championship Podium</h2>
             <div class="podium-grid">
                 <div class="podium-item silver">
                     <span class="medal-badge">2</span>
@@ -334,12 +338,12 @@ async function populateXC2026() {
             </div>
         </div>
         <div class="card">
-            <h2>Tournament Information</h2>
-            <p><strong>Format:</strong> 1v1 Best-of-3 Xeno Arena matches</p>
-            <p><strong>Stages:</strong> Qualification Round → Top 8 Playoffs</p>
-            <p><strong>Schedule:</strong> Weekday fixtures in UK time (UTC+01:00)</p>
-            <p><strong>Streaming:</strong> All matches are streamed and monitored</p>
-            <button class="btn" onclick="navigateToPage('rules')" style="margin-top: 1rem;">View Full Rules</button>
+            <h2 class="para-h1">Tournament Information</h2>
+            <p class="para-txt"><strong>Format:</strong> 1v1 Best-of-3 Xeno Arena matches</p>
+            <p class="para-txt"><strong>Stages:</strong> Qualification Round → Top 8 Playoffs</p>
+            <p class="para-txt"><strong>Schedule:</strong> Weekday fixtures in UK time (UTC+01:00)</p>
+            <p class="para-txt"><strong>Streaming:</strong> All matches are streamed and monitored</p>
+            <button class="btn site-btn" onclick="navigateToPage('rules')" style="margin-top: 1rem;">View Full Rules</button>
         </div>
     `;
 }
@@ -349,17 +353,17 @@ function renderPodium(top3) {
         <div class="podium-grid">
             <div class="podium-item silver">
                 <span class="medal-badge">2</span>
-                <div>${top3[1]}</div>
+                <div class="para-txt">${top3[1]}</div>
                 <div class="podium-label">Silver</div>
             </div>
             <div class="podium-item gold">
                 <span class="medal-badge">1</span>
-                <div>${top3[0]}</div>
+                <div class="para-txt">${top3[0]}</div>
                 <div class="podium-label">Gold</div>
             </div>
             <div class="podium-item bronze">
                 <span class="medal-badge">3</span>
-                <div>${top3[2]}</div>
+                <div class="para-txt">${top3[2]}</div>
                 <div class="podium-label">Bronze</div>
             </div>
         </div>
@@ -382,11 +386,11 @@ function renderRegistrationCard(metadata) {
         case 0:
             statusText = 'Registration is not open yet. Check back soon for the sign-up window.';
             if (registration.opensOn) {
-                extraLine = `<p><strong>Opens:</strong> ${registration.opensOn}</p>`;
+                extraLine = `<p class="para-txt"><strong>Opens:</strong> ${registration.opensOn}</p>`;
             }
             break;
         case 1:
-            statusText = 'Registration is now open. Secure your place in the XC 2026 tournament before slots fill up.';
+            statusText = 'Registration is now open. Secure your place in the current tournament before slots fill up.';
             if (registration.formLink) {
                 buttonHtml = `<a href="${registration.formLink}" class="btn registration-btn" target="_blank" rel="noopener">Register Now</a>`;
             }
@@ -400,8 +404,8 @@ function renderRegistrationCard(metadata) {
 
     return `
         <div class="card registration-card">
-            <h2>Registration</h2>
-            <p>${statusText}</p>
+            <h2 class="para-h1">Registration</h2>
+            <p class="para-txt">${statusText}</p>
             ${extraLine}
             ${buttonHtml}
         </div>
@@ -416,7 +420,7 @@ function getRecordYear(record) {
 function renderAllPastRecords(records) {
     return records.map(record => `
         <div class="card">
-            <h2>${record.title}</h2>
+            <h2 class="para-h1">${record.title}</h2>
             ${renderPodium(record.top3)}
         </div>
     `).join('');
@@ -426,11 +430,11 @@ async function showPastResults(record) {
     const resultsDiv = document.getElementById('past-results');
     resultsDiv.innerHTML = `
         <div class="card">
-            <h2>${record.title} Results</h2>
+            <h2 class="para-h1">${record.title} Results</h2>
             ${record.resultsJson ? `
-                <p>Loading data...</p>
+                <p class="para-txt">Loading data...</p>
             ` : `
-                <p>No detailed results available for this championship.</p>
+                <p class="para-txt">No detailed results available for this championship.</p>
                 ${renderPodium(record.top3)}
             `}
         </div>
