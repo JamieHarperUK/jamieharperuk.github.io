@@ -175,7 +175,7 @@ function populateHomePage(data, record) {
             <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;">
                 <button class="btn site-btn" onclick="navigateToPage('rules')"><i class="fas fa-book"></i> Tournament Rules</button>
                 <button class="btn site-btn" onclick="navigateToPage('hof')"><i class="fas fa-star"></i> Hall of Fame</button>
-                <button class="btn site-btn" onclick="navigateToPage('media')"><i class="fas fa-history"></i> Past Results</button>
+                <button class="btn site-btn" onclick="navigateToPage('results')"><i class="fas fa-history"></i> Past Results</button>
                 <button class="btn site-btn" onclick="navigateToPage('contact')"><i class="fas fa-envelope"></i> Get Involved</button>
             </div>
         </div>
@@ -203,11 +203,11 @@ function populateHallOfFame() {
 }
 
 function setupPastResultsSelector() {
-    const mediaPage = document.getElementById('page-media');
+    const resultsPage = document.getElementById('page-results');
     const pastRecords = records.filter(r => r.past);
     const sortedPastRecords = pastRecords.slice().sort((a, b) => getRecordYear(b) - getRecordYear(a));
 
-    mediaPage.innerHTML = `
+    resultsPage.innerHTML = `
         <h1>Past Results</h1>
         <div class="card pr-search-card">
             <label for="past-select" class="pr-search-label">Select Championship</label>
