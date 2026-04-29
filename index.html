@@ -181,6 +181,14 @@
                 justify-content: flex-start;
             }
 
+            ul#portfolioList {
+                list-style: none;
+                padding: 0;
+                display: inline-flex;
+                margin-bottom: 0;
+                gap: 1.5rem;
+            }
+
             @media (min-width: 900px) {
                 .gallery-grid {
                     grid-template-columns: repeat(4, 1fr);
@@ -209,12 +217,10 @@
                 }
             }
 
-            /* Center last row if not full (modern browsers) */
             .gallery-grid {
                 justify-items: center;
             }
 
-            /* Modal styles */
             .modal {
                 display: none;
                 position: fixed;
@@ -426,7 +432,6 @@
                 margin-top: 1rem;
             }
 
-            /* Featured Games Section */
             .featured-games {
                 margin-top: 2.5rem;
                 background: rgb(78 78 78 / 70%);
@@ -546,7 +551,7 @@
                 font-family: var(--font-family-base);
                 font-weight: bold;
                 transition: background 0.2s, color 0.2s;
-                display: inline-block;
+                display: flow-root;
             }
             a.portfolio-link:hover {
                 background: var(--color-bg-1);
@@ -644,6 +649,10 @@
             }
 
             @media (max-width: 900px) {
+                .container {
+                    padding: 0;
+                }
+
                 .games-grid {
                     gap: 1rem;
                 }
@@ -651,6 +660,15 @@
                 .game-card {
                     width: 90vw;
                     max-width: 350px;
+                }
+
+                ul#portfolioList {
+                    display: inline-grid;
+                    margin-bottom: 1.5rem;
+                }
+
+                .portfolio-item {
+                    margin-bottom: 0;
                 }
             }
         </style>
@@ -695,7 +713,7 @@
             </div>
         </header>
         <main>
-            <!-- Streamer Page (default) -->
+            <!-- Streamer Page -->
             <div id="page-streamer">
                 <section class="about">
                     <div class="container">
@@ -815,6 +833,7 @@
                     </div>
                 </section>
             </div>
+
             <!-- Developer Portfolio/CV Page -->
             <div id="page-developer" style="display:none;">
                 <section class="about">
@@ -831,7 +850,7 @@
                 <section class="portfolio">
                     <div class="container">
                         <h2 style="font-size: 2rem; color: var(--color-accent-1); margin-bottom: 0.5rem;">Portfolio</h2>
-                        <ul id="portfolioList" style="list-style:none;padding:0;display: inline-grid; margin-bottom: 0;"></ul>
+                        <ul id="portfolioList"></ul>
                     </div>
                 </section>
                 <section class="cv">
@@ -888,7 +907,6 @@
             </div>
         </footer>
         <script>
-            // Highlight active nav button
             function updateActiveNav() {
                 const hash = window.location.hash.replace('#', '') || 'streamer';
                 document.querySelectorAll('.page-btn').forEach(btn => {
@@ -899,10 +917,11 @@
                     }
                 });
             }
+
             window.addEventListener('hashchange', updateActiveNav);
             document.addEventListener('DOMContentLoaded', updateActiveNav);
 
-            // Developer Portfolio Data & Renderer
+            // Developer Portfolio Data
             const developerPortfolio = [
                 {
                     name: 'SinisterEXP',
@@ -910,8 +929,16 @@
                     role: 'Sole Developer & Designer',
                     tech: 'HTML5, CSS3, JavaScript',
                     url: 'https://SinisterEXP.github.io/'
+                },
+                {
+                    name: 'Xeno Championship',
+                    description: 'An official website for the Xeno Championship esports tournament, featuring current standings, match schedules, and a Hall of Fame.',
+                    role: 'Sole Developer & Designer',
+                    tech: 'HTML5, CSS3, JavaScript, JSON',
+                    url: 'https://xenochampionship.github.io/'
                 }
             ];
+
             function renderPortfolio() {
                 const list = document.getElementById('portfolioList');
                 if (!list) return;
@@ -929,13 +956,15 @@
                     list.appendChild(li);
                 });
             }
+
             document.addEventListener('DOMContentLoaded', renderPortfolio);
             window.addEventListener('hashchange', renderPortfolio);
-            // Simple SPA Hash Router
+
             function showPage(page) {
                 document.getElementById('page-streamer').style.display = (page === 'streamer') ? '' : 'none';
                 document.getElementById('page-developer').style.display = (page === 'developer') ? '' : 'none';
             }
+
             function handleHash() {
                 const hash = window.location.hash.replace('#', '');
                 if (hash === 'developer') {
@@ -944,10 +973,10 @@
                     showPage('streamer');
                 }
             }
+
             window.addEventListener('hashchange', handleHash);
             document.addEventListener('DOMContentLoaded', handleHash);
 
-            // Update nav links to use hashes
             document.addEventListener('DOMContentLoaded', function () {
                 document.querySelectorAll('.page-btn').forEach(btn => {
                     btn.addEventListener('click', function (e) {
@@ -1015,8 +1044,9 @@
                     grid.appendChild(card);
                 });
             }
+
             document.addEventListener('DOMContentLoaded', renderGamesGrid);
-            // Animate social icons on hover
+            
             document.querySelectorAll('.social-link').forEach(link => {
                 link.addEventListener('mouseenter', () => {
                     link.style.transform = 'scale(1.2)';
@@ -1026,7 +1056,6 @@
                 });
             });
 
-            // Highlight platform cards on hover
             document.querySelectorAll('.platform-link').forEach(card => {
                 card.addEventListener('mouseenter', () => {
                     card.style.boxShadow = '0 4px 16px rgba(38,174,128,0.3)';
@@ -1036,9 +1065,6 @@
                 });
             });
 
-            // ...existing code...
-
-            // Modal logic for gallery images
             const modal = document.getElementById('imgModal');
             const modalImg = document.getElementById('modalImg');
             const modalClose = document.getElementById('modalClose');
@@ -1046,30 +1072,33 @@
             let currentImgSrc = '';
             let currentImgAlt = '';
             let currentImgWebsite = '';
-            // Add modal alt overlay
+            
             let modalAltOverlay = document.querySelector('.modal-img-alt');
             if (!modalAltOverlay) {
                 modalAltOverlay = document.createElement('div');
                 modalAltOverlay.className = 'modal-img-alt';
                 modalImg.parentNode.appendChild(modalAltOverlay);
             }
+
             function openModal(src, alt) {
                 modalImg.src = src;
                 modalImg.alt = alt;
                 currentImgSrc = src;
                 currentImgAlt = alt;
                 modalAltOverlay.textContent = alt;
-                // Find website for this image
+                
                 const found = galleryImages.find(img => img.src === src && img.alt === alt);
                 currentImgWebsite = found && found.website ? found.website : '';
-                // Update modal website button href
+                
                 if (modalWebsiteBtn) {
                     modalWebsiteBtn.style.display = currentImgWebsite ? '' : 'none';
                     modalWebsiteBtn.href = currentImgWebsite;
                 }
+
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
             }
+
             function closeModal() {
                 modal.classList.remove('active');
                 modalImg.src = '';
@@ -1077,7 +1106,7 @@
                 document.body.style.overflow = '';
             }
 
-            // Dynamically render gallery images
+            // Gallery Images Data
             const galleryImages = [
                 {
                     src: 'assets/scs/ys01.png',
@@ -1146,13 +1175,13 @@
                     el.className = 'gallery-img';
                     el.tabIndex = 0;
                     el.setAttribute('data-img', img.src);
-                    // Overlay for alt text
+                    
                     const altOverlay = document.createElement('div');
                     altOverlay.className = 'gallery-img-alt';
                     altOverlay.textContent = img.alt;
                     wrapper.appendChild(el);
                     wrapper.appendChild(altOverlay);
-                    // Modal open events
+                    
                     el.addEventListener('click', () => openModal(img.src, img.alt));
                     el.addEventListener('keydown', (e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
@@ -1161,7 +1190,7 @@
                     });
                     grid.appendChild(wrapper);
                 });
-                // Center last row if not full
+                
                 setTimeout(() => {
                     const wrappers = Array.from(grid.children);
                     const perRow = window.innerWidth >= 900 ? 4 : (window.innerWidth >= 600 ? 2 : 1);
@@ -1189,6 +1218,7 @@
             modal.addEventListener('click', (e) => {
                 if (e.target === modal) closeModal();
             });
+
             document.addEventListener('keydown', (e) => {
                 if (modal.classList.contains('active') && e.key === 'Escape') closeModal();
             });
