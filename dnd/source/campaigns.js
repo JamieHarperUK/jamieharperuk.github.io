@@ -154,12 +154,12 @@ function openCharacterModal(profile) {
             <div class="campaign-meta">
                 <div class="campaign-meta-title">Ability Scores:</div>
                 <div class="campaign-meta-ac-box">
-                    <span><strong>Strength:</strong> ${profile.abilityScores.strength ? profile.abilityScores.strength.join(' ') : '—'}</span>
-                    <span><strong>Dexterity:</strong> ${profile.abilityScores.dexterity ? profile.abilityScores.dexterity.join(' ') : '—'}</span>
-                    <span><strong>Constitution:</strong> ${profile.abilityScores.constitution ? profile.abilityScores.constitution.join(' ') : '—'}</span>
-                    <span><strong>Intelligence:</strong> ${profile.abilityScores.intelligence ? profile.abilityScores.intelligence.join(' ') : '—'}</span>
-                    <span><strong>Wisdom:</strong> ${profile.abilityScores.wisdom ? profile.abilityScores.wisdom.join(' ') : '—'}</span>
-                    <span><strong>Charisma:</strong> ${profile.abilityScores.charisma ? profile.abilityScores.charisma.join(' ') : '—'}</span>
+                    <span><strong>Strength:</strong> ${profile.abilityScores.strength ? profile.abilityScores.strength.join(' (') : '—'})</span>
+                    <span><strong>Dexterity:</strong> ${profile.abilityScores.dexterity ? profile.abilityScores.dexterity.join(' (') : '—'})</span>
+                    <span><strong>Constitution:</strong> ${profile.abilityScores.constitution ? profile.abilityScores.constitution.join(' (') : '—'})</span>
+                    <span><strong>Intelligence:</strong> ${profile.abilityScores.intelligence ? profile.abilityScores.intelligence.join(' (') : '—'})</span>
+                    <span><strong>Wisdom:</strong> ${profile.abilityScores.wisdom ? profile.abilityScores.wisdom.join(' (') : '—'})</span>
+                    <span><strong>Charisma:</strong> ${profile.abilityScores.charisma ? profile.abilityScores.charisma.join(' (') : '—'})</span>
                 </div>
             </div>
             <hr style="border: 0.5px dashed #5d4b36; margin: 0;">
