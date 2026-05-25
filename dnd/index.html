@@ -1,1 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+        <meta property="og:title" content="My D&D Journal" />
+        <meta property="og:description" content="The official website for My D&D Journal, featuring information about the campaigns, adventures, and characters." />
+        <meta property="og:image" content="https://jamieharperuk.github.io/dnd/source/images/dnd-wallpaper-1.jpg" />
+
+        <meta property="twitter:title" content="My D&D Journal" />
+        <meta property="twitter:description" content="The official website for My D&D Journal, featuring information about the campaigns, adventures, and characters." />
+        <meta property="twitter:image" content="https://jamieharperuk.github.io/dnd/source/images/dnd-wallpaper-1.jpg" />
+
+        <link rel="shortcut icon" href="source/images/dnd-icon.png" type="image/png">
+        <title>My D&D Journal</title>
+        <link rel="stylesheet" href="source/styles.css">
+    </head>
+    <body>
+        <header>
+            <div class="brand">
+                <div class="brand-text">
+                    <h1>My D&D Journal</h1>
+                    <h3>Campaigns and Adventures</h3>
+                </div>
+            </div>
+            <nav class="main-navigation">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#media">Media</a></li>
+                    <li><a href="#campaigns">Campaigns</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <div id="page-home">
+                <h1 class="page-title">Welcome to My D&D Journal</h1>
+                <p class="home-welcome-text">Good day adventurer! Prepare to follow my character's journeys in the realm of Dungeons and Dragons.</p>
+                
+                <section class="content-section">
+                    <div class="home-featured-content">
+                        <div class="featured-image-container">
+                            <div class="featured-image-placeholder">
+                                <img src="https://jamieharperuk.github.io/dnd/source/images/dnd-wallpaper-1.jpg" alt="Ander's Backstory">
+                            </div>
+                        </div>
+                        <div class="featured-text">
+                            <h2>Embark on Epic Quests</h2>
+                            <p>Dive into worlds filled with dragons, magic, mystery, and danger. Each campaign represents of hours of collaborative storytelling, tactical combat, and character-driven narrative. Whether you're a seasoned adventurer or new to the realms of tabletop gaming, these journals offer a glimpse into the lives and legacies of heroes, villains, and everything in between.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>What You'll Discover</h2>
+                    <div class="home-highlights">
+                        <div class="highlight-item">
+                            <h3>Campaign Journals</h3>
+                            <p>Detailed accounts of each campaign's story, written from the perspective of the character I played, including the pivotal moments that defined those adventures.</p>
+                        </div>
+                        <div class="highlight-item">
+                            <h3>Character Profiles</h3>
+                            <p>Meet the heroes (or villains) who shaped the campaigns I took part in. Explore their backstories and stats as they evolve throughout the adventures.</p>
+                        </div>
+                        <div class="highlight-item">
+                            <h3>Visual Gallery</h3>
+                            <p>Artwork, storyboards, maps, and other visual representations of key scenes and character moments that have been brought to life in many ways.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Ready to Begin?</h2>
+                    <p style="margin-bottom: 0;">Explore the Campaigns page to dive into a specific storyline, or browse the Media Gallery for artwork and visual content. Whether you're here to relive memorable moments or discover new tales, I invite you to join me in these worlds of wonder and adventure.</p>
+                </section>
+            </div>
+            <div id="page-media">
+                <h1 class="page-title">Media Gallery</h1>
+                <section class="content-section">
+                    <h2>Artwork & Visual Content</h2>
+                    <div class="media-grid">
+                        <div class="media-item">
+                            <div class="media-placeholder">
+                                <img src="https://jamieharperuk.github.io/dnd/source/images/ag_storyboard_1.jpg" alt="Ander's Backstory" style="width: -webkit-fill-available; border: 2px dashed var(--accent-soft); border-radius: 20px;">
+                            </div>
+                            <h3 style="margin-bottom: 0; font-size: 1.5rem; margin-top: 1rem;">Ander's Backstory</h3>
+                            <p style="margin-top: 0;">A storyboard image, depicting Ander's origins and key life events.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div id="page-campaigns">
+                <h1 class="page-title">Campaign Journals</h1>
+                <section class="content-section campaigns-section">
+                    <p class="campaign-intro" style="margin-top: 0;">Choose a journal from the list below to view and read the journal entries related to each campaign, as well as my chosen character's profile and D&D Beyond sheet.<br><br>Each campaign journal contains detailed session summaries (from the perspective of my character). Click on "View Character Bio" to learn more about my chosen character in each campaign, including their backstory.
+                    </p>
+                    <div class="campaigns-grid">
+                        <aside class="campaign-list-panel">
+                            <div class="campaign-panel-title">Campaign List</div>
+                            <div class="campaign-list"></div>
+                        </aside>
+                        <div class="campaign-details" id="campaign-data"></div>
+                    </div>
+                </section>
+            </div>
+            <div id="page-disclaimer">
+                <h1 class="page-title">Full Disclaimer</h1>
+                <section class="content-section">
+                    <h2>Legal Notice</h2>
+                    <p style="margin-bottom: 0;">This website and all content therein are fan-made productions created to celebrate and explore the Dungeons & Dragons universe. This is not an official site and is not affiliated with, endorsed by, or connected to Wizards of the Coast LLC.</p>
+                </section>
+            </div>
+            <div id="page-404">
+                <h1 class="page-title">Page Not Found</h1>
+                <section class="content-section" style="text-align: center;">
+                    <p style="font-size: 4rem; margin: 1rem 0;">⚠️</p>
+                    <p>The page you're looking for doesn't exist. Perhaps you took a wrong turn?</p>
+                    <p><a href="#home" class="btn-link">Return to Home</a></p>
+                </section>
+            </div>
+        </main>
+        <footer>
+            <p>&copy; 2026 Dungeons & Dragons (Campaigns)</p>
+            <a href="#disclaimer">Full Disclaimer</a> | <a href="https://jamieharperuk.github.io/" target="_blank" rel="noopener">JamieHarperUK</a>
+        </footer>
+
+        <div class="character-modal-overlay" id="character-modal" aria-hidden="true">
+            <div class="character-modal" role="dialog" aria-modal="true" aria-labelledby="character-modal-title">
+                <button type="button" class="character-modal-close" id="character-modal-close" aria-label="Close character bio">✕</button>
+                <div class="character-modal-content" id="character-modal-content"></div>
+            </div>
+        </div>
+
+        <script src="source/campaigns.js"></script>
+        <script src="source/main.js"></script>
+    </body>
+</html>
