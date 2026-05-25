@@ -102,7 +102,7 @@ nav.main-navigation ul li {
 nav.main-navigation ul li a {
     display: inline-block;
     padding: 0.7rem 1rem;
-    border-radius: 999px;
+    border-radius: 10px;
     background: rgba(255, 246, 227, 0.95);
     border: 1px solid rgba(139, 92, 34, 0.35);
     color: var(--ink);
@@ -118,7 +118,7 @@ nav.main-navigation ul li a.active {
 }
 
 main {
-    padding: 2rem 0;
+    padding: 2rem 0 0 0;
 }
 
 main > div {
