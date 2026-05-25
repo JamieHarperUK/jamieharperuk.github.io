@@ -686,6 +686,10 @@ footer a:hover {
     .campaign-dates {
         grid-template-columns: 1fr;
     }
+    
+    .campaign-meta-ac-box {
+        grid-template-columns: repeat(auto-fit, minmax(50%, 1fr));
+    }
 
     .campaign-btn-group {
         flex-direction: column;
@@ -719,6 +723,11 @@ footer a:hover {
 
     h1.page-title, p.home-welcome-text {
         margin: 0 1rem;
+    }
+
+    .campaign-meta-ac-box {
+        display: flex;
+        flex-direction: column;
     }
 
     .content-section {
