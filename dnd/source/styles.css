@@ -345,7 +345,7 @@ h1.page-title {
     font-size: 15px;
     padding: 0.85rem 1.2rem;
     border: 1px solid rgba(139, 92, 34, 0.45);
-    border-radius: 25px;
+    border-radius: 10px;
     background: rgba(255, 247, 224, 0.95);
     color: var(--ink);
     font-family: var(--body-font);
@@ -365,7 +365,7 @@ h1.page-title {
     font-size: 15px;
     padding: 0.85rem 1.2rem;
     border: 1px solid rgba(139, 92, 34, 0.45);
-    border-radius: 25px;
+    border-radius: 10px;
     background: rgba(255, 247, 224, 0.95);
     color: var(--ink);
     font-family: var(--body-font);
