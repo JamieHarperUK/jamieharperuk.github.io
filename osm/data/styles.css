@@ -67,6 +67,15 @@ nav {
     background-color: rgba(200, 16, 46, 0.1);
 }
 
+a.site-link {
+    color: var(--text-primary);
+    text-decoration: underline;
+}
+
+a.site-link:hover {
+    color: var(--primary-color);
+}
+
 .nav-links a.active {
     color: var(--primary-color);
     border-bottom: 2px solid var(--primary-color);
