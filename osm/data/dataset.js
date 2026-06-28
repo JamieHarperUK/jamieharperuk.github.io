@@ -10,8 +10,8 @@ const teams = {
         "wins": 0,
         "draws": 0,
         "losses": 0,
-        "squad_value": 228, // (millions)
-        "squad_count": 23,
+        "squad_value": 232, // (millions)
+        "squad_count": 24,
         "squad": [
             // Shirt Number - Name - Age - Position - Nationality - Value (in millions) - Cards Count (Yellow, Red)
 
@@ -23,6 +23,7 @@ const teams = {
             ["16", "Diallo", 23, "RW", "Ivory Coast", 10.0, [0, 0]],
             ["13", "Dorgu", 21, "LW", "Denmark", 7.7, [0, 0]],
             ["32", "Obi", 18, "ST", "Denmark", 5.0, [0, 0]],
+            ["14", "Sliti", 20, "LW", "Netherlands", 3.4, [0, 0]],
 
             // Midfielders
             ["8", "B. Fernandes", 31, "CAM", "Portugal", 15.7, [0, 0]],
