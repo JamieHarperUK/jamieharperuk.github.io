@@ -10,41 +10,41 @@ const teams = {
         "wins": 0,
         "draws": 0,
         "losses": 0,
-        "squad_value": 212, // (millions)
+        "squad_value": 228, // (millions)
         "squad_count": 24,
         "squad": [
             // Shirt Number - Name - Age - Position - Nationality - Value (in millions) - Cards Count (Yellow, Red)
 
             // Forwards
-            ["19", "Mbeumo", 26, "RW", "Cameroon", 17.5, [0, 0]],
+            ["19", "Mbeumo", 26, "RW", "Cameroon", 21.7, [0, 0]],
             ["10", "M. Cunha", 27, "LW", "Brazil", 16.5, [0, 0]],
-            ["30", "Sesko", 23, "ST", "Slovenia", 14.9, [0, 0]],
-            ["11", "Zirkzee", 25, "ST", "Netherlands", 11.7, [0, 0]],
+            ["30", "Sesko", 23, "ST", "Slovenia", 19.4, [0, 0]],
+            ["11", "Zirkzee", 25, "ST", "Netherlands", 12.6, [0, 0]],
             ["16", "Diallo", 23, "RW", "Ivory Coast", 10.0, [0, 0]],
             ["13", "Dorgu", 21, "LW", "Denmark", 7.7, [0, 0]],
             ["32", "Obi", 18, "ST", "Denmark", 5.0, [0, 0]],
 
             // Midfielders
             ["8", "B. Fernandes", 31, "CAM", "Portugal", 15.7, [0, 0]],
-            ["37", "Mainoo", 21, "CM", "England", 12.0, [0, 0]],
+            ["37", "Mainoo", 21, "CM", "England", 12.8, [0, 0]],
             ["9", "McTominay", 29, "CM", "Scotland", 10.0, [0, 0]],
             ["18", "Casemiro", 34, "CDM", "Brazil", 8.8, [0, 0]],
             ["7", "Mount", 27, "CAM", "England", 8.7, [0, 0]],
             ["25", "Ugarte", 25, "CDM", "Uruguay", 8.9, [0, 0]],
 
             // Defenders
-            ["6", "L. Martinez", 28, "CB", "Argentina", 9.2, [0, 0]],
+            ["6", "L. Martinez", 28, "CB", "Argentina", 9.9, [0, 0]],
             ["5", "Maguire", 33, "CB", "England", 6.4, [0, 0]],
-            ["2", "Dalot", 27, "RB", "Portugal", 7.7, [0, 0]],
-            ["4", "de Ligt", 26, "CB", "Netherlands", 7.0, [0, 0]],
-            ["15", "Yoro", 20, "CB", "France", 7.5, [0, 0]],
-            ["23", "Shaw", 30, "LB", "England", 6.8, [0, 0]],
+            ["2", "Dalot", 27, "RB", "Portugal", 8.4, [0, 0]],
+            ["4", "de Ligt", 26, "CB", "Netherlands", 8.4, [0, 0]],
+            ["15", "Yoro", 20, "CB", "France", 8.9, [0, 0]],
+            ["23", "Shaw", 30, "LB", "England", 7.5, [0, 0]],
             ["3", "Mazraoui", 28, "RB", "Morocco", 5.6, [0, 0]],
             ["26", "Heaven", 19, "CB", "England", 4.4, [0, 0]],
 
             // Goalkeepers
-            ["31", "Lammens", 23, "GK", "Belgium", 5.8, [0, 0]],
-            ["1", "Bayindir", 28, "GK", "Turkey", 2.8, [0, 0]]
+            ["31", "Lammens", 23, "GK", "Belgium", 6.3, [0, 0]],
+            ["1", "Bayindir", 28, "GK", "Turkey", 3.4, [0, 0]]
         ]
     },
     "w2026_England": {
