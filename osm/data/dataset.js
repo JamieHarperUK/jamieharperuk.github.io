@@ -4,8 +4,8 @@ const teams = {
         "name": "Manchester United", // Team name
         "league": "England 2nd Division", // League name
         "stage": "Pre-Season", // Current stage in the league
-        "position": 14, // Current position in the league / stage
-        "points": 0, // Current points in the league
+        "position": 14,
+        "points": 0,
         "matches_played": 0,
         "wins": 0,
         "draws": 0,
@@ -44,16 +44,15 @@ const teams = {
 
             // Goalkeepers
             ["31", "Lammens", 23, "GK", "Belgium", 5.8, [0, 0]],
-            ["1", "Bayindir", 28, "GK", "Turkey", 2.8, [0, 0]],
-            ["22", "Heaton", 40, "GK", "England", 0.553, [0, 0]]
+            ["1", "Bayindir", 28, "GK", "Turkey", 2.8, [0, 0]]
         ]
     },
     "w2026_England": {
         "name": "England", // Team name
         "league": "World 2026", // League name
         "stage": "Group Stage", // Current stage in the league
-        "position": 1, // Current position in the league / stage
-        "points": 3, // Current points in the league
+        "position": 1,
+        "points": 3,
         "matches_played": 1,
         "wins": 1,
         "draws": 0,
@@ -101,6 +100,8 @@ const teams = {
 };
 
 
+
+
 // My Manager Data
 const manager = {
     "name": "JamieHarperUK",
@@ -108,6 +109,8 @@ const manager = {
     "medals": 600,
     "world_rank": 228103
 };
+
+
 
 
 // Upcoming Fixtures
@@ -206,10 +209,11 @@ const upcoming_fixtures = [
         },
         "opponent_team": {
             "name": "Croatia",
-            "lineup": null // Could not get Line-up
+            "lineup": null // Lineup not available
         },
         "date_time": ["27-06-2026", "19:39"],
         "venue": "Home",
+        // A null result indicates that the match has not been played yet
         "result": {
             "England": 4,
             "Croatia": 2
