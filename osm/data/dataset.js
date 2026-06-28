@@ -117,27 +117,6 @@ const manager = {
 const upcoming_fixtures = [
     {
         "metadata": {
-            "league": "England 2nd Division",
-            "stage": "Pre-Season"
-        },
-        "my_team": {
-            "name": "Manchester United",
-            "lineup": null
-        },
-        "opponent_team": {
-            "name": "Manchester City",
-            "lineup": null
-        },
-        "date_time": ["01-07-2026", "18:00"],
-        "venue": "Away",
-        // A null result indicates that the match has not been played yet
-        "result": {
-            "Manchester United": null,
-            "Manchester City": null
-        }
-    },
-    {
-        "metadata": {
             "league": "World 2026",
             "stage": "Group Stage"
         },
@@ -184,6 +163,33 @@ const upcoming_fixtures = [
             "Ghana": null
         }
     },
+
+
+
+    {
+        "metadata": {
+            "league": "England 2nd Division",
+            "stage": "Pre-Season"
+        },
+        "my_team": {
+            "name": "Manchester United",
+            "lineup": null
+        },
+        "opponent_team": {
+            "name": "Manchester City",
+            "lineup": null
+        },
+        "date_time": ["01-07-2026", "18:00"],
+        "venue": "Away",
+        // A null result indicates that the match has not been played yet
+        "result": {
+            "Manchester United": null,
+            "Manchester City": null
+        }
+    },
+
+    
+
     {
         "metadata": {
             "league": "World 2026",
