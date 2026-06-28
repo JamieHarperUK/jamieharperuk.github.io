@@ -57,7 +57,7 @@ const teams = {
         "wins": 1,
         "draws": 0,
         "losses": 0,
-        "squad_value": 310, // (millions)
+        "squad_value": 314, // (millions)
         "squad_count": 26,
         "squad": [
             // Shirt Number - Name - Age - Position - Nationality - Value (in millions) - Cards Count (Yellow, Red)
@@ -75,13 +75,13 @@ const teams = {
             ["10", "Bellingham", 22, "CAM", "England", 21.4, [0, 0]],
             ["4", "Rice", 27, "CM", "England", 17.9, [0, 0]],
             ["17", "Rogers", 23, "CAM", "England", 17.7, [0, 0]],
-            ["21", "Eze", 27, "CDM", "England", 13.5, [0, 0]],
+            ["21", "Eze", 27, "CDM", "England", 14.6, [0, 0]],
             ["8", "Anderson", 23, "CM", "England", 12.5, [0, 0]],
             ["16", "Mainoo", 21, "CM", "England", 11.1, [0, 0]],
             ["14", "Henderson", 35, "CDM", "England", 4.5, [0, 0]],
 
             // Defenders
-            ["6", "Gu&eacute;hi", 25, "CB", "England", 24.8, [0, 0]],
+            ["6", "Gu&eacute;hi", 25, "CB", "England", 27.0, [0, 0]],
             ["24", "James", 26, "RB", "England", 11.2, [1, 0]],
             ["2", "Konsa", 28, "LB", "England", 7.9, [0, 0]],
             ["5", "Stones", 32, "CB", "England", 7.5, [1, 0]],
