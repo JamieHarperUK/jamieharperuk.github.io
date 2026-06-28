@@ -517,6 +517,10 @@ footer {
 }
 
 @media (max-width: 768px) {
+    nav {
+        display: block;
+    }
+
     .nav-links {
         gap: 1rem;
     }
