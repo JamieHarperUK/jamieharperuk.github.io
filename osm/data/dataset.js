@@ -11,7 +11,7 @@ const teams = {
         "draws": 0,
         "losses": 0,
         "squad_value": 228, // (millions)
-        "squad_count": 24,
+        "squad_count": 23,
         "squad": [
             // Shirt Number - Name - Age - Position - Nationality - Value (in millions) - Cards Count (Yellow, Red)
 
