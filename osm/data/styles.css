@@ -439,13 +439,13 @@ main {
 }
 
 .card.yellow {
-    background-color: var(--secondary-color);
-    color: black;
+    background-color: #efff5d;
+    color: #1a1a1a;
 }
 
 .card.red {
-    background-color: var(--danger-color);
-    color: white;
+    background-color: #ff5d5d;
+    color: #1a1a1a;
 }
 
 .squad-position-group {
