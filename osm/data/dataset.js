@@ -123,11 +123,38 @@ const upcoming_fixtures = [
         },
         "my_team": {
             "name": "England",
-            "lineup": null
+            "lineup": {
+                "formation": "4-3-3-A",
+                "on_field": [
+                    ["Pickford"],
+                    ["Spence", "O'Reilly", "Gu&eacute;hi", "James"],
+                    ["Rogers", "Bellingham", "Rice"],
+                    ["Gordon", "Saka", "Kane"]
+                ],
+                "substitutes": [
+                    "Rashford", "Madueke", 
+                    "Eze", "Anderson", 
+                    "Stones", "Konsa", 
+                    "Henderson"
+                ]
+            }
         },
         "opponent_team": {
             "name": "Panama",
-            "lineup": null
+            "lineup": {
+                "formation": "4-4-2-B",
+                "on_field": [
+                    ["Mosquera"],
+                    ["Murillo", "Cordoba", "Blackman", "Andrade"],
+                    ["Carrasquilla", "Godoy", "Martinez", "Harvey"],
+                    ["Luis Rodrigues", "Diaz"]
+                ],
+                "substitutes": [
+                    "Farina", "Gutierrez", 
+                    "Barcenas", "Fajardo",
+                    "Samudio"
+                ]
+            }
         },
         "date_time": ["29-06-2026", "19:39"],
         "venue": "Away",
