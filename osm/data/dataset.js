@@ -51,11 +51,11 @@ const teams = {
     "w2026_England": {
         "name": "England", // Team name
         "league": "World 2026", // League name
-        "stage": "Group Stage", // Current stage in the league
+        "stage": "Round of 32", // Current stage in the league
         "position": 1,
-        "points": 6,
+        "points": 9,
         "matches_played": 2,
-        "wins": 2,
+        "wins": 3,
         "draws": 0,
         "losses": 0,
         "squad_value": 325, // (millions)
@@ -107,8 +107,8 @@ const teams = {
 const manager = {
     "name": "JamieHarperUK",
     "rank": [2, "Amateur"],
-    "medals": 4160,
-    "world_rank": 223494
+    "medals": 4750,
+    "world_rank": 205396
 };
 
 
@@ -139,7 +139,57 @@ const upcoming_fixtures = [
         }
     },
     */
+
     
+    {
+        "metadata": {
+            "league": "World 2026",
+            "stage": "Round of 32"
+        },
+        "my_team": {
+            "name": "England",
+            "lineup": null
+        },
+        "opponent_team": {
+            "name": "Portugal",
+            "lineup": null
+        },
+        "date_time": ["30-06-2026", "19:39"],
+        "venue": "Away",
+        // A null result indicates that the match has not been played yet
+        "result": {
+            "England": null,
+            "Portugal": null
+        }
+    },
+
+
+    {
+        "metadata": {
+            "league": "England 2nd Division",
+            "stage": "Pre-Season"
+        },
+        "my_team": {
+            "name": "Manchester United",
+            "lineup": null
+        },
+        "opponent_team": {
+            "name": "Manchester City",
+            "lineup": null
+        },
+        "date_time": ["01-07-2026", "18:00"],
+        "venue": "Away",
+        // A null result indicates that the match has not been played yet
+        "result": {
+            "Manchester United": null,
+            "Manchester City": null
+        }
+    },
+
+
+    // Past Fixtures Below This Point
+
+
     {
         "metadata": {
             "league": "World 2026",
@@ -182,40 +232,11 @@ const upcoming_fixtures = [
         },
         "date_time": ["29-06-2026", "19:39"],
         "venue": "Away",
-        // A null result indicates that the match has not been played yet
         "result": {
-            "England": null,
-            "Panama": null
+            "England": 3,
+            "Panama": 0
         }
     },
-
-
-
-    {
-        "metadata": {
-            "league": "England 2nd Division",
-            "stage": "Pre-Season"
-        },
-        "my_team": {
-            "name": "Manchester United",
-            "lineup": null
-        },
-        "opponent_team": {
-            "name": "Manchester City",
-            "lineup": null
-        },
-        "date_time": ["01-07-2026", "18:00"],
-        "venue": "Away",
-        // A null result indicates that the match has not been played yet
-        "result": {
-            "Manchester United": null,
-            "Manchester City": null
-        }
-    },
-
-
-    // Past Fixtures Below This Point
-
 
     
     {
@@ -267,7 +288,6 @@ const upcoming_fixtures = [
     },
 
     
-
     {
         "metadata": {
             "league": "World 2026",
@@ -297,7 +317,6 @@ const upcoming_fixtures = [
         },
         "date_time": ["27-06-2026", "19:39"],
         "venue": "Home",
-        // A null result indicates that the match has not been played yet
         "result": {
             "England": 4,
             "Croatia": 2
