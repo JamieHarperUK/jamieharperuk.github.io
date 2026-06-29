@@ -116,6 +116,30 @@ const manager = {
 
 // Upcoming Fixtures
 const upcoming_fixtures = [
+    /* Fixture Template
+    {
+        "metadata": {
+            "league": "World 2026",
+            "stage": "Group Stage"
+        },
+        "my_team": {
+            "name": "England",
+            "lineup": null
+        },
+        "opponent_team": {
+            "name": "Panama",
+            "lineup": null
+        },
+        "date_time": ["29-06-2026", "19:39"],
+        "venue": "Away",
+        // A null result indicates that the match has not been played yet
+        "result": {
+            "England": null,
+            "Panama": null
+        }
+    },
+    */
+    
     {
         "metadata": {
             "league": "World 2026",
@@ -188,6 +212,9 @@ const upcoming_fixtures = [
             "Manchester City": null
         }
     },
+
+
+    // Past Fixtures Below This Point
 
 
     
