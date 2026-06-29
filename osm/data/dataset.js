@@ -54,7 +54,7 @@ const teams = {
         "stage": "Round of 32", // Current stage in the league
         "position": 1,
         "points": "N/A",
-        "matches_played": 2,
+        "matches_played": 3,
         "wins": 3,
         "draws": 0,
         "losses": 0,
