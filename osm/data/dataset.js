@@ -145,13 +145,13 @@ const upcoming_fixtures = [
                 "formation": "4-4-2-B",
                 "on_field": [
                     ["Mosquera"],
-                    ["Murillo", "Cordoba", "Blackman", "Andrade"],
-                    ["Carrasquilla", "Godoy", "Martinez", "Harvey"],
-                    ["Luis Rodrigues", "Diaz"]
+                    ["Murillo", "C&oacute;rdoba", "Blackman", "Andrade"],
+                    ["Carrasquilla", "Godoy", "Mart&iacute;nez", "Harvey"],
+                    ["Luis Rodr&iacute;gues", "D&iacute;az"]
                 ],
                 "substitutes": [
-                    "Farina", "Gutierrez", 
-                    "Barcenas", "Fajardo",
+                    "Fari&ntilde;a", "Guti&eacute;rrez", 
+                    "B&aacute;rcenas", "Fajardo",
                     "Samudio"
                 ]
             }
