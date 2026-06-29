@@ -107,8 +107,8 @@ const teams = {
 const manager = {
     "name": "JamieHarperUK",
     "rank": [2, "Amateur"],
-    "medals": 1795,
-    "world_rank": 224294
+    "medals": 4160,
+    "world_rank": 223494
 };
 
 
