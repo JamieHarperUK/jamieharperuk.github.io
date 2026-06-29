@@ -126,7 +126,7 @@ const upcoming_fixtures = [
             "lineup": {
                 "formation": "4-3-3-A",
                 "on_field": [
-                    ["Pickford"],
+                    ["Henderson"],
                     ["Spence", "O'Reilly", "Gu&eacute;hi", "James"],
                     ["Rogers", "Bellingham", "Rice"],
                     ["Gordon", "Saka", "Kane"]
@@ -135,7 +135,7 @@ const upcoming_fixtures = [
                     "Rashford", "Madueke", 
                     "Eze", "Anderson", 
                     "Stones", "Konsa", 
-                    "Henderson"
+                    "Pickford"
                 ]
             }
         },
