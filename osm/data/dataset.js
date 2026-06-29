@@ -53,7 +53,7 @@ const teams = {
         "league": "World 2026", // League name
         "stage": "Round of 32", // Current stage in the league
         "position": 1,
-        "points": 9,
+        "points": "N/A",
         "matches_played": 2,
         "wins": 3,
         "draws": 0,
