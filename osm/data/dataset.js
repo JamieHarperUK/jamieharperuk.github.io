@@ -10,16 +10,16 @@ const teams = {
         "wins": 0,
         "draws": 0,
         "losses": 0,
-        "squad_value": 232, // (millions)
+        "squad_value": 244, // (millions)
         "squad_count": 24,
         "squad": [
             // Shirt Number - Name - Age - Position - Nationality - Value (in millions) - Cards Count (Yellow, Red)
 
             // Forwards
-            ["19", "Mbeumo", 26, "RW", "Cameroon", 21.7, [0, 0]],
+            ["19", "Mbeumo", 26, "RW", "Cameroon", 23.1, [0, 0]],
             ["10", "M. Cunha", 27, "LW", "Brazil", 16.5, [0, 0]],
             ["30", "Sesko", 23, "ST", "Slovenia", 19.4, [0, 0]],
-            ["11", "Zirkzee", 25, "ST", "Netherlands", 12.6, [0, 0]],
+            ["11", "Zirkzee", 25, "ST", "Netherlands", 15.6, [0, 0]],
             ["16", "Diallo", 23, "RW", "Ivory Coast", 10.0, [0, 0]],
             ["13", "Dorgu", 21, "LW", "Denmark", 7.7, [0, 0]],
             ["32", "Obi", 18, "ST", "Denmark", 5.0, [0, 0]],
@@ -27,32 +27,32 @@ const teams = {
 
             // Midfielders
             ["8", "B. Fernandes", 31, "CAM", "Portugal", 15.7, [0, 0]],
-            ["37", "Mainoo", 21, "CM", "England", 12.8, [0, 0]],
-            ["9", "McTominay", 29, "CM", "Scotland", 10.0, [0, 0]],
-            ["18", "Casemiro", 34, "CDM", "Brazil", 8.8, [0, 0]],
+            ["37", "Mainoo", 21, "CM", "England", 13.7, [0, 0]],
+            ["9", "McTominay", 29, "CM", "Scotland", 12.4, [0, 0]],
+            ["18", "Casemiro", 34, "CDM", "Brazil", 9.5, [0, 0]],
             ["7", "Mount", 27, "CAM", "England", 8.7, [0, 0]],
             ["25", "Ugarte", 25, "CDM", "Uruguay", 8.9, [0, 0]],
 
             // Defenders
             ["6", "L. Martinez", 28, "CB", "Argentina", 9.9, [0, 0]],
             ["5", "Maguire", 33, "CB", "England", 6.4, [0, 0]],
-            ["2", "Dalot", 27, "RB", "Portugal", 8.4, [0, 0]],
+            ["2", "Dalot", 27, "RB", "Portugal", 9.0, [0, 0]],
             ["4", "de Ligt", 26, "CB", "Netherlands", 8.4, [0, 0]],
-            ["15", "Yoro", 20, "CB", "France", 8.9, [0, 0]],
-            ["23", "Shaw", 30, "LB", "England", 7.5, [0, 0]],
+            ["15", "Yoro", 20, "CB", "France", 9.7, [0, 0]],
+            ["23", "Shaw", 30, "RB", "England", 8.7, [0, 0]],
             ["3", "Mazraoui", 28, "RB", "Morocco", 5.6, [0, 0]],
             ["26", "Heaven", 19, "CB", "England", 4.4, [0, 0]],
 
             // Goalkeepers
-            ["31", "Lammens", 23, "GK", "Belgium", 6.3, [0, 0]],
-            ["1", "Bayindir", 28, "GK", "Turkey", 3.4, [0, 0]]
+            ["31", "Lammens", 23, "GK", "Belgium", 6.7, [0, 0]],
+            ["1", "Bayindir", 28, "GK", "Turkey", 4.6, [0, 0]]
         ]
     },
     "w2026_England": {
         "name": "England", // Team name
         "league": "World 2026", // League name
         "stage": "Round of 16", // Current stage in the league
-        "position": 1,
+        "position": "N/A",
         "points": "N/A",
         "matches_played": 4,
         "wins": 4,
