@@ -309,10 +309,16 @@
 
                 renderTeamStats(team, teamId) {
                     const container = document.getElementById(`teamStats-${teamId}`);
+                    let team_pos = '';
+                    if (team.position == "N/A") {
+                        team_pos = `${team.position}`;
+                    } else {
+                        team_pos = `#${team.position}`;
+                    }
                     container.innerHTML = `
                         <div class="team-stat-card">
                             <div class="team-stat-label">Position</div>
-                            <div class="team-stat-value">#${team.position}</div>
+                            <div class="team-stat-value">${team_pos}</div>
                         </div>
                         <div class="team-stat-card">
                             <div class="team-stat-label">Points</div>
