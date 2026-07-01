@@ -39,7 +39,7 @@ const teams = {
             ["2", "Dalot", 27, "RB", "Portugal", 9.0, [0, 0]],
             ["4", "de Ligt", 26, "CB", "Netherlands", 8.4, [0, 0]],
             ["15", "Yoro", 20, "CB", "France", 9.7, [0, 0]],
-            ["23", "Shaw", 30, "RB", "England", 8.7, [0, 0]],
+            ["23", "Shaw", 30, "CB", "England", 8.7, [0, 0]],
             ["3", "Mazraoui", 28, "RB", "Morocco", 5.6, [0, 0]],
             ["26", "Heaven", 19, "CB", "England", 4.4, [0, 0]],
 
