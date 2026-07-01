@@ -148,6 +148,20 @@ const upcoming_fixtures = [
         "my_team": {
             "name": "England",
             "lineup": null
+            /*
+            {
+                "formation": "4-5-1",
+                "on_field": [
+                    ["N/A"],
+                    ["N/A", "N/A", "N/A", "N/A"],
+                    ["N/A", "N/A", "N/A", "N/A", "N/A"],
+                    ["N/A"]
+                ],
+                "substitutes": [
+                    "N/A"
+                ]
+            }
+            */
         },
         "opponent_team": {
             "name": "Germany",
