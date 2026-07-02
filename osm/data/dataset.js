@@ -52,7 +52,7 @@ const teams = {
     "w2026_England": {
         "name": "England", // Team name
         "league": "World 2026", // League name
-        "stage": "Quarter Finals", // Current stage in the league
+        "stage": "Semi-Finals", // Current stage in the league
         "position": "N/A",
         "points": "N/A",
         "matches_played": 6,
@@ -145,7 +145,7 @@ const upcoming_fixtures = [
     {
         "metadata": {
             "league": "World 2026",
-            "stage": "Semi-finals"
+            "stage": "Semi-Finals"
         },
         "my_team": {
             "name": "England",
