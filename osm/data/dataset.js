@@ -4,7 +4,7 @@ const teams = {
         "name": "Manchester United", // Team name
         "league": "England 2nd Division", // League name
         "stage": "Pre-Season", // Current stage in the league
-        "position": 14,
+        "position": 18,
         "points": 0,
         "matches_played": 1,
         "wins": 0,
