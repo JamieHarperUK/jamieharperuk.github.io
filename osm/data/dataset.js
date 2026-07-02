@@ -51,11 +51,11 @@ const teams = {
     "w2026_England": {
         "name": "England", // Team name
         "league": "World 2026", // League name
-        "stage": "Round of 16", // Current stage in the league
+        "stage": "Quarter Finals", // Current stage in the league
         "position": "N/A",
         "points": "N/A",
-        "matches_played": 4,
-        "wins": 4,
+        "matches_played": 5,
+        "wins": 5,
         "draws": 0,
         "losses": 0,
         "squad_value": 340, // (millions)
@@ -140,42 +140,29 @@ const upcoming_fixtures = [
     },
     */
 
+
     {
         "metadata": {
             "league": "World 2026",
-            "stage": "Round of 16"
+            "stage": "Quarter Finals"
         },
         "my_team": {
             "name": "England",
             "lineup": null
-            /*
-            {
-                "formation": "4-5-1",
-                "on_field": [
-                    ["N/A"],
-                    ["N/A", "N/A", "N/A", "N/A"],
-                    ["N/A", "N/A", "N/A", "N/A", "N/A"],
-                    ["N/A"]
-                ],
-                "substitutes": [
-                    "N/A"
-                ]
-            }
-            */
         },
         "opponent_team": {
-            "name": "Germany",
+            "name": "France",
             "lineup": null
         },
-        "date_time": ["01-07-2026", "19:39"],
+        "date_time": ["02-07-2026", "19:39"],
         "venue": "Away",
         // A null result indicates that the match has not been played yet
         "result": {
             "England": null,
-            "Germany": null
+            "France": null
         }
     },
-    
+
 
 
     {
@@ -202,7 +189,28 @@ const upcoming_fixtures = [
 
 
     // Past Fixtures Below This Point
+    {
+        "metadata": {
+            "league": "World 2026",
+            "stage": "Round of 16"
+        },
+        "my_team": {
+            "name": "England",
+            "lineup": null
+        },
+        "opponent_team": {
+            "name": "Germany",
+            "lineup": null
+        },
+        "date_time": ["01-07-2026", "19:39"],
+        "venue": "Away",
+        "result": {
+            "England": 1,
+            "Germany": 0
+        }
+    },
 
+    
 
     {
         "metadata": {
