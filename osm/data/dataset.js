@@ -4,10 +4,10 @@ const teams = {
         "name": "Manchester United", // Team name
         "league": "England 2nd Division", // League name
         "stage": "Pre-Season", // Current stage in the league
-        "position": 18,
-        "points": 0,
-        "matches_played": 1,
-        "wins": 0,
+        "position": 8,
+        "points": 3,
+        "matches_played": 2,
+        "wins": 1,
         "draws": 0,
         "losses": 1,
         "squad_value": 244, // (millions)
@@ -55,8 +55,8 @@ const teams = {
         "stage": "Quarter Finals", // Current stage in the league
         "position": "N/A",
         "points": "N/A",
-        "matches_played": 5,
-        "wins": 5,
+        "matches_played": 6,
+        "wins": 6,
         "draws": 0,
         "losses": 0,
         "squad_value": 374, // (millions)
@@ -108,8 +108,8 @@ const teams = {
 const manager = {
     "name": "JamieHarperUK",
     "rank": [2, "Amateur"],
-    "medals": 6539,
-    "world_rank": 187343
+    "medals": 8304,
+    "world_rank": 170298
 };
 
 
@@ -145,6 +145,55 @@ const upcoming_fixtures = [
     {
         "metadata": {
             "league": "World 2026",
+            "stage": "Semi-finals"
+        },
+        "my_team": {
+            "name": "England",
+            "lineup": null
+        },
+        "opponent_team": {
+            "name": "Brazil",
+            "lineup": null
+        },
+        "date_time": ["03-07-2026", "19:39"],
+        "venue": "Home",
+        // A null result indicates that the match has not been played yet
+        "result": {
+            "England": null,
+            "Brazil": null
+        }
+    },
+
+    
+
+    {
+        "metadata": {
+            "league": "England 2nd Division",
+            "stage": "Pre-Season"
+        },
+        "my_team": {
+            "name": "Manchester United",
+            "lineup": null
+        },
+        "opponent_team": {
+            "name": "Burnley",
+            "lineup": null
+        },
+        "date_time": ["03-07-2026", "18:00"],
+        "venue": "Away",
+        // A null result indicates that the match has not been played yet
+        "result": {
+            "Manchester United": null,
+            "Burnley": null
+        }
+    },
+
+
+
+    // Past Fixtures Below This Point
+    {
+        "metadata": {
+            "league": "World 2026",
             "stage": "Quarter Finals"
         },
         "my_team": {
@@ -157,10 +206,9 @@ const upcoming_fixtures = [
         },
         "date_time": ["02-07-2026", "19:39"],
         "venue": "Away",
-        // A null result indicates that the match has not been played yet
         "result": {
-            "England": null,
-            "France": null
+            "England": 3,
+            "France": 0
         }
     },
 
@@ -181,16 +229,14 @@ const upcoming_fixtures = [
         },
         "date_time": ["02-07-2026", "18:28"],
         "venue": "Home",
-        // A null result indicates that the match has not been played yet
         "result": {
-            "Manchester United": null,
-            "Newcastle United": null
+            "Manchester United": 3,
+            "Newcastle United": 1
         }
     },
 
 
 
-    // Past Fixtures Below This Point
     {
         "metadata": {
             "league": "England 2nd Division",
