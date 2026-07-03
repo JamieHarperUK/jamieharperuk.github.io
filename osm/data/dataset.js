@@ -4,10 +4,10 @@ const teams = {
         "name": "Manchester United", // Team name
         "league": "England 2nd Division", // League name
         "stage": "Pre-Season", // Current stage in the league
-        "position": 8,
-        "points": 3,
-        "matches_played": 2,
-        "wins": 1,
+        "position": 6,
+        "points": 6,
+        "matches_played": 3,
+        "wins": 2,
         "draws": 0,
         "losses": 1,
         "squad_value": 244, // (millions)
@@ -108,8 +108,8 @@ const teams = {
 const manager = {
     "name": "JamieHarperUK",
     "rank": [2, "Amateur"],
-    "medals": 8304,
-    "world_rank": 170298
+    "medals": 8886,
+    "world_rank": 163165
 };
 
 
@@ -176,21 +176,43 @@ const upcoming_fixtures = [
             "lineup": null
         },
         "opponent_team": {
-            "name": "Burnley",
+            "name": "Bournemouth",
             "lineup": null
         },
-        "date_time": ["03-07-2026", "18:00"],
-        "venue": "Away",
-        // A null result indicates that the match has not been played yet
+        "date_time": ["04-07-2026", "18:00"],
+        "venue": "Home",
         "result": {
             "Manchester United": null,
-            "Burnley": null
+            "Bournemouth": null
         }
     },
 
 
 
     // Past Fixtures Below This Point
+    {
+        "metadata": {
+            "league": "England 2nd Division",
+            "stage": "Pre-Season"
+        },
+        "my_team": {
+            "name": "Manchester United",
+            "lineup": null
+        },
+        "opponent_team": {
+            "name": "Burnley",
+            "lineup": null
+        },
+        "date_time": ["03-07-2026", "18:00"],
+        "venue": "Away",
+        "result": {
+            "Manchester United": 3,
+            "Burnley": 0
+        }
+    },
+
+
+    
     {
         "metadata": {
             "league": "World 2026",
