@@ -181,6 +181,7 @@ const upcoming_fixtures = [
         },
         "date_time": ["04-07-2026", "18:00"],
         "venue": "Home",
+        // A null result indicates that the match has not been played yet
         "result": {
             "Manchester United": null,
             "Bournemouth": null
