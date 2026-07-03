@@ -19,7 +19,7 @@ const teams = {
             ["19", "Mbeumo", 26, "RW", "Cameroon", 24.5, [0, 0]],
             ["10", "M. Cunha", 27, "LW", "Brazil", 17.4, [0, 0]],
             ["30", "Sesko", 23, "ST", "Slovenia", 23.8, [0, 0]],
-            ["11", "Zirkzee", 25, "ST", "Netherlands", 17.6, [0, 0]],
+            ["11", "Zirkzee", 25, "ST", "Netherlands", 17.6, [1, 0]],
             ["16", "Diallo", 23, "RW", "Ivory Coast", 10.0, [0, 0]],
             ["13", "Dorgu", 21, "LW", "Denmark", 7.7, [0, 0]],
             ["32", "Obi", 18, "ST", "Denmark", 5.0, [0, 0]],
@@ -28,7 +28,7 @@ const teams = {
             // Midfielders
             ["8", "B. Fernandes", 31, "CAM", "Portugal", 16.7, [0, 0]],
             ["37", "Mainoo", 21, "CM", "England", 15.7, [0, 0]],
-            ["9", "McTominay", 29, "CM", "Scotland", 13.2, [0, 0]],
+            ["9", "McTominay", 29, "CM", "Scotland", 13.2, [1, 0]],
             ["18", "Casemiro", 34, "CDM", "Brazil", 10.2, [0, 0]],
             ["7", "Mount", 27, "CAM", "England", 9.5, [0, 0]],
             ["25", "Ugarte", 25, "CDM", "Uruguay", 8.9, [0, 0]],
@@ -40,7 +40,7 @@ const teams = {
             ["2", "Dalot", 27, "RB", "Portugal", 10.4, [0, 0]],
             ["4", "de Ligt", 26, "CB", "Netherlands", 8.4, [0, 0]],
             ["15", "Yoro", 20, "CB", "France", 9.7, [0, 0]],
-            ["23", "Shaw", 30, "CB", "England", 9.4, [0, 0]],
+            ["23", "Shaw", 30, "CB", "England", 9.4, [1, 0]],
             ["3", "Mazraoui", 28, "RB", "Morocco", 5.6, [0, 0]],
             ["26", "Heaven", 19, "CB", "England", 4.4, [0, 0]],
 
