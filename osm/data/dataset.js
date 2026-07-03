@@ -49,53 +49,54 @@ const teams = {
             ["1", "Bayindir", 28, "GK", "Turkey", 5.1, [0, 0]]
         ]
     },
+
     "w2026_England": {
         "name": "England", // Team name
         "league": "World 2026", // League name
-        "stage": "Semi-Finals", // Current stage in the league
+        "stage": "Final", // Current stage in the league
         "position": "N/A",
         "points": "N/A",
-        "matches_played": 6,
-        "wins": 6,
+        "matches_played": 7,
+        "wins": 7,
         "draws": 0,
         "losses": 0,
-        "squad_value": 374, // (millions)
+        "squad_value": 408, // (millions)
         "squad_count": 26,
         "squad": [
             // Shirt Number - Name - Age - Position - Nationality - Value (in millions) - Cards Count (Yellow, Red)
 
             // Forwards
-            ["7", "Saka", 24, "ST", "England", 28.0, [0, 0]],
-            ["9", "Kane", 32, "ST", "England", 23.0, [0, 0]],
-            ["11", "Rashford", 28, "LW", "England", 19.9, [0, 0]],
-            ["18", "Gordon", 25, "LW", "England", 22.0, [0, 0]],
-            ["20", "Madueke", 24, "RW", "England", 16.0, [0, 0]],
+            ["7", "Saka", 24, "ST", "England", 29.8, [0, 0]],
+            ["9", "Kane", 32, "ST", "England", 24.4, [0, 0]],
+            ["11", "Rashford", 28, "LW", "England", 22.6, [0, 0]],
+            ["18", "Gordon", 25, "LW", "England", 27.8, [0, 0]],
+            ["20", "Madueke", 24, "RW", "England", 18.0, [0, 0]],
             ["22", "Toney", 30, "ST", "England", 12.7, [0, 0]],
             ["19", "Watkins", 30, "ST", "England", 10.9, [0, 0]],
 
             // Midfielders
-            ["10", "Bellingham", 22, "CAM", "England", 26.1, [0, 0]],
-            ["4", "Rice", 27, "CM", "England", 20.1, [0, 0]],
-            ["17", "Rogers", 23, "CAM", "England", 21.2, [0, 0]],
+            ["10", "Bellingham", 22, "CAM", "England", 30.5, [0, 0]],
+            ["4", "Rice", 27, "CM", "England", 22.8, [0, 0]],
+            ["17", "Rogers", 23, "CAM", "England", 22.5, [2, 0]],
             ["21", "Eze", 27, "CDM", "England", 20.1, [0, 0]],
-            ["8", "Anderson", 23, "CM", "England", 13.4, [0, 0]],
+            ["8", "Anderson", 23, "CM", "England", 15.4, [0, 0]],
             ["16", "Mainoo", 21, "CM", "England", 12.0, [0, 0]],
-            ["14", "Henderson", 35, "CDM", "England", 4.5, [0, 0]],
+            ["14", "Henderson", 35, "CDM", "England", 4.4, [0, 0]],
 
             // Defenders
-            ["6", "Gu&eacute;hi", 25, "CB", "England", 27.0, [0, 0]],
-            ["24", "James", 26, "RB", "England", 11.2, [2, 0]],
+            ["6", "Gu&eacute;hi", 25, "CB", "England", 29.5, [0, 0]],
+            ["24", "James", 26, "RB", "England", 11.2, [0, 1]],
             ["2", "Konsa", 28, "LB", "England", 8.6, [1, 0]],
             ["5", "Stones", 32, "CB", "England", 8.1, [2, 0]],
-            ["3", "O'Reilly", 21, "CB", "England", 11.3, [0, 0]],
-            ["25", "Spence", 25, "LB", "England", 11.6, [0, 0]],
-            ["26", "Quansah", 23, "CB", "England", 7.7, [0, 0]],
+            ["3", "O'Reilly", 21, "CB", "England", 12.8, [0, 0]],
+            ["25", "Spence", 25, "LB", "England", 12.3, [1, 0]],
+            ["26", "Quansah", 23, "CB", "England", 9.8, [0, 0]],
             ["12", "Livramento", 23, "RB", "England", 6.5, [0, 0]],
             ["15", "Burn", 34, "CB", "England", 3.6, [0, 0]],
 
             // Goalkeepers
-            ["1", "Pickford", 32, "GK", "England", 10.4, [0, 0]],
-            ["13", "Henderson", 29, "GK", "England", 10.4, [0, 0]],
+            ["1", "Pickford", 32, "GK", "England", 13.7, [0, 0]],
+            ["13", "Henderson", 29, "GK", "England", 11.2, [0, 0]],
             ["23", "Trafford", 23, "GK", "England", 5.8, [0, 0]]
         ]
     },
@@ -145,24 +146,24 @@ const upcoming_fixtures = [
     {
         "metadata": {
             "league": "World 2026",
-            "stage": "Semi-Finals"
+            "stage": "Final"
         },
         "my_team": {
             "name": "England",
             "lineup": null
         },
         "opponent_team": {
-            "name": "Brazil",
+            "name": "Turkey",
             "lineup": null
         },
-        "date_time": ["03-07-2026", "19:39"],
+        "date_time": ["04-07-2026", "19:39"],
         "venue": "Home",
         // A null result indicates that the match has not been played yet
         "result": {
             "England": null,
-            "Brazil": null
+            "Turkey": null
         }
-    },
+    },    
 
     
 
@@ -191,6 +192,29 @@ const upcoming_fixtures = [
 
 
     // Past Fixtures Below This Point
+    {
+        "metadata": {
+            "league": "World 2026",
+            "stage": "Semi-Finals"
+        },
+        "my_team": {
+            "name": "England",
+            "lineup": null
+        },
+        "opponent_team": {
+            "name": "Brazil",
+            "lineup": null
+        },
+        "date_time": ["03-07-2026", "19:39"],
+        "venue": "Home",
+        "result": {
+            "England": 3,
+            "Brazil": 0
+        }
+    },
+
+
+
     {
         "metadata": {
             "league": "England 2nd Division",
