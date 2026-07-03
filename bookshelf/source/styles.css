@@ -1,3 +1,424 @@
-/*
-  Initial Comment
-*/
+/* Dark modern Bookshelf site styles */
+:root {
+    --bg: #080b12;
+    --surface: rgba(21, 28, 43, 0.92);
+    --surface-strong: rgba(15, 21, 33, 0.98);
+    --border: rgba(255, 255, 255, 0.08);
+    --text: #e9edf2;
+    --muted: #9bb1cc;
+    --accent: #6c8cff;
+    --accent-soft: rgba(108, 140, 255, 0.18);
+    --shadow: 0 24px 80px rgba(0, 0, 0, 0.24);
+    --radius: 26px;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+    background: radial-gradient(circle at top right, rgba(108, 140, 255, 0.16), transparent 32%),
+                linear-gradient(180deg, #0b1220 0%, #07090f 100%);
+    color: var(--text);
+}
+
+body {
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover,
+a:focus {
+    color: var(--accent);
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+.site-header,
+.site-footer {
+    width: min(1200px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 18px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+footer.site-footer p {
+    width: -webkit-fill-available;
+    text-align: center;
+    font-weight: 100;
+    font-style: italic;
+    font-size: 0.8rem;
+}
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(8, 11, 18, 0.9);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.site-brand a {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+}
+
+.site-tag {
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+#app {
+    width: min(1200px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 32px 0;
+}
+
+.intro-panel,
+.detail-panel,
+.empty-state {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 32px;
+    margin-bottom: 0px;
+}
+
+.intro-panel p,
+.detail-panel p,
+.empty-state p,
+.book-description {
+    color: var(--muted);
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    margin-bottom: 12px;
+}
+
+.intro-panel h2,
+.detail-panel h2,
+.empty-state h2 {
+    margin: 0 0 16px;
+    font-size: clamp(2rem, 2.5vw, 3rem);
+    letter-spacing: -0.03em;
+}
+
+.intro-panel p {
+    max-width: 700px;
+}
+
+.bookshelf-panel {
+    position: relative;
+    padding-top: 28px;
+}
+
+.shelf-bar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 20px;
+    height: 12px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    border-radius: 999px;
+}
+
+.book-grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    margin-top: 20px;
+}
+
+.book-card {
+    background: rgba(13, 18, 30, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 28px;
+    overflow: hidden;
+    transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.book-card:hover,
+.book-card:focus-within {
+    transform: translateY(-4px);
+    border-color: rgba(108, 140, 255, 0.35);
+    box-shadow: 0 24px 48px rgba(12, 18, 36, 0.22);
+}
+
+.cover-link,
+.book-title {
+    display: block;
+}
+
+.cover-frame {
+    min-height: 320px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+}
+
+.cover-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 220ms ease;
+}
+
+.book-card:hover .cover-frame img,
+.book-card:focus-within .cover-frame img {
+    transform: scale(1.03);
+}
+
+.book-copy {
+    padding: 18px 20px 24px;
+}
+
+.book-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--text);
+}
+
+.book-subtitle {
+    margin: 0 0 12px;
+    color: var(--muted);
+    line-height: 1.5;
+}
+
+.book-author {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+.book-author i {
+    margin-right: 0.5rem;
+}
+
+.detail-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.95rem 1.3rem;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.03);
+    transition: background 160ms ease, border-color 160ms ease;
+}
+
+.back-link:hover,
+.back-link:focus {
+    background: rgba(108, 140, 255, 0.14);
+    border-color: rgba(108, 140, 255, 0.22);
+}
+
+.action-links {
+    display: flex;
+    gap: 12px;
+}
+
+.icon-link {
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text);
+    transition: transform 180ms ease, background 180ms ease;
+}
+
+.icon-link:hover,
+.icon-link:focus {
+    transform: translateY(-2px);
+    background: rgba(108, 140, 255, 0.16);
+}
+
+.detail-grid {
+    display: grid;
+    gap: 32px;
+    grid-template-columns: minmax(260px, 360px) 1fr;
+}
+
+.detail-cover {
+    border-radius: 15px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.detail-cover img {
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+    display: block;
+}
+
+.detail-copy h2 {
+    margin: 0 0 14px;
+    font-size: clamp(2rem, 2.3vw, 2.6rem);
+}
+
+.subtitle {
+    margin: 0 0 18px;
+    color: var(--muted);
+    max-width: 68ch;
+}
+
+.link-panel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-radius: 15px;
+    padding: 0.95rem 1.4rem;
+    border: 1px solid transparent;
+    font-weight: 600;
+    transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.button:hover,
+.button:focus {
+    transform: translateY(-1px);
+}
+
+.button-primary {
+    background: linear-gradient(135deg, #5f7dff, #3f5dff);
+    color: #fff;
+}
+
+.button-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.embed-panel {
+    margin-top: 34px;
+    padding: 26px;
+    border-radius: 28px;
+    background: rgba(14, 21, 35, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.embed-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.embed-header h3 {
+    margin: 0;
+}
+
+.embed-header p {
+    margin: 0;
+    color: var(--muted);
+}
+
+.embed-frame {
+    border-radius: 22px;
+    overflow: hidden;
+    min-height: 520px;
+    background: #090c16;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.embed-frame iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 520px;
+    border: 0;
+    display: block;
+}
+
+.empty-state {
+    text-align: center;
+}
+
+.empty-state h2 {
+    font-size: clamp(1.9rem, 2.5vw, 2.4rem);
+}
+
+.empty-state p {
+    margin: 18px auto 28px;
+    max-width: 620px;
+}
+
+@media (max-width: 900px) {
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    #app {
+        padding: 24px 0 48px;
+    }
+
+    .site-header,
+    .site-footer {
+        width: calc(100% - 24px);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .book-grid {
+        gap: 18px;
+    }
+
+    .cover-frame {
+        min-height: 260px;
+    }
+}
