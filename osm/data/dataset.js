@@ -10,37 +10,37 @@ const teams = {
         "wins": 3,
         "draws": 0,
         "losses": 1,
-        "squad_value": 244, // (millions)
+        "squad_value": 302, // (millions)
         "squad_count": 24,
         "squad": [
             // Shirt Number - Name - Age - Position - Nationality - Value (in millions) - Cards Count (Yellow, Red)
 
             // Forwards
             ["19", "Mbeumo", 26, "RW", "Cameroon", 24.5, [0, 0]],
-            ["10", "M. Cunha", 27, "LW", "Brazil", 17.4, [0, 0]],
+            ["10", "M. Cunha", 27, "LW", "Brazil", 20.2, [0, 0]],
             ["30", "Sesko", 23, "ST", "Slovenia", 23.8, [0, 0]],
-            ["11", "Zirkzee", 25, "ST", "Netherlands", 17.6, [1, 0]],
-            ["16", "Diallo", 23, "RW", "Ivory Coast", 10.0, [0, 0]],
+            ["11", "Zirkzee", 25, "ST", "Netherlands", 20.4, [1, 0]],
+            ["16", "Diallo", 23, "RW", "Ivory Coast", 11.0, [0, 0]],
             ["13", "Dorgu", 21, "LW", "Denmark", 7.7, [0, 0]],
             ["32", "Obi", 18, "ST", "Denmark", 5.0, [0, 0]],
             ["14", "Sliti", 20, "LW", "Netherlands", 3.4, [0, 0]],
 
             // Midfielders
-            ["8", "B. Fernandes", 31, "CAM", "Portugal", 16.7, [0, 0]],
-            ["37", "Mainoo", 21, "CM", "England", 15.7, [0, 0]],
+            ["8", "B. Fernandes", 31, "CAM", "Portugal", 17.8, [0, 0]],
+            ["37", "Mainoo", 21, "CM", "England", 16.9, [0, 0]],
             ["9", "McTominay", 29, "CM", "Scotland", 13.2, [1, 0]],
-            ["18", "Casemiro", 34, "CDM", "Brazil", 10.2, [0, 0]],
-            ["7", "Mount", 27, "CAM", "England", 9.5, [0, 0]],
+            ["18", "Casemiro", 34, "CDM", "Brazil", 11.6, [0, 0]],
+            ["7", "Mount", 27, "CAM", "England", 11.9, [0, 0]],
             ["25", "Ugarte", 25, "CDM", "Uruguay", 8.9, [0, 0]],
             ["0", "Gauld", 30, "CAM", "Scotland", 6.0, [0, 0]],
 
             // Defenders
             ["6", "L. Martinez", 28, "CB", "Argentina", 9.9, [0, 0]],
-            ["5", "Maguire", 33, "CB", "England", 8.2, [0, 0]],
-            ["2", "Dalot", 27, "RB", "Portugal", 10.4, [0, 0]],
+            ["5", "Maguire", 33, "CB", "England", 8.8, [0, 0]],
+            ["2", "Dalot", 27, "RB", "Portugal", 11.1, [0, 0]],
             ["4", "de Ligt", 26, "CB", "Netherlands", 8.4, [0, 0]],
-            ["15", "Yoro", 20, "CB", "France", 9.7, [0, 0]],
-            ["23", "Shaw", 30, "CB", "England", 9.4, [1, 0]],
+            ["15", "Yoro", 20, "CB", "France", 11.1, [0, 0]],
+            ["23", "Shaw", 30, "CB", "England", 10.7, [1, 0]],
             ["3", "Mazraoui", 28, "RB", "Morocco", 5.6, [0, 0]],
             ["26", "Heaven", 19, "CB", "England", 4.4, [0, 0]],
 
@@ -54,10 +54,10 @@ const teams = {
         "name": "England", // Team name
         "league": "World 2026", // League name
         "stage": "Final", // Current stage in the league
-        "position": "N/A",
+        "position": "Winners",
         "points": "N/A",
-        "matches_played": 7,
-        "wins": 7,
+        "matches_played": 8,
+        "wins": 8,
         "draws": 0,
         "losses": 0,
         "squad_value": 408, // (millions)
@@ -142,29 +142,6 @@ const upcoming_fixtures = [
     },
     */
 
-
-    {
-        "metadata": {
-            "league": "World 2026",
-            "stage": "Final"
-        },
-        "my_team": {
-            "name": "England",
-            "lineup": null
-        },
-        "opponent_team": {
-            "name": "Turkey",
-            "lineup": null
-        },
-        "date_time": ["04-07-2026", "19:39"],
-        "venue": "Home",
-        // A null result indicates that the match has not been played yet
-        "result": {
-            "England": null,
-            "Turkey": null
-        }
-    },    
-
     
 
     {
@@ -192,6 +169,30 @@ const upcoming_fixtures = [
 
 
     // Past Fixtures Below This Point
+    {
+        "metadata": {
+            "league": "World 2026",
+            "stage": "Final"
+        },
+        "my_team": {
+            "name": "England",
+            "lineup": null
+        },
+        "opponent_team": {
+            "name": "Turkey",
+            "lineup": null
+        },
+        "date_time": ["04-07-2026", "19:39"],
+        "venue": "Home",
+        // A null result indicates that the match has not been played yet
+        "result": {
+            "England": 5,
+            "Turkey": 0
+        }
+    },
+
+
+
     {
         "metadata": {
             "league": "England 2nd Division",
