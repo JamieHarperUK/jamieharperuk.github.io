@@ -108,8 +108,8 @@ const teams = {
 // My Manager Data
 const manager = {
     "name": "JamieHarperUK",
-    "rank": [2, "Amateur"],
-    "medals": 9462,
+    "rank": [3, "Debutant"],
+    "medals": 10039,
     "world_rank": 156859
 };
 
@@ -177,21 +177,44 @@ const upcoming_fixtures = [
             "lineup": null
         },
         "opponent_team": {
-            "name": "Bournemouth",
+            "name": "Tottenham Hotspur",
             "lineup": null
         },
-        "date_time": ["04-07-2026", "18:00"],
-        "venue": "Home",
+        "date_time": ["05-07-2026", "18:00"],
+        "venue": "Away",
         // A null result indicates that the match has not been played yet
         "result": {
             "Manchester United": null,
-            "Bournemouth": null
+            "Tottenham Hotspur": null
         }
     },
 
 
 
     // Past Fixtures Below This Point
+    {
+        "metadata": {
+            "league": "England 2nd Division",
+            "stage": "Pre-Season"
+        },
+        "my_team": {
+            "name": "Manchester United",
+            "lineup": null
+        },
+        "opponent_team": {
+            "name": "Bournemouth",
+            "lineup": null
+        },
+        "date_time": ["04-07-2026", "18:00"],
+        "venue": "Home",
+        "result": {
+            "Manchester United": 1,
+            "Bournemouth": 0
+        }
+    },
+
+
+
     {
         "metadata": {
             "league": "World 2026",
