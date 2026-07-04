@@ -310,7 +310,7 @@
                 renderTeamStats(team, teamId) {
                     const container = document.getElementById(`teamStats-${teamId}`);
                     let team_pos = '';
-                    if (team.position == "N/A") {
+                    if (team.position === "N/A" || team.position === "Winners") {
                         team_pos = `${team.position}`;
                     } else {
                         team_pos = `#${team.position}`;
