@@ -4,10 +4,10 @@ const teams = {
         "name": "Manchester United", // Team name
         "league": "England 2nd Division", // League name
         "stage": "Pre-Season", // Current stage in the league
-        "position": 6,
-        "points": 6,
-        "matches_played": 3,
-        "wins": 2,
+        "position": 4,
+        "points": 9,
+        "matches_played": 4,
+        "wins": 3,
         "draws": 0,
         "losses": 1,
         "squad_value": 244, // (millions)
