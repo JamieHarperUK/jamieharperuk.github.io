@@ -5,48 +5,48 @@ const teams = {
         "league": "England 2nd Division", // League name
         "stage": "Pre-Season", // Current stage in the league
         "position": 4,
-        "points": 9,
-        "matches_played": 4,
-        "wins": 3,
-        "draws": 0,
-        "losses": 1,
-        "squad_value": 302, // (millions)
-        "squad_count": 24,
+        "points": 31,
+        "matches_played": 14,
+        "wins": 10,
+        "draws": 1,
+        "losses": 3,
+        "squad_value": 526, // (millions)
+        "squad_count": 25,
         "squad": [
             // Shirt Number - Name - Age - Position - Nationality - Value (in millions) - Cards Count (Yellow, Red)
 
-            // Forwards
-            ["19", "Mbeumo", 26, "RW", "Cameroon", 24.5, [0, 0]],
-            ["10", "M. Cunha", 27, "LW", "Brazil", 20.2, [0, 0]],
-            ["30", "Sesko", 23, "ST", "Slovenia", 23.8, [0, 0]],
-            ["11", "Zirkzee", 25, "ST", "Netherlands", 20.4, [1, 0]],
-            ["16", "Diallo", 23, "RW", "Ivory Coast", 11.0, [0, 0]],
-            ["13", "Dorgu", 21, "LW", "Denmark", 7.7, [0, 0]],
-            ["32", "Obi", 18, "ST", "Denmark", 5.0, [0, 0]],
-            ["14", "Sliti", 20, "LW", "Netherlands", 3.4, [0, 0]],
+            // Forwards (6)
+            ["19", "Mbeumo", 26, "RW", "Cameroon", 35.6, [0, 0]],
+            ["10", "M. Cunha", 27, "LW", "Brazil", 35.5, [0, 0]],
+            ["30", "Sesko", 23, "ST", "Slovenia", 42.4, [1, 0]],
+            ["11", "Zirkzee", 25, "ST", "Netherlands", 33.5, [1, 0]],
+            ["16", "Diallo", 23, "RW", "Ivory Coast", 13.8, [0, 0]],
+            ["20", "Doku", 24, "LW", "Belgium", 18.0, [0, 0]],
 
-            // Midfielders
-            ["8", "B. Fernandes", 31, "CAM", "Portugal", 17.8, [0, 0]],
-            ["37", "Mainoo", 21, "CM", "England", 16.9, [0, 0]],
-            ["9", "McTominay", 29, "CM", "Scotland", 13.2, [1, 0]],
-            ["18", "Casemiro", 34, "CDM", "Brazil", 11.6, [0, 0]],
-            ["7", "Mount", 27, "CAM", "England", 11.9, [0, 0]],
-            ["25", "Ugarte", 25, "CDM", "Uruguay", 8.9, [0, 0]],
-            ["0", "Gauld", 30, "CAM", "Scotland", 6.0, [0, 0]],
+            // Midfielders (8)
+            ["8", "B. Fernandes", 31, "CAM", "Portugal", 21.3, [0, 1]],
+            ["37", "Mainoo", 21, "CM", "England", 26.4, [1, 0]],
+            ["12", "McTominay", 29, "CM", "Scotland", 13.2, [2, 0]],
+            ["18", "Casemiro", 34, "CAM", "Brazil", 19.5, [0, 0]],
+            ["7", "Mount", 27, "CAM", "England", 15.7, [0, 0]],
+            ["21", "Rice", 27, "CM", "England", 19.0, [0, 0]],
+            ["17", "Olmo", 28, "CM", "Spain", 22.5, [0, 0]],
+            ["24", "De Paul", 32, "CM", "Argentina", 28.2, [0, 0]],
 
-            // Defenders
-            ["6", "L. Martinez", 28, "CB", "Argentina", 9.9, [0, 0]],
-            ["5", "Maguire", 33, "CB", "England", 8.8, [0, 0]],
-            ["2", "Dalot", 27, "RB", "Portugal", 11.1, [0, 0]],
+            // Defenders (9)
+            ["6", "L. Martinez", 28, "LB", "Argentina", 12.3, [1, 0]],
+            ["5", "Maguire", 33, "RB", "England", 12.9, [1, 0]],
+            ["2", "Dalot", 27, "RB", "Portugal", 13.5, [1, 0]],
             ["4", "de Ligt", 26, "CB", "Netherlands", 8.4, [0, 0]],
-            ["15", "Yoro", 20, "CB", "France", 11.1, [0, 0]],
-            ["23", "Shaw", 30, "CB", "England", 10.7, [1, 0]],
-            ["3", "Mazraoui", 28, "RB", "Morocco", 5.6, [0, 0]],
-            ["26", "Heaven", 19, "CB", "England", 4.4, [0, 0]],
+            ["15", "Yoro", 20, "LB", "France", 19.7, [0, 0]],
+            ["23", "Shaw", 31, "LB", "England", 10.4, [2, 0]],
+            ["13", "Akanji", 30, "CB", "Switzerland", 23.4, [1, 0]],
+            ["14", "Pacho", 24, "CB", "Ecuador", 20.2, [0, 0]],
+            ["22", "Bensebaini", 31, "CB", "Algeria", 11.7, [0, 0]],
 
-            // Goalkeepers
-            ["31", "Lammens", 23, "GK", "Belgium", 8.5, [0, 0]],
-            ["1", "Bayindir", 28, "GK", "Turkey", 5.1, [0, 0]]
+            // Goalkeepers (2)
+            ["31", "Lammens", 24, "GK", "Belgium", 26.9, [0, 0]],
+            ["1", "Bayindir", 28, "GK", "Turkey", 20.6, [0, 0]]
         ]
     },
 
@@ -109,8 +109,8 @@ const teams = {
 const manager = {
     "name": "JamieHarperUK",
     "rank": [3, "Debutant"],
-    "medals": 10039,
-    "world_rank": 156859
+    "medals": 30015,
+    "world_rank": 932376
 };
 
 
@@ -154,21 +154,274 @@ const upcoming_fixtures = [
             "lineup": null
         },
         "opponent_team": {
-            "name": "Tottenham Hotspur",
+            "name": "Wolverhampton Wanderers",
             "lineup": null
         },
-        "date_time": ["05-07-2026", "18:00"],
-        "venue": "Away",
+        "date_time": ["17-07-2026", "18:00"],
+        "venue": "Home",
         // A null result indicates that the match has not been played yet
         "result": {
             "Manchester United": null,
-            "Tottenham Hotspur": null
+            "Wolverhampton Wanderers": null
         }
     },
 
 
 
     // Past Fixtures Below This Point
+    {
+        "metadata": {
+            "league": "England 2nd Division",
+            "stage": "Pre-Season"
+        },
+        "my_team": {
+            "name": "Manchester United",
+            "lineup": null
+        },
+        "opponent_team": {
+            "name": "Brentford",
+            "lineup": null
+        },
+        "date_time": ["16-07-2026", "18:00"],
+        "venue": "Away",
+        "result": {
+            "Manchester United": 2,
+            "Brentford": 0
+        }
+    },
+
+
+
+    {
+        "metadata": {
+            "league": "England 2nd Division",
+            "stage": "Pre-Season"
+        },
+        "my_team": {
+            "name": "Manchester United",
+            "lineup": null
+        },
+        "opponent_team": {
+            "name": "Aston Villa",
+            "lineup": null
+        },
+        "date_time": ["15-07-2026", "18:00"],
+        "venue": "Home",
+        "result": {
+            "Manchester United": 6,
+            "Aston Villa": 0
+        }
+    },
+
+
+
+    {
+        "metadata": {
+            "league": "England 2nd Division",
+            "stage": "Pre-Season"
+        },
+        "my_team": {
+            "name": "Manchester United",
+            "lineup": null
+        },
+        "opponent_team": {
+            "name": "Manchester City",
+            "lineup": null
+        },
+        "date_time": ["14-07-2026", "18:00"],
+        "venue": "Home",
+        "result": {
+            "Manchester United": 4,
+            "Manchester City": 1
+        }
+    },
+
+
+
+    {
+        "metadata": {
+            "league": "England 2nd Division",
+            "stage": "Pre-Season"
+        },
+        "my_team": {
+            "name": "Manchester United",
+            "lineup": null
+        },
+        "opponent_team": {
+            "name": "Brighton & Hove Albion",
+            "lineup": null
+        },
+        "date_time": ["13-07-2026", "18:00"],
+        "venue": "Away",
+        "result": {
+            "Manchester United": 2,
+            "Brighton & Hove Albion": 0
+        }
+    },
+
+
+
+    {
+        "metadata": {
+            "league": "England 2nd Division",
+            "stage": "Pre-Season"
+        },
+        "my_team": {
+            "name": "Manchester United",
+            "lineup": null
+        },
+        "opponent_team": {
+            "name": "West Ham United",
+            "lineup": null
+        },
+        "date_time": ["12-07-2026", "18:00"],
+        "venue": "Away",
+        "result": {
+            "Manchester United": 1,
+            "West Ham United": 0
+        }
+    },
+
+
+
+    {
+        "metadata": {
+            "league": "England 2nd Division",
+            "stage": "Pre-Season"
+        },
+        "my_team": {
+            "name": "Manchester United",
+            "lineup": null
+        },
+        "opponent_team": {
+            "name": "Liverpool FC",
+            "lineup": null
+        },
+        "date_time": ["11-07-2026", "18:00"],
+        "venue": "Home",
+        "result": {
+            "Manchester United": 3,
+            "Liverpool FC": 0
+        }
+    },
+
+
+
+    {
+        "metadata": {
+            "league": "England 2nd Division",
+            "stage": "Pre-Season"
+        },
+        "my_team": {
+            "name": "Manchester United",
+            "lineup": null
+        },
+        "opponent_team": {
+            "name": "Fulham",
+            "lineup": null
+        },
+        "date_time": ["10-07-2026", "18:00"],
+        "venue": "Away",
+        "result": {
+            "Manchester United": 0,
+            "Fulham": 2
+        }
+    },
+
+
+
+    {
+        "metadata": {
+            "league": "England 2nd Division",
+            "stage": "Pre-Season"
+        },
+        "my_team": {
+            "name": "Manchester United",
+            "lineup": null
+        },
+        "opponent_team": {
+            "name": "Crystal Palace",
+            "lineup": null
+        },
+        "date_time": ["09-07-2026", "18:00"],
+        "venue": "Home",
+        "result": {
+            "Manchester United": 2,
+            "Crystal Palace": 0
+        }
+    },
+
+
+
+    {
+        "metadata": {
+            "league": "England 2nd Division",
+            "stage": "Pre-Season"
+        },
+        "my_team": {
+            "name": "Manchester United",
+            "lineup": null
+        },
+        "opponent_team": {
+            "name": "Sunderland",
+            "lineup": null
+        },
+        "date_time": ["08-07-2026", "18:00"],
+        "venue": "Away",
+        "result": {
+            "Manchester United": 2,
+            "Sunderland": 1
+        }
+    },
+
+
+
+    {
+        "metadata": {
+            "league": "England 2nd Division",
+            "stage": "Pre-Season"
+        },
+        "my_team": {
+            "name": "Manchester United",
+            "lineup": null
+        },
+        "opponent_team": {
+            "name": "Arsenal",
+            "lineup": null
+        },
+        "date_time": ["07-07-2026", "18:00"],
+        "venue": "Home",
+        "result": {
+            "Manchester United": 0,
+            "Arsenal": 0
+        }
+    },
+
+
+
+    {
+        "metadata": {
+            "league": "England 2nd Division",
+            "stage": "Pre-Season"
+        },
+        "my_team": {
+            "name": "Manchester United",
+            "lineup": null
+        },
+        "opponent_team": {
+            "name": "Tottenham Hotspur",
+            "lineup": null
+        },
+        "date_time": ["05-07-2026", "18:00"],
+        "venue": "Away",
+        "result": {
+            "Manchester United": 0,
+            "Tottenham Hotspur": 1
+        }
+    },
+
+
+
     {
         "metadata": {
             "league": "World 2026",
