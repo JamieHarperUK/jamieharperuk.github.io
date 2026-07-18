@@ -5,9 +5,9 @@ const teams = {
         "league": "England 2nd Division", // League name
         "stage": "Pre-Season", // Current stage in the league
         "position": 4,
-        "points": 31,
-        "matches_played": 14,
-        "wins": 10,
+        "points": 34,
+        "matches_played": 15,
+        "wins": 11,
         "draws": 1,
         "losses": 3,
         "squad_value": 526, // (millions)
