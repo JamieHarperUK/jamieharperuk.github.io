@@ -16,12 +16,12 @@ const teams = {
             // Shirt Number - Name - Age - Position - Nationality - Value (in millions) - Cards Count (Yellow, Red)
 
             // Forwards (6)
-            ["19", "Mbeumo", 26, "RW", "Cameroon", 35.6, [0, 0]],
-            ["10", "M. Cunha", 27, "LW", "Brazil", 35.5, [0, 0]],
-            ["30", "Sesko", 23, "ST", "Slovenia", 42.4, [1, 0]],
-            ["11", "Zirkzee", 25, "ST", "Netherlands", 33.5, [1, 0]],
+            ["19", "Mbeumo", 26, "RW", "Cameroon", 50.8, [1, 0]],
+            ["10", "M. Cunha", 27, "LW", "Brazil", 37.9, [0, 0]],
+            ["30", "Sesko", 23, "ST", "Slovenia", 49.0, [1, 0]],
+            ["11", "Zirkzee", 25, "ST", "Netherlands", 36.0, [1, 0]],
             ["16", "Diallo", 23, "RW", "Ivory Coast", 13.8, [0, 0]],
-            ["20", "Doku", 24, "LW", "Belgium", 18.0, [0, 0]],
+            ["20", "Doku", 24, "LW", "Belgium", 22.3, [0, 0]],
 
             // Midfielders (8)
             ["8", "B. Fernandes", 31, "CAM", "Portugal", 21.3, [0, 1]],
