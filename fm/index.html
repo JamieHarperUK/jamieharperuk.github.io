@@ -5,11 +5,64 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <meta property="og:title" content="JHUK Football Management Hub">
+        <meta property="og:description" content="Track my OSM and Top Eleven teams, fixtures, and updates in one place.">
+        <meta property="og:image" content="https://jamieharperuk.github.io/fm/data/fm_bg.png">
+
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Football Management</title>
+
+        <link rel="icon" type="image/png" sizes="32x32" href="https://jamieharperuk.github.io/fm/data/fm_icon.png">
+        <title>JHUK Football Management Hub</title>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-        
+        <header>
+            <nav>
+                <a href="#home" class="nav-brand">
+                    <i class="fas fa-futbol"></i> JHUK Football Management
+                </a>
+                <div class="nav-links" id="navLinks"></div>
+            </nav>
+        </header>
+
+        <main id="app">
+            <section id="home" class="page active">
+                <h1 class="section-title">Welcome</h1>
+                <div class="notes-section">
+                    <div class="notes-content" id="notesContent">
+                        Follow my OSM and Top Eleven journey in one place. Explore team pages for squads and form,
+                        keep track of upcoming fixtures, and check the latest update posts.
+                    </div>
+                </div>
+
+                <h2 class="section-title">Hub Overview</h2>
+                <div class="manager-stats" id="overviewStats"></div>
+
+                <h2 class="section-title">Upcoming Fixtures</h2>
+                <div class="fixtures-grid" id="upcomingFixtures"></div>
+            </section>
+
+            <section id="posts" class="page">
+                <h1 class="section-title">Posts & Updates</h1>
+                <div class="notes-section">
+                    <div class="notes-content">
+                        The latest Football Management posts, progress updates, and announcements are shown below.
+                    </div>
+                </div>
+                <div class="updates-grid" id="allPosts"></div>
+            </section>
+
+            <div id="teamPagesContainer"></div>
+        </main>
+
+        <footer>
+            This website is not affiliated with Online Soccer Manager, Top Eleven, or any teams mentioned.<br>
+            Website Created by <a href="https://oakshift.co.uk/" target="_blank" class="site-link">Oakshift Software</a>
+        </footer>
+
+        <script src="main.js"></script>
     </body>
 </html>
