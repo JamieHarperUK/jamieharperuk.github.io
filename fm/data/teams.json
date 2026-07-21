@@ -1,0 +1,90 @@
+{
+    "metadata": {
+        "lastUpdated": "2026-07-21T21:00:00Z",
+        "version": "1.1.0",
+        "//": "Players are stored as an array of arrays. The last two elements of each player array are to represent the player's current Yellow and Red cards respectively ('0' if none).",
+        "fields": {
+            "team": {
+                "team_name": "string",
+                "osm_or_top_eleven": "string",
+                "competition": "string",
+                "country": "string",
+                "home_venue": "string",
+                "players": "array[array[string]]"
+            }
+        }
+    },
+    "teams": [
+        {
+            "team_name": "Manchester United",
+            "osm_or_top_eleven": "OSM",
+            "competition": "England 2nd Division",
+            "country": "England",
+            "home_venue": "Old Trafford",
+            "players": [
+                ["GK", "Lammens", "0", "0"],
+                ["GK", "Bayindir", "1", "0"],
+                
+                ["CB", "Akanji", "2", "0"],
+                ["CB", "Gimenez", "0", "0"],
+                ["LB", "Yoro", "2", "0"],
+                ["RB", "Pacho", "1", "0"],
+                ["RB", "Dalot", "1", "0"],
+                ["RB", "Maguire", "1", "0"],
+                ["CB", "Bensebaini", "0", "0"],
+                ["LB", "L. Martinez", "1", "0"],
+                ["CB", "Shaw", "2", "0"],
+                
+                ["CM", "Mainoo", "1", "0"],
+                ["CM", "De Paul", "1", "0"],
+                ["CAM", "Olmo", "0", "0"],
+                ["CAM", "B. Fernandes", "0", "0"],
+                ["CAM", "Casemiro", "0", "0"],
+                ["CM", "Rice", "0", "0"],
+                ["CAM", "Mount", "0", "0"],
+                
+                ["RW", "Mbeumo", "1", "0"],
+                ["ST", "Sesko", "1", "0"],
+                ["LW", "M. Cunha", "0", "0"],
+                ["ST", "Zirkzee", "1", "0"],
+                ["LW", "Doku", "0", "0"],
+                ["RW", "Diallo", "0", "0"]
+            ]
+        },
+        {
+            "team_name": "Harper FC",
+            "osm_or_top_eleven": "Top Eleven",
+            "competition": "League Level 1",
+            "country": "England",
+            "home_venue": "Harper FC Stadium",
+            "players": [
+                ["GK", "Mads Lohmann", "0", "0"],
+                ["GK", "Mathias Vars", "0", "0"],
+                ["GK", "Nando Richards-Everton", "0", "0"],
+
+                ["DL", "Janusz Pielak", "0", "0"],
+                ["DC", "Oak Cadmore", "0", "0"],
+                ["DC", "Artur Marques", "0", "0"],
+                ["DC", "Liam Garratt", "0", "0"],
+                ["DC", "Frankie Peach", "0", "0"],
+                ["DC", "Raul Antonio Medina", "0", "0"],
+                ["DR", "Sol Grant", "0", "0"],
+
+                ["MC", "Peter Skinner", "0", "0"],
+                ["MC", "Cristian Zardetto", "0", "0"],
+                ["MC", "Steven Matthews", "0", "0"],
+                ["MC", "Jody Horlock", "0", "0"],
+                ["MC", "Weerasak Paphunga", "0", "0"],
+                ["AML", "Gareth Baynes", "0", "0"],
+                ["AML", "Rachid Mesquini", "0", "0"],
+                ["AMR", "Brett Stewart", "0", "0"],
+                ["AMR", "Francis McPolin", "0", "0"],
+                
+                ["ST", "David Douence", "0", "0"],
+                ["ST", "Arnold Vasiljev", "0", "0"],
+                ["ST", "Chris Brewer", "0", "0"],
+                ["ST", "Mahmoud Howash", "0", "0"]
+            ]
+        }
+    ]
+}

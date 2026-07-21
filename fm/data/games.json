@@ -1,0 +1,37 @@
+{
+    "metadata": {
+        "lastUpdated": "2026-07-21T21:00:00Z",
+        "version": "1.1.0",
+        "//": "Games are stored as an array of objects. Each object contains the details of a single game. All game times are stored in 24-hour format and in UK time.",
+        "fields": {
+            "game": {
+                "home_or_away": "string",
+                "home_team": "string",
+                "away_team": "string",
+                "date": "string",
+                "time": "string",
+                "osm_or_top_eleven": "string",
+                "competition": "string",
+                "venue": "string",
+                "home_score": "string",
+                "away_score": "string",
+                "winner": "string"
+            }
+        }
+    },
+    "games": [
+        {
+            "home_or_away": "Home",
+            "home_team": "Manchester United",
+            "away_team": "Liverpool FC",
+            "date": "22-07-2026",
+            "time": "18:28",
+            "osm_or_top_eleven": "OSM",
+            "competition": "England 2nd Division",
+            "venue": "Neutral Ground",
+            "home_score": "",
+            "away_score": "",
+            "winner": ""
+        }
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "site_data": {
+        "title": "JamieHarper UK",
+        "url": "https://jamieharperuk.github.io/"
+    }, 
+    "metadata": {
+        "last_updated": null
+    }, 
+    "json_files": {
+        "fm_games": "fm/data/games.json",
+        "fm_posts": "fm/data/posts.json",
+        "fm_teams": "fm/data/teams.json"
+    }
+}
