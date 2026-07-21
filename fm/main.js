@@ -355,7 +355,7 @@ const app = {
             <section class="team-stats">
                 <article class="stat-card">
                     <div class="stat-label">Game</div>
-                    <div class="stat-value">${gameTypeData.title} <img src="${gameTypeData.logo}" alt="${gameTypeData.title} logo" style="height: 1em; vertical-align: middle;"></div>
+                    <div class="stat-value"><a href="${gameTypeData.link}" target="_blank"><img src="${gameTypeData.logo}" alt="${gameTypeData.title} logo" style="height: 2em; vertical-align: middle;"></a></div>
                 </article>
                 <article class="stat-card">
                     <div class="stat-label">Competition</div>
