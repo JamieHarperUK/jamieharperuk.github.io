@@ -332,13 +332,30 @@ const app = {
         const yellowCards = (team.players || []).reduce((count, player) => count + Number(player[2] || 0), 0);
         const redCards = (team.players || []).reduce((count, player) => count + Number(player[3] || 0), 0);
 
+        const gameSelector = team.osm_or_top_eleven === "OSM" ? "Online Soccer Manager" : team.osm_or_top_eleven === "Top Eleven" ? "Top Eleven" : "Unknown";
+        let gameTypeData = {
+            title: "Unknown",
+            logo: "",
+            link: "#"
+        };
+
+        if (gameSelector == "Top Eleven") {
+            gameTypeData.title = "Top Eleven";
+            gameTypeData.logo = "https://jamieharperuk.github.io/fm/data/top-eleven-logo.png";
+            gameTypeData.link = "https://www.topeleven.com/";
+        } else if (gameSelector == "Online Soccer Manager") {
+            gameTypeData.title = "Online Soccer Manager";
+            gameTypeData.logo = "https://jamieharperuk.github.io/fm/data/osm-logo.png";
+            gameTypeData.link = "https://www.onlinesoccermanager.com/";
+        }
+
         content.innerHTML = `
             <h1 class="section-title">${this.escapeHtml(team.team_name)}</h1>
 
             <section class="team-stats">
                 <article class="stat-card">
                     <div class="stat-label">Game</div>
-                    <div class="stat-value">${this.escapeHtml(team.osm_or_top_eleven || "Unknown")}</div>
+                    <div class="stat-value">${gameTypeData.title} <img src="${gameTypeData.logo}" alt="${gameTypeData.title} logo" style="height: 1em; vertical-align: middle;"></div>
                 </article>
                 <article class="stat-card">
                     <div class="stat-label">Competition</div>
