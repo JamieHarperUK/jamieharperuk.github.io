@@ -243,6 +243,34 @@ main {
     font-weight: 700;
 }
 
+.recent-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-top: 12px;
+}
+
+.form-dot {
+    width: 0.72rem;
+    height: 0.72rem;
+    border-radius: 50%;
+    display: inline-block;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.form-dot.win {
+    background-color: var(--success-color);
+}
+
+.form-dot.loss {
+    background-color: var(--danger-color);
+}
+
+.form-dot.draw {
+    background-color: var(--text-secondary);
+}
+
 .fixture-card {
     overflow: hidden;
 }

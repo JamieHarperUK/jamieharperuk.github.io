@@ -326,7 +326,8 @@ const app = {
         const teamGames = this.getTeamGames(team.team_name);
         const upcoming = teamGames.filter((game) => !this.isPlayed(game)).sort((a, b) => this.compareGameDateAsc(a, b));
         const played = teamGames.filter((game) => this.isPlayed(game)).sort((a, b) => this.compareGameDateDesc(a, b));
-        const recentForm = played.slice(0, 5).map((game) => this.getResultLetter(game, team.team_name)).join("") || "N/A";
+        const recentFormResults = played.slice(0, 5).map((game) => this.getResultLetter(game, team.team_name));
+        const recentFormMarkup = this.getRecentFormMarkup(recentFormResults);
 
         const yellowCards = (team.players || []).reduce((count, player) => count + Number(player[2] || 0), 0);
         const redCards = (team.players || []).reduce((count, player) => count + Number(player[3] || 0), 0);
@@ -349,7 +350,7 @@ const app = {
                 </article>
                 <article class="stat-card">
                     <div class="stat-label">Recent Form</div>
-                    <div class="stat-value">${recentForm}</div>
+                    ${recentFormMarkup}
                 </article>
                 <article class="stat-card">
                     <div class="stat-label">Cards</div>
@@ -563,6 +564,27 @@ const app = {
         const didHomeWin = homeScore > awayScore;
         const isHomeTeam = game.home_team === teamName;
         return (didHomeWin && isHomeTeam) || (!didHomeWin && !isHomeTeam) ? "W" : "L";
+    },
+
+    getRecentFormMarkup(results) {
+        if (!results.length) {
+            return '<div class="stat-value">N/A</div>';
+        }
+
+        const dots = results
+            .map((result) => {
+                let formClass = "draw";
+                if (result === "W") {
+                    formClass = "win";
+                } else if (result === "L") {
+                    formClass = "loss";
+                }
+
+                return `<span class="form-dot ${formClass}" aria-label="${result}" title="${result}"></span>`;
+            })
+            .join("");
+
+        return `<div class="recent-form" aria-label="Recent results">${dots}</div>`;
     },
 
     compareGameDateAsc(a, b) {
