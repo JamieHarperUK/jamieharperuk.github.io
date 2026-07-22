@@ -353,6 +353,11 @@ const app = {
             gameTypeData.link = "https://www.onlinesoccermanager.com/";
         }
 
+        let gameLogoTag = `<img src="${gameTypeData.logo}" alt="${gameTypeData.title} logo" style="height: 1.75rem; vertical-align: middle;">`;
+        if (gameTypeData.title === "Top Eleven") {
+            gameLogoTag = `<img src="${gameTypeData.logo}" alt="${gameTypeData.title} logo" style="height: 1.75rem; vertical-align: middle; filter: invert(1);">`;
+        }
+
         content.innerHTML = `
             <h1 class="section-title">${this.escapeHtml(team.team_name)}</h1>
 
@@ -361,7 +366,7 @@ const app = {
                     <div class="stat-label">Game</div>
                     <div class="stat-value">
                         <a href="${gameTypeData.link}" target="_blank">
-                            <img src="${gameTypeData.logo}" alt="${gameTypeData.title} logo" style="height: 1.75rem; vertical-align: middle;">
+                            ${gameLogoTag}
                         </a>
                     </div>
                 </article>
