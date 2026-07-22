@@ -503,8 +503,8 @@ const app = {
                         <tr>
                             <td>${position}</td>
                             <td>${name}</td>
-                            <td><span class="cards-pill yellow">${yellow}</span></td>
-                            <td><span class="cards-pill red">${red}</span></td>
+                            <td style="text-align: center;"><span class="cards-pill yellow">${yellow}</span></td>
+                            <td style="text-align: center;"><span class="cards-pill red">${red}</span></td>
                         </tr>
                     `;
                 })
@@ -517,8 +517,8 @@ const app = {
                         <tr>
                             <th>Pos</th>
                             <th>Player</th>
-                            <th>Y</th>
-                            <th>R</th>
+                            <th style="text-align: center;">Y</th>
+                            <th style="text-align: center;">R</th>
                         </tr>
                     </thead>
                     <tbody>${rows}</tbody>
