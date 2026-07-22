@@ -283,6 +283,76 @@
       "home_score": "0",
       "away_score": "0",
       "winner": "Draw"
+    },
+
+    {
+      "home_or_away": "Away",
+      "home_team": "Tottenham Hotspur",
+      "away_team": "Manchester United",
+      "date": "05-07-2026",
+      "time": "18:28",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Tottenham Hotspur Stadium",
+      "home_score": "1",
+      "away_score": "0",
+      "winner": "Tottenham Hotspur"
+    },
+
+    {
+      "home_or_away": "Home",
+      "home_team": "Manchester United",
+      "away_team": "Bournemouth",
+      "date": "04-07-2026",
+      "time": "18:28",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Old Trafford",
+      "home_score": "1",
+      "away_score": "0",
+      "winner": "Manchester United"
+    },
+
+    {
+      "home_or_away": "Away",
+      "home_team": "Burnley",
+      "away_team": "Manchester United",
+      "date": "03-07-2026",
+      "time": "18:28",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Turf Moor",
+      "home_score": "0",
+      "away_score": "3",
+      "winner": "Manchester United"
+    },
+
+    {
+      "home_or_away": "Home",
+      "home_team": "Manchester United",
+      "away_team": "Newcastle United",
+      "date": "02-07-2026",
+      "time": "18:28",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Old Trafford",
+      "home_score": "3",
+      "away_score": "1",
+      "winner": "Manchester United"
+    },
+
+    {
+      "home_or_away": "Away",
+      "home_team": "Manchester City",
+      "away_team": "Manchester United",
+      "date": "01-07-2026",
+      "time": "18:28",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Etihad Stadium",
+      "home_score": "2",
+      "away_score": "0",
+      "winner": "Manchester City"
     }
   ]
 }
