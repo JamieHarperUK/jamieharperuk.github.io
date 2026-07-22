@@ -62,11 +62,6 @@ const app = {
         homeLink.textContent = "Home";
         navLinks.appendChild(homeLink);
 
-        const postsLink = document.createElement("a");
-        postsLink.href = "#posts";
-        postsLink.textContent = "Posts";
-        navLinks.appendChild(postsLink);
-
         const dropdown = document.createElement("div");
         dropdown.className = "nav-dropdown";
 
@@ -106,6 +101,11 @@ const app = {
         dropdown.appendChild(dropdownToggle);
         dropdown.appendChild(dropdownMenu);
         navLinks.appendChild(dropdown);
+
+        const postsLink = document.createElement("a");
+        postsLink.href = "#posts";
+        postsLink.textContent = "Posts";
+        navLinks.appendChild(postsLink);
 
         this.updateNavLinks();
     },
