@@ -1,25 +1,44 @@
 {
-    "metadata": {
-        "lastUpdated": "2026-07-21T21:00:00Z",
-        "version": "1.1.0",
-        "//": "Posts are stored as an array of objects. Each object contains the details of a single post. The date_time field is an array of two strings, the first being the date in DD-MM-YYYY format and the second being the time in 24-hour format. Categories will include (and are limited to) 'Announcement', 'OSM', 'Top Eleven', and 'Other'. Tags are optional and can be used to further categorize posts.",
-        "fields": {
-            "post": {
-                "title": "string",
-                "content": "string",
-                "date_time": "array[string]",
-                "category": "string",
-                "tags": "array[string]"
-            }
-        }
+  "metadata": {
+    "lastUpdated": "2026-07-21T21:00:00Z",
+    "version": "1.1.0",
+    "//": "Posts are stored as an array of objects. Each object contains the details of a single post. The date_time field is an array of two strings, the first being the date in DD-MM-YYYY format and the second being the time in 24-hour format. Categories will include (and are limited to) 'Announcement', 'OSM', 'Top Eleven', and 'Other'. Tags are optional and can be used to further categorize posts.",
+    "fields": {
+      "post": {
+        "title": "string",
+        "content": "string",
+        "date_time": "array[string]",
+        "category": "string",
+        "tags": "array[string]"
+      }
+    }
+  },
+  "posts": [
+    {
+      "title": "Welcome to the new JamieHarperUK Football Management website!",
+      "content": "I am excited to launch the new website for my Football Management endeavors. Stay tuned for updates and news!",
+      "date_time": [
+        "21-07-2026",
+        "21:00"
+      ],
+      "category": "Announcement",
+      "tags": [
+        "welcome",
+        "announcement"
+      ]
     },
-    "posts": [
-        {
-            "title": "Welcome to the new JamieHarperUK Football Management website!",
-            "content": "I am excited to launch the new website for my Football Management endeavors. Stay tuned for updates and news!",
-            "date_time": ["21-07-2026", "21:00"],
-            "category": "Announcement",
-            "tags": ["welcome", "announcement"]
-        }
-    ]
+    {
+      "title": "New Player Signed",
+      "content": "Dayot Upamecano has been signed to Manchester United, and will be playing in Centre Back position. Very excited to see what he can bring to the table!",
+      "date_time": [
+        "22-07-2026",
+        "05:25"
+      ],
+      "category": "OSM",
+      "tags": [
+        "signing",
+        "player"
+      ]
+    }
+  ]
 }

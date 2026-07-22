@@ -24,5 +24,13 @@
     "details": {
       "path": "fm/data/games.json"
     }
+  },
+  {
+    "timestamp": "2026-07-22T04:24:14.784Z",
+    "actor": "oakshiftsoftware",
+    "action": "update_json",
+    "details": {
+      "path": "fm/data/posts.json"
+    }
   }
 ]
