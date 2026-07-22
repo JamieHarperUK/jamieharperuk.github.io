@@ -304,11 +304,32 @@ const app = {
             const safeContent = this.escapeHtml(post.content || "");
             const tags = Array.isArray(post.tags) ? post.tags : [];
 
+            let categoryGameType = "";
+
+            if (safeCategory.toLowerCase() === "top eleven" || safeCategory.toLowerCase() === "osm") {
+                let gameTypeDataTwo = {
+                    title: "Unknown",
+                    logo: ""
+                };
+
+                if (safeCategory.toLowerCase() === "top eleven") {
+                    gameTypeDataTwo.title = "Top Eleven";
+                    gameTypeDataTwo.logo = "https://jamieharperuk.github.io/fm/data/top-eleven-logo.png";
+                } else if (safeCategory.toLowerCase() === "osm") {
+                    gameTypeDataTwo.title = "Online Soccer Manager";
+                    gameTypeDataTwo.logo = "https://jamieharperuk.github.io/fm/data/osm-logo.png";
+                }
+
+                categoryGameType = `<img src="${gameTypeDataTwo.logo}" alt="${gameTypeDataTwo.title} logo" style="height: 1rem; vertical-align: middle;">`;
+            } else {
+                categoryGameType = safeCategory;
+            }
+
             card.innerHTML = `
                 <h3 class="update-title">${safeTitle}</h3>
                 <div class="update-meta">
                     <span>${safeDate} @ ${safeTime}</span>
-                    <span class="update-category">${safeCategory}</span>
+                    <span class="update-category">${categoryGameType}</span>
                 </div>
                 <p class="update-content">${safeContent}</p>
                 <div class="tags">${tags.map((tag) => `<span class="tag">#${this.escapeHtml(tag)}</span>`).join("")}</div>
