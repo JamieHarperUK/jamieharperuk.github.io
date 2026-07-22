@@ -544,18 +544,13 @@ const app = {
         const gameHandle = this.getGameTwitterHandleByCategory(post?.category);
 
         const facebookText = hashtagsLine
-            ? `${baseText}\n\n${hashtagsLine}`
+            ? `${baseText}\n\n${hashtagsLine}\n\n`
             : baseText; 
 
-        let twitterText = hashtagsLine ? `${baseText}\n\n${hashtagsLine} ${gameHandle}` : baseText;
-        const xText = [
-            baseText,
-            hashtagsLine,
-            gameHandle
-        ].filter((part) => part && part.trim().length > 0).join("\n\n");
+        const xText = hashtagsLine ? `${baseText}\n\n${hashtagsLine} ${gameHandle}\n\n` : baseText;
 
         return {
-            x: `https://x.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(twitterText)}`,
+            x: `https://x.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(xText)}`,
             facebook: `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&quote=${encodeURIComponent(facebookText)}`
         };
     },
