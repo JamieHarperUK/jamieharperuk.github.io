@@ -409,6 +409,27 @@ const app = {
         const postUrl = this.getCanonicalPageUrl(`post/${postSlug}`);
         const shareUrls = this.getPostShareUrls(post, postUrl);
 
+        let categoryGameType = "";
+
+        if (safeCategory.toLowerCase() === "top eleven" || safeCategory.toLowerCase() === "osm") {
+            let gameTypeDataTwo = {
+                title: "Unknown",
+                logo: ""
+            };
+
+            if (safeCategory.toLowerCase() === "top eleven") {
+                gameTypeDataTwo.title = "Top Eleven";
+                gameTypeDataTwo.logo = "https://jamieharperuk.github.io/fm/data/top-eleven-logo.png";
+                categoryGameType = `<img src="${gameTypeDataTwo.logo}" alt="${gameTypeDataTwo.title} logo" style="height: 1rem; vertical-align: middle; filter: invert(1);">`;
+            } else if (safeCategory.toLowerCase() === "osm") {
+                gameTypeDataTwo.title = "Online Soccer Manager";
+                gameTypeDataTwo.logo = "https://jamieharperuk.github.io/fm/data/osm-logo.png";
+                categoryGameType = `<img src="${gameTypeDataTwo.logo}" alt="${gameTypeDataTwo.title} logo" style="height: 1rem; vertical-align: middle;">`;
+            }
+        } else {
+            categoryGameType = safeCategory;
+        }
+
         container.innerHTML = `
             <a href="#posts" class="site-link">&larr; Back to Posts</a>
             <h1 class="section-title" style="margin-top: 0.6rem;">${safeTitle}</h1>
@@ -416,7 +437,7 @@ const app = {
             <article class="update-card post-detail-card">
                 <div class="update-meta">
                     <span>${safeDate} @ ${safeTime}</span>
-                    <span class="update-category">${safeCategory}</span>
+                    <span class="update-category">${categoryGameType}</span>
                 </div>
                 ${this.getPostImageMarkup(post, "post-detail-image")}
                 <p class="update-content">${safeContent}</p>
