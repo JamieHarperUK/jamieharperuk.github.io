@@ -545,7 +545,7 @@ const app = {
 
         const facebookText = hashtagsLine
             ? `${baseText}\n\n${hashtagsLine}`
-            : baseText;
+            : baseText; 
 
         const xText = [
             baseText,
