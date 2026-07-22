@@ -420,11 +420,11 @@ const app = {
             if (safeCategory.toLowerCase() === "top eleven") {
                 gameTypeDataTwo.title = "Top Eleven";
                 gameTypeDataTwo.logo = "https://jamieharperuk.github.io/fm/data/top-eleven-logo.png";
-                categoryGameType = `<img src="${gameTypeDataTwo.logo}" alt="${gameTypeDataTwo.title} logo" style="height: 1rem; vertical-align: middle; filter: invert(1);">`;
+                categoryGameType = `<img src="${gameTypeDataTwo.logo}" alt="${gameTypeDataTwo.title} logo" style="height: 2rem; vertical-align: middle; filter: invert(1);">`;
             } else if (safeCategory.toLowerCase() === "osm") {
                 gameTypeDataTwo.title = "Online Soccer Manager";
                 gameTypeDataTwo.logo = "https://jamieharperuk.github.io/fm/data/osm-logo.png";
-                categoryGameType = `<img src="${gameTypeDataTwo.logo}" alt="${gameTypeDataTwo.title} logo" style="height: 1rem; vertical-align: middle;">`;
+                categoryGameType = `<img src="${gameTypeDataTwo.logo}" alt="${gameTypeDataTwo.title} logo" style="height: 2rem; vertical-align: middle;">`;
             }
         } else {
             categoryGameType = safeCategory;
