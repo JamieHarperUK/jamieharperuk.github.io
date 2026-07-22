@@ -13,6 +13,9 @@ const app = {
         teams: [],
         posts: []
     },
+    uiState: {
+        pastFixtures: {}
+    },
 
     async init() {
         try {
@@ -326,6 +329,7 @@ const app = {
         const teamGames = this.getTeamGames(team.team_name);
         const upcoming = teamGames.filter((game) => !this.isPlayed(game)).sort((a, b) => this.compareGameDateAsc(a, b));
         const played = teamGames.filter((game) => this.isPlayed(game)).sort((a, b) => this.compareGameDateDesc(a, b));
+        const pastFixturesState = this.getPastFixturesState(teamId);
         const recentFormResults = played.slice(0, 5).map((game) => this.getResultLetter(game, team.team_name));
         const recentFormMarkup = this.getRecentFormMarkup(recentFormResults);
 
@@ -392,9 +396,17 @@ const app = {
                 <div class="fixtures-grid" id="team-upcoming-${teamId}"></div>
             </section>
 
-            <section class="panel">
-                <h2 class="panel-title">Past Fixtures</h2>
-                <div class="fixtures-grid" id="team-played-${teamId}"></div>
+            <section class="panel past-panel ${pastFixturesState.collapsed ? "is-collapsed" : ""}" id="past-panel-${teamId}">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Past Fixtures</h2>
+                    <button class="panel-toggle-btn" id="team-played-toggle-${teamId}" type="button" aria-expanded="${String(!pastFixturesState.collapsed)}">
+                        ${pastFixturesState.collapsed ? "Expand" : "Collapse"}
+                    </button>
+                </div>
+                <div class="panel-content" id="team-played-panel-content-${teamId}">
+                    <div class="fixtures-grid" id="team-played-${teamId}"></div>
+                    <div class="panel-controls" id="team-played-controls-${teamId}"></div>
+                </div>
             </section>
 
             <section class="panel">
@@ -404,7 +416,7 @@ const app = {
         `;
 
         const upcomingContainer = document.getElementById(`team-upcoming-${teamId}`);
-        const playedContainer = document.getElementById(`team-played-${teamId}`);
+        const playedToggleButton = document.getElementById(`team-played-toggle-${teamId}`);
         const rosterContainer = document.getElementById(`team-roster-${teamId}`);
 
         if (upcomingContainer) {
@@ -415,16 +427,79 @@ const app = {
             }
         }
 
-        if (playedContainer) {
-            if (!played.length) {
-                playedContainer.innerHTML = '<div class="empty-state">No played fixtures listed yet.</div>';
-            } else {
-                played.slice(0, 10).forEach((game) => playedContainer.appendChild(this.createFixtureCard(game)));
-            }
+        if (playedToggleButton) {
+            playedToggleButton.addEventListener("click", () => {
+                const state = this.getPastFixturesState(teamId);
+                state.collapsed = !state.collapsed;
+                this.updatePastFixturesPanelState(teamId);
+            });
         }
+
+        this.renderPastFixturesList(teamId, played);
+        this.updatePastFixturesPanelState(teamId);
 
         if (rosterContainer) {
             this.renderRoster(team.players || [], rosterContainer);
+        }
+    },
+
+    getPastFixturesState(teamId) {
+        if (!this.uiState.pastFixtures[teamId]) {
+            this.uiState.pastFixtures[teamId] = {
+                visibleCount: 6,
+                collapsed: true
+            };
+        }
+
+        return this.uiState.pastFixtures[teamId];
+    },
+
+    updatePastFixturesPanelState(teamId) {
+        const state = this.getPastFixturesState(teamId);
+        const panel = document.getElementById(`past-panel-${teamId}`);
+        const toggleButton = document.getElementById(`team-played-toggle-${teamId}`);
+
+        if (panel) {
+            panel.classList.toggle("is-collapsed", state.collapsed);
+        }
+
+        if (toggleButton) {
+            toggleButton.textContent = state.collapsed ? "Expand" : "Collapse";
+            toggleButton.setAttribute("aria-expanded", String(!state.collapsed));
+        }
+    },
+
+    renderPastFixturesList(teamId, playedGames) {
+        const container = document.getElementById(`team-played-${teamId}`);
+        const controls = document.getElementById(`team-played-controls-${teamId}`);
+
+        if (!container || !controls) {
+            return;
+        }
+
+        const state = this.getPastFixturesState(teamId);
+        const visibleGames = playedGames.slice(0, state.visibleCount);
+
+        container.innerHTML = "";
+        controls.innerHTML = "";
+
+        if (!playedGames.length) {
+            container.innerHTML = '<div class="empty-state">No played fixtures listed yet.</div>';
+            return;
+        }
+
+        visibleGames.forEach((game) => container.appendChild(this.createFixtureCard(game)));
+
+        if (state.visibleCount < playedGames.length) {
+            const loadMoreButton = document.createElement("button");
+            loadMoreButton.type = "button";
+            loadMoreButton.className = "load-more-btn";
+            loadMoreButton.textContent = "Load More";
+            loadMoreButton.addEventListener("click", () => {
+                state.visibleCount += 6;
+                this.renderPastFixturesList(teamId, playedGames);
+            });
+            controls.appendChild(loadMoreButton);
         }
     },
 

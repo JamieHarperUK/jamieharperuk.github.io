@@ -390,9 +390,52 @@ main {
     margin-bottom: 1.4rem;
 }
 
+.panel-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+}
+
 .panel-title {
     font-size: 1.2rem;
     margin-bottom: 0.8rem;
+}
+
+.panel-heading .panel-title {
+    margin-bottom: 0;
+}
+
+.panel-toggle-btn,
+.load-more-btn {
+    border: 1px solid rgba(200, 16, 46, 0.45);
+    background-color: rgba(200, 16, 46, 0.08);
+    color: var(--text-primary);
+    border-radius: 8px;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.panel-toggle-btn:hover,
+.load-more-btn:hover {
+    background-color: rgba(200, 16, 46, 0.16);
+    border-color: rgba(200, 16, 46, 0.7);
+}
+
+.panel-content {
+    margin-top: 0.9rem;
+}
+
+.past-panel.is-collapsed .panel-content {
+    display: none;
+}
+
+.panel-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
 }
 
 .roster-grid {
