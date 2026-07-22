@@ -391,6 +391,49 @@ main {
     margin-top: 0.8rem;
 }
 
+.post-share-buttons {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border-radius: 8px;
+    padding: 0.45rem 0.8rem;
+    font-size: 0.9rem;
+    text-decoration: none;
+    font-weight: 600;
+    border: 1px solid transparent;
+    transition: transform 0.15s, opacity 0.2s;
+}
+
+.share-btn:hover {
+    transform: translateY(-1px);
+    opacity: 0.92;
+}
+
+.share-x {
+    background-color: #111;
+    color: #fff;
+    border-color: #333;
+}
+
+.share-facebook {
+    background-color: #1877f2;
+    color: #fff;
+    border-color: #3b8bff;
+}
+
+.share-copy {
+    background-color: rgba(200, 16, 46, 0.14);
+    color: var(--text-primary);
+    border-color: rgba(200, 16, 46, 0.55);
+}
+
 .post-share-url {
     margin-top: 1rem;
     color: var(--text-secondary);

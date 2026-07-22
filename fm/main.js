@@ -175,7 +175,7 @@ const app = {
                 title: this.siteMeta.title,
                 description: this.siteMeta.description,
                 image: this.siteMeta.image,
-                url: `${window.location.origin}${window.location.pathname}#home`
+                url: this.getCanonicalPageUrl("home")
             });
         } else if (path === "posts") {
             this.renderPostsPage();
@@ -184,7 +184,7 @@ const app = {
                 title: `Posts | ${this.siteMeta.title}`,
                 description: "Latest Football Management updates, announcements, and match progress posts.",
                 image: this.siteMeta.image,
-                url: `${window.location.origin}${window.location.pathname}#posts`
+                url: this.getCanonicalPageUrl("posts")
             });
         } else if (path.startsWith("post/")) {
             const postSlug = path.split("/")[1];
@@ -204,7 +204,7 @@ const app = {
                         title: `${team.team_name} | ${this.siteMeta.title}`,
                         description: `${team.team_name} team page with squad, fixtures, and form updates.`,
                         image: this.siteMeta.image,
-                        url: `${window.location.origin}${window.location.pathname}#team/${teamId}`
+                        url: this.getCanonicalPageUrl(`team/${teamId}`)
                     });
                 }
             }
@@ -394,7 +394,7 @@ const app = {
                 title: `Post Not Found | ${this.siteMeta.title}`,
                 description: this.siteMeta.description,
                 image: this.siteMeta.image,
-                url: `${window.location.origin}${window.location.pathname}#post/${postSlug}`
+                url: this.getCanonicalPageUrl(`post/${postSlug}`)
             });
             return;
         }
@@ -406,7 +406,8 @@ const app = {
         const safeContent = this.escapeHtml(post.content || "").replace(/\n/g, "<br>");
         const tags = Array.isArray(post.tags) ? post.tags : [];
         const postImage = this.getPostImageUrl(post);
-        const postUrl = `${window.location.origin}${window.location.pathname}#post/${postSlug}`;
+        const postUrl = this.getCanonicalPageUrl(`post/${postSlug}`);
+        const shareUrls = this.getPostShareUrls(post, postUrl);
 
         container.innerHTML = `
             <a href="#posts" class="site-link">&larr; Back to Posts</a>
@@ -420,11 +421,33 @@ const app = {
                 ${this.getPostImageMarkup(post, "post-detail-image")}
                 <p class="update-content">${safeContent}</p>
                 <div class="tags">${tags.map((tag) => `<span class="tag">#${this.escapeHtml(tag)}</span>`).join("")}</div>
+                <div class="post-share-buttons">
+                    <a href="${shareUrls.x}" class="share-btn share-x" target="_blank" rel="noopener noreferrer" aria-label="Share this post on X">
+                        <i class="fa-brands fa-x-twitter"></i> Share on X
+                    </a>
+                    <a href="${shareUrls.facebook}" class="share-btn share-facebook" target="_blank" rel="noopener noreferrer" aria-label="Share this post on Facebook">
+                        <i class="fa-brands fa-facebook-f"></i> Share on Facebook
+                    </a>
+                    <button type="button" class="share-btn share-copy" id="copy-post-link-btn" aria-label="Copy share link">
+                        <i class="fa-solid fa-link"></i> Copy Link
+                    </button>
+                </div>
                 <div class="post-share-url">
                     Share URL: <a href="${postUrl}" class="site-link">${postUrl}</a>
                 </div>
             </article>
         `;
+
+        const copyLinkButton = document.getElementById("copy-post-link-btn");
+        if (copyLinkButton) {
+            copyLinkButton.addEventListener("click", async () => {
+                const copied = await this.copyTextToClipboard(postUrl);
+                copyLinkButton.textContent = copied ? "Copied" : "Copy Failed";
+                setTimeout(() => {
+                    copyLinkButton.innerHTML = '<i class="fa-solid fa-link"></i> Copy Link';
+                }, 1500);
+            });
+        }
 
         this.updatePageMetadata({
             title: `${safeTitle} | ${this.siteMeta.title}`,
@@ -481,6 +504,48 @@ const app = {
         const imageUrl = this.getPostImageUrl(post);
         const imageAlt = this.escapeHtml(post?.title || "Post image");
         return `<img src="${imageUrl}" alt="${imageAlt}" class="${className}">`;
+    },
+
+    getPostShareUrls(post, postUrl) {
+        const shareUrl = encodeURIComponent(postUrl);
+        const title = String(post?.title || "Football Management Update");
+        const shareText = encodeURIComponent(`${title} | ${this.siteMeta.title}`);
+
+        return {
+            x: `https://x.com/intent/tweet?url=${shareUrl}&text=${shareText}`,
+            facebook: `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`
+        };
+    },
+
+    getCanonicalPageUrl(hashPath = "") {
+        const canonicalBase = new URL("fm/", dataDomain).toString();
+        if (!hashPath) {
+            return canonicalBase;
+        }
+        return `${canonicalBase}#${hashPath}`;
+    },
+
+    async copyTextToClipboard(text) {
+        try {
+            if (navigator.clipboard && window.isSecureContext) {
+                await navigator.clipboard.writeText(text);
+                return true;
+            }
+
+            const fallback = document.createElement("textarea");
+            fallback.value = text;
+            fallback.style.position = "fixed";
+            fallback.style.opacity = "0";
+            document.body.appendChild(fallback);
+            fallback.focus();
+            fallback.select();
+            const successful = document.execCommand("copy");
+            document.body.removeChild(fallback);
+            return successful;
+        } catch (error) {
+            console.error("Copy link failed", error);
+            return false;
+        }
     },
 
     captureDefaultSiteMetadata() {
