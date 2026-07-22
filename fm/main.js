@@ -544,14 +544,14 @@ const app = {
         const gameHandle = this.getGameTwitterHandleByCategory(post?.category);
 
         const facebookText = hashtagsLine
-            ? `${baseText}\n${hashtagsLine}`
+            ? `${baseText}\n\n${hashtagsLine}`
             : baseText;
 
         const xText = [
             baseText,
             hashtagsLine,
             gameHandle
-        ].filter((part) => part && part.trim().length > 0).join("\n");
+        ].filter((part) => part && part.trim().length > 0).join("\n\n");
 
         return {
             x: `https://x.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(xText)}`,
