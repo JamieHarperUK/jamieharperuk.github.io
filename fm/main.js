@@ -547,6 +547,7 @@ const app = {
             ? `${baseText}\n\n${hashtagsLine}`
             : baseText; 
 
+        let twitterText = hashtagsLine ? `${baseText}\n\n${hashtagsLine} ${gameHandle}` : baseText;
         const xText = [
             baseText,
             hashtagsLine,
@@ -554,7 +555,7 @@ const app = {
         ].filter((part) => part && part.trim().length > 0).join("\n\n");
 
         return {
-            x: `https://x.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(xText)}`,
+            x: `https://x.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(twitterText)}`,
             facebook: `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&quote=${encodeURIComponent(facebookText)}`
         };
     },
