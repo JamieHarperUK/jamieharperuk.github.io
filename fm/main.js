@@ -307,7 +307,7 @@ const app = {
             card.innerHTML = `
                 <h3 class="update-title">${safeTitle}</h3>
                 <div class="update-meta">
-                    <span>${safeDate} at ${safeTime}</span>
+                    <span>${safeDate} @ ${safeTime}</span>
                     <span class="update-category">${safeCategory}</span>
                 </div>
                 <p class="update-content">${safeContent}</p>
