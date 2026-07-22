@@ -6,6 +6,12 @@ const dataSources = {
     posts: dataDomain + "fm/data/posts.json"
 };
 
+// To be referenced and used when specifically sharing posts on social media platforms like X (formerly Twitter), not Facebook.
+const gameTwitterHandles = {
+    top_eleven: "@topeleven",
+    osm: "@OSMLikeABoss"
+};
+
 const app = {
     currentPage: "home",
     siteMeta: {
@@ -527,12 +533,39 @@ const app = {
     getPostShareUrls(post, postUrl) {
         const shareUrl = encodeURIComponent(postUrl);
         const title = String(post?.title || "Football Management Update");
-        const shareText = encodeURIComponent(`${title} | ${this.siteMeta.title}`);
+        const baseText = `${title} | ${this.siteMeta.title}`;
+        const tags = Array.isArray(post?.tags) ? post.tags : [];
+        const hashtags = tags
+            .map((tag) => String(tag || "").trim().replace(/\s+/g, ""))
+            .filter((tag) => tag.length > 0)
+            .map((tag) => `#${tag}`);
+
+        const hashtagsLine = hashtags.length ? hashtags.join(" ") : "";
+        const gameHandle = this.getGameTwitterHandleByCategory(post?.category);
+
+        const facebookText = hashtagsLine
+            ? `${baseText}\n${hashtagsLine}`
+            : baseText;
+
+        const xText = [
+            baseText,
+            hashtagsLine,
+            gameHandle
+        ].filter((part) => part && part.trim().length > 0).join("\n");
 
         return {
-            x: `https://x.com/intent/tweet?url=${shareUrl}&text=${shareText}`,
-            facebook: `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`
+            x: `https://x.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(xText)}`,
+            facebook: `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&quote=${encodeURIComponent(facebookText)}`
         };
+    },
+
+    getGameTwitterHandleByCategory(category) {
+        const key = String(category || "")
+            .trim()
+            .toLowerCase()
+            .replace(/\s+/g, "_");
+
+        return gameTwitterHandles[key] || "";
     },
 
     getCanonicalPageUrl(hashPath = "") {
