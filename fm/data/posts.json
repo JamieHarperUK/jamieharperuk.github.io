@@ -28,13 +28,26 @@
       ]
     },
     {
-      "title": "New Player Signed",
+      "title": "New Signing (Dayot Upamecano)",
       "content": "Dayot Upamecano has been signed to Manchester United, and will be playing in Centre Back position. Very excited to see what he can bring to the table!",
       "date_time": [
         "22-07-2026",
         "05:25"
       ],
       "category": "OSM",
+      "tags": [
+        "signing",
+        "player"
+      ]
+    },
+    {
+      "title": "New Signing (David Pirie)",
+      "content": "David Pirie, a new defensive left, has just been signed to Harper FC for a 3 year contract. By all accounts a brilliant Full Back, hopefully shoring up our defensive line.",
+      "date_time": [
+        "22-07-2026",
+        "17:37"
+      ],
+      "category": "Top Eleven",
       "tags": [
         "signing",
         "player"
