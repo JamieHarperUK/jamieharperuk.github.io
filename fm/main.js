@@ -432,9 +432,6 @@ const app = {
                         <i class="fa-solid fa-link"></i> Copy Link
                     </button>
                 </div>
-                <div class="post-share-url">
-                    Share URL: <a href="${postUrl}" class="site-link">${postUrl}</a>
-                </div>
             </article>
         `;
 
