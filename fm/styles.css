@@ -169,7 +169,7 @@ main {
 
 .section-title {
     font-size: 1.8rem;
-    margin: 0 0 1rem;
+    margin: 0 0 1.2rem;
     border-bottom: 2px solid var(--primary-color);
     padding-bottom: 0.45rem;
 }
@@ -177,15 +177,22 @@ main {
 .notes-section {
     background-color: rgba(21, 29, 45, 0.85);
     border: 1px solid var(--border-color);
-    border-left: 4px solid var(--accent-color);
+    /* border-left: 4px solid var(--accent-color); */
     border-radius: 10px;
     padding: 1.1rem 1.2rem;
-    margin-bottom: 2.2rem;
+    margin-bottom: 1rem;
 }
 
 .notes-content {
     color: var(--text-secondary);
     font-size: 1rem;
+}
+
+.notes-image {
+    width: -webkit-fill-available;
+    margin-bottom: -5px;
+    margin-top: 1rem;
+    border-radius: 8px;
 }
 
 .manager-stats,
@@ -199,6 +206,7 @@ main {
 
 .manager-stats {
     grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    margin-bottom: 1.2rem;
 }
 
 .fixtures-grid {
@@ -211,7 +219,7 @@ main {
 
 .team-stats {
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    margin-bottom: 1.4rem;
+    margin-bottom: 1.2rem;
 }
 
 .stat-card,
@@ -458,7 +466,7 @@ main {
 
 .panel {
     padding: 1rem;
-    margin-bottom: 1.4rem;
+    margin-bottom: 1.2rem;
 }
 
 .panel-heading {
