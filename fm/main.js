@@ -8,6 +8,11 @@ const dataSources = {
 
 const app = {
     currentPage: "home",
+    siteMeta: {
+        title: "JHUK Football Management Hub",
+        description: "Track my OSM and Top Eleven teams, fixtures, and updates in one place.",
+        image: "https://jamieharperuk.github.io/fm/data/fm_bg.png"
+    },
     data: {
         games: [],
         teams: [],
@@ -19,6 +24,7 @@ const app = {
 
     async init() {
         try {
+            this.captureDefaultSiteMetadata();
             await this.loadData();
             this.setupNavigation();
             this.generateTeamPages();
@@ -141,6 +147,12 @@ const app = {
             return;
         }
 
+        if (hash.startsWith("post/")) {
+            const postSlug = hash.split("/")[1];
+            this.navigate(`post/${postSlug}`);
+            return;
+        }
+
         if (hash.startsWith("team/")) {
             const teamId = hash.split("/")[1];
             this.navigate(`team/${teamId}`);
@@ -159,9 +171,25 @@ const app = {
         if (path === "home") {
             this.renderHome();
             document.getElementById("home")?.classList.add("active");
+            this.updatePageMetadata({
+                title: this.siteMeta.title,
+                description: this.siteMeta.description,
+                image: this.siteMeta.image,
+                url: `${window.location.origin}${window.location.pathname}#home`
+            });
         } else if (path === "posts") {
             this.renderPostsPage();
             document.getElementById("posts")?.classList.add("active");
+            this.updatePageMetadata({
+                title: `Posts | ${this.siteMeta.title}`,
+                description: "Latest Football Management updates, announcements, and match progress posts.",
+                image: this.siteMeta.image,
+                url: `${window.location.origin}${window.location.pathname}#posts`
+            });
+        } else if (path.startsWith("post/")) {
+            const postSlug = path.split("/")[1];
+            this.renderPostDetailPage(postSlug);
+            document.getElementById("post-detail")?.classList.add("active");
         } else if (path.startsWith("team/")) {
             const teamId = path.split("/")[1];
             const pageId = `team-${teamId}`;
@@ -169,6 +197,16 @@ const app = {
             if (page) {
                 this.renderTeamPage(teamId);
                 page.classList.add("active");
+
+                const team = this.data.teams.find((item) => this.toTeamId(item.team_name) === teamId);
+                if (team) {
+                    this.updatePageMetadata({
+                        title: `${team.team_name} | ${this.siteMeta.title}`,
+                        description: `${team.team_name} team page with squad, fixtures, and form updates.`,
+                        image: this.siteMeta.image,
+                        url: `${window.location.origin}${window.location.pathname}#team/${teamId}`
+                    });
+                }
             }
         }
 
@@ -187,7 +225,7 @@ const app = {
                 return;
             }
 
-             if (this.currentPage === "posts" && href === "#posts") {
+             if ((this.currentPage === "posts" || this.currentPage.startsWith("post/")) && href === "#posts") {
                 link.classList.add("active");
                 return;
             }
@@ -326,17 +364,152 @@ const app = {
             }
 
             card.innerHTML = `
-                <h3 class="update-title">${safeTitle}</h3>
+                <h3 class="update-title"><a href="#post/${this.getPostSlug(post)}" class="post-link">${safeTitle}</a></h3>
                 <div class="update-meta">
                     <span>${safeDate} @ ${safeTime}</span>
                     <span class="update-category">${categoryGameType}</span>
                 </div>
+                ${this.getPostImageMarkup(post)}
                 <p class="update-content">${safeContent}</p>
                 <div class="tags">${tags.map((tag) => `<span class="tag">#${this.escapeHtml(tag)}</span>`).join("")}</div>
             `;
 
             container.appendChild(card);
         });
+    },
+
+    renderPostDetailPage(postSlug) {
+        const container = document.getElementById("postDetailContent");
+        if (!container) {
+            return;
+        }
+
+        const post = this.findPostBySlug(postSlug);
+        if (!post) {
+            container.innerHTML = `
+                <h1 class="section-title">Post Not Found</h1>
+                <div class="empty-state">The requested post could not be found. <a href="#posts" class="site-link">Return to posts</a>.</div>
+            `;
+            this.updatePageMetadata({
+                title: `Post Not Found | ${this.siteMeta.title}`,
+                description: this.siteMeta.description,
+                image: this.siteMeta.image,
+                url: `${window.location.origin}${window.location.pathname}#post/${postSlug}`
+            });
+            return;
+        }
+
+        const safeTitle = this.escapeHtml(post.title || "Untitled update");
+        const safeDate = this.escapeHtml(post.date_time?.[0] || "Unknown date");
+        const safeTime = this.escapeHtml(post.date_time?.[1] || "--:--");
+        const safeCategory = this.escapeHtml(post.category || "Other");
+        const safeContent = this.escapeHtml(post.content || "").replace(/\n/g, "<br>");
+        const tags = Array.isArray(post.tags) ? post.tags : [];
+        const postImage = this.getPostImageUrl(post);
+        const postUrl = `${window.location.origin}${window.location.pathname}#post/${postSlug}`;
+
+        container.innerHTML = `
+            <a href="#posts" class="site-link">&larr; Back to Posts</a>
+            <h1 class="section-title" style="margin-top: 0.6rem;">${safeTitle}</h1>
+
+            <article class="update-card post-detail-card">
+                <div class="update-meta">
+                    <span>${safeDate} @ ${safeTime}</span>
+                    <span class="update-category">${safeCategory}</span>
+                </div>
+                ${this.getPostImageMarkup(post, "post-detail-image")}
+                <p class="update-content">${safeContent}</p>
+                <div class="tags">${tags.map((tag) => `<span class="tag">#${this.escapeHtml(tag)}</span>`).join("")}</div>
+                <div class="post-share-url">
+                    Share URL: <a href="${postUrl}" class="site-link">${postUrl}</a>
+                </div>
+            </article>
+        `;
+
+        this.updatePageMetadata({
+            title: `${safeTitle} | ${this.siteMeta.title}`,
+            description: this.getPostDescription(post.content),
+            image: postImage,
+            url: postUrl
+        });
+    },
+
+    findPostBySlug(postSlug) {
+        return this.data.posts.find((post) => this.getPostSlug(post) === postSlug) || null;
+    },
+
+    getPostSlug(post) {
+        const title = String(post?.title || "post");
+        const date = String(post?.date_time?.[0] || "");
+        const time = String(post?.date_time?.[1] || "");
+        const seed = `${title}-${date}-${time}`;
+
+        return seed
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/^-|-$/g, "") || "post";
+    },
+
+    getPostDescription(content) {
+        const text = String(content || "").replace(/\s+/g, " ").trim();
+        if (!text) {
+            return this.siteMeta.description;
+        }
+
+        return text.length > 180 ? `${text.slice(0, 177)}...` : text;
+    },
+
+    getPostImageUrl(post) {
+        const postImage = String(post?.image || "").trim();
+        if (!postImage) {
+            return this.siteMeta.image;
+        }
+
+        if (/^https?:\/\//i.test(postImage)) {
+            return postImage;
+        }
+
+        return new URL(postImage.replace(/^\/+/, ""), dataDomain).toString();
+    },
+
+    getPostImageMarkup(post, className = "post-list-image") {
+        const postImage = String(post?.image || "").trim();
+        if (!postImage) {
+            return "";
+        }
+
+        const imageUrl = this.getPostImageUrl(post);
+        const imageAlt = this.escapeHtml(post?.title || "Post image");
+        return `<img src="${imageUrl}" alt="${imageAlt}" class="${className}">`;
+    },
+
+    captureDefaultSiteMetadata() {
+        const titleMeta = document.querySelector('meta[property="og:title"]');
+        const descriptionMeta = document.querySelector('meta[property="og:description"]');
+        const imageMeta = document.querySelector('meta[property="og:image"]');
+
+        this.siteMeta.title = titleMeta?.getAttribute("content") || document.title || this.siteMeta.title;
+        this.siteMeta.description = descriptionMeta?.getAttribute("content") || this.siteMeta.description;
+        this.siteMeta.image = imageMeta?.getAttribute("content") || this.siteMeta.image;
+    },
+
+    updatePageMetadata({ title, description, image, url }) {
+        document.title = title || this.siteMeta.title;
+        this.setMetaTag('meta[property="og:title"]', "property", "og:title", title || this.siteMeta.title);
+        this.setMetaTag('meta[property="og:description"]', "property", "og:description", description || this.siteMeta.description);
+        this.setMetaTag('meta[property="og:image"]', "property", "og:image", image || this.siteMeta.image);
+        this.setMetaTag('meta[property="og:url"]', "property", "og:url", url || window.location.href);
+        this.setMetaTag('meta[name="description"]', "name", "description", description || this.siteMeta.description);
+    },
+
+    setMetaTag(selector, keyName, keyValue, content) {
+        let tag = document.querySelector(selector);
+        if (!tag) {
+            tag = document.createElement("meta");
+            tag.setAttribute(keyName, keyValue);
+            document.head.appendChild(tag);
+        }
+        tag.setAttribute("content", content || "");
     },
 
     renderTeamPage(teamId) {

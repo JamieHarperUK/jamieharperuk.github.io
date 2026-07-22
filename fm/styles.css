@@ -351,6 +351,15 @@ main {
     margin-bottom: 0.5rem;
 }
 
+.post-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.post-link:hover {
+    color: var(--primary-color);
+}
+
 .update-meta {
     display: flex;
     justify-content: space-between;
@@ -368,6 +377,24 @@ main {
 .update-content {
     color: var(--text-primary);
     font-size: 0.95rem;
+}
+
+.post-list-image,
+.post-detail-image {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    margin: 0.25rem 0 0.75rem;
+}
+
+.post-detail-card {
+    margin-top: 0.8rem;
+}
+
+.post-share-url {
+    margin-top: 1rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
 }
 
 .tags {

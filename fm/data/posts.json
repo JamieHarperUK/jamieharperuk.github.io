@@ -8,6 +8,7 @@
         "title": "string",
         "content": "string",
         "date_time": "array[string]",
+        "image": "string",
         "category": "string",
         "tags": "array[string]"
       }
@@ -21,6 +22,7 @@
         "21-07-2026",
         "21:00"
       ],
+      "image": "",
       "category": "Announcement",
       "tags": [
         "welcome",
@@ -34,6 +36,7 @@
         "22-07-2026",
         "05:25"
       ],
+      "image": "",
       "category": "OSM",
       "tags": [
         "signing",
@@ -47,6 +50,7 @@
         "22-07-2026",
         "17:37"
       ],
+      "image": "",
       "category": "Top Eleven",
       "tags": [
         "signing",
