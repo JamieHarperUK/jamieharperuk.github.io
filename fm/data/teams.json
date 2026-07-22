@@ -34,6 +34,7 @@
                 ["CB", "Bensebaini", "0", "0"],
                 ["LB", "L. Martinez", "1", "0"],
                 ["CB", "Shaw", "2", "0"],
+                ["CB", "Upamecano", "0", "0"],
                 
                 ["CM", "Mainoo", "1", "0"],
                 ["CM", "De Paul", "1", "0"],
@@ -51,6 +52,7 @@
                 ["RW", "Diallo", "0", "0"]
             ]
         },
+
         {
             "team_name": "Harper FC",
             "osm_or_top_eleven": "Top Eleven",
