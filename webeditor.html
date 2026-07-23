@@ -647,7 +647,7 @@
         <div class="shell">
             <header>
                 <div class="brand">
-                    <h1 id="brandTitle">JamieHarperUK WebEditor</h1>
+                    <h1 id="brandTitle">Site WebEditor</h1>
                     <p id="brandTagline">Repository-locked JSON editor</p>
                 </div>
                 <nav>
@@ -927,12 +927,12 @@
         <script>
             const WEBEDITOR_CONFIG = {
                 branding: {
-                    appTitle: "JamieHarperUK WebEditor",
-                    tagline: "GitHub OAuth login, repository-gated JSON editing, and in-browser commits for jamieharperuk.github.io",
+                    appTitle: "Site WebEditor",
+                    tagline: "A repository-locked JSON editor, for your site content publishing needs.",
                     homeTitle: "Welcome",
                     homeIntro: "This SPA runs entirely in the browser and can authenticate to GitHub, verify write access to jamieharperuk.github.io, then edit and commit the JSON files listed in the site configuration.",
                     aboutTitle: "About",
-                    aboutIntro: "JamieHarperUK WebEditor is a browser-based Single Page Application for maintaining the JSON files that power jamieharperuk.github.io."
+                    aboutIntro: "WebEditor is a browser-based Single Page Application for maintaining the JSON files that power Oakshift Software websites."
                 },
                 oauth: {
                     clientId: "Ov23liJxZCIXpxYWlATm",
@@ -1481,7 +1481,7 @@
 
                     const name = document.createElement("span");
                     name.className = "mono";
-                    name.textContent = repo.full_name + " (site-specific)";
+                    name.textContent = repo.full_name;
 
                     const badge = document.createElement("span");
                     badge.className = "repo-badge " + (ok ? "ok" : "bad");
