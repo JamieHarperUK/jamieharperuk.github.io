@@ -393,7 +393,7 @@ const app = {
         if (!post) {
             container.innerHTML = `
                 <h1 class="section-title">Post Not Found</h1>
-                <div class="empty-state">The requested post could not be found. <a href="#posts" class="site-link">Return to posts</a>.</div>
+                <div class="empty-state">The requested post could not be found. <a href="#posts" class="site-link">Return to posts</a>.</div> 
             `;
             this.updatePageMetadata({
                 title: `Post Not Found | ${this.siteMeta.title}`,
