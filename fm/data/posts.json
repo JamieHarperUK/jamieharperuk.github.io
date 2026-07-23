@@ -112,6 +112,20 @@
         "signing",
         "player"
       ]
+    },
+    {
+      "title": "Player Transfer",
+      "content": "Luke Shaw has left Manchester United today, sold to Paris Saint-Germain for $17.5M.",
+      "date_time": [
+        "23-07-2026",
+        "17:59"
+      ],
+      "image": "https://jamieharperuk.github.io/fm/data/osm_post.jpg",
+      "category": "OSM",
+      "tags": [
+        "transfers",
+        "player"
+      ]
     }
   ]
 }
