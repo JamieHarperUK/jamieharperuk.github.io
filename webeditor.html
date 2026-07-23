@@ -1482,11 +1482,11 @@
 
                     const name = document.createElement("span");
                     name.className = "mono";
-                    name.textContent = repo.full_name + " (site locked)";
+                    name.textContent = repo.full_name + " (site-specific)";
 
                     const badge = document.createElement("span");
                     badge.className = "repo-badge " + (ok ? "ok" : "bad");
-                    badge.textContent = ok ? "✓ Accessible" : "✕ Missing files";
+                    badge.textContent = ok ? "✓ Jamie repo" : "✕ Missing files";
 
                     row.appendChild(name);
                     row.appendChild(badge);
