@@ -661,11 +661,11 @@
             <main>
                 <section id="home" class="page card">
                     <h2 id="homeTitle">Welcome</h2>
-                    <p id="homeIntro">This SPA runs entirely in the browser and can authenticate to GitHub, verify write access to jamieharperuk.github.io, then edit and commit the JSON files listed in the site configuration.</p>
+                    <p id="homeIntro">This SPA runs entirely in the browser and can authenticate to GitHub, verify write access to a configured repository, then edit and commit JSON files listed in site configuration.</p>
                     <ul class="list">
                         <li>OAuth sign-in uses GitHub Device Flow so no backend is required.</li>
-                        <li>Repository access is restricted to jamieharperuk/jamieharperuk.github.io.</li>
-                        <li>This editor only loads and commits fm/data/posts.json.</li>
+                        <li>Repository access is restricted to the configured repository in WEBEDITOR_CONFIG.</li>
+                        <li>File selection is driven by WEBEDITOR_CONFIG.repository.files.</li>
                     </ul>
                 </section>
 
@@ -704,7 +704,7 @@
                                     <button id="loadReposBtn">Check Repository Access</button>
                                     <span id="repoSummary" class="pill">No repository checked</span>
                                 </div>
-                                <p style="margin-top:0.7rem;">This editor is locked to jamieharperuk/jamieharperuk.github.io and will only connect if the authenticated account has write access.</p>
+                                <p style="margin-top:0.7rem;">This editor is locked to the configured repository and will only connect if the authenticated account has write access.</p>
                                 <div id="repoList" class="repo-list" style="margin-top:0.6rem;"></div>
                                 <div class="row" style="margin-top:0.7rem;">
                                     <button id="connectRepoBtn" class="primary">Connect Site Repository</button>
@@ -713,17 +713,17 @@
                             </section>
 
                             <section class="wizard-panel">
-                                <h2>Stage 3: Load Site Posts File</h2>
+                                <h2>Stage 3: Load Site Data File</h2>
                                 <div class="two-col">
                                     <div>
                                         <label for="jsonFileSelect">Site JSON file</label>
                                         <select id="jsonFileSelect"></select>
                                         <div class="row" style="margin-top:0.7rem;">
-                                            <button id="loadJsonBtn" class="primary">Load fm/data/posts.json</button>
+                                            <button id="loadJsonBtn" class="primary">Load Selected File</button>
                                         </div>
                                     </div>
                                     <div>
-                                        <h3>Fixed File Target</h3>
+                                        <h3>Configured File Targets</h3>
                                         <ul id="configuredFilesList" class="list"></ul>
                                     </div>
                                 </div>
@@ -759,8 +759,8 @@
                                     <p style="color: var(--muted);">For drag-and-drop reordering, the root JSON must be an array of objects.</p>
                                     <div class="row" style="margin-bottom:0.7rem;">
                                         <button id="crmNewRecordBtn">Add Record</button>
+                                        <button id="crmDuplicateRecordBtn">Duplicate Selected</button>
                                         <button id="crmDeleteRecordBtn" class="warn">Delete Selected</button>
-                                        <button id="crmApplyRecordJsonBtn">Apply Selected Record JSON</button>
                                     </div>
                                     <div class="two-col">
                                         <div>
@@ -780,10 +780,6 @@
                                         <ul id="crmDragList" class="crm-drag-list"></ul>
                                     </div>
                                     <div id="crmFields" class="field-grid" style="margin-top:0.8rem;"></div>
-                                    <div style="margin-top:0.8rem;">
-                                        <label for="crmRecordJsonInput">Selected record JSON (object only)</label>
-                                        <textarea id="crmRecordJsonInput" spellcheck="false" style="min-height:150px;"></textarea>
-                                    </div>
                                 </div>
 
                                 <div id="textMode" class="hidden" style="margin-top:0.8rem;">
@@ -816,9 +812,9 @@
                     <p>Workflow:</p>
                     <ul class="list">
                         <li>Authenticate with GitHub.</li>
-                        <li>Verify access to the jamieharperuk.github.io repository.</li>
-                        <li>Load fm/data/posts.json, edit in raw or CRM mode, and commit changes.</li>
-                        <li>Each save creates a single commit containing only fm/data/posts.json.</li>
+                        <li>Verify access to the configured target repository.</li>
+                        <li>Load configured JSON files, edit in raw or CRM mode, and commit changes.</li>
+                        <li>Each save creates a single commit containing only the active selected file.</li>
                     </ul>
                 </section>
 
@@ -922,6 +918,23 @@
                     </div>
                 </div>
             </div>
+
+            <div id="crmRecordModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="crmRecordModalTitle">
+                <div class="modal-card" style="width:min(100%, 860px);">
+                    <div class="modal-head">
+                        <h3 id="crmRecordModalTitle">Edit Record</h3>
+                        <button id="crmRecordModalCloseBtn" type="button" class="warn">Close</button>
+                    </div>
+                    <div class="stack">
+                        <div id="crmRecordModalPath" class="pill mono">Record</div>
+                        <div id="crmModalFields" class="field-grid"></div>
+                        <div class="row">
+                            <button id="crmRecordModalSaveBtn" class="primary" type="button">Done</button>
+                            <button id="crmRecordModalCancelBtn" type="button">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <script>
@@ -930,9 +943,9 @@
                     appTitle: "Site WebEditor",
                     tagline: "A repository-locked JSON editor, for your site content publishing needs.",
                     homeTitle: "Welcome",
-                    homeIntro: "This SPA runs entirely in the browser and can authenticate to GitHub, verify write access to jamieharperuk.github.io, then edit and commit the JSON files listed in the site configuration.",
+                    homeIntro: "This SPA runs entirely in the browser and can authenticate to GitHub, verify write access to the configured repository, then edit and commit configured JSON files.",
                     aboutTitle: "About",
-                    aboutIntro: "WebEditor is a browser-based Single Page Application for maintaining the JSON files that power Oakshift Software websites."
+                    aboutIntro: "WebEditor is a browser-based Single Page Application for maintaining JSON data files for static websites."
                 },
                 oauth: {
                     clientId: "Ov23liJxZCIXpxYWlATm",
@@ -943,8 +956,13 @@
                     ttlSeconds: 8 * 60 * 60
                 },
                 repository: {
+                    // Set this to owner/repo for the client site.
                     targetRepoFullName: "jamieharperuk/jamieharperuk.github.io",
-                    targetJsonPath: "fm/data/posts.json"
+                    // Add/edit files here for each client deployment.
+                    files: {
+                        posts: "fm/data/posts.json"
+                    },
+                    defaultFileKey: "posts"
                 },
                 notifications: {
                     enabled: true,
@@ -966,7 +984,34 @@
 
             const API_BASE = "https://api.github.com";
             const TARGET_REPO_FULL_NAME = String(WEBEDITOR_CONFIG.repository.targetRepoFullName || "").toLowerCase();
-            const TARGET_JSON_PATH = WEBEDITOR_CONFIG.repository.targetJsonPath;
+            const REPOSITORY_FILE_MAP = (function resolveRepositoryFileMap() {
+                const configured = WEBEDITOR_CONFIG.repository && WEBEDITOR_CONFIG.repository.files;
+                if (configured && typeof configured === "object" && !Array.isArray(configured)) {
+                    const entries = Object.entries(configured).filter(function(entry) {
+                        return typeof entry[1] === "string" && entry[1].trim().length > 0;
+                    });
+                    if (entries.length) {
+                        return Object.fromEntries(entries);
+                    }
+                }
+
+                const legacyPath = WEBEDITOR_CONFIG.repository && WEBEDITOR_CONFIG.repository.targetJsonPath;
+                if (typeof legacyPath === "string" && legacyPath.trim().length > 0) {
+                    return {
+                        primary: legacyPath.trim()
+                    };
+                }
+
+                return {};
+            })();
+            const DEFAULT_FILE_KEY = (function resolveDefaultFileKey() {
+                const configuredKey = String((WEBEDITOR_CONFIG.repository && WEBEDITOR_CONFIG.repository.defaultFileKey) || "").trim();
+                if (configuredKey && Object.prototype.hasOwnProperty.call(REPOSITORY_FILE_MAP, configuredKey)) {
+                    return configuredKey;
+                }
+                const firstKey = Object.keys(REPOSITORY_FILE_MAP)[0];
+                return firstKey || "";
+            })();
             const AUTH_STORAGE_KEY = "ghwe_auth_session";
             const DEFAULT_SESSION_TTL_SECONDS = WEBEDITOR_CONFIG.session.ttlSeconds;
 
@@ -1125,9 +1170,8 @@
                 crmDragList: document.getElementById("crmDragList"),
                 crmFields: document.getElementById("crmFields"),
                 crmNewRecordBtn: document.getElementById("crmNewRecordBtn"),
+                crmDuplicateRecordBtn: document.getElementById("crmDuplicateRecordBtn"),
                 crmDeleteRecordBtn: document.getElementById("crmDeleteRecordBtn"),
-                crmRecordJsonInput: document.getElementById("crmRecordJsonInput"),
-                crmApplyRecordJsonBtn: document.getElementById("crmApplyRecordJsonBtn"),
                 commitMessage: document.getElementById("commitMessage"),
                 saveJsonBtn: document.getElementById("saveJsonBtn"),
                 editorStatus: document.getElementById("editorStatus"),
@@ -1158,7 +1202,14 @@
                 nodeJsonEditInput: document.getElementById("nodeJsonEditInput"),
                 nodeJsonEditApplyBtn: document.getElementById("nodeJsonEditApplyBtn"),
                 nodeJsonEditCancelBtn: document.getElementById("nodeJsonEditCancelBtn"),
-                nodeJsonEditCloseBtn: document.getElementById("nodeJsonEditCloseBtn")
+                nodeJsonEditCloseBtn: document.getElementById("nodeJsonEditCloseBtn"),
+                crmRecordModal: document.getElementById("crmRecordModal"),
+                crmRecordModalTitle: document.getElementById("crmRecordModalTitle"),
+                crmRecordModalPath: document.getElementById("crmRecordModalPath"),
+                crmModalFields: document.getElementById("crmModalFields"),
+                crmRecordModalSaveBtn: document.getElementById("crmRecordModalSaveBtn"),
+                crmRecordModalCancelBtn: document.getElementById("crmRecordModalCancelBtn"),
+                crmRecordModalCloseBtn: document.getElementById("crmRecordModalCloseBtn")
             };
 
             function applyBranding() {
@@ -1555,15 +1606,34 @@
                 el.configuredFilesList.innerHTML = "";
                 el.jsonFileSelect.innerHTML = "";
 
-                const item = document.createElement("li");
-                item.className = "mono";
-                item.textContent = "fm_posts -> " + TARGET_JSON_PATH;
-                el.configuredFilesList.appendChild(item);
+                const entries = Object.entries(REPOSITORY_FILE_MAP);
+                if (!entries.length) {
+                    const item = document.createElement("li");
+                    item.className = "mono";
+                    item.textContent = "No repository files configured.";
+                    el.configuredFilesList.appendChild(item);
+                    return;
+                }
 
-                const option = document.createElement("option");
-                option.value = TARGET_JSON_PATH;
-                option.textContent = "fm_posts (" + TARGET_JSON_PATH + ")";
-                el.jsonFileSelect.appendChild(option);
+                entries.forEach(function(entry, idx) {
+                    const key = entry[0];
+                    const path = entry[1];
+
+                    const item = document.createElement("li");
+                    item.className = "mono";
+                    item.textContent = key + " -> " + path;
+                    el.configuredFilesList.appendChild(item);
+
+                    const option = document.createElement("option");
+                    option.value = path;
+                    option.textContent = key + " (" + path + ")";
+                    if (DEFAULT_FILE_KEY && key === DEFAULT_FILE_KEY) {
+                        option.selected = true;
+                    } else if (!DEFAULT_FILE_KEY && idx === 0) {
+                        option.selected = true;
+                    }
+                    el.jsonFileSelect.appendChild(option);
+                });
             }
 
             async function loadSelectedJsonFile() {
@@ -1879,39 +1949,45 @@
                 return String(rawValue ?? "");
             }
 
-            function renderCrmRecordJsonEditor() {
-                if (!el.crmRecordJsonInput) {
-                    return;
-                }
-
+            function duplicateSelectedCrmRecord() {
                 if (!state.crmModel.records.length) {
-                    el.crmRecordJsonInput.value = "";
                     return;
                 }
 
-                const record = state.crmModel.records[state.crmModel.selectedIndex] || {};
-                el.crmRecordJsonInput.value = JSON.stringify(record, null, 2);
+                const source = state.crmModel.records[state.crmModel.selectedIndex] || {};
+                const duplicate = deepClone(source);
+                const insertIndex = state.crmModel.selectedIndex + 1;
+                state.crmModel.records.splice(insertIndex, 0, duplicate);
+                state.crmModel.selectedIndex = insertIndex;
+                renderCrmRecordSelect();
+                renderCrmFields();
+                syncCrmToJsonText();
+                setStatus(el.editorStatus, "Record duplicated.", "ok");
             }
 
-            function applyCrmRecordJsonEditor() {
-                if (!state.crmModel.records.length) {
+            function closeCrmRecordModal() {
+                if (el.crmRecordModal) {
+                    el.crmRecordModal.classList.add("hidden");
+                }
+            }
+
+            function openCrmRecordModal(recordIndex) {
+                if (!el.crmRecordModal || !state.crmModel.records.length) {
                     return;
                 }
 
-                try {
-                    const parsed = JSON.parse(el.crmRecordJsonInput.value);
-                    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
-                        throw new Error("Selected record JSON must be an object.");
-                    }
+                state.crmModel.selectedIndex = Math.max(0, Math.min(recordIndex, state.crmModel.records.length - 1));
+                renderCrmRecordSelect();
 
-                    state.crmModel.records[state.crmModel.selectedIndex] = parsed;
-                    renderCrmRecordSelect();
-                    renderCrmFields();
-                    syncCrmToJsonText();
-                    setStatus(el.editorStatus, "Selected record JSON applied.", "ok");
-                } catch (error) {
-                    setStatus(el.editorStatus, "Record JSON parse error: " + error.message, "bad");
+                if (el.crmRecordModalTitle) {
+                    el.crmRecordModalTitle.textContent = "Edit Record " + (state.crmModel.selectedIndex + 1);
                 }
+                if (el.crmRecordModalPath) {
+                    el.crmRecordModalPath.textContent = "record[" + state.crmModel.selectedIndex + "]";
+                }
+
+                renderCrmFields(el.crmModalFields, state.crmModel.selectedIndex);
+                el.crmRecordModal.classList.remove("hidden");
             }
 
             function getNodeBuilderRoot() {
@@ -2762,9 +2838,7 @@
                     item.appendChild(text);
 
                     item.addEventListener("click", function() {
-                        state.crmModel.selectedIndex = idx;
-                        renderCrmRecordSelect();
-                        renderCrmFields();
+                        openCrmRecordModal(idx);
                     });
 
                     item.addEventListener("dragstart", function(event) {
@@ -2796,19 +2870,23 @@
                 });
             }
 
-            function renderCrmFields() {
-                el.crmFields.innerHTML = "";
+            function renderCrmFields(targetContainer = el.crmFields, recordIndex = state.crmModel.selectedIndex) {
+                if (!targetContainer) {
+                    return;
+                }
+
+                targetContainer.innerHTML = "";
 
                 if (!state.crmModel.records.length) {
                     const emptyState = document.createElement("div");
                     emptyState.className = "status";
                     emptyState.textContent = "No objects to display. Add a record or switch back to raw mode to edit JSON directly.";
-                    el.crmFields.appendChild(emptyState);
-                    renderCrmRecordJsonEditor();
+                    targetContainer.appendChild(emptyState);
                     return;
                 }
 
-                const rec = state.crmModel.records[state.crmModel.selectedIndex] || {};
+                const safeRecordIndex = Math.max(0, Math.min(recordIndex, state.crmModel.records.length - 1));
+                const rec = state.crmModel.records[safeRecordIndex] || {};
 
                 let renderKeys = Object.keys(rec);
                 if (state.crmModel.schema.enabled) {
@@ -2862,7 +2940,7 @@
                         typeSelect.addEventListener("change", function(event) {
                             const nextType = event.target.value;
                             rec[key] = getDefaultByType(nextType);
-                            renderCrmFields();
+                            renderCrmFields(targetContainer, safeRecordIndex);
                             syncCrmToJsonText();
                         });
                         head.appendChild(typeSelect);
@@ -2904,7 +2982,7 @@
                     wrapper.className = "crm-field-card";
                     wrapper.appendChild(head);
                     wrapper.appendChild(input);
-                    el.crmFields.appendChild(wrapper);
+                    targetContainer.appendChild(wrapper);
                 }
 
                 const addFieldWrap = document.createElement("div");
@@ -2922,8 +3000,7 @@
                     });
                 });
                 addFieldWrap.appendChild(addFieldBtn);
-                el.crmFields.appendChild(addFieldWrap);
-                renderCrmRecordJsonEditor();
+                targetContainer.appendChild(addFieldWrap);
             }
 
             function syncCrmToJsonText() {
@@ -3488,6 +3565,11 @@
                     renderCrmRecordSelect();
                     renderCrmFields();
                     syncCrmToJsonText();
+                    openCrmRecordModal(state.crmModel.selectedIndex);
+                });
+
+                el.crmDuplicateRecordBtn.addEventListener("click", function() {
+                    duplicateSelectedCrmRecord();
                 });
 
                 el.crmDeleteRecordBtn.addEventListener("click", function() {
@@ -3499,10 +3581,28 @@
                     renderCrmRecordSelect();
                     renderCrmFields();
                     syncCrmToJsonText();
+                    if (!state.crmModel.records.length) {
+                        closeCrmRecordModal();
+                    }
                 });
 
-                el.crmApplyRecordJsonBtn.addEventListener("click", function() {
-                    applyCrmRecordJsonEditor();
+                el.crmRecordModalSaveBtn.addEventListener("click", function() {
+                    closeCrmRecordModal();
+                    setStatus(el.editorStatus, "Record updates applied.", "ok");
+                });
+
+                el.crmRecordModalCancelBtn.addEventListener("click", function() {
+                    closeCrmRecordModal();
+                });
+
+                el.crmRecordModalCloseBtn.addEventListener("click", function() {
+                    closeCrmRecordModal();
+                });
+
+                el.crmRecordModal.addEventListener("click", function(event) {
+                    if (event.target === el.crmRecordModal) {
+                        closeCrmRecordModal();
+                    }
                 });
 
                 el.saveJsonBtn.addEventListener("click", async function() {
