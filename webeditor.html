@@ -625,6 +625,204 @@
                 padding: 0.7rem;
             }
 
+            .hero-card {
+                position: relative;
+                overflow: hidden;
+                padding: 1.35rem;
+                background:
+                    radial-gradient(circle at top right, rgba(0, 95, 115, 0.14), transparent 28%),
+                    linear-gradient(145deg, #ffffff 0%, #f7fbff 100%);
+            }
+
+            .hero-card::after {
+                content: "";
+                position: absolute;
+                inset: auto -80px -80px auto;
+                width: 220px;
+                height: 220px;
+                border-radius: 50%;
+                background: radial-gradient(circle, rgba(0, 95, 115, 0.08), transparent 68%);
+                pointer-events: none;
+            }
+
+            .eyebrow {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.4rem;
+                margin-bottom: 0.7rem;
+                padding: 0.26rem 0.7rem;
+                border-radius: 999px;
+                border: 1px solid rgba(0, 95, 115, 0.22);
+                background: rgba(0, 95, 115, 0.06);
+                color: var(--brand);
+                font-size: 0.78rem;
+                font-weight: 700;
+                letter-spacing: 0.04em;
+                text-transform: uppercase;
+            }
+
+            .hero-grid {
+                display: grid;
+                grid-template-columns: 1.5fr 1fr;
+                gap: 1rem;
+                align-items: start;
+                position: relative;
+                z-index: 1;
+            }
+
+            .hero-title {
+                margin: 0 0 0.7rem;
+                font-size: clamp(1.9rem, 4vw, 3rem);
+                line-height: 1.03;
+                max-width: 11ch;
+            }
+
+            .hero-copy {
+                max-width: 62ch;
+                color: var(--muted);
+                font-size: 0.98rem;
+            }
+
+            .hero-actions {
+                display: flex;
+                gap: 0.7rem;
+                flex-wrap: wrap;
+                margin-top: 1rem;
+            }
+
+            .hero-link {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                text-decoration: none;
+            }
+
+            .hero-stat-grid,
+            .feature-grid,
+            .about-grid,
+            .explain-grid {
+                display: grid;
+                gap: 1rem;
+            }
+
+            .hero-stat-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .mini-stat,
+            .feature-card,
+            .about-card,
+            .workflow-step,
+            .config-card {
+                border: 1px solid var(--line);
+                border-radius: 12px;
+                background: rgba(255, 255, 255, 0.92);
+                box-shadow: 0 10px 26px rgba(13, 27, 42, 0.06);
+            }
+
+            .mini-stat {
+                padding: 0.9rem;
+            }
+
+            .mini-stat-label {
+                color: var(--muted);
+                font-size: 0.76rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
+
+            .mini-stat-value {
+                margin-top: 0.35rem;
+                font-size: 1.3rem;
+                font-weight: 700;
+                color: var(--brand-strong);
+            }
+
+            .section-copy {
+                color: var(--muted);
+                max-width: 70ch;
+                margin-bottom: 1rem;
+            }
+
+            .feature-grid,
+            .about-grid,
+            .explain-grid {
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            }
+
+            .feature-card,
+            .about-card,
+            .config-card {
+                padding: 1rem;
+            }
+
+            .feature-card h3,
+            .about-card h3,
+            .config-card h3 {
+                margin-bottom: 0.45rem;
+            }
+
+            .feature-card p,
+            .about-card p,
+            .config-card p {
+                color: var(--muted);
+                font-size: 0.92rem;
+            }
+
+            .workflow-list {
+                display: grid;
+                gap: 0.8rem;
+                margin-top: 1rem;
+            }
+
+            .workflow-step {
+                display: grid;
+                grid-template-columns: auto 1fr;
+                gap: 0.85rem;
+                padding: 0.9rem 1rem;
+                align-items: start;
+            }
+
+            .step-marker {
+                width: 2rem;
+                height: 2rem;
+                border-radius: 50%;
+                display: grid;
+                place-items: center;
+                background: linear-gradient(135deg, var(--brand), #1d7f95);
+                color: #fff;
+                font-weight: 700;
+                font-size: 0.86rem;
+            }
+
+            .step-body p {
+                color: var(--muted);
+                margin-top: 0.15rem;
+            }
+
+            .muted-list {
+                margin: 0.5rem 0 0;
+                padding-left: 1.1rem;
+                color: var(--muted);
+            }
+
+            .muted-list li + li {
+                margin-top: 0.3rem;
+            }
+
+            .callout-band {
+                margin-top: 1rem;
+                padding: 1rem 1.05rem;
+                border-radius: 12px;
+                border: 1px solid rgba(0, 95, 115, 0.18);
+                background: linear-gradient(145deg, rgba(0, 95, 115, 0.07), rgba(205, 228, 247, 0.24));
+            }
+
+            .callout-band p {
+                color: var(--ink);
+            }
+
             footer {
                 color: var(--muted);
                 text-align: center;
@@ -644,6 +842,14 @@
             @media (max-width: 980px) {
                 .two-col {
                     grid-template-columns: 1fr;
+                }
+
+                .hero-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .hero-title {
+                    max-width: none;
                 }
 
                 header {
@@ -668,14 +874,57 @@
             </header>
 
             <main>
-                <section id="home" class="page card">
-                    <h2 id="homeTitle">Welcome</h2>
-                    <p id="homeIntro">This SPA runs entirely in the browser and can authenticate to GitHub, verify write access to a configured repository, then edit and commit JSON files listed in site configuration.</p>
-                    <ul class="list">
-                        <li>OAuth sign-in uses GitHub Device Flow so no backend is required.</li>
-                        <li>Repository access is restricted to the configured repository in WEBEDITOR_CONFIG.</li>
-                        <li>File selection is driven by WEBEDITOR_CONFIG.repository.files.</li>
-                    </ul>
+                <section id="home" class="page card hero-card">
+                    <div class="eyebrow">Oakshift Tooling</div>
+                    <div class="hero-grid">
+                        <div>
+                            <h2 id="homeTitle" class="hero-title">Publish structured site content without leaving the browser.</h2>
+                            <p id="homeIntro" class="hero-copy">This editor authenticates with GitHub, locks itself to a configured repository, and gives you two practical editing modes for JSON-driven sites: structured CRM editing for records and raw JSON editing when you need direct control.</p>
+                            <div class="hero-actions">
+                                <a class="hero-link primary" href="#editor">Open Editor</a>
+                                <a class="hero-link" href="#about">How It Works</a>
+                            </div>
+                        </div>
+                        <div class="hero-stat-grid">
+                            <article class="mini-stat">
+                                <div class="mini-stat-label">Auth Model</div>
+                                <div class="mini-stat-value">GitHub OAuth</div>
+                            </article>
+                            <article class="mini-stat">
+                                <div class="mini-stat-label">Commit Scope</div>
+                                <div class="mini-stat-value">Single File</div>
+                            </article>
+                            <article class="mini-stat">
+                                <div class="mini-stat-label">Edit Modes</div>
+                                <div class="mini-stat-value">Drag, CRM, Text</div>
+                            </article>
+                            <article class="mini-stat">
+                                <div class="mini-stat-label">Client Fit</div>
+                                <div class="mini-stat-value">Config Driven</div>
+                            </article>
+                        </div>
+                    </div>
+
+                    <p class="section-copy" style="margin-top:1.2rem;">Use this as a site-specific deployment or transplant the same file into another client repository and reconfigure the target repo, file map, branding, and optional notification worker.</p>
+
+                    <div class="feature-grid">
+                        <article class="feature-card">
+                            <h3>Repository Guardrails</h3>
+                            <p>Access is restricted to the configured repository, so editors can sign in with GitHub without being handed a broad repo picker workflow.</p>
+                        </article>
+                        <article class="feature-card">
+                            <h3>Multiple JSON Targets</h3>
+                            <p>Configured file targets come from <span class="mono">WEBEDITOR_CONFIG.repository.files</span>, making it practical to reuse the same editor across multiple client sites.</p>
+                        </article>
+                        <article class="feature-card">
+                            <h3>Structured Record Editing</h3>
+                            <p>CRM mode supports schema-aware fields, drag reordering, record duplication, and focused modal editing for content teams who should not be hand-editing JSON blobs.</p>
+                        </article>
+                    </div>
+
+                    <div class="callout-band">
+                        <p><strong>Best use case:</strong> static websites that are driven by one or more JSON files and need a controlled publishing surface for non-developer operators, clients, or maintainers.</p>
+                    </div>
                 </section>
 
                 <section id="editor" class="page">
@@ -816,15 +1065,84 @@
                 </section>
 
                 <section id="about" class="page card">
-                    <h2 id="aboutTitle">About</h2>
-                    <p id="aboutIntro">Oakshift WebEditor is a browser-based Single Page Application for maintaining the JSON files that power Oakshift Software websites.</p>
-                    <p>Workflow:</p>
-                    <ul class="list">
-                        <li>Authenticate with GitHub.</li>
-                        <li>Verify access to the configured target repository.</li>
-                        <li>Load configured JSON files, edit in raw or CRM mode, and commit changes.</li>
-                        <li>Each save creates a single commit containing only the active selected file.</li>
-                    </ul>
+                    <div class="eyebrow">Operational Overview</div>
+                    <h2 id="aboutTitle">How the tool works, where it fits, and what it protects.</h2>
+                    <p id="aboutIntro" class="section-copy">Oakshift WebEditor is a browser-based publishing surface for JSON-driven static sites. It is designed to keep client content changes local, explicit, and reviewable while still being easy to operate from a browser session.</p>
+
+                    <div class="workflow-list">
+                        <article class="workflow-step">
+                            <div class="step-marker">1</div>
+                            <div class="step-body">
+                                <h3>Authenticate</h3>
+                                <p>The user signs in with GitHub Device Flow. The editor keeps the token in session storage and uses the configured OAuth broker to complete the exchange safely.</p>
+                            </div>
+                        </article>
+                        <article class="workflow-step">
+                            <div class="step-marker">2</div>
+                            <div class="step-body">
+                                <h3>Verify Repository Access</h3>
+                                <p>The editor checks that the authenticated GitHub account can write to the configured repository. This prevents the tool from drifting into unrelated repos when transplanted for other client sites.</p>
+                            </div>
+                        </article>
+                        <article class="workflow-step">
+                            <div class="step-marker">3</div>
+                            <div class="step-body">
+                                <h3>Load a Configured File</h3>
+                                <p>Available JSON targets are taken from <span class="mono">WEBEDITOR_CONFIG.repository.files</span>. That means each deployment can expose one file or several, depending on the site structure.</p>
+                            </div>
+                        </article>
+                        <article class="workflow-step">
+                            <div class="step-marker">4</div>
+                            <div class="step-body">
+                                <h3>Edit Using the Right Surface</h3>
+                                <p>Use Drag &amp; Drop for tree-level structure changes, CRM mode for record-based content maintenance, and Text mode for direct JSON control when exact syntax matters.</p>
+                            </div>
+                        </article>
+                        <article class="workflow-step">
+                            <div class="step-marker">5</div>
+                            <div class="step-body">
+                                <h3>Commit One File at a Time</h3>
+                                <p>Each save performs a latest-SHA check, writes a single targeted commit, and can optionally call a notification endpoint after a configured delay to allow published content to propagate first.</p>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="about-grid" style="margin-top:1.1rem;">
+                        <article class="about-card">
+                            <h3>Why this model works</h3>
+                            <p>It gives clients and maintainers a constrained editing surface without requiring a bespoke CMS or a full backend. Git stays the source of truth, and the site can remain static.</p>
+                        </article>
+                        <article class="about-card">
+                            <h3>What CRM mode is for</h3>
+                            <p>CRM mode assumes array or object records and favors content entry over syntax editing. Records can be reordered, duplicated, and edited through fields rather than raw JSON where possible.</p>
+                        </article>
+                        <article class="about-card">
+                            <h3>What still needs discipline</h3>
+                            <p>The tool narrows risk, but it does not replace governance. File maps, schemas, notification tokens, and commit review practices still need to be set sensibly per client deployment.</p>
+                        </article>
+                    </div>
+
+                    <div class="explain-grid" style="margin-top:1rem;">
+                        <article class="config-card">
+                            <h3>Per-site configuration</h3>
+                            <p>To deploy this into another repository, update branding, set the target repository, define the file map, choose a default file key, and optionally connect a site-specific notification worker.</p>
+                            <ul class="muted-list">
+                                <li>Change <span class="mono">branding</span> for the client identity.</li>
+                                <li>Set <span class="mono">repository.targetRepoFullName</span>.</li>
+                                <li>Populate <span class="mono">repository.files</span>.</li>
+                                <li>Set <span class="mono">repository.defaultFileKey</span>.</li>
+                            </ul>
+                        </article>
+                        <article class="config-card">
+                            <h3>Notification support</h3>
+                            <p>When enabled, the editor can call a Cloudflare Worker after commit. That worker can then handle subscriber state, VAPID-based push delivery, and optional delivery delay rules for the destination site.</p>
+                            <ul class="muted-list">
+                                <li>Use a dedicated Worker per client or per product.</li>
+                                <li>Keep notification auth separate from OAuth configuration.</li>
+                                <li>Prefer rotating tokens over long-lived hardcoded secrets.</li>
+                            </ul>
+                        </article>
+                    </div>
                 </section>
 
                 <section id="licence" class="page card">
