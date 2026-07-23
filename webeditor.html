@@ -3023,8 +3023,22 @@
                     return null;
                 }
 
+                const parseDateTime = function(dateValue, timeValue) {
+                    const dateText = String(dateValue || "");
+                    const [day, month, year] = dateText.split("-").map((value) => Number(value));
+                    const [hour, minute] = String(timeValue || "00:00").split(":").map((value) => Number(value));
+
+                    if ([day, month, year, hour, minute].some((value) => Number.isNaN(value))) {
+                        return new Date(0);
+                    }
+
+                    return new Date(year, month - 1, day, hour, minute, 0, 0);
+                };
+
                 const sorted = [...posts].sort(function(a, b) {
-                    return comparePostDateDesc(a, b);
+                    const aDate = parseDateTime(a?.date_time?.[0], a?.date_time?.[1]);
+                    const bDate = parseDateTime(b?.date_time?.[0], b?.date_time?.[1]);
+                    return bDate.getTime() - aDate.getTime();
                 });
 
                 const latest = sorted[0] || null;
