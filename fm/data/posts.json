@@ -56,6 +56,20 @@
         "signing",
         "player"
       ]
+    },
+    {
+      "title": "New Signing (Pedro Guedes)",
+      "content": "Goalkeeper Pedro Guedes has just been signed to Harper FC. He will aim to assist in keeping our goal secure in our upcoming fixtures.",
+      "date_time": [
+        "23-07-2026",
+        "02:35"
+      ],
+      "image": "https://jamieharperuk.github.io/fm/data/top_eleven_post.jpg",
+      "category": "Top Eleven",
+      "tags": [
+        "signing",
+        "player"
+      ]
     }
   ]
 }
