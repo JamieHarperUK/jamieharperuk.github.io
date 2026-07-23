@@ -140,6 +140,20 @@
         "transfers",
         "player"
       ]
+    },
+    {
+      "title": "New Signing (Alcidio Feytas)",
+      "content": "After his temporary loan period, Alcidio Feytas has just been permenantly signed to Harper FC. Follwing his amazing performance so far.",
+      "date_time": [
+        "23-07-2026",
+        "21:13"
+      ],
+      "image": "https://jamieharperuk.github.io/fm/data/top_eleven_post.jpg",
+      "category": "Top Eleven",
+      "tags": [
+        "signing",
+        "player"
+      ]
     }
   ]
 }
