@@ -375,7 +375,6 @@ const app = {
                     <span>${safeDate} @ ${safeTime}</span>
                     <span class="update-category">${categoryGameType}</span>
                 </div>
-                ${this.getPostImageMarkup(post)}
                 <p class="update-content">${safeContent}</p>
                 <div class="tags">${tags.map((tag) => `<span class="tag">#${this.escapeHtml(tag)}</span>`).join("")}</div>
             `;
@@ -445,7 +444,6 @@ const app = {
                     <span>${safeDate} @ ${safeTime}</span>
                     <span class="update-category">${categoryGameType}</span>
                 </div>
-                ${this.getPostImageMarkup(post, "post-detail-image")}
                 <p class="update-content">${safeContent}</p>
                 <div class="tags">${tags.map((tag) => `<span class="tag">#${this.escapeHtml(tag)}</span>`).join("")}</div>
                 <div class="post-share-buttons">
