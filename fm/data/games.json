@@ -34,19 +34,6 @@
       "winner": ""
     },
     {
-      "home_or_away": "Home",
-      "home_team": "Harper FC",
-      "away_team": "faim FC",
-      "date": "23-07-2026",
-      "time": "20:46",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "Cup (Quarter-Finals)",
-      "venue": "Harper FC Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Away",
       "home_team": "Liverpool FC",
       "away_team": "Harper FC",
@@ -61,7 +48,19 @@
     },
 
 
-    
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "faim FC",
+      "date": "23-07-2026",
+      "time": "20:46",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Cup (Quarter-Finals)",
+      "venue": "Harper FC Stadium",
+      "home_score": "7",
+      "away_score": "0",
+      "winner": "Harper FC"
+    },
     {
       "home_or_away": "Home",
       "home_team": "Manchester United",

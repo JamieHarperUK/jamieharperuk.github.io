@@ -323,6 +323,14 @@ const app = {
         }
     },
 
+    getNotificationPermission() {
+        if (!("Notification" in window)) {
+            return "unsupported";
+        }
+
+        return Notification.permission;
+    },
+
     syncPushButtons() {
         const { enableButton, disableButton } = this.getPushUiElements();
         if (!enableButton || !disableButton) {
@@ -330,7 +338,8 @@ const app = {
         }
 
         const state = this.uiState.push;
-        enableButton.disabled = state.isBusy || state.isSubscribed;
+        const permission = this.getNotificationPermission();
+        enableButton.disabled = state.isBusy || state.isSubscribed || permission === "denied";
         disableButton.disabled = state.isBusy || !state.isSubscribed;
     },
 
@@ -366,6 +375,10 @@ const app = {
 
             if (this.uiState.push.isSubscribed) {
                 this.setPushStatus("Push notifications are enabled for this browser.", "success");
+            } else if (this.getNotificationPermission() === "denied") {
+                this.setPushStatus("Notification permission is blocked. Allow notifications for this site in your browser settings, then reload.", "error");
+            } else if (this.getNotificationPermission() === "default") {
+                this.setPushStatus("Push notifications are disabled. Click Enable Notifications to show the browser permission prompt.");
             } else {
                 this.setPushStatus("Push notifications are currently disabled.");
             }
