@@ -126,6 +126,20 @@
         "transfers",
         "player"
       ]
+    },
+    {
+      "title": "Player Transfer",
+      "content": "Goalkeeper Matthias Vars has left Harper FC, on to his next challenge, sold for $472K.",
+      "date_time": [
+        "23-07-2026",
+        "18:08"
+      ],
+      "image": "https://jamieharperuk.github.io/fm/data/top_eleven_post.jpg",
+      "category": "Top Eleven",
+      "tags": [
+        "transfers",
+        "player"
+      ]
     }
   ]
 }
