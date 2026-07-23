@@ -168,6 +168,21 @@
         "welcome",
         "announcement"
       ]
+    },
+    {
+      "title": "Harper FC Quarter-Final Victory",
+      "content": "After a gruelling 90 minutes, Harper FC dominated faim FC in a jaw-dropping 7-0 win in the Cup Quarter-Finals! Mahmoud Howash scored a hat-trick with Douence, Marques and Mesquini making up the remaining goals. I was certainly a great game for the team!",
+      "date_time": [
+        "23-07-2026",
+        "21:36"
+      ],
+      "image": "https://jamieharperuk.github.io/fm/data/top_eleven_post.jpg",
+      "category": "Top Eleven",
+      "tags": [
+        "result",
+        "victory",
+        "announcement"
+      ]
     }
   ]
 }
