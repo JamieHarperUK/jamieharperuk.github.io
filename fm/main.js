@@ -15,7 +15,7 @@ const gameTwitterHandles = {
 const app = {
     currentPage: "home",
     siteMeta: {
-        title: "JHUK Football Management Hub",
+        title: "JHUK Football Management",
         description: "Track my OSM and Top Eleven teams, fixtures, and updates in one place.",
         image: "https://jamieharperuk.github.io/fm/data/fm_bg.png"
     },
@@ -604,12 +604,23 @@ const app = {
     },
 
     updatePageMetadata({ title, description, image, url }) {
+        const resolvedTitle = title || this.siteMeta.title;
+        const resolvedDescription = description || this.siteMeta.description;
+        const resolvedImage = image || this.siteMeta.image;
+        const resolvedUrl = url || window.location.href;
+
         document.title = title || this.siteMeta.title;
-        this.setMetaTag('meta[property="og:title"]', "property", "og:title", title || this.siteMeta.title);
-        this.setMetaTag('meta[property="og:description"]', "property", "og:description", description || this.siteMeta.description);
-        this.setMetaTag('meta[property="og:image"]', "property", "og:image", image || this.siteMeta.image);
-        this.setMetaTag('meta[property="og:url"]', "property", "og:url", url || window.location.href);
-        this.setMetaTag('meta[name="description"]', "name", "description", description || this.siteMeta.description);
+        this.setMetaTag('meta[property="og:title"]', "property", "og:title", resolvedTitle);
+        this.setMetaTag('meta[property="og:description"]', "property", "og:description", resolvedDescription);
+        this.setMetaTag('meta[property="og:image"]', "property", "og:image", resolvedImage);
+        this.setMetaTag('meta[property="og:url"]', "property", "og:url", resolvedUrl);
+        this.setMetaTag('meta[name="description"]', "name", "description", resolvedDescription);
+
+        this.setMetaTag('meta[name="twitter:card"]', "name", "twitter:card", "summary_large_image");
+        this.setMetaTag('meta[name="twitter:title"]', "name", "twitter:title", resolvedTitle);
+        this.setMetaTag('meta[name="twitter:description"]', "name", "twitter:description", resolvedDescription);
+        this.setMetaTag('meta[name="twitter:image"]', "name", "twitter:image", resolvedImage);
+        this.setMetaTag('meta[name="twitter:url"]', "name", "twitter:url", resolvedUrl);
     },
 
     setMetaTag(selector, keyName, keyValue, content) {
