@@ -664,8 +664,8 @@
                     <p id="homeIntro">This SPA runs entirely in the browser and can authenticate to GitHub, verify write access to jamieharperuk.github.io, then edit and commit the JSON files listed in the site configuration.</p>
                     <ul class="list">
                         <li>OAuth sign-in uses GitHub Device Flow so no backend is required.</li>
-                        <li>Repository validation is based on root files ghwe_config.json and ghwe_log.json.</li>
-                        <li>Editor offers two modes: drag/drop raw JSON and CRM-style form entry.</li>
+                        <li>Repository access is restricted to jamieharperuk/jamieharperuk.github.io.</li>
+                        <li>This editor only loads and commits fm/data/posts.json.</li>
                     </ul>
                 </section>
 
@@ -713,18 +713,17 @@
                             </section>
 
                             <section class="wizard-panel">
-                                <h2>Stage 3: Select Configured JSON File</h2>
+                                <h2>Stage 3: Load Site Posts File</h2>
                                 <div class="two-col">
                                     <div>
-                                        <label for="jsonFileSelect">Configured files from ghwe_config.json</label>
+                                        <label for="jsonFileSelect">Site JSON file</label>
                                         <select id="jsonFileSelect"></select>
                                         <div class="row" style="margin-top:0.7rem;">
-                                            <button id="loadJsonBtn" class="primary">Load Selected File</button>
-                                            <button id="refreshConfigBtn">Reload Config</button>
+                                            <button id="loadJsonBtn" class="primary">Load fm/data/posts.json</button>
                                         </div>
                                     </div>
                                     <div>
-                                        <h3>Configured File Map</h3>
+                                        <h3>Fixed File Target</h3>
                                         <ul id="configuredFilesList" class="list"></ul>
                                     </div>
                                 </div>
@@ -803,8 +802,6 @@
                                     </div>
                                     <div class="row">
                                         <button id="saveJsonBtn" class="primary">Commit JSON Changes</button>
-                                        <button id="saveConfigBtn">Commit ghwe_config.json</button>
-                                        <button id="viewLogBtn">Load ghwe_log.json</button>
                                     </div>
                                 </div>
                                 <div class="status hidden" id="editorStatus" style="margin-top:0.7rem;"></div>
@@ -820,8 +817,8 @@
                     <ul class="list">
                         <li>Authenticate with GitHub.</li>
                         <li>Verify access to the jamieharperuk.github.io repository.</li>
-                        <li>Load configured JSON files, edit in raw or CRM mode, and commit changes.</li>
-                        <li>Automatic append to ghwe_log.json for each successful commit action.</li>
+                        <li>Load fm/data/posts.json, edit in raw or CRM mode, and commit changes.</li>
+                        <li>Each save creates a single commit containing only fm/data/posts.json.</li>
                     </ul>
                 </section>
 
@@ -947,7 +944,13 @@
                 },
                 repository: {
                     targetRepoFullName: "jamieharperuk/jamieharperuk.github.io",
-                    requiredRootFiles: ["ghwe_config.json", "ghwe_log.json"]
+                    targetJsonPath: "fm/data/posts.json"
+                },
+                notifications: {
+                    enabled: true,
+                    notifyEndpoint: "https://fm-push-worker.oakshiftsoftware.workers.dev/notify",
+                    authToken: "T3MqM6IcYizOk0rNN5eec4E/zW0YZdVjY4XP4vVWHTMJ+RA3HhN8Jm2cuBCVvfTy",
+                    siteId: "fm"
                 }
             };
 
@@ -961,7 +964,8 @@
             };
 
             const API_BASE = "https://api.github.com";
-            const REQUIRED_ROOT_FILES = WEBEDITOR_CONFIG.repository.requiredRootFiles;
+            const TARGET_REPO_FULL_NAME = String(WEBEDITOR_CONFIG.repository.targetRepoFullName || "").toLowerCase();
+            const TARGET_JSON_PATH = WEBEDITOR_CONFIG.repository.targetJsonPath;
             const AUTH_STORAGE_KEY = "ghwe_auth_session";
             const DEFAULT_SESSION_TTL_SECONDS = WEBEDITOR_CONFIG.session.ttlSeconds;
 
@@ -1093,7 +1097,6 @@
                 loadReposBtn: document.getElementById("loadReposBtn"),
                 repoList: document.getElementById("repoList"),
                 connectRepoBtn: document.getElementById("connectRepoBtn"),
-                refreshConfigBtn: document.getElementById("refreshConfigBtn"),
                 repoSummary: document.getElementById("repoSummary"),
                 repoStatus: document.getElementById("repoStatus"),
                 configuredFilesList: document.getElementById("configuredFilesList"),
@@ -1126,8 +1129,6 @@
                 crmApplyRecordJsonBtn: document.getElementById("crmApplyRecordJsonBtn"),
                 commitMessage: document.getElementById("commitMessage"),
                 saveJsonBtn: document.getElementById("saveJsonBtn"),
-                saveConfigBtn: document.getElementById("saveConfigBtn"),
-                viewLogBtn: document.getElementById("viewLogBtn"),
                 editorStatus: document.getElementById("editorStatus"),
                 valueEditModal: document.getElementById("valueEditModal"),
                 valueEditPath: document.getElementById("valueEditPath"),
@@ -1420,6 +1421,10 @@
                 return Boolean(repo && repo.permissions && (repo.permissions.push || repo.permissions.admin || repo.permissions.maintain));
             }
 
+            function normalizeRepoName(value) {
+                return String(value || "").trim().toLowerCase();
+            }
+
             async function loadTargetRepository() {
                 if (!state.token) {
                     throw new Error("Authenticate first.");
@@ -1441,25 +1446,18 @@
                     throw new Error("The authenticated GitHub user can read " + targetFullName + " but does not have write access.");
                 }
 
+                if (normalizeRepoName(repo.full_name) !== TARGET_REPO_FULL_NAME) {
+                    throw new Error("Authenticated repository does not match the configured site repository.");
+                }
+
                 state.repos = [repo];
                 state.repoChecks = {
-                    [repo.full_name]: await repoHasRequiredFiles(repo.full_name)
+                    [repo.full_name]: true
                 };
-                state.validRepos = state.repoChecks[repo.full_name] ? [repo] : [];
+                state.validRepos = [repo];
                 state.selectedRepoCandidate = repo.full_name;
                 renderRepoList();
-                setStatus(el.repoStatus, state.validRepos.length ? ("Connected to " + repo.full_name + " and confirmed required root files.") : ("Connected to " + repo.full_name + ", but required root files are missing."), state.validRepos.length ? "ok" : "bad");
-            }
-
-            async function repoHasRequiredFiles(repoFullName) {
-                for (const fileName of REQUIRED_ROOT_FILES) {
-                    const response = await ghFetch("/repos/" + repoFullName + "/contents/" + fileName);
-                    const payload = await response.json();
-                    if (payload.type !== "file") {
-                        return false;
-                    }
-                }
-                return true;
+                setStatus(el.repoStatus, "Connected to " + repo.full_name + " with write access.", "ok");
             }
 
             function renderRepoList() {
@@ -1486,7 +1484,7 @@
 
                     const badge = document.createElement("span");
                     badge.className = "repo-badge " + (ok ? "ok" : "bad");
-                    badge.textContent = ok ? "✓ Jamie repo" : "✕ Missing files";
+                    badge.textContent = ok ? "✓ Jamie repo" : "✕ Access check failed";
 
                     row.appendChild(name);
                     row.appendChild(badge);
@@ -1540,58 +1538,37 @@
 
             async function connectSelectedRepository() {
                 const selected = state.validRepos[0] || state.repos[0];
-                if (!selected || selected.full_name !== WEBEDITOR_CONFIG.repository.targetRepoFullName) {
+                if (!selected || normalizeRepoName(selected.full_name) !== TARGET_REPO_FULL_NAME) {
                     throw new Error("The JamieHarperUK editor can only connect to its configured repository.");
                 }
 
                 state.selectedRepo = selected;
-                const configResult = await loadRepoJsonFile(selected.full_name, "ghwe_config.json");
-                const logResult = await loadRepoJsonFile(selected.full_name, "ghwe_log.json");
-
-                state.config = {
-                    path: configResult.fileMeta.path,
-                    sha: configResult.fileMeta.sha,
-                    data: configResult.data
-                };
-
-                state.log = Array.isArray(logResult.data) ? logResult.data : [];
-                state.logSha = logResult.fileMeta.sha || "";
 
                 el.repoSummary.textContent = selected.full_name + " (branch: " + selected.default_branch + ")";
                 renderConfiguredFiles();
-                setStatus(el.repoStatus, "Repository connected. Continue to file selection.", "ok");
+                setStatus(el.repoStatus, "Repository connected. Continue to file loading.", "ok");
                 setEditorStep(2);
             }
 
             function renderConfiguredFiles() {
-                const fileMap = (state.config && state.config.data && state.config.data.json_files) || {};
                 el.configuredFilesList.innerHTML = "";
                 el.jsonFileSelect.innerHTML = "";
 
-                const entries = Object.entries(fileMap);
-                for (const [key, path] of entries) {
-                    const item = document.createElement("li");
-                    item.className = "mono";
-                    item.textContent = key + " -> " + path;
-                    el.configuredFilesList.appendChild(item);
+                const item = document.createElement("li");
+                item.className = "mono";
+                item.textContent = "fm_posts -> " + TARGET_JSON_PATH;
+                el.configuredFilesList.appendChild(item);
 
-                    const option = document.createElement("option");
-                    option.value = path;
-                    option.textContent = key + " (" + path + ")";
-                    el.jsonFileSelect.appendChild(option);
-                }
-
-                if (!entries.length) {
-                    const item = document.createElement("li");
-                    item.textContent = "No json_files configured.";
-                    el.configuredFilesList.appendChild(item);
-                }
+                const option = document.createElement("option");
+                option.value = TARGET_JSON_PATH;
+                option.textContent = "fm_posts (" + TARGET_JSON_PATH + ")";
+                el.jsonFileSelect.appendChild(option);
             }
 
             async function loadSelectedJsonFile() {
                 const filePath = el.jsonFileSelect.value;
                 if (!filePath) {
-                    throw new Error("Choose a configured JSON file.");
+                    throw new Error("No JSON file is configured for this editor.");
                 }
                 if (!state.selectedRepo) {
                     throw new Error("Connect a repository first.");
@@ -3040,6 +3017,72 @@
                 return parsed;
             }
 
+            function resolveLatestPost(jsonPayload) {
+                const posts = Array.isArray(jsonPayload && jsonPayload.posts) ? jsonPayload.posts : [];
+                if (!posts.length) {
+                    return null;
+                }
+
+                const sorted = [...posts].sort(function(a, b) {
+                    return comparePostDateDesc(a, b);
+                });
+
+                const latest = sorted[0] || null;
+                if (!latest) {
+                    return null;
+                }
+
+                return {
+                    title: String(latest.title || "New Football Management post"),
+                    category: String(latest.category || "Other"),
+                    date: String((latest.date_time && latest.date_time[0]) || ""),
+                    time: String((latest.date_time && latest.date_time[1]) || ""),
+                    content: String(latest.content || ""),
+                    tags: Array.isArray(latest.tags) ? latest.tags : []
+                };
+            }
+
+            async function notifyPostUpdate(jsonPayload, commitSha) {
+                const notificationConfig = WEBEDITOR_CONFIG.notifications || {};
+                if (!notificationConfig.enabled) {
+                    return { skipped: true, reason: "disabled" };
+                }
+
+                const endpoint = String(notificationConfig.notifyEndpoint || "").trim();
+                if (!endpoint) {
+                    return { skipped: true, reason: "no-endpoint" };
+                }
+
+                const latestPost = resolveLatestPost(jsonPayload);
+
+                const headers = {
+                    "Content-Type": "application/json"
+                };
+
+                const token = String(notificationConfig.authToken || "").trim();
+                if (token) {
+                    headers.Authorization = "Bearer " + token;
+                }
+
+                const response = await fetch(endpoint, {
+                    method: "POST",
+                    headers,
+                    body: JSON.stringify({
+                        siteId: String(notificationConfig.siteId || "fm"),
+                        repo: WEBEDITOR_CONFIG.repository.targetRepoFullName,
+                        path: state.currentJsonPath,
+                        commitSha: commitSha || "",
+                        latestPost
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error("Notification endpoint returned HTTP " + response.status + ".");
+                }
+
+                return { skipped: false };
+            }
+
             async function getBranchHeadCommitSha(repoFullName, branch) {
                 const refResponse = await ghFetch("/repos/" + repoFullName + "/git/ref/heads/" + encodeURIComponent(branch));
                 const refPayload = await refResponse.json();
@@ -3144,29 +3187,6 @@
                 }
             }
 
-            async function buildUpdatedLog(action, details) {
-                if (!state.selectedRepo) {
-                    throw new Error("Connect a repository first.");
-                }
-
-                const repoFullName = state.selectedRepo.full_name;
-                const logLoaded = await loadRepoJsonFile(repoFullName, "ghwe_log.json");
-                const existing = Array.isArray(logLoaded.data) ? logLoaded.data : [];
-
-                existing.push({
-                    timestamp: new Date().toISOString(),
-                    actor: state.user ? state.user.login : "unknown",
-                    action,
-                    details
-                });
-
-                return {
-                    records: existing,
-                    sha: logLoaded.fileMeta.sha || "",
-                    content: JSON.stringify(existing, null, 2)
-                };
-            }
-
             async function commitCurrentJson() {
                 if (!state.selectedRepo || !state.currentJsonPath) {
                     throw new Error("Load a configured JSON file first.");
@@ -3179,13 +3199,6 @@
                 const jsonPayload = JSON.stringify(json, null, 2);
 
                 await assertLatestFileSha(repoFullName, state.currentJsonPath, state.currentJsonSha);
-                if (state.logSha) {
-                    await assertLatestFileSha(repoFullName, "ghwe_log.json", state.logSha);
-                }
-
-                const logUpdate = await buildUpdatedLog("update_json", {
-                    path: state.currentJsonPath
-                });
 
                 const result = await commitFilesTogether(
                     repoFullName,
@@ -3195,59 +3208,21 @@
                         {
                             path: state.currentJsonPath,
                             content: jsonPayload
-                        },
-                        {
-                            path: "ghwe_log.json",
-                            content: logUpdate.content
                         }
                     ]
                 );
 
                 state.currentJsonSha = result.fileBlobShas[state.currentJsonPath] || state.currentJsonSha;
-                state.logSha = result.fileBlobShas["ghwe_log.json"] || logUpdate.sha;
-                state.log = logUpdate.records;
-                setStatus(el.editorStatus, "Committed " + state.currentJsonPath + " and ghwe_log.json in one commit.", "ok");
-            }
+                setStatus(el.editorStatus, "Committed " + state.currentJsonPath + " in one commit.", "ok");
 
-            async function commitConfig() {
-                if (!state.selectedRepo || !state.config) {
-                    throw new Error("Connect a repository first.");
+                try {
+                    const notificationResult = await notifyPostUpdate(json, result.commitSha || "");
+                    if (!notificationResult.skipped) {
+                        setStatus(el.editorStatus, "Committed " + state.currentJsonPath + " and notified Cloudflare worker.", "ok");
+                    }
+                } catch (notifyError) {
+                    setStatus(el.editorStatus, "Commit succeeded, but push notify failed: " + notifyError.message, "bad");
                 }
-
-                const repoFullName = state.selectedRepo.full_name;
-                const branch = state.selectedRepo.default_branch;
-                const commitMessage = (el.commitMessage.value || "Update ghwe_config.json via GHWE").trim();
-                const payload = JSON.stringify(state.config.data, null, 2);
-                await assertLatestFileSha(repoFullName, "ghwe_config.json", state.config.sha);
-                if (state.logSha) {
-                    await assertLatestFileSha(repoFullName, "ghwe_log.json", state.logSha);
-                }
-
-                const logUpdate = await buildUpdatedLog("update_config", {
-                    path: "ghwe_config.json"
-                });
-
-                const result = await commitFilesTogether(
-                    repoFullName,
-                    branch,
-                    commitMessage,
-                    [
-                        {
-                            path: "ghwe_config.json",
-                            content: payload
-                        },
-                        {
-                            path: "ghwe_log.json",
-                            content: logUpdate.content
-                        }
-                    ]
-                );
-
-                state.config.sha = result.fileBlobShas["ghwe_config.json"] || state.config.sha;
-                state.logSha = result.fileBlobShas["ghwe_log.json"] || logUpdate.sha;
-                state.log = logUpdate.records;
-
-                setStatus(el.editorStatus, "Committed ghwe_config.json and ghwe_log.json in one commit.", "ok");
             }
 
             function setupDropZone() {
@@ -3344,14 +3319,6 @@
                         await connectSelectedRepository();
                     } catch (error) {
                         setStatus(el.repoStatus, error.message, "bad");
-                    }
-                });
-
-                el.refreshConfigBtn.addEventListener("click", async function() {
-                    try {
-                        await connectSelectedRepository();
-                    } catch (error) {
-                        setStatus(el.fileStatus, error.message, "bad");
                     }
                 });
 
@@ -3515,29 +3482,6 @@
                 el.saveJsonBtn.addEventListener("click", async function() {
                     try {
                         await commitCurrentJson();
-                    } catch (error) {
-                        setStatus(el.editorStatus, error.message, "bad");
-                    }
-                });
-
-                el.saveConfigBtn.addEventListener("click", async function() {
-                    try {
-                        await commitConfig();
-                    } catch (error) {
-                        setStatus(el.editorStatus, error.message, "bad");
-                    }
-                });
-
-                el.viewLogBtn.addEventListener("click", async function() {
-                    try {
-                        if (!state.selectedRepo) {
-                            throw new Error("Connect a repository first.");
-                        }
-                        const logLoaded = await loadRepoJsonFile(state.selectedRepo.full_name, "ghwe_log.json");
-                        const data = Array.isArray(logLoaded.data) ? logLoaded.data : [];
-                        state.log = data;
-                        state.logSha = logLoaded.fileMeta.sha || state.logSha;
-                        setStatus(el.editorStatus, "ghwe_log.json entries: " + data.length, "ok");
                     } catch (error) {
                         setStatus(el.editorStatus, error.message, "bad");
                     }
