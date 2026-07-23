@@ -6,6 +6,25 @@ const dataSources = {
     posts: dataDomain + "fm/data/posts.json"
 };
 
+const pushConfig = {
+    workerBaseUrl: "https://fm-push-worker.oakshiftsoftware.workers.dev",
+    siteId: "fm",
+    serviceWorkerPath: "sw.js"
+};
+
+function urlBase64ToUint8Array(base64String) {
+    const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+    const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
+    const rawData = atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
+
+    for (let i = 0; i < rawData.length; i += 1) {
+        outputArray[i] = rawData.charCodeAt(i);
+    }
+
+    return outputArray;
+}
+
 // To be referenced and used when specifically sharing posts on social media platforms like X (formerly Twitter), not Facebook.
 const gameTwitterHandles = {
     top_eleven: "@topeleven",
@@ -25,7 +44,12 @@ const app = {
         posts: []
     },
     uiState: {
-        pastFixtures: {}
+        pastFixtures: {},
+        push: {
+            registration: null,
+            isSubscribed: false,
+            isBusy: false
+        }
     },
 
     async init() {
@@ -36,6 +60,7 @@ const app = {
             this.generateTeamPages();
             this.setupHashRouting();
             this.renderHome();
+            await this.setupPushNotifications();
             this.handleRoute();
         } catch (error) {
             this.renderError(error);
@@ -272,6 +297,205 @@ const app = {
 
     renderPostsPage() {
         this.renderPosts("allPosts", Number.POSITIVE_INFINITY);
+    },
+
+    getPushUiElements() {
+        return {
+            enableButton: document.getElementById("enablePushBtn"),
+            disableButton: document.getElementById("disablePushBtn"),
+            statusText: document.getElementById("pushStatusText")
+        };
+    },
+
+    setPushStatus(message, tone = "neutral") {
+        const { statusText } = this.getPushUiElements();
+        if (!statusText) {
+            return;
+        }
+
+        statusText.textContent = message;
+        statusText.classList.remove("is-error", "is-success");
+        if (tone === "error") {
+            statusText.classList.add("is-error");
+        }
+        if (tone === "success") {
+            statusText.classList.add("is-success");
+        }
+    },
+
+    syncPushButtons() {
+        const { enableButton, disableButton } = this.getPushUiElements();
+        if (!enableButton || !disableButton) {
+            return;
+        }
+
+        const state = this.uiState.push;
+        enableButton.disabled = state.isBusy || state.isSubscribed;
+        disableButton.disabled = state.isBusy || !state.isSubscribed;
+    },
+
+    async setupPushNotifications() {
+        const { enableButton, disableButton } = this.getPushUiElements();
+        if (!enableButton || !disableButton) {
+            return;
+        }
+
+        const supported = "serviceWorker" in navigator && "PushManager" in window;
+        if (!supported) {
+            this.setPushStatus("Push notifications are not supported in this browser.", "error");
+            enableButton.disabled = true;
+            disableButton.disabled = true;
+            return;
+        }
+
+        enableButton.addEventListener("click", () => {
+            this.subscribeToPushNotifications();
+        });
+
+        disableButton.addEventListener("click", () => {
+            this.unsubscribeFromPushNotifications();
+        });
+
+        this.setPushStatus("Checking subscription status...");
+
+        try {
+            const registration = await navigator.serviceWorker.register(pushConfig.serviceWorkerPath, { scope: "./" });
+            this.uiState.push.registration = registration;
+            const existingSubscription = await registration.pushManager.getSubscription();
+            this.uiState.push.isSubscribed = Boolean(existingSubscription);
+
+            if (this.uiState.push.isSubscribed) {
+                this.setPushStatus("Push notifications are enabled for this browser.", "success");
+            } else {
+                this.setPushStatus("Push notifications are currently disabled.");
+            }
+        } catch (error) {
+            this.setPushStatus(`Unable to initialize push notifications: ${error.message}`, "error");
+        }
+
+        this.syncPushButtons();
+    },
+
+    async fetchVapidPublicKey() {
+        const response = await fetch(`${pushConfig.workerBaseUrl}/vapid-public-key`);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch VAPID public key (HTTP ${response.status}).`);
+        }
+
+        const payload = await response.json();
+        const publicKey = String(payload?.publicKey || "").trim();
+        if (!publicKey) {
+            throw new Error("Worker returned an empty VAPID public key.");
+        }
+
+        return publicKey;
+    },
+
+    async subscribeToPushNotifications() {
+        if (this.uiState.push.isBusy) {
+            return;
+        }
+
+        this.uiState.push.isBusy = true;
+        this.syncPushButtons();
+
+        try {
+            if (Notification.permission === "denied") {
+                throw new Error("Notification permission is blocked in this browser.");
+            }
+
+            let permission = Notification.permission;
+            if (permission === "default") {
+                permission = await Notification.requestPermission();
+            }
+
+            if (permission !== "granted") {
+                throw new Error("Notification permission was not granted.");
+            }
+
+            const registration = this.uiState.push.registration
+                || await navigator.serviceWorker.register(pushConfig.serviceWorkerPath, { scope: "./" });
+            this.uiState.push.registration = registration;
+
+            const vapidPublicKey = await this.fetchVapidPublicKey();
+            const applicationServerKey = urlBase64ToUint8Array(vapidPublicKey);
+
+            const subscription = await registration.pushManager.subscribe({
+                userVisibleOnly: true,
+                applicationServerKey
+            });
+
+            const response = await fetch(`${pushConfig.workerBaseUrl}/subscribe`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    siteId: pushConfig.siteId,
+                    subscription
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`Subscription registration failed (HTTP ${response.status}).`);
+            }
+
+            this.uiState.push.isSubscribed = true;
+            this.setPushStatus("Push notifications enabled successfully.", "success");
+        } catch (error) {
+            this.setPushStatus(`Unable to enable push notifications: ${error.message}`, "error");
+        } finally {
+            this.uiState.push.isBusy = false;
+            this.syncPushButtons();
+        }
+    },
+
+    async unsubscribeFromPushNotifications() {
+        if (this.uiState.push.isBusy) {
+            return;
+        }
+
+        this.uiState.push.isBusy = true;
+        this.syncPushButtons();
+
+        try {
+            const registration = this.uiState.push.registration
+                || await navigator.serviceWorker.register(pushConfig.serviceWorkerPath, { scope: "./" });
+            this.uiState.push.registration = registration;
+
+            const subscription = await registration.pushManager.getSubscription();
+            if (!subscription) {
+                this.uiState.push.isSubscribed = false;
+                this.setPushStatus("Push notifications are already disabled.");
+                return;
+            }
+
+            const endpoint = subscription.endpoint;
+            await subscription.unsubscribe();
+
+            const response = await fetch(`${pushConfig.workerBaseUrl}/unsubscribe`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    siteId: pushConfig.siteId,
+                    endpoint
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`Unsubscribe sync failed (HTTP ${response.status}).`);
+            }
+
+            this.uiState.push.isSubscribed = false;
+            this.setPushStatus("Push notifications disabled successfully.", "success");
+        } catch (error) {
+            this.setPushStatus(`Unable to disable push notifications: ${error.message}`, "error");
+        } finally {
+            this.uiState.push.isBusy = false;
+            this.syncPushButtons();
+        }
     },
 
     renderOverviewStats() {

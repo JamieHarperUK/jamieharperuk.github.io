@@ -45,6 +45,16 @@
                     <img src="data/fm_bg.png" alt="Football Management Hub" class="notes-image">
                 </div>
 
+                <section class="panel notify-panel" aria-labelledby="notify-panel-title">
+                    <h2 class="panel-title" id="notify-panel-title">Post Notifications</h2>
+                    <p class="notes-content">Enable browser push notifications to get alerted when a new post is published.</p>
+                    <div class="notify-actions">
+                        <button type="button" class="notify-btn" id="enablePushBtn">Enable Notifications</button>
+                        <button type="button" class="notify-btn notify-btn-secondary" id="disablePushBtn">Disable Notifications</button>
+                    </div>
+                    <p id="pushStatusText" class="push-status-text" aria-live="polite">Checking notification support...</p>
+                </section>
+
                 <h2 class="section-title">Upcoming Fixtures</h2>
                 <div class="fixtures-grid" id="upcomingFixtures"></div>
             </section>

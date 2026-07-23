@@ -469,6 +469,62 @@ main {
     margin-bottom: 1.2rem;
 }
 
+.notify-panel {
+    margin-bottom: 1.3rem;
+}
+
+.notify-actions {
+    display: flex;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+    margin-top: 0.8rem;
+}
+
+.notify-btn {
+    border: 1px solid rgba(200, 16, 46, 0.55);
+    background-color: rgba(200, 16, 46, 0.12);
+    color: var(--text-primary);
+    border-radius: 8px;
+    padding: 0.45rem 0.85rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.notify-btn:hover {
+    background-color: rgba(200, 16, 46, 0.2);
+    border-color: rgba(200, 16, 46, 0.85);
+}
+
+.notify-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.notify-btn-secondary {
+    background-color: rgba(0, 61, 165, 0.15);
+    border-color: rgba(0, 61, 165, 0.55);
+}
+
+.notify-btn-secondary:hover {
+    background-color: rgba(0, 61, 165, 0.26);
+    border-color: rgba(0, 61, 165, 0.78);
+}
+
+.push-status-text {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-top: 0.75rem;
+}
+
+.push-status-text.is-error {
+    color: #ff9ba8;
+}
+
+.push-status-text.is-success {
+    color: #8de3a2;
+}
+
 .panel-heading {
     display: flex;
     align-items: center;
