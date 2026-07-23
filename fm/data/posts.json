@@ -84,6 +84,20 @@
         "transfers",
         "player"
       ]
+    },
+    {
+      "title": "New Signing (Marcos Llorente)",
+      "content": "New defender Marcos Llorente has just been signed to Manchester United. He will aim to assist in our Right Back defensive position.",
+      "date_time": [
+        "23-07-2026",
+        "16:00"
+      ],
+      "image": "https://jamieharperuk.github.io/fm/data/top_eleven_post.jpg",
+      "category": "OSM",
+      "tags": [
+        "signing",
+        "player"
+      ]
     }
   ]
 }
