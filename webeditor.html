@@ -950,7 +950,8 @@
                     enabled: true,
                     notifyEndpoint: "https://fm-push-worker.oakshiftsoftware.workers.dev/notify",
                     authToken: "T3MqM6IcYizOk0rNN5eec4E/zW0YZdVjY4XP4vVWHTMJ+RA3HhN8Jm2cuBCVvfTy",
-                    siteId: "fm"
+                    siteId: "fm",
+                    delayMs: 90000
                 }
             };
 
@@ -3062,6 +3063,11 @@
                     return { skipped: true, reason: "disabled" };
                 }
 
+                const delayMs = Math.max(0, Number(notificationConfig.delayMs || 0));
+                if (delayMs > 0) {
+                    await new Promise((resolve) => setTimeout(resolve, delayMs));
+                }
+
                 const endpoint = String(notificationConfig.notifyEndpoint || "").trim();
                 if (!endpoint) {
                     return { skipped: true, reason: "no-endpoint" };
@@ -3230,6 +3236,12 @@
                 setStatus(el.editorStatus, "Committed " + state.currentJsonPath + " in one commit.", "ok");
 
                 try {
+                    const notifyDelayMs = Math.max(0, Number((WEBEDITOR_CONFIG.notifications || {}).delayMs || 0));
+                    if (notifyDelayMs > 0) {
+                        const delaySeconds = Math.round(notifyDelayMs / 1000);
+                        setStatus(el.editorStatus, "Commit complete. Waiting " + delaySeconds + "s before notifying subscribers...", "info");
+                    }
+
                     const notificationResult = await notifyPostUpdate(json, result.commitSha || "");
                     if (!notificationResult.skipped) {
                         setStatus(el.editorStatus, "Committed " + state.currentJsonPath + " and notified Cloudflare worker.", "ok");
