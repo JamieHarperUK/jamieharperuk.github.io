@@ -92,8 +92,22 @@
         "23-07-2026",
         "16:00"
       ],
-      "image": "https://jamieharperuk.github.io/fm/data/top_eleven_post.jpg",
+      "image": "https://jamieharperuk.github.io/fm/data/osm_post.jpg",
       "category": "OSM",
+      "tags": [
+        "signing",
+        "player"
+      ]
+    },
+    {
+      "title": "New Signing (Mourad Bouizgar)",
+      "content": "Mourad Bouizgar has just been signed to Harper FC. The new defender brings new talent to both the Centre and Right defensive lines.",
+      "date_time": [
+        "23-07-2026",
+        "16:06"
+      ],
+      "image": "https://jamieharperuk.github.io/fm/data/top_eleven_post.jpg",
+      "category": "Top Eleven",
       "tags": [
         "signing",
         "player"
