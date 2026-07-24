@@ -35,19 +35,6 @@
     },
     {
       "home_or_away": "Away",
-      "home_team": "Liverpool FC",
-      "away_team": "Harper FC",
-      "date": "24-07-2026",
-      "time": "11:25",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "League Level 1",
-      "venue": "Liverpool FC Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "faim FC",
       "away_team": "Harper FC",
       "date": "25-07-2026",
@@ -59,8 +46,36 @@
       "away_score": "",
       "winner": ""
     },
+    {
+      "home_or_away": "Away",
+      "home_team": "sambono5 FC",
+      "away_team": "Harper FC",
+      "date": "26-07-2026",
+      "time": "11:01",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 1",
+      "venue": "sambono5 FC Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
 
 
+
+    {
+      "home_or_away": "Away",
+      "home_team": "Liverpool FC",
+      "away_team": "Harper FC",
+      "date": "24-07-2026",
+      "time": "11:25",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 1",
+      "venue": "Liverpool FC Stadium",
+      "home_score": "0",
+      "away_score": "9",
+      "winner": "Harper FC"
+    },
+    
     {
       "home_or_away": "Home",
       "home_team": "Harper FC",
