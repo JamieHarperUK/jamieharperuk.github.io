@@ -183,6 +183,20 @@
         "victory",
         "announcement"
       ]
+    },
+    {
+      "title": "New Signing (Stanislav Bozhankov)",
+      "content": "Harper FC welcomes their newest skilled Midfielder Stanislav Bozhankov, signed for a 3 year contract.",
+      "date_time": [
+        "24-07-2026",
+        "03:57"
+      ],
+      "image": "https://jamieharperuk.github.io/fm/data/top_eleven_post.jpg",
+      "category": "Top Eleven",
+      "tags": [
+        "signing",
+        "player"
+      ]
     }
   ]
 }
