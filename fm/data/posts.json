@@ -211,6 +211,20 @@
         "transfers",
         "player"
       ]
+    },
+    {
+      "title": "Player Transfers",
+      "content": "Two players also make a move to Paris Saint-Germain. Luke Shaw was sold for $17.5M, while Amad Diallo fetched $20.6M.",
+      "date_time": [
+        "24-07-2026",
+        "15:02"
+      ],
+      "image": "https://jamieharperuk.github.io/fm/data/osm_post.jpg",
+      "category": "OSM",
+      "tags": [
+        "transfers",
+        "player"
+      ]
     }
   ]
 }
