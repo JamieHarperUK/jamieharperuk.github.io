@@ -1072,6 +1072,7 @@ const app = {
         const gameDate = this.escapeHtml(game.date || "Unknown date");
         const gameTime = this.escapeHtml(game.time || "--:--");
         const venue = this.escapeHtml(game.venue || "Unknown");
+        const homeOrAway = this.escapeHtml(game.home_or_away || "Unknown");
 
         const score = played
             ? `${this.escapeHtml(game.home_score)} - ${this.escapeHtml(game.away_score)}`
@@ -1083,7 +1084,7 @@ const app = {
                 <div class="fixture-league">${competition}</div>
             </div>
             <div class="fixture-body">
-                <div class="fixture-date">${gameDate} at ${gameTime}</div>
+                <div class="fixture-date">${gameDate} at ${gameTime} (<i>${homeOrAway}</>)</div>
                 <div class="fixture-match">
                     <div class="team-name">${homeTeam}</div>
                     <div class="score ${played ? "" : "pending"}">${score}</div>
