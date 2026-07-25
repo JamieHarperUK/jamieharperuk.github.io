@@ -254,6 +254,20 @@
         "victory",
         "announcement"
       ]
+    },
+    {
+      "title": "New Signing (Aymeric Laporte)",
+      "content": "Manchester United signs Aymeric Laporte as their new Centre Back. Coming from Athletic Bilbao, he has an impressive track record and aims to bolster the Manchester United defence.",
+      "date_time": [
+        "25-07-2026",
+        "22:53"
+      ],
+      "image": "https://jamieharperuk.github.io/fm/data/osm_post.jpg",
+      "category": "OSM",
+      "tags": [
+        "signing",
+        "player"
+      ]
     }
   ]
 }
