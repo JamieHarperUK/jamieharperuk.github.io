@@ -239,6 +239,21 @@
         "transfers",
         "player"
       ]
+    },
+    {
+      "title": "Cup Quarter -Finals Victory",
+      "content": "After two matches (Home and Away), during the Cup Quarter -Finals, and not conceding even 1 goal, Harper FC proceeds through to the Cup Semi-Finals. Fixture schedules to come soon.",
+      "date_time": [
+        "25-07-2026",
+        "04:18"
+      ],
+      "image": "https://jamieharperuk.github.io/fm/data/top_eleven_post.jpg",
+      "category": "Top Eleven",
+      "tags": [
+        "result",
+        "victory",
+        "announcement"
+      ]
     }
   ]
 }
