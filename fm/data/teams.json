@@ -38,14 +38,14 @@
                 
                 ["CM", "Mainoo", "2", "0"],
                 ["CM", "De Paul", "1", "0"],
-                ["CAM", "Olmo", "0", "0"],
+                ["CAM", "Olmo", "1", "0"],
                 ["CAM", "B. Fernandes", "0", "0"],
                 ["CAM", "Casemiro", "0", "0"],
                 ["CM", "Rice", "0", "0"],
                 ["CAM", "Mount", "0", "0"],
                 
                 ["RW", "Mbeumo", "1", "0"],
-                ["RW", "Sesko", "1", "0"],
+                ["LW", "Sesko", "1", "0"],
                 ["LW", "M. Cunha", "0", "0"],
                 ["ST", "Zirkzee", "1", "0"],
                 ["LW", "Doku", "0", "0"]
