@@ -311,6 +311,20 @@
         "transfers",
         "player"
       ]
+    },
+    {
+      "title": "Player Transfer",
+      "content": "Chris Brewer is transferred from Harper FC for $497K. The 23 year old English striker said he was sad to go, but excited for the next chapter in his career.",
+      "date_time": [
+        "26-07-2026",
+        "22:21"
+      ],
+      "image": "https://jamieharperuk.github.io/fm/data/top_eleven_post.jpg",
+      "category": "Top Eleven",
+      "tags": [
+        "transfers",
+        "player"
+      ]
     }
   ]
 }
