@@ -16,44 +16,6 @@
     },
     "teams": [
         {
-            "team_name": "Altrincham FC",
-            "osm_or_top_eleven": "OSM",
-            "competition": "England 5th Division",
-            "country": "England",
-            "home_venue": "J. Davidson Stadium",
-            "players": [
-                ["GK", "Owen Evans", "0", "0"],
-                ["GK", "Louie Fallon", "0", "0"],
-                
-                ["LB", "Eddy Jones", "0", "0"],
-                ["CB", "Joel Bailey", "0", "0"],
-                ["RB", "Lewis Banks", "0", "0"],
-                ["CB", "Jake Cooper", "0", "0"],
-                ["RB", "Tylor Golden", "0", "0"],
-                ["CB", "Sam Barnes", "0", "0"],
-                ["CB", "Charlie Olson", "0", "0"],
-                
-                ["CDM", "Jack Hinchy", "0", "0"],
-                ["RM", "Anthony Forde", "0", "0"],
-                ["CM", "Tom Crawford", "0", "0"],
-                ["LM", "Aidan Barlow", "0", "0"],
-                ["CM", "Liam Humbles", "0", "0"],
-                ["CM", "Kian Breckin", "0", "0"],
-                ["CDM", "Owen German", "0", "0"],
-                ["CM", "Remi Raymond", "0", "0"],
-                
-                ["ST", "Kristian Dennis", "0", "0"],
-                ["RW", "Sam Taylor", "0", "0"],
-                ["LW", "Otis Khan", "0", "0"],
-                ["LW", "Matty Kosylo", "0", "0"],
-                ["ST", "Jimmy Knowles", "0", "0"],
-                ["RW", "Kahrel Reddin", "0", "0"],
-                ["LW", "Charlie Kirk", "0", "0"],
-                ["RW", "Lucas Weaver", "0", "0"]
-            ]
-        },
-        
-        {
             "team_name": "Manchester United",
             "osm_or_top_eleven": "OSM",
             "competition": "England 2nd Division",
@@ -88,6 +50,44 @@
                 ["LW", "Matheus Santos Carneiro Da Cunha", "0", "0"],
                 ["ST", "Joshus Orobosa Zirkzee", "1", "0"],
                 ["LW", "Jeremy Doku", "0", "0"]
+            ]
+        },
+
+        {
+            "team_name": "Altrincham FC",
+            "osm_or_top_eleven": "OSM",
+            "competition": "England 5th Division",
+            "country": "England",
+            "home_venue": "J. Davidson Stadium",
+            "players": [
+                ["GK", "Owen Evans", "0", "0"],
+                ["GK", "Louie Fallon", "0", "0"],
+                
+                ["LB", "Eddy Jones", "0", "0"],
+                ["CB", "Joel Bailey", "0", "0"],
+                ["RB", "Lewis Banks", "0", "0"],
+                ["CB", "Jake Cooper", "0", "0"],
+                ["RB", "Tylor Golden", "0", "0"],
+                ["CB", "Sam Barnes", "0", "0"],
+                ["CB", "Charlie Olson", "0", "0"],
+                
+                ["CDM", "Jack Hinchy", "0", "0"],
+                ["RM", "Anthony Forde", "0", "0"],
+                ["CM", "Tom Crawford", "0", "0"],
+                ["LM", "Aidan Barlow", "0", "0"],
+                ["CM", "Liam Humbles", "0", "0"],
+                ["CM", "Kian Breckin", "0", "0"],
+                ["CDM", "Owen German", "0", "0"],
+                ["CM", "Remi Raymond", "0", "0"],
+                
+                ["ST", "Kristian Dennis", "0", "0"],
+                ["RW", "Sam Taylor", "0", "0"],
+                ["LW", "Otis Khan", "0", "0"],
+                ["LW", "Matty Kosylo", "0", "0"],
+                ["ST", "Jimmy Knowles", "0", "0"],
+                ["RW", "Kahrel Reddin", "0", "0"],
+                ["LW", "Charlie Kirk", "0", "0"],
+                ["RW", "Lucas Weaver", "0", "0"]
             ]
         },
 
