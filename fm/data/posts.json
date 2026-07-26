@@ -325,6 +325,20 @@
         "transfers",
         "player"
       ]
+    },
+    {
+      "title": "Player Transfer",
+      "content": "Steven Matthews, the 24 year old midfielder, has been transferred from Harper FC for $368K.",
+      "date_time": [
+        "26-07-2026",
+        "23:50"
+      ],
+      "image": "https://jamieharperuk.github.io/fm/data/top_eleven_post.jpg",
+      "category": "Top Eleven",
+      "tags": [
+        "transfers",
+        "player"
+      ]
     }
   ]
 }
