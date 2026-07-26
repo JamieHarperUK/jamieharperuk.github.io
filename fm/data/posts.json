@@ -297,6 +297,20 @@
         "club",
         "management"
       ]
+    },
+    {
+      "title": "Player Transfer",
+      "content": "Lisandro Martinez makes an exciting move to Barcelona from Manchester United, with a transfer fee of $17.6M, as his teammates wish him well.",
+      "date_time": [
+        "24-07-2026",
+        "11:48"
+      ],
+      "image": "https://jamieharperuk.github.io/fm/data/osm_post.jpg",
+      "category": "OSM",
+      "tags": [
+        "transfers",
+        "player"
+      ]
     }
   ]
 }
