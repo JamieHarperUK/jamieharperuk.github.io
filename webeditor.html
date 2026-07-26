@@ -1326,13 +1326,34 @@
             </div>
 
             <div id="notificationModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="notificationTitle">
-                <div class="modal-card">
+                <div class="modal-card" style="width: min(100%, 620px);">
                     <div class="modal-head">
                         <h3 id="notificationTitle">Notification</h3>
                         <button id="notificationCloseBtn" type="button" class="warn">Dismiss</button>
                     </div>
                     <div class="stack">
+                        <!-- Main message -->
                         <div id="notificationContent" style="padding: 0.5rem 0; line-height: 1.5;"></div>
+                        
+                        <!-- Device flow section -->
+                        <div id="deviceFlowSection" style="display: none; margin-top: 1rem; padding: 1rem; border-radius: 8px; background: rgba(0, 0, 0, 0.05);">
+                            <p style="margin-top: 0; font-size: 0.95rem;">A popup was opened to GitHub login. If needed, use this device code:</p>
+                            <p class="mono" style="margin: 0.5rem 0;"><strong>URL:</strong> <strong id="modalDeviceUri"></strong></p>
+                            <p class="mono" style="margin: 0.5rem 0;"><strong>Code:</strong> <strong id="modalDeviceCode"></strong></p>
+                            <div class="row" style="margin-top: 0.8rem;">
+                                <button id="modalCopyCodeBtn" type="button">Copy Code</button>\n                                <button id="modalCopyUrlBtn" type="button">Copy URL</button>
+                            </div>
+                        </div>\n\n                        <!-- Commit log section -->
+                        <div id="commitLogSection" style="display: none; margin-top: 1rem; padding: 1rem; border-radius: 8px; background: rgba(0, 0, 0, 0.03); border: 1px solid rgba(0, 0, 0, 0.1);">
+                            <p style="margin: 0 0 0.8rem 0; font-weight: 600; font-size: 0.95rem;">Commit Progress:</p>
+                            <div id="commitLogList" style="font-family: monospace; font-size: 0.85rem; line-height: 1.6; max-height: 250px; overflow-y: auto; color: var(--text-secondary);"></div>
+                        </div>\n\n                        <!-- Notification timer section -->
+                        <div id="notificationTimerSection" style="display: none; margin-top: 1rem; padding: 1rem; border-radius: 8px; background: rgba(0, 0, 0, 0.03); text-align: center;">
+                            <p style="margin: 0 0 0.5rem 0; font-size: 0.9rem;">Notifying subscribers in:</p>
+                            <div style="font-size: 2.5rem; font-weight: 700; font-family: monospace; color: var(--ok);" id="notificationTimer">0:00</div>
+                            <p style="margin: 0.5rem 0 0 0; font-size: 0.85rem; color: var(--text-secondary);">Sending push notifications to subscribed devices...</p>
+                        </div>
+                        
                         <div class="row" style="margin-top: 1rem;">
                             <button id="notificationDismissBtn" class="primary" type="button">OK</button>
                         </div>
@@ -1618,7 +1639,16 @@
                 notificationTitle: document.getElementById("notificationTitle"),
                 notificationContent: document.getElementById("notificationContent"),
                 notificationCloseBtn: document.getElementById("notificationCloseBtn"),
-                notificationDismissBtn: document.getElementById("notificationDismissBtn")
+                notificationDismissBtn: document.getElementById("notificationDismissBtn"),
+                deviceFlowSection: document.getElementById("deviceFlowSection"),
+                modalDeviceUri: document.getElementById("modalDeviceUri"),
+                modalDeviceCode: document.getElementById("modalDeviceCode"),
+                modalCopyCodeBtn: document.getElementById("modalCopyCodeBtn"),
+                modalCopyUrlBtn: document.getElementById("modalCopyUrlBtn"),
+                commitLogSection: document.getElementById("commitLogSection"),
+                commitLogList: document.getElementById("commitLogList"),
+                notificationTimerSection: document.getElementById("notificationTimerSection"),
+                notificationTimer: document.getElementById("notificationTimer")
             };
 
             function applyBranding() {
@@ -1658,11 +1688,22 @@
                 }
             }
 
-            function showNotificationModal(message, type = "info", title = "Notification") {
+            let notificationTimerInterval = null;
+
+            function showNotificationModal(message, type = "info", title = "Notification", options = {}) {
                 const modal = el.notificationModal;
                 const titleEl = el.notificationTitle;
                 const contentEl = el.notificationContent;
                 const dismissBtn = el.notificationDismissBtn;
+
+                // Clear previous state
+                el.deviceFlowSection.style.display = "none";
+                el.commitLogSection.style.display = "none";
+                el.notificationTimerSection.style.display = "none";
+                if (notificationTimerInterval) {
+                    clearInterval(notificationTimerInterval);
+                    notificationTimerInterval = null;
+                }
 
                 titleEl.textContent = title;
                 contentEl.textContent = message;
@@ -1670,13 +1711,55 @@
                 dismissBtn.className = "primary";
                 if (type === "bad") {
                     dismissBtn.className = "warn";
-                } else if (type === "info") {
-                    dismissBtn.className = "primary";
                 } else if (type === "ok") {
                     dismissBtn.className = "primary";
                 }
 
+                // Handle device flow display
+                if (options.showDeviceFlow) {
+                    el.modalDeviceUri.textContent = options.deviceUri || "";
+                    el.modalDeviceCode.textContent = options.deviceCode || "";
+                    el.deviceFlowSection.style.display = "block";
+                }
+
+                // Handle commit log display
+                if (options.showCommitLog) {
+                    el.commitLogList.innerHTML = "";
+                    el.commitLogSection.style.display = "block";
+                }
+
+                // Handle timer display
+                if (options.showTimer && options.timerSeconds > 0) {
+                    el.notificationTimerSection.style.display = "block";
+                    let secondsRemaining = options.timerSeconds;
+                    
+                    function updateTimer() {
+                        const minutes = Math.floor(secondsRemaining / 60);
+                        const seconds = secondsRemaining % 60;
+                        el.notificationTimer.textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+                        
+                        if (secondsRemaining <= 0) {
+                            clearInterval(notificationTimerInterval);
+                            notificationTimerInterval = null;
+                        } else {
+                            secondsRemaining -= 1;
+                        }
+                    }
+                    
+                    updateTimer();
+                    notificationTimerInterval = setInterval(updateTimer, 1000);
+                }
+
                 modal.classList.remove("hidden");
+            }
+
+            function addCommitLogEntry(message) {
+                const logList = el.commitLogList;
+                const entry = document.createElement("div");
+                entry.style.marginBottom = "0.3rem";
+                entry.textContent = "→ " + message;
+                logList.appendChild(entry);
+                logList.scrollTop = logList.scrollHeight;
             }
 
             function closeNotificationModal() {
@@ -1796,20 +1879,30 @@
                 }
 
                 const verificationUrl = payload.verification_uri_complete || payload.verification_uri || "https://github.com/login/device";
-                el.deviceFlowBlock.classList.remove("hidden");
-                el.deviceUriText.textContent = verificationUrl;
-                el.deviceCodeText.textContent = payload.user_code;
+                
                 if (payload.verification_uri_complete) {
-                    showNotificationModal("Popup opened with your code prefilled. Confirm access in GitHub. If the popup closes after approval, that is expected.", "ok", "GitHub Login");
+                    showNotificationModal("Popup opened with your code prefilled. Confirm access in GitHub. If the popup closes after approval, that is expected.", "ok", "GitHub Login", {
+                        showDeviceFlow: true,
+                        deviceUri: verificationUrl,
+                        deviceCode: payload.user_code
+                    });
                 } else {
-                    showNotificationModal("Popup opened. Enter code " + payload.user_code + " in the GitHub window, then this app will continue automatically.", "ok", "GitHub Login");
+                    showNotificationModal("Popup opened. Enter code " + payload.user_code + " in the GitHub window, then this app will continue automatically.", "ok", "GitHub Login", {
+                        showDeviceFlow: true,
+                        deviceUri: verificationUrl,
+                        deviceCode: payload.user_code
+                    });
                 }
 
                 const popup = window.open(verificationUrl, "ghwe-github-login", "popup=yes,width=840,height=900");
                 if (popup) {
                     popup.focus();
                 } else {
-                    showNotificationModal("Popup was blocked by the browser. Open the URL shown below and enter code " + payload.user_code + ".", "bad", "Browser Popup Blocked");
+                    showNotificationModal("Popup was blocked by the browser. Use the device code shown above to authenticate.", "bad", "Browser Popup Blocked", {
+                        showDeviceFlow: true,
+                        deviceUri: verificationUrl,
+                        deviceCode: payload.user_code
+                    });
                 }
 
                 await pollForAccessToken(clientId, payload.device_code, payload.interval || 5);
@@ -3642,12 +3735,14 @@
                 return blobPayload.sha;
             }
 
-            async function commitFilesTogether(repoFullName, branch, message, files) {
+            async function commitFilesTogether(repoFullName, branch, message, files, onProgress = null) {
+                if (onProgress) onProgress("Resolving branch head commit...");
                 const parentCommitSha = await getBranchHeadCommitSha(repoFullName, branch);
                 if (!parentCommitSha) {
                     throw new Error("Unable to resolve branch head commit.");
                 }
 
+                if (onProgress) onProgress("Resolving base tree...");
                 const baseTreeSha = await getCommitTreeSha(repoFullName, parentCommitSha);
                 if (!baseTreeSha) {
                     throw new Error("Unable to resolve base tree for branch.");
@@ -3657,6 +3752,7 @@
                 const fileBlobShas = {};
 
                 for (const file of files) {
+                    if (onProgress) onProgress("Creating blob for " + file.path + "...");
                     const blobSha = await createBlob(repoFullName, file.content);
                     fileBlobShas[file.path] = blobSha;
                     treeEntries.push({
@@ -3667,6 +3763,7 @@
                     });
                 }
 
+                if (onProgress) onProgress("Creating tree...");
                 const treeResponse = await ghFetch("/repos/" + repoFullName + "/git/trees", {
                     method: "POST",
                     headers: {
@@ -3679,6 +3776,7 @@
                 });
                 const treePayload = await treeResponse.json();
 
+                if (onProgress) onProgress("Creating commit...");
                 const commitResponse = await ghFetch("/repos/" + repoFullName + "/git/commits", {
                     method: "POST",
                     headers: {
@@ -3692,6 +3790,7 @@
                 });
                 const commitPayload = await commitResponse.json();
 
+                if (onProgress) onProgress("Updating branch reference...");
                 await ghFetch("/repos/" + repoFullName + "/git/refs/heads/" + encodeURIComponent(branch), {
                     method: "PATCH",
                     headers: {
@@ -3703,6 +3802,7 @@
                     })
                 });
 
+                if (onProgress) onProgress("Commit complete!");
                 return {
                     commitSha: commitPayload.sha,
                     fileBlobShas
@@ -3730,38 +3830,60 @@
                 const commitMessage = (el.commitMessage.value || "Update " + state.currentJsonPath + " via GHWE").trim();
                 const jsonPayload = JSON.stringify(json, null, 2);
 
-                await assertLatestFileSha(repoFullName, state.currentJsonPath, state.currentJsonSha);
-
-                const result = await commitFilesTogether(
-                    repoFullName,
-                    branch,
-                    commitMessage,
-                    [
-                        {
-                            path: state.currentJsonPath,
-                            content: jsonPayload
-                        }
-                    ]
-                );
-
-                state.currentJsonSha = result.fileBlobShas[state.currentJsonPath] || state.currentJsonSha;
-                setStatus(el.editorStatus, "Committed " + state.currentJsonPath + " in one commit.", "ok");
+                // Show modal with commit log
+                showNotificationModal("Preparing commit...", "info", "Publishing Update", {
+                    showCommitLog: true
+                });
 
                 try {
+                    await assertLatestFileSha(repoFullName, state.currentJsonPath, state.currentJsonSha);
+
+                    const result = await commitFilesTogether(
+                        repoFullName,
+                        branch,
+                        commitMessage,
+                        [
+                            {
+                                path: state.currentJsonPath,
+                                content: jsonPayload
+                            }
+                        ],
+                        function(message) {
+                            addCommitLogEntry(message);
+                        }
+                    );
+
+                    state.currentJsonSha = result.fileBlobShas[state.currentJsonPath] || state.currentJsonSha;
+                    setStatus(el.editorStatus, "Committed " + state.currentJsonPath + " in one commit.", "ok");
+
                     const notifyDelayMs = Math.max(0, Number((WEBEDITOR_CONFIG.notifications || {}).delayMs || 0));
-                    if (notifyDelayMs > 0) {
+                    const notifyEnabled = (WEBEDITOR_CONFIG.notifications || {}).enabled !== false;
+                    
+                    if (notifyDelayMs > 0 && notifyEnabled) {
                         const delaySeconds = Math.round(notifyDelayMs / 1000);
-                        showNotificationModal("Commit complete. Waiting " + delaySeconds + "s before notifying subscribers...", "info", "Publishing");
+                        showNotificationModal("Commit successful! Notifying subscribers...", "ok", "Publishing Update", {
+                            showTimer: true,
+                            timerSeconds: delaySeconds
+                        });
+
+                        await new Promise(function(resolve) {
+                            setTimeout(resolve, notifyDelayMs);
+                        });
                     }
 
                     const notificationResult = await notifyPostUpdate(json, result.commitSha || "");
                     if (!notificationResult.skipped) {
-                        showNotificationModal("Committed " + state.currentJsonPath + " and notified subscribers.", "ok", "Commit Successful");
+                        showNotificationModal("Committed " + state.currentJsonPath + " and notified subscribers.", "ok", "Success");
                     } else {
-                        showNotificationModal("Committed " + state.currentJsonPath + ". (Notifications disabled)", "ok", "Commit Successful");
+                        showNotificationModal("Committed " + state.currentJsonPath + ". (Notifications disabled)", "ok", "Success");
                     }
-                } catch (notifyError) {
-                    showNotificationModal("Commit succeeded, but push notify failed: " + notifyError.message, "bad", "Notification Error");
+                } catch (error) {
+                    if (error.message.includes("push notify")) {
+                        showNotificationModal("Commit succeeded, but push notify failed: " + error.message, "bad", "Notification Error");
+                    } else {
+                        showNotificationModal("Commit failed: " + error.message, "bad", "Error");
+                        throw error;
+                    }
                 }
             }
 
@@ -3826,6 +3948,30 @@
 
                 el.notificationDismissBtn.addEventListener("click", function() {
                     closeNotificationModal();
+                });
+
+                el.modalCopyCodeBtn.addEventListener("click", function() {
+                    const code = el.modalDeviceCode.textContent;
+                    if (code) {
+                        navigator.clipboard.writeText(code).then(function() {
+                            el.modalCopyCodeBtn.textContent = "Copied!";
+                            setTimeout(function() {
+                                el.modalCopyCodeBtn.textContent = "Copy Code";
+                            }, 2000);
+                        });
+                    }
+                });
+
+                el.modalCopyUrlBtn.addEventListener("click", function() {
+                    const url = el.modalDeviceUri.textContent;
+                    if (url) {
+                        navigator.clipboard.writeText(url).then(function() {
+                            el.modalCopyUrlBtn.textContent = "Copied!";
+                            setTimeout(function() {
+                                el.modalCopyUrlBtn.textContent = "Copy URL";
+                            }, 2000);
+                        });
+                    }
                 });
 
                 el.stepPills.forEach(function(pill, index) {
