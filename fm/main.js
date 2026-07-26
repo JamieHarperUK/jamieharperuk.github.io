@@ -1222,7 +1222,7 @@ const app = {
 
     getRecentFormMarkup(results) {
         if (!results.length) {
-            return '<div class="stat-value">N/A</div>';
+            return '<div class="stat-value">TBD</div>';
         }
 
         const dots = results
