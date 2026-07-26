@@ -268,6 +268,20 @@
         "signing",
         "player"
       ]
+    },
+    {
+      "title": "New Signing (Jorge Manuel Gonzalez)",
+      "content": "Coming in to bolster efforts across the midfield, Jorge Manuel Gonzalez has just been signed to Harper FC on a 3 season contract.",
+      "date_time": [
+        "25-07-2026",
+        "05:25"
+      ],
+      "image": "https://jamieharperuk.github.io/fm/data/top_eleven_post.jpg",
+      "category": "Top Eleven",
+      "tags": [
+        "signing",
+        "player"
+      ]
     }
   ]
 }
