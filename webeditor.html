@@ -1736,16 +1736,21 @@
                 if (options.showTimer && options.timerSeconds > 0) {
                     el.notificationTimerSection.style.display = "block";
                     let secondsRemaining = options.timerSeconds;
+                    let timerFired = false;
                     
                     function updateTimer() {
                         const minutes = Math.floor(secondsRemaining / 60);
                         const seconds = secondsRemaining % 60;
                         el.notificationTimer.textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
                         
-                        if (secondsRemaining <= 0) {
+                        if (secondsRemaining <= 0 && !timerFired) {
+                            timerFired = true;
                             clearInterval(notificationTimerInterval);
                             notificationTimerInterval = null;
-                        } else {
+                            if (options.onTimerComplete && typeof options.onTimerComplete === "function") {
+                                options.onTimerComplete();
+                            }
+                        } else if (secondsRemaining > 0) {
                             secondsRemaining -= 1;
                         }
                     }
@@ -3865,21 +3870,30 @@
                     
                     if (notifyDelayMs > 0 && notifyEnabled) {
                         const delaySeconds = Math.round(notifyDelayMs / 1000);
+                        
                         showNotificationModal("Commit successful! Notifying subscribers...", "ok", "Publishing Update", {
                             showTimer: true,
-                            timerSeconds: delaySeconds
+                            timerSeconds: delaySeconds,
+                            onTimerComplete: async function() {
+                                try {
+                                    const notificationResult = await notifyPostUpdate(json, result.commitSha || "");
+                                    if (!notificationResult.skipped) {
+                                        showNotificationModal("Committed " + state.currentJsonPath + " and notified subscribers.", "ok", "Success");
+                                    } else {
+                                        showNotificationModal("Committed " + state.currentJsonPath + ". (Notifications disabled)", "ok", "Success");
+                                    }
+                                } catch (notifyError) {
+                                    showNotificationModal("Commit succeeded, but push notify failed: " + notifyError.message, "bad", "Notification Error");
+                                }
+                            }
                         });
-
-                        await new Promise(function(resolve) {
-                            setTimeout(resolve, notifyDelayMs);
-                        });
-                    }
-
-                    const notificationResult = await notifyPostUpdate(json, result.commitSha || "");
-                    if (!notificationResult.skipped) {
-                        showNotificationModal("Committed " + state.currentJsonPath + " and notified subscribers.", "ok", "Success");
                     } else {
-                        showNotificationModal("Committed " + state.currentJsonPath + ". (Notifications disabled)", "ok", "Success");
+                        const notificationResult = await notifyPostUpdate(json, result.commitSha || "");
+                        if (!notificationResult.skipped) {
+                            showNotificationModal("Committed " + state.currentJsonPath + " and notified subscribers.", "ok", "Success");
+                        } else {
+                            showNotificationModal("Committed " + state.currentJsonPath + ". (Notifications disabled)", "ok", "Success");
+                        }
                     }
                 } catch (error) {
                     if (error.message.includes("push notify")) {
