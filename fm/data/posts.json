@@ -339,6 +339,21 @@
         "transfers",
         "player"
       ]
+    },
+    {
+      "title": "Harper FC Stadium Renamed",
+      "content": "Harper FC have renamed their home stadium to 'The Concourse'. The renaming marks a new chapter for the club and its fans.",
+      "date_time": [
+        "27-07-2026",
+        "09:39"
+      ],
+      "image": "https://jamieharperuk.github.io/fm/data/top_eleven_post.jpg",
+      "category": "Top Eleven",
+      "tags": [
+        "club",
+        "news",
+        "announcement"
+      ]
     }
   ]
 }
