@@ -354,6 +354,20 @@
         "news",
         "announcement"
       ]
+    },
+    {
+      "title": "Player Transfer",
+      "content": "Harry Maguire, Manchester United right back, has transferred to Paris Saint-Germain with a transfer fee of $19.0M.",
+      "date_time": [
+        "27-07-2026",
+        "19:48"
+      ],
+      "image": "https://jamieharperuk.github.io/fm/data/osm_post.jpg",
+      "category": "OSM",
+      "tags": [
+        "transfers",
+        "player"
+      ]
     }
   ]
 }
