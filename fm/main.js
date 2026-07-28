@@ -582,7 +582,7 @@ const app = {
             const safeDate = this.escapeHtml(post.date_time?.[0] || "Unknown date");
             const safeTime = this.escapeHtml(post.date_time?.[1] || "--:--");
             const safeCategory = this.escapeHtml(post.category || "Other");
-            const safeContent = this.escapeHtml(post.content || "");
+            const safeContent = this.escapeHtml(this.getPostDescription(post.content || ""));
             const tags = Array.isArray(post.tags) ? post.tags : [];
 
             let categoryGameType = "";
