@@ -33,6 +33,7 @@ const gameTwitterHandles = {
 
 const app = {
     currentPage: "home",
+    analyticsId: "G-DXQ9XEWGGG",
     siteMeta: {
         title: "JHUK Football Management",
         description: "Track my OSM and Top Eleven teams, fixtures, and updates in one place.",
@@ -59,12 +60,112 @@ const app = {
             this.setupNavigation();
             this.generateTeamPages();
             this.setupHashRouting();
+            this.setupAnalytics();
             this.renderHome();
             await this.setupPushNotifications();
             this.handleRoute();
         } catch (error) {
             this.renderError(error);
         }
+    },
+
+    setupAnalytics() {
+        document.addEventListener("click", (event) => {
+            const target = event.target instanceof Element ? event.target : null;
+            if (!target) {
+                return;
+            }
+
+            const interactiveElement = target.closest("a, button");
+            if (!interactiveElement) {
+                return;
+            }
+
+            const action = interactiveElement.getAttribute("data-analytics-action") || "click";
+            const category = interactiveElement.getAttribute("data-analytics-category") || "Interaction";
+            const label = interactiveElement.getAttribute("data-analytics-label") || interactiveElement.textContent?.trim() || interactiveElement.getAttribute("aria-label") || "unknown";
+
+            if (action && category) {
+                this.trackEvent(action, category, label);
+            }
+        });
+    },
+
+    trackEvent(action, category, label = "", value) {
+        if (typeof window.gtag !== "function") {
+            return;
+        }
+
+        const payload = {
+            event_category: category,
+            event_label: label
+        };
+
+        if (typeof value !== "undefined") {
+            payload.value = value;
+        }
+
+        window.gtag("event", action, payload);
+    },
+
+    trackPageView(path) {
+        if (typeof window.gtag !== "function") {
+            return;
+        }
+
+        const pagePath = this.getAnalyticsPagePath(path);
+        const pageTitle = this.getAnalyticsPageTitle(path);
+
+        window.gtag("config", this.analyticsId, {
+            page_path: pagePath,
+            page_title: pageTitle
+        });
+
+        window.gtag("event", "page_view", {
+            page_title: pageTitle,
+            page_location: pagePath,
+            page_path: pagePath
+        });
+    },
+
+    getAnalyticsPagePath(path) {
+        if (!path || path === "home") {
+            return "/fm/";
+        }
+
+        if (path === "posts") {
+            return "/fm/#posts";
+        }
+
+        if (path.startsWith("post/")) {
+            return `/fm/#post/${path.split("/")[1]}`;
+        }
+
+        if (path.startsWith("team/")) {
+            return `/fm/#team/${path.split("/")[1]}`;
+        }
+
+        return "/fm/";
+    },
+
+    getAnalyticsPageTitle(path) {
+        if (!path || path === "home") {
+            return "Home";
+        }
+
+        if (path === "posts") {
+            return "Posts";
+        }
+
+        if (path.startsWith("post/")) {
+            return "Post Detail";
+        }
+
+        if (path.startsWith("team/")) {
+            return "Team Page";
+        }
+
+        return "Home";
     },
 
     async loadData() {
@@ -100,6 +201,9 @@ const app = {
         const homeLink = document.createElement("a");
         homeLink.href = "#home";
         homeLink.textContent = "Home";
+        homeLink.setAttribute("data-analytics-action", "nav_click");
+        homeLink.setAttribute("data-analytics-category", "Navigation");
+        homeLink.setAttribute("data-analytics-label", "Home");
         navLinks.appendChild(homeLink);
 
         const dropdown = document.createElement("div");
@@ -110,6 +214,9 @@ const app = {
         dropdownToggle.type = "button";
         dropdownToggle.id = "teamsDropdownToggle";
         dropdownToggle.setAttribute("aria-expanded", "false");
+        dropdownToggle.setAttribute("data-analytics-action", "nav_click");
+        dropdownToggle.setAttribute("data-analytics-category", "Navigation");
+        dropdownToggle.setAttribute("data-analytics-label", "Teams Menu");
         dropdownToggle.textContent = "Teams";
 
         const dropdownMenu = document.createElement("div");
@@ -121,6 +228,9 @@ const app = {
             const link = document.createElement("a");
             link.href = `#team/${teamId}`;
             link.textContent = team.team_name;
+            link.setAttribute("data-analytics-action", "team_click");
+            link.setAttribute("data-analytics-category", "Navigation");
+            link.setAttribute("data-analytics-label", team.team_name);
             link.addEventListener("click", () => {
                 this.closeTeamsDropdown();
             });
@@ -145,6 +255,9 @@ const app = {
         const postsLink = document.createElement("a");
         postsLink.href = "#posts";
         postsLink.textContent = "Posts";
+        postsLink.setAttribute("data-analytics-action", "nav_click");
+        postsLink.setAttribute("data-analytics-category", "Navigation");
+        postsLink.setAttribute("data-analytics-label", "Posts");
         navLinks.appendChild(postsLink);
 
         this.updateNavLinks();
@@ -242,6 +355,7 @@ const app = {
         }
 
         this.closeTeamsDropdown();
+        this.trackPageView(path);
 
         window.scrollTo(0, 0);
     },
@@ -337,7 +451,7 @@ const app = {
                 <div class="latest-post-header">
                     <span class="latest-post-label">Latest update</span>
                 </div>
-                <h3 class="update-title"><a href="#post/${this.getPostSlug(latestPost)}" class="post-link">${safeTitle}</a></h3>
+                <h3 class="update-title"><a href="#post/${this.getPostSlug(latestPost)}" class="post-link" data-analytics-action="post_click" data-analytics-category="Posts" data-analytics-label="Latest Post">${safeTitle}</a></h3>
                 <div class="update-meta">
                     <span>${safeDate} @ ${safeTime}</span>
                     <span class="update-category">${categoryGameType}</span>
@@ -407,10 +521,12 @@ const app = {
         }
 
         enableButton.addEventListener("click", () => {
+            this.trackEvent("push_enable_click", "Notifications", "Enable Notifications");
             this.subscribeToPushNotifications();
         });
 
         disableButton.addEventListener("click", () => {
+            this.trackEvent("push_disable_click", "Notifications", "Disable Notifications");
             this.unsubscribeFromPushNotifications();
         });
 
@@ -503,6 +619,7 @@ const app = {
             }
 
             this.uiState.push.isSubscribed = true;
+            this.trackEvent("push_enabled", "Notifications", "Enabled");
             this.setPushStatus("Push notifications enabled successfully.", "success");
         } catch (error) {
             this.setPushStatus(`Unable to enable push notifications: ${error.message}`, "error");
@@ -551,6 +668,7 @@ const app = {
             }
 
             this.uiState.push.isSubscribed = false;
+            this.trackEvent("push_disabled", "Notifications", "Disabled");
             this.setPushStatus("Push notifications disabled successfully.", "success");
         } catch (error) {
             this.setPushStatus(`Unable to disable push notifications: ${error.message}`, "error");
@@ -656,7 +774,7 @@ const app = {
             }
 
             card.innerHTML = `
-                <h3 class="update-title"><a href="#post/${this.getPostSlug(post)}" class="post-link">${safeTitle}</a></h3>
+                <h3 class="update-title"><a href="#post/${this.getPostSlug(post)}" class="post-link" data-analytics-action="post_click" data-analytics-category="Posts" data-analytics-label="${this.escapeHtml(post.title || "Untitled update")}">${safeTitle}</a></h3>
                 <div class="update-meta">
                     <span>${safeDate} @ ${safeTime}</span>
                     <span class="update-category">${categoryGameType}</span>
@@ -722,7 +840,7 @@ const app = {
         }
 
         container.innerHTML = `
-            <a href="#posts" class="site-link">&larr; Back to Posts</a>
+            <a href="#posts" class="site-link" data-analytics-action="post_back_click" data-analytics-category="Posts" data-analytics-label="Back to Posts">&larr; Back to Posts</a>
             <h1 class="section-title" style="margin-top: 0.6rem;">${safeTitle}</h1>
 
             <article class="update-card post-detail-card">
@@ -733,13 +851,13 @@ const app = {
                 <p class="update-content">${safeContent}</p>
                 <div class="tags">${tags.map((tag) => `<span class="tag">#${this.escapeHtml(tag)}</span>`).join("")}</div>
                 <div class="post-share-buttons">
-                    <a href="${shareUrls.x}" class="share-btn share-x" target="_blank" rel="noopener noreferrer" aria-label="Share this post on X">
+                    <a href="${shareUrls.x}" class="share-btn share-x" target="_blank" rel="noopener noreferrer" aria-label="Share this post on X" data-analytics-action="share_click" data-analytics-category="Posts" data-analytics-label="Share on X">
                         <i class="fa-brands fa-x-twitter"></i> Share on X
                     </a>
-                    <a href="${shareUrls.facebook}" class="share-btn share-facebook" target="_blank" rel="noopener noreferrer" aria-label="Share this post on Facebook">
+                    <a href="${shareUrls.facebook}" class="share-btn share-facebook" target="_blank" rel="noopener noreferrer" aria-label="Share this post on Facebook" data-analytics-action="share_click" data-analytics-category="Posts" data-analytics-label="Share on Facebook">
                         <i class="fa-brands fa-facebook-f"></i> Share on Facebook
                     </a>
-                    <button type="button" class="share-btn share-copy" id="copy-post-link-btn" aria-label="Copy share link">
+                    <button type="button" class="share-btn share-copy" id="copy-post-link-btn" aria-label="Copy share link" data-analytics-action="copy_link_click" data-analytics-category="Posts" data-analytics-label="Copy Post Link">
                         <i class="fa-solid fa-link"></i> Copy Link
                     </button>
                 </div>
@@ -749,6 +867,7 @@ const app = {
         const copyLinkButton = document.getElementById("copy-post-link-btn");
         if (copyLinkButton) {
             copyLinkButton.addEventListener("click", async () => {
+                this.trackEvent("copy_link_click", "Posts", "Copy Post Link");
                 const copied = await this.copyTextToClipboard(postUrl);
                 copyLinkButton.textContent = copied ? "Copied" : "Copy Failed";
                 setTimeout(() => {
@@ -1035,6 +1154,7 @@ const app = {
 
         if (playedToggleButton) {
             playedToggleButton.addEventListener("click", () => {
+                this.trackEvent("fixtures_toggle_click", "Teams", `Toggle ${team.team_name}`);
                 const state = this.getPastFixturesState(teamId);
                 state.collapsed = !state.collapsed;
                 this.updatePastFixturesPanelState(teamId);
@@ -1102,6 +1222,7 @@ const app = {
             loadMoreButton.className = "load-more-btn";
             loadMoreButton.textContent = "Load More";
             loadMoreButton.addEventListener("click", () => {
+                this.trackEvent("load_more_click", "Teams", `Load More ${teamId}`);
                 state.visibleCount += 6;
                 this.renderPastFixturesList(teamId, playedGames);
             });
