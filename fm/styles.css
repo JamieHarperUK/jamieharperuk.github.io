@@ -558,6 +558,7 @@ main {
     border-radius: 10px;
     background: linear-gradient(135deg, rgba(200, 16, 46, 0.14), rgba(0, 61, 165, 0.1));
     padding: 1rem;
+    margin-top: 1rem;
 }
 
 .latest-post-header {

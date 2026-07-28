@@ -324,7 +324,6 @@ const app = {
             <article class="latest-post-card">
                 <div class="latest-post-header">
                     <span class="latest-post-label">Latest update</span>
-                    <a href="#post/${this.getPostSlug(latestPost)}" class="site-link">Read full post</a>
                 </div>
                 <h3 class="update-title"><a href="#post/${this.getPostSlug(latestPost)}" class="post-link">${safeTitle}</a></h3>
                 <div class="update-meta">
