@@ -45,18 +45,15 @@
                     <img src="data/fm_bg.png" alt="Football Management Hub" class="notes-image">
                 </div>
 
-                <section class="panel notify-panel" aria-labelledby="notify-panel-title">
-                    <h2 class="panel-title" id="notify-panel-title">Post Notifications</h2>
-                    <p class="notes-content">Enable browser push notifications to get alerted when a new post is published.</p>
-                    <div class="notify-actions">
-                        <button type="button" class="notify-btn" id="enablePushBtn">Enable Notifications</button>
-                        <button type="button" class="notify-btn notify-btn-secondary" id="disablePushBtn">Disable Notifications</button>
-                    </div>
-                    <p id="pushStatusText" class="push-status-text" aria-live="polite">Checking notification support...</p>
-                </section>
-
                 <h2 class="section-title">Upcoming Fixtures</h2>
                 <div class="fixtures-grid" id="upcomingFixtures"></div>
+
+                <section class="panel latest-post-panel" aria-labelledby="latest-post-title">
+                    <div class="panel-heading">
+                        <h2 class="panel-title" id="latest-post-title">Latest Post</h2>
+                    </div>
+                    <div id="latestPostPreview"></div>
+                </section>
             </section>
 
             <section id="posts" class="page">
@@ -66,6 +63,17 @@
                         The latest Football Management posts, progress updates, and announcements are shown below.
                     </div>
                 </div>
+
+                <section class="panel notify-panel notify-panel-posts" aria-labelledby="notify-panel-title">
+                    <h2 class="panel-title" id="notify-panel-title">Post Notifications</h2>
+                    <p class="notes-content">Enable browser push notifications to get alerted when a new post is published.</p>
+                    <div class="notify-actions">
+                        <button type="button" class="notify-btn" id="enablePushBtn">Enable Notifications</button>
+                        <button type="button" class="notify-btn notify-btn-secondary" id="disablePushBtn">Disable Notifications</button>
+                    </div>
+                    <p id="pushStatusText" class="push-status-text" aria-live="polite">Checking notification support...</p>
+                </section>
+
                 <div class="updates-grid" id="allPosts"></div>
             </section>
 

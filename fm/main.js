@@ -293,10 +293,48 @@ const app = {
     renderHome() {
         this.renderOverviewStats();
         this.renderUpcomingFixtures();
+        this.renderLatestPostPreview();
     },
 
     renderPostsPage() {
         this.renderPosts("allPosts", Number.POSITIVE_INFINITY);
+    },
+
+    renderLatestPostPreview() {
+        const container = document.getElementById("latestPostPreview");
+        if (!container) {
+            return;
+        }
+
+        const latestPost = [...this.data.posts]
+            .sort((a, b) => this.comparePostDateDesc(a, b))[0];
+
+        if (!latestPost) {
+            container.innerHTML = '<div class="empty-state">No posts yet.</div>';
+            return;
+        }
+
+        const safeTitle = this.escapeHtml(latestPost.title || "Untitled update");
+        const safeDate = this.escapeHtml(latestPost.date_time?.[0] || "Unknown date");
+        const safeTime = this.escapeHtml(latestPost.date_time?.[1] || "--:--");
+        const safeContent = this.escapeHtml(this.getPostDescription(latestPost.content || ""));
+        const tags = Array.isArray(latestPost.tags) ? latestPost.tags : [];
+
+        container.innerHTML = `
+            <article class="latest-post-card">
+                <div class="latest-post-header">
+                    <span class="latest-post-label">Latest update</span>
+                    <a href="#post/${this.getPostSlug(latestPost)}" class="site-link">Read full post</a>
+                </div>
+                <h3 class="update-title"><a href="#post/${this.getPostSlug(latestPost)}" class="post-link">${safeTitle}</a></h3>
+                <div class="update-meta">
+                    <span>${safeDate} @ ${safeTime}</span>
+                    <span class="update-category">${this.escapeHtml(latestPost.category || "Other")}</span>
+                </div>
+                <p class="update-content">${safeContent}</p>
+                <div class="tags">${tags.map((tag) => `<span class="tag">#${this.escapeHtml(tag)}</span>`).join("")}</div>
+            </article>
+        `;
     },
 
     getPushUiElements() {

@@ -473,6 +473,12 @@ main {
     margin-bottom: 1.3rem;
 }
 
+.notify-panel-posts {
+    background: linear-gradient(135deg, rgba(200, 16, 46, 0.16), rgba(0, 61, 165, 0.12));
+    border-color: rgba(200, 16, 46, 0.35);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
 .notify-actions {
     display: flex;
     gap: 0.65rem;
@@ -535,6 +541,33 @@ main {
 .panel-title {
     font-size: 1.2rem;
     margin-bottom: 0.8rem;
+}
+
+.latest-post-panel {
+    margin-top: 1.3rem;
+}
+
+.latest-post-card {
+    border: 1px solid rgba(200, 16, 46, 0.3);
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(200, 16, 46, 0.14), rgba(0, 61, 165, 0.1));
+    padding: 1rem;
+}
+
+.latest-post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.latest-post-label {
+    color: var(--warning-color);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
 }
 
 .panel-heading .panel-title {
