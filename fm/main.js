@@ -319,6 +319,18 @@ const app = {
         const safeTime = this.escapeHtml(latestPost.date_time?.[1] || "--:--");
         const safeContent = this.escapeHtml(this.getPostDescription(latestPost.content || ""));
         const tags = Array.isArray(latestPost.tags) ? latestPost.tags : [];
+        let categoryGameType = latestPost.category || "Other";
+
+        const gameLogoKey = {
+            "top eleven": "https://jamieharperuk.github.io/fm/data/top-eleven-logo.png",
+            "osm": "https://jamieharperuk.github.io/fm/data/osm-logo.png"
+        };
+
+        if (latestPost.category?.toLowerCase() === "top eleven") {
+            categoryGameType = `<img src="${gameLogoKey["top eleven"]}" alt="Top Eleven logo" style="height: 1rem; vertical-align: middle; filter: invert(1);">`;
+        } else if (latestPost.category?.toLowerCase() === "osm") {
+            categoryGameType = `<img src="${gameLogoKey["osm"]}" alt="Online Soccer Manager logo" style="height: 1rem; vertical-align: middle;">`;
+        }
 
         container.innerHTML = `
             <article class="latest-post-card">
@@ -328,7 +340,7 @@ const app = {
                 <h3 class="update-title"><a href="#post/${this.getPostSlug(latestPost)}" class="post-link">${safeTitle}</a></h3>
                 <div class="update-meta">
                     <span>${safeDate} @ ${safeTime}</span>
-                    <span class="update-category">${this.escapeHtml(latestPost.category || "Other")}</span>
+                    <span class="update-category">${categoryGameType}</span>
                 </div>
                 <p class="update-content">${safeContent}</p>
                 <div class="tags">${tags.map((tag) => `<span class="tag">#${this.escapeHtml(tag)}</span>`).join("")}</div>
