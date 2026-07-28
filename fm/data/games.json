@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Home",
-      "home_team": "Harper FC",
-      "away_team": "bechtel",
-      "date": "28-07-2026",
-      "time": "11:34",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "League Level 1",
-      "venue": "The Concourse",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Away",
       "home_team": "Arsenal",
       "away_team": "Manchester United",
@@ -42,6 +29,19 @@
       "osm_or_top_eleven": "OSM",
       "competition": "England 2nd Division",
       "venue": "Emirates Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "ShowyBlast125 FC",
+      "away_team": "Harper FC",
+      "date": "29-07-2026",
+      "time": "10:36",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 1",
+      "venue": "The Concourse",
       "home_score": "",
       "away_score": "",
       "winner": ""
@@ -74,6 +74,20 @@
     },
 
 
+
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "bechtel",
+      "date": "28-07-2026",
+      "time": "11:34",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 1",
+      "venue": "The Concourse",
+      "home_score": "8",
+      "away_score": "1",
+      "winner": "Harper FC"
+    },
 
     {
       "home_or_away": "Home",
