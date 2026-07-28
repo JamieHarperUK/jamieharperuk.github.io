@@ -3671,14 +3671,15 @@
                 };
             }
 
-            async function notifyPostUpdate(jsonPayload, commitSha) {
+            async function notifyPostUpdate(jsonPayload, commitSha, options = {}) {
                 const notificationConfig = WEBEDITOR_CONFIG.notifications || {};
                 if (!notificationConfig.enabled) {
                     return { skipped: true, reason: "disabled" };
                 }
 
-                const delayMs = Math.max(0, Number(notificationConfig.delayMs || 0));
-                if (delayMs > 0) {
+                const delayMs = options.delayMs !== undefined ? Number(options.delayMs || 0) : Math.max(0, Number(notificationConfig.delayMs || 0));
+                const skipDelay = Boolean(options.skipDelay);
+                if (delayMs > 0 && !skipDelay) {
                     await new Promise((resolve) => setTimeout(resolve, delayMs));
                 }
 
@@ -3876,7 +3877,10 @@
                             timerSeconds: delaySeconds,
                             onTimerComplete: async function() {
                                 try {
-                                    const notificationResult = await notifyPostUpdate(json, result.commitSha || "");
+                                    const notificationResult = await notifyPostUpdate(json, result.commitSha || "", {
+                                        skipDelay: true,
+                                        delayMs: 0
+                                    });
                                     if (!notificationResult.skipped) {
                                         showNotificationModal("Committed " + state.currentJsonPath + " and notified subscribers.", "ok", "Success");
                                     } else {
@@ -3888,7 +3892,10 @@
                             }
                         });
                     } else {
-                        const notificationResult = await notifyPostUpdate(json, result.commitSha || "");
+                        const notificationResult = await notifyPostUpdate(json, result.commitSha || "", {
+                            skipDelay: true,
+                            delayMs: 0
+                        });
                         if (!notificationResult.skipped) {
                             showNotificationModal("Committed " + state.currentJsonPath + " and notified subscribers.", "ok", "Success");
                         } else {
