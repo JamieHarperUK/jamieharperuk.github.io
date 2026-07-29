@@ -60,6 +60,7 @@ const app = {
             this.setupNavigation();
             this.generateTeamPages();
             this.setupHashRouting();
+            this.setupInternalLinkNavigation();
             this.setupAnalytics();
             this.renderHome();
             await this.setupPushNotifications();
@@ -129,6 +130,11 @@ const app = {
     },
 
     getRoutePathFromLocation() {
+        const hash = window.location.hash.replace(/^#/, "").trim();
+        if (hash) {
+            return hash === "home" ? "home" : hash;
+        }
+
         const searchParams = new URLSearchParams(window.location.search);
         const view = searchParams.get("view")?.toLowerCase();
         const slug = searchParams.get("slug")?.trim();
@@ -145,8 +151,7 @@ const app = {
             return `team/${slug}`;
         }
 
-        const hash = window.location.hash.replace(/^#/, "").trim();
-        return hash || "home";
+        return "home";
     },
 
     getAnalyticsPagePath(path) {
@@ -304,6 +309,28 @@ const app = {
         window.addEventListener("popstate", () => this.handleRoute());
     },
 
+    setupInternalLinkNavigation() {
+        document.addEventListener("click", (event) => {
+            const target = event.target instanceof Element ? event.target : null;
+            if (!target) {
+                return;
+            }
+
+            const link = target.closest("a[href^='#']");
+            if (!link) {
+                return;
+            }
+
+            const route = link.getAttribute("href")?.replace(/^#/, "").trim();
+            if (!route) {
+                return;
+            }
+
+            event.preventDefault();
+            this.navigate(route);
+        });
+    },
+
     handleRoute() {
         const route = this.getRoutePathFromLocation();
 
@@ -335,11 +362,10 @@ const app = {
     navigate(path) {
         this.currentPage = path;
 
-        const canonicalUrl = this.getCanonicalPageUrl(path);
-        const currentUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
-        const canonicalPath = new URL(canonicalUrl, window.location.origin).pathname + new URL(canonicalUrl, window.location.origin).search + new URL(canonicalUrl, window.location.origin).hash;
-        if (currentUrl !== canonicalPath) {
-            window.history.replaceState({}, "", canonicalPath);
+        const expectedHash = path === "home" ? "#home" : `#${path}`;
+        const currentHash = window.location.hash || "";
+        if (currentHash !== expectedHash) {
+            window.location.hash = expectedHash;
         }
 
         document.querySelectorAll(".page").forEach((page) => page.classList.remove("active"));
