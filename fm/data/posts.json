@@ -411,6 +411,20 @@
         "signing",
         "player"
       ]
+    },
+    {
+      "title": "Player Transfers",
+      "content": "Defender Frankie Peach and Midfielder Jody Horlock have been transferred to other clubs as of  today. Frankie was sold for $430K while Jody fetched $402K, allowing for a somewhat healthy cash injection to Harper FC.",
+      "date_time": [
+        "30-07-2026",
+        "00:51"
+      ],
+      "image": "https://jamieharperuk.github.io/fm/data/top_eleven_post.jpg",
+      "category": "Top Eleven",
+      "tags": [
+        "transfers",
+        "player"
+      ]
     }
   ]
 }
