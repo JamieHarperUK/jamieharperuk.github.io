@@ -23,19 +23,6 @@
     {
       "home_or_away": "Home",
       "home_team": "Harper FC",
-      "away_team": "scholer FC",
-      "date": "29-07-2026",
-      "time": "21:30",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "Cup (Semi-Finals)",
-      "venue": "The Concourse",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Home",
-      "home_team": "Harper FC",
       "away_team": "LOD FC",
       "date": "30-07-2026",
       "time": "11:30",
@@ -72,9 +59,35 @@
       "away_score": "",
       "winner": ""
     },
+    {
+      "home_or_away": "Away",
+      "home_team": "scholer FC",
+      "away_team": "Harper FC",
+      "date": "31-07-2026",
+      "time": "21:30",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Cup (Semi-Finals)",
+      "venue": "The Concourse",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
 
 
 
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "scholer FC",
+      "date": "29-07-2026",
+      "time": "21:30",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Cup (Semi-Finals)",
+      "venue": "The Concourse",
+      "home_score": "4",
+      "away_score": "0",
+      "winner": "Harper FC"
+    },
     {
       "home_or_away": "Home",
       "home_team": "Altrincham FC",
