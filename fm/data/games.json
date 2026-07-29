@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Away",
-      "home_team": "ShowyBlast125 FC",
-      "away_team": "Harper FC",
-      "date": "29-07-2026",
-      "time": "10:36",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "League Level 1",
-      "venue": "The Concourse",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Home",
       "home_team": "Manchester United",
       "away_team": "Sunderland",
@@ -72,8 +59,35 @@
       "away_score": "",
       "winner": ""
     },
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "LOD FC",
+      "date": "30-07-2026",
+      "time": "11:30",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 1",
+      "venue": "The Concourse",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
 
 
+
+    {
+      "home_or_away": "Away",
+      "home_team": "ShowyBlast125 FC",
+      "away_team": "Harper FC",
+      "date": "29-07-2026",
+      "time": "10:36",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 1",
+      "venue": "SnowyBlast125's FC Stadium",
+      "home_score": "0",
+      "away_score": "5",
+      "winner": "Harper FC"
+    },
 
     {
       "home_or_away": "Away",
