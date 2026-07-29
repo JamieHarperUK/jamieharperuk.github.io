@@ -128,21 +128,42 @@ const app = {
         });
     },
 
+    getRoutePathFromLocation() {
+        const searchParams = new URLSearchParams(window.location.search);
+        const view = searchParams.get("view")?.toLowerCase();
+        const slug = searchParams.get("slug")?.trim();
+
+        if (view === "posts") {
+            return "posts";
+        }
+
+        if (view === "post" && slug) {
+            return `post/${slug}`;
+        }
+
+        if (view === "team" && slug) {
+            return `team/${slug}`;
+        }
+
+        const hash = window.location.hash.replace(/^#/, "").trim();
+        return hash || "home";
+    },
+
     getAnalyticsPagePath(path) {
         if (!path || path === "home") {
             return "/fm/";
         }
 
         if (path === "posts") {
-            return "/fm/#posts";
+            return "/fm/?view=posts";
         }
 
         if (path.startsWith("post/")) {
-            return `/fm/#post/${path.split("/")[1]}`;
+            return `/fm/?view=post&slug=${encodeURIComponent(path.split("/")[1])}`;
         }
 
         if (path.startsWith("team/")) {
-            return `/fm/#team/${path.split("/")[1]}`;
+            return `/fm/?view=team&slug=${encodeURIComponent(path.split("/")[1])}`;
         }
 
         return "/fm/";
@@ -158,11 +179,15 @@ const app = {
         }
 
         if (path.startsWith("post/")) {
-            return "Post Detail";
+            const slug = path.split("/")[1];
+            const post = this.findPostBySlug(slug);
+            return post?.title ? `Post: ${post.title}` : "Post Detail";
         }
 
         if (path.startsWith("team/")) {
-            return "Team Page";
+            const teamId = path.split("/")[1];
+            const team = this.data.teams.find((item) => this.toTeamId(item.team_name) === teamId);
+            return team?.team_name ? `Team: ${team.team_name}` : "Team Page";
         }
 
         return "Home";
@@ -276,29 +301,30 @@ const app = {
 
     setupHashRouting() {
         window.addEventListener("hashchange", () => this.handleRoute());
+        window.addEventListener("popstate", () => this.handleRoute());
     },
 
     handleRoute() {
-        const hash = window.location.hash.replace(/^#/, "") || "home";
+        const route = this.getRoutePathFromLocation();
 
-        if (hash === "home") {
+        if (route === "home") {
             this.navigate("home");
             return;
         }
 
-        if (hash === "posts") {
+        if (route === "posts") {
             this.navigate("posts");
             return;
         }
 
-        if (hash.startsWith("post/")) {
-            const postSlug = hash.split("/")[1];
+        if (route.startsWith("post/")) {
+            const postSlug = route.split("/")[1];
             this.navigate(`post/${postSlug}`);
             return;
         }
 
-        if (hash.startsWith("team/")) {
-            const teamId = hash.split("/")[1];
+        if (route.startsWith("team/")) {
+            const teamId = route.split("/")[1];
             this.navigate(`team/${teamId}`);
             return;
         }
@@ -308,6 +334,13 @@ const app = {
 
     navigate(path) {
         this.currentPage = path;
+
+        const canonicalUrl = this.getCanonicalPageUrl(path);
+        const currentUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+        const canonicalPath = new URL(canonicalUrl, window.location.origin).pathname + new URL(canonicalUrl, window.location.origin).search + new URL(canonicalUrl, window.location.origin).hash;
+        if (currentUrl !== canonicalPath) {
+            window.history.replaceState({}, "", canonicalPath);
+        }
 
         document.querySelectorAll(".page").forEach((page) => page.classList.remove("active"));
         this.updateNavLinks();
@@ -919,7 +952,9 @@ const app = {
             return postImage;
         }
 
-        return new URL(postImage.replace(/^\/+/, ""), dataDomain).toString();
+        const normalizedPath = postImage.replace(/^\/+/, "");
+        const assetPath = normalizedPath.startsWith("fm/") ? normalizedPath : `fm/${normalizedPath}`;
+        return new URL(assetPath, `${dataDomain}fm/`).toString();
     },
 
     getPostImageMarkup(post, className = "post-list-image") {
@@ -967,12 +1002,27 @@ const app = {
         return gameTwitterHandles[key] || "";
     },
 
-    getCanonicalPageUrl(hashPath = "") {
+    getCanonicalPageUrl(path = "") {
         const canonicalBase = new URL("fm/", dataDomain).toString();
-        if (!hashPath) {
+        if (!path || path === "home") {
             return canonicalBase;
         }
-        return `${canonicalBase}#${hashPath}`;
+
+        if (path === "posts") {
+            return `${canonicalBase}?view=posts`;
+        }
+
+        if (path.startsWith("post/")) {
+            const postSlug = path.split("/")[1];
+            return `${canonicalBase}?view=post&slug=${encodeURIComponent(postSlug)}`;
+        }
+
+        if (path.startsWith("team/")) {
+            const teamId = path.split("/")[1];
+            return `${canonicalBase}?view=team&slug=${encodeURIComponent(teamId)}`;
+        }
+
+        return canonicalBase;
     },
 
     async copyTextToClipboard(text) {
