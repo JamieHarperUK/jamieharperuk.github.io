@@ -383,6 +383,20 @@
         "weekly",
         "update"
       ]
+    },
+    {
+      "title": "Player Transfer",
+      "content": "Mason Mount makes a surprising move to Atletico Madrid from Manchester United, with a transfer fee of $20.0M, apparently happy to see the back of his now former club.",
+      "date_time": [
+        "29-07-2026",
+        "06:06"
+      ],
+      "image": "https://jamieharperuk.github.io/fm/data/osm_post.jpg",
+      "category": "OSM",
+      "tags": [
+        "transfers",
+        "player"
+      ]
     }
   ]
 }
