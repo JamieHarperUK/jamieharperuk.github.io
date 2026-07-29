@@ -59,6 +59,7 @@
             "players": [
                 ["GK", "Owen Evans", "0", "0"],
                 ["GK", "Louie Fallon", "0", "0"],
+                ["GK", "Alfonso Herrero", "0", "0"],
                 
                 ["LB", "Eddy Jones", "0", "0"],
                 ["CB", "Joel Bailey", "0", "0"],
@@ -67,6 +68,8 @@
                 ["RB", "Tylor Golden", "0", "0"],
                 ["CB", "Charlie Olson", "0", "0"],
                 ["CB", "Elliott Moore", "0", "0"],
+                ["LB", "Neco Williams", "0", "0"],
+                ["RB", "Odai Abdulghani", "0", "0"],
                 
                 ["CAM", "Wallace Davi Nunes Da Silva Dias", "0", "0"],
                 ["CM", "Jack Hinchy", "0", "0"],
@@ -74,7 +77,6 @@
                 ["CM", "Tom Crawford", "0", "0"],
                 ["LM", "Aidan Barlow", "0", "0"],
                 ["CM", "Liam Humbles", "0", "0"],
-                ["CM", "Kian Breckin", "0", "0"],
                 ["CDM", "Owen German", "0", "0"],
                 
                 ["ST", "Kristian Dennis", "0", "0"],
@@ -84,7 +86,8 @@
                 ["ST", "Jimmy Knowles", "0", "0"],
                 ["RW", "Kahrel Reddin", "0", "0"],
                 ["LW", "Charlie Kirk", "0", "0"],
-                ["RW", "Lucas Weaver", "0", "0"]
+                ["RW", "Lucas Weaver", "0", "0"],
+                ["ST", "Isaac Schembri", "0", "0"]
             ]
         },
 
