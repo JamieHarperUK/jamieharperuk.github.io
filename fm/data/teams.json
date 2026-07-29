@@ -66,25 +66,23 @@
                 ["RB", "Lewis Banks", "0", "0"],
                 ["CB", "Tylor Golden", "0", "0"],
                 ["CB", "Charlie Olson", "0", "0"],
-                ["CB", "Elliott Moore", "0", "0"],
+                ["CB", "Elliott Moore", "1", "0"],
                 ["LB", "Neco Williams", "0", "0"],
                 ["RB", "Odai Abdulghani", "0", "0"],
                 
                 ["CAM", "Wallace Davi Nunes Da Silva Dias", "0", "0"],
-                ["CM", "Jack Hinchy", "0", "0"],
+                ["CM", "Jack Hinchy", "1", "0"],
                 ["CM", "Anthony Forde", "0", "0"],
                 ["CM", "Tom Crawford", "0", "0"],
                 ["LM", "Aidan Barlow", "0", "0"],
                 ["CM", "Liam Humbles", "0", "0"],
-                ["CDM", "Owen German", "0", "0"],
                 
                 ["ST", "Kristian Dennis", "0", "0"],
-                ["LW", "Sam Taylor", "0", "0"],
+                ["ST", "Sam Taylor", "0", "0"],
                 ["LW", "Otis Khan", "0", "0"],
                 ["LW", "Matty Kosylo", "0", "0"],
                 ["ST", "Jimmy Knowles", "0", "0"],
                 ["RW", "Kahrel Reddin", "0", "0"],
-                ["LW", "Charlie Kirk", "0", "0"],
                 ["RW", "Lucas Weaver", "0", "0"],
                 ["RW", "Halil Akbunar", "0", "0"]
             ]
