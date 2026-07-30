@@ -703,7 +703,7 @@ const app = {
 
                     let positionIcon = "";
 
-                    if (finalPlace === 1) {
+                    if (finalPlace === "1st") {
                         positionIcon = `<i class="fa-solid fa-trophy" style="margin-right: 0.5rem;"></i>${this.escapeHtml(finalPlace)}`;
                     } else {
                         positionIcon = `<i class="fa-solid fa-medal" style="margin-right: 0.5rem;"></i>${this.escapeHtml(finalPlace)}`;
