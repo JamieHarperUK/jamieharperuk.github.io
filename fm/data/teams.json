@@ -132,7 +132,8 @@
             "country": "N/A",
             "home_venue": "N/A",
             "end_state": {
-                "final_place": "1st"
+                "final_place": "1st",
+                "end_date": "04-07-2026"
             },
             "players": [
                 ["GK", "Pickford", "0", "0"],
