@@ -702,9 +702,9 @@ const app = {
                     const placeClass = this.getHallOfFamePlaceClass(finalPlace);
 
                     const posColors = {
-                        first: "rgba(242, 204, 96, 0.2)",
-                        second: "rgba(192, 192, 192, 0.2)",
-                        third: "rgba(205, 127, 50, 0.2)"
+                        first: "rgba(242, 204, 96, 0.5)",
+                        second: "rgba(192, 192, 192, 0.5)",
+                        third: "rgba(205, 127, 50, 0.5)"
                     };
                     let positionIcon = "";
 
