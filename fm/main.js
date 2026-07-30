@@ -722,7 +722,7 @@ const app = {
                             <h3>${this.escapeHtml(team.team_name)}</h3>
                             <p>${this.escapeHtml(team.competition || "Unknown competition")}</p>
                             <div class="hall-of-fame-footer">
-                                <span class="hall-of-fame-meta" style="font-style: italic;">${this.escapeHtml(platform)}</span>
+                                <span class="hall-of-fame-meta" style="font-style: italic; font-weight: 100;">${this.escapeHtml(platform)}</span>
                             </div>
                         </a>
                     `;
