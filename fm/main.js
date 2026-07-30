@@ -700,7 +700,7 @@ const app = {
             <h1 class="section-title">Hall of Fame</h1>
             <div class="notes-section">
                 <div class="notes-content">
-                    Past and finished leagues, seasons, and teams are collected here so your completed runs can live on alongside the active ones.
+                    Past and finished leagues, seasons, and teams are collected here so the completed runs can live on alongside the active ones.
                 </div>
             </div>
             ${sectionsMarkup || '<div class="empty-state">No finished teams or leagues have been recorded yet.</div>'}
