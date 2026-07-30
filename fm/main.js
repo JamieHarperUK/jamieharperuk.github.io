@@ -701,17 +701,24 @@ const app = {
                     const finalPlace = team.end_state?.final_place || "Finished";
                     const placeClass = this.getHallOfFamePlaceClass(finalPlace);
 
+                    const posColors = {
+                        first: "rgba(242, 204, 96, 0.2)",
+                        second: "rgba(192, 192, 192, 0.2)",
+                        third: "rgba(205, 127, 50, 0.2)"
+                    };
                     let positionIcon = "";
 
                     if (finalPlace === "1st") {
-                        positionIcon = `<i class="fa-solid fa-trophy" style="margin-right: 0.5rem;"></i>${this.escapeHtml(finalPlace)}`;
+                        positionIcon = `<div class="hall-of-fame-badge" style="color: ${posColors.first}"><i class="fa-solid fa-trophy" style="margin-right: 0.5rem;"></i>${this.escapeHtml(finalPlace)}</div>`;
+                    } else if (finalPlace === "2nd") {
+                        positionIcon = `<div class="hall-of-fame-badge" style="color: ${posColors.second}"><i class="fa-solid fa-medal" style="margin-right: 0.5rem;"></i>${this.escapeHtml(finalPlace)}</div>`;
                     } else {
-                        positionIcon = `<i class="fa-solid fa-medal" style="margin-right: 0.5rem;"></i>${this.escapeHtml(finalPlace)}`;
+                        positionIcon = `<div class="hall-of-fame-badge" style="color: ${posColors.third}"><i class="fa-solid fa-medal" style="margin-right: 0.5rem;"></i>${this.escapeHtml(finalPlace)}</div>`;
                     }
 
                     return `
                         <a href="#team/${teamId}" class="hall-of-fame-card ${placeClass}" data-analytics-action="hall_of_fame_click" data-analytics-category="Hall of Fame" data-analytics-label="${this.escapeHtml(team.team_name)}">
-                            <div class="hall-of-fame-badge">${positionIcon}</div>
+                            ${positionIcon}
                             <h3>${this.escapeHtml(team.team_name)}</h3>
                             <p>${this.escapeHtml(team.competition || "Unknown competition")}</p>
                             <div class="hall-of-fame-footer">
