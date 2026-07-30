@@ -1,0 +1,22 @@
+{
+  "name": "JHUK Football Management",
+  "short_name": "JHUK FM",
+  "description": "Track my OSM and Top Eleven teams, fixtures, and updates in one place.",
+  "start_url": "/fm/?source=pwa",
+  "scope": "/fm/",
+  "display": "standalone",
+  "background_color": "#0a0f1e",
+  "theme_color": "#c8102e",
+  "icons": [
+    {
+      "src": "/fm/data/fm_icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/fm/data/fm_icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

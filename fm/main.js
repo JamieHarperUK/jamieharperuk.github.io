@@ -47,6 +47,7 @@ const app = {
     },
     uiState: {
         pastFixtures: {},
+        installPromptEvent: null,
         push: {
             registration: null,
             isSubscribed: false,
@@ -64,12 +65,32 @@ const app = {
             this.setupHashRouting();
             this.setupInternalLinkNavigation();
             this.setupAnalytics();
+            this.setupInstallPrompt();
             this.renderHome();
             await this.setupPushNotifications();
             this.handleRoute();
         } catch (error) {
             this.renderError(error);
         }
+    },
+
+    setupInstallPrompt() {
+        if (!("serviceWorker" in navigator) || !window.matchMedia) {
+            return;
+        }
+
+        window.addEventListener("beforeinstallprompt", (event) => {
+            event.preventDefault();
+            this.uiState.installPromptEvent = event;
+        });
+
+        window.addEventListener("appinstalled", () => {
+            this.uiState.installPromptEvent = null;
+        });
+
+        navigator.serviceWorker.register("sw.js", { scope: "./" }).catch(() => {
+            // Ignore registration errors here; push notifications already handle the worker separately.
+        });
     },
 
     setupAnalytics() {
