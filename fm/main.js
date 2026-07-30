@@ -402,19 +402,21 @@ const app = {
         dropdownMenu.className = "nav-dropdown-menu";
         dropdownMenu.id = "teamsDropdownMenu";
 
-        this.data.teams.forEach((team) => {
-            const teamId = this.toTeamId(team.team_name);
-            const link = document.createElement("a");
-            link.href = `#team/${teamId}`;
-            link.textContent = team.team_name;
-            link.setAttribute("data-analytics-action", "team_click");
-            link.setAttribute("data-analytics-category", "Navigation");
-            link.setAttribute("data-analytics-label", team.team_name);
-            link.addEventListener("click", () => {
-                this.closeTeamsDropdown();
+        this.data.teams
+            .filter((team) => !team.end_state || typeof team.end_state !== "object")
+            .forEach((team) => {
+                const teamId = this.toTeamId(team.team_name);
+                const link = document.createElement("a");
+                link.href = `#team/${teamId}`;
+                link.textContent = team.team_name;
+                link.setAttribute("data-analytics-action", "team_click");
+                link.setAttribute("data-analytics-category", "Navigation");
+                link.setAttribute("data-analytics-label", team.team_name);
+                link.addEventListener("click", () => {
+                    this.closeTeamsDropdown();
+                });
+                dropdownMenu.appendChild(link);
             });
-            dropdownMenu.appendChild(link);
-        });
 
         dropdownToggle.addEventListener("click", () => {
             const isOpen = dropdown.classList.toggle("open");
@@ -676,19 +678,23 @@ const app = {
                 const cardsMarkup = teams.map((team) => {
                     const teamId = this.toTeamId(team.team_name);
                     const finalPlace = team.end_state?.final_place || "Finished";
+                    const placeClass = this.getHallOfFamePlaceClass(finalPlace);
                     return `
-                        <a href="#team/${teamId}" class="hall-of-fame-card" data-analytics-action="hall_of_fame_click" data-analytics-category="Hall of Fame" data-analytics-label="${this.escapeHtml(team.team_name)}">
+                        <a href="#team/${teamId}" class="hall-of-fame-card ${placeClass}" data-analytics-action="hall_of_fame_click" data-analytics-category="Hall of Fame" data-analytics-label="${this.escapeHtml(team.team_name)}">
                             <div class="hall-of-fame-badge">${this.escapeHtml(finalPlace)}</div>
                             <h3>${this.escapeHtml(team.team_name)}</h3>
                             <p>${this.escapeHtml(team.competition || "Unknown competition")}</p>
-                            <span class="hall-of-fame-meta">${this.escapeHtml(platform)}</span>
+                            <div class="hall-of-fame-footer">
+                                <span class="hall-of-fame-meta">${this.escapeHtml(platform)}</span>
+                                <span class="hall-of-fame-accent">Archive</span>
+                            </div>
                         </a>
                     `;
                 }).join("");
 
                 return `
                     <section class="panel hall-of-fame-panel">
-                        <h2 class="panel-title">${this.escapeHtml(platform)} Finished Teams</h2>
+                        <h2 class="panel-title">${this.escapeHtml(platform)} Legacy Runs</h2>
                         <div class="hall-of-fame-grid">${cardsMarkup}</div>
                     </section>
                 `;
@@ -698,9 +704,9 @@ const app = {
 
         container.innerHTML = `
             <h1 class="section-title">Hall of Fame</h1>
-            <div class="notes-section">
+            <div class="notes-section hall-of-fame-hero">
                 <div class="notes-content">
-                    Past and finished leagues, seasons, and teams are collected here so the completed runs can live on alongside the active ones.
+                    A curated archive of completed leagues, seasons, and standout runs. These entries preserve the history of the journeys that have already reached their final chapter.
                 </div>
             </div>
             ${sectionsMarkup || '<div class="empty-state">No finished teams or leagues have been recorded yet.</div>'}
@@ -1764,6 +1770,20 @@ const app = {
         }
 
         return aValue - bValue;
+    },
+
+    getHallOfFamePlaceClass(finalPlace) {
+        const normalized = String(finalPlace || "").trim().toLowerCase();
+        if (normalized.includes("1")) {
+            return "legendary";
+        }
+        if (normalized.includes("2")) {
+            return "silver";
+        }
+        if (normalized.includes("3")) {
+            return "bronze";
+        }
+        return "classic";
     },
 
     compareGameDateDesc(a, b) {

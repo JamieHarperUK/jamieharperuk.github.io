@@ -456,28 +456,46 @@ main {
     gap: 1rem;
 }
 
+.hall-of-fame-hero {
+    border-left: 4px solid var(--warning-color);
+}
+
 .hall-of-fame-card {
     display: block;
-    background: rgba(10, 15, 30, 0.72);
+    background: linear-gradient(135deg, rgba(21, 29, 45, 0.98), rgba(10, 15, 30, 0.9));
     border: 1px solid var(--border-color);
-    border-radius: 10px;
+    border-radius: 12px;
     padding: 1rem;
     text-decoration: none;
     color: inherit;
-    transition: transform 0.2s ease, border-color 0.2s ease;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
 .hall-of-fame-card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
     border-color: var(--primary-color);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.28);
+}
+
+.hall-of-fame-card.legendary {
+    border-color: rgba(242, 204, 96, 0.48);
+}
+
+.hall-of-fame-card.silver {
+    border-color: rgba(192, 192, 192, 0.4);
+}
+
+.hall-of-fame-card.bronze {
+    border-color: rgba(205, 127, 50, 0.4);
 }
 
 .hall-of-fame-badge {
     display: inline-block;
-    margin-bottom: 0.6rem;
-    padding: 0.25rem 0.65rem;
+    margin-bottom: 0.65rem;
+    padding: 0.28rem 0.7rem;
     border-radius: 999px;
-    background: rgba(200, 16, 46, 0.18);
+    background: rgba(200, 16, 46, 0.2);
     color: var(--warning-color);
     font-size: 0.78rem;
     font-weight: 700;
@@ -493,13 +511,27 @@ main {
 
 .hall-of-fame-card p {
     color: var(--text-secondary);
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.55rem;
+}
+
+.hall-of-fame-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .hall-of-fame-meta {
     color: var(--primary-color);
     font-size: 0.9rem;
     font-weight: 700;
+}
+
+.hall-of-fame-accent {
+    color: var(--text-secondary);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
 }
 
 .update-title {
