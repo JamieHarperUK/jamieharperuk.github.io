@@ -325,19 +325,19 @@ const app = {
         const isTopEleven = platform === "Top Eleven";
         const platformName = isTopEleven ? "Top Eleven" : "OSM";
         const intro = isTopEleven
-            ? "This rating is a continuously evolving ELO for Top Eleven based on the matches you have recorded."
-            : "This rating is a season-style ELO for OSM based on the matches you have recorded for that platform.";
+            ? "This rating is a continuously evolving ELO for this Top Eleven team based on the matches I have recorded."
+            : "This rating is a season-style ELO for this OSM team based on the matches I have recorded for that platform.";
 
         content.innerHTML = `
-            <p>${this.escapeHtml(intro)}</p>
+            <p style="margin-top: 0rem;">${this.escapeHtml(intro)}</p>
             <ul>
                 <li>Each team starts at a baseline rating of 1500.</li>
                 <li>Ratings are updated after every played match in date order.</li>
                 <li>Wins, draws, and losses are converted into expected outcomes using the current ratings.</li>
                 <li>Home advantage is included as a small bump to the home team.</li>
             </ul>
-            <p><strong>Caveats:</strong> this is calculated from the results you record in the match data, not from every league game in the wider competition. It also does not use yellow or red cards yet, so the rating is based on results rather than disciplinary events.</p>
-            <p><strong>${this.escapeHtml(team.team_name)}</strong> is currently being evaluated in the ${this.escapeHtml(platformName)} pool.</p>
+            <p><strong>Caveats:</strong> this is calculated from the results I record in the match data, not from every league game in the wider competition. It also does not factor in yellow or red cards yet (this will be added in a future update), so the rating is based on results rather than disciplinary events.</p>
+            <p style="margin-bottom: 0rem;"><strong>${this.escapeHtml(team.team_name)}</strong> is currently being evaluated in the ${this.escapeHtml(platformName)} pool.</p>
         `;
 
         title.textContent = `${platformName} ELO Explained`;
