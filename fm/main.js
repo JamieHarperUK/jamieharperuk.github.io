@@ -705,7 +705,7 @@ const app = {
             <h1 class="section-title">Hall of Fame</h1>
             <div class="notes-section hall-of-fame-hero">
                 <div class="notes-content">
-                    A curated archive of completed leagues, seasons, and standout runs. These entries preserve the history of the journeys that have already reached their final chapter.
+                    An archive of completed leagues, seasons, and standout runs. These entries preserve the history of the journeys that have already reached their final chapter.
                 </div>
             </div>
             ${sectionsMarkup || '<div class="empty-state">No finished teams or leagues have been recorded yet.</div>'}
