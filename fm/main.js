@@ -1326,7 +1326,6 @@ const app = {
                         </button>
                     </div>
                     <div class="stat-value">${eloValue}</div>
-                    <div class="elo-meta">${this.escapeHtml(eloPlatform)} • ${this.escapeHtml(eloPlatform === "Top Eleven" ? "ongoing pool" : "season pool")}</div>
                 </article>
                 <article class="stat-card">
                     <div class="stat-label">Cards</div>
