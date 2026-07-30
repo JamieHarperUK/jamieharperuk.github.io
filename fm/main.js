@@ -42,7 +42,8 @@ const app = {
     data: {
         games: [],
         teams: [],
-        posts: []
+        posts: [],
+        eloRatings: {}
     },
     uiState: {
         pastFixtures: {},
@@ -57,6 +58,7 @@ const app = {
         try {
             this.captureDefaultSiteMetadata();
             await this.loadData();
+            this.setupEloModal();
             this.setupNavigation();
             this.generateTeamPages();
             this.setupHashRouting();
@@ -218,6 +220,141 @@ const app = {
         this.data.games = Array.isArray(gamesJson.games) ? gamesJson.games : [];
         this.data.teams = Array.isArray(teamsJson.teams) ? teamsJson.teams : [];
         this.data.posts = Array.isArray(postsJson.posts) ? postsJson.posts : [];
+        this.calculateEloRatings();
+    },
+
+    calculateEloRatings() {
+        const ratingsByPlatform = {};
+        const platforms = ["OSM", "Top Eleven"];
+
+        platforms.forEach((platformName) => {
+            const platformTeams = new Set();
+            const platformGames = this.data.games.filter((game) => game.osm_or_top_eleven === platformName && this.isPlayed(game));
+
+            (this.data.teams || []).forEach((team) => {
+                if (team.osm_or_top_eleven === platformName) {
+                    platformTeams.add(team.team_name);
+                }
+            });
+
+            platformGames.forEach((game) => {
+                platformTeams.add(game.home_team);
+                platformTeams.add(game.away_team);
+            });
+
+            const ratings = {};
+            [...platformTeams].forEach((teamName) => {
+                ratings[teamName] = 1500;
+            });
+
+            const kFactor = platformName === "Top Eleven" ? 28 : 24;
+            const homeAdvantage = 40;
+
+            platformGames
+                .slice()
+                .sort((a, b) => this.compareGameDateAsc(a, b))
+                .forEach((game) => {
+                    const homeRating = ratings[game.home_team];
+                    const awayRating = ratings[game.away_team];
+
+                    if (typeof homeRating !== "number" || typeof awayRating !== "number") {
+                        return;
+                    }
+
+                    const expectedHome = 1 / (1 + Math.pow(10, (awayRating - (homeRating + homeAdvantage)) / 400));
+                    const expectedAway = 1 - expectedHome;
+                    const homeScore = Number(game.home_score);
+                    const awayScore = Number(game.away_score);
+
+                    let actualHome = 0.5;
+                    let actualAway = 0.5;
+
+                    if (!Number.isNaN(homeScore) && !Number.isNaN(awayScore)) {
+                        if (homeScore > awayScore) {
+                            actualHome = 1;
+                            actualAway = 0;
+                        } else if (homeScore < awayScore) {
+                            actualHome = 0;
+                            actualAway = 1;
+                        }
+                    }
+
+                    ratings[game.home_team] = homeRating + kFactor * (actualHome - expectedHome);
+                    ratings[game.away_team] = awayRating + kFactor * (actualAway - expectedAway);
+                });
+
+            ratingsByPlatform[platformName] = ratings;
+        });
+
+        this.data.eloRatings = ratingsByPlatform;
+        return ratingsByPlatform;
+    },
+
+    setupEloModal() {
+        const modal = document.getElementById("eloInfoModal");
+        const closeButton = modal?.querySelector(".modal-close");
+
+        if (!modal || !closeButton) {
+            return;
+        }
+
+        closeButton.addEventListener("click", () => this.closeEloInfoModal());
+
+        modal.addEventListener("click", (event) => {
+            if (event.target === modal) {
+                this.closeEloInfoModal();
+            }
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") {
+                this.closeEloInfoModal();
+            }
+        });
+    },
+
+    openEloInfoModal(team, platform) {
+        const modal = document.getElementById("eloInfoModal");
+        const content = document.getElementById("eloInfoContent");
+        const title = document.getElementById("eloInfoTitle");
+
+        if (!modal || !content || !title) {
+            return;
+        }
+
+        const isTopEleven = platform === "Top Eleven";
+        const platformName = isTopEleven ? "Top Eleven" : "OSM";
+        const intro = isTopEleven
+            ? "This rating is a continuously evolving ELO for Top Eleven based on the matches you have recorded."
+            : "This rating is a season-style ELO for OSM based on the matches you have recorded for that platform.";
+
+        content.innerHTML = `
+            <p>${this.escapeHtml(intro)}</p>
+            <ul>
+                <li>Each team starts at a baseline rating of 1500.</li>
+                <li>Ratings are updated after every played match in date order.</li>
+                <li>Wins, draws, and losses are converted into expected outcomes using the current ratings.</li>
+                <li>Home advantage is included as a small bump to the home team.</li>
+            </ul>
+            <p><strong>Caveats:</strong> this is calculated from the results you record in the match data, not from every league game in the wider competition. It also does not use yellow or red cards yet, so the rating is based on results rather than disciplinary events.</p>
+            <p><strong>${this.escapeHtml(team.team_name)}</strong> is currently being evaluated in the ${this.escapeHtml(platformName)} pool.</p>
+        `;
+
+        title.textContent = `${platformName} ELO Explained`;
+        modal.classList.add("is-open");
+        modal.setAttribute("aria-hidden", "false");
+        document.body.classList.add("modal-open");
+    },
+
+    closeEloInfoModal() {
+        const modal = document.getElementById("eloInfoModal");
+        if (!modal) {
+            return;
+        }
+
+        modal.classList.remove("is-open");
+        modal.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("modal-open");
     },
 
     setupNavigation() {
@@ -1131,6 +1268,9 @@ const app = {
 
         const yellowCards = (team.players || []).reduce((count, player) => count + Number(player[2] || 0), 0);
         const redCards = (team.players || []).reduce((count, player) => count + Number(player[3] || 0), 0);
+        const eloPlatform = team.osm_or_top_eleven === "OSM" ? "OSM" : team.osm_or_top_eleven === "Top Eleven" ? "Top Eleven" : "Unknown";
+        const platformRatings = this.data.eloRatings?.[eloPlatform] || {};
+        const eloValue = Math.round(Number(platformRatings[team.team_name]) || 1500);
 
         const gameSelector = team.osm_or_top_eleven === "OSM" ? "Online Soccer Manager" : team.osm_or_top_eleven === "Top Eleven" ? "Top Eleven" : "Unknown";
         let gameTypeData = {
@@ -1178,6 +1318,16 @@ const app = {
                     <div class="stat-label">Recent Form</div>
                     ${recentFormMarkup}
                 </article>
+                <article class="stat-card elo-card">
+                    <div class="stat-label">
+                        ELO Rating
+                        <button class="elo-info-btn" type="button" data-analytics-action="elo_info_click" data-analytics-category="Teams" data-analytics-label="${this.escapeHtml(team.team_name)}" aria-label="Explain how ELO is calculated for ${this.escapeHtml(team.team_name)}">
+                            <i class="fas fa-info-circle"></i>
+                        </button>
+                    </div>
+                    <div class="stat-value">${eloValue}</div>
+                    <div class="elo-meta">${this.escapeHtml(eloPlatform)} • ${this.escapeHtml(eloPlatform === "Top Eleven" ? "ongoing pool" : "season pool")}</div>
+                </article>
                 <article class="stat-card">
                     <div class="stat-label">Cards</div>
                     <div class="stat-value"><span style="color: var(--warning-color);">${yellowCards}</span> <span style="color: var(--text-secondary); font-weight: normal;">/</span> <span style="color: var(--danger-color);">${redCards}</span></div>
@@ -1219,6 +1369,7 @@ const app = {
         const upcomingContainer = document.getElementById(`team-upcoming-${teamId}`);
         const playedToggleButton = document.getElementById(`team-played-toggle-${teamId}`);
         const rosterContainer = document.getElementById(`team-roster-${teamId}`);
+        const eloInfoButton = content.querySelector(".elo-info-btn");
 
         if (upcomingContainer) {
             if (!upcoming.length) {
@@ -1239,6 +1390,13 @@ const app = {
 
         this.renderPastFixturesList(teamId, played);
         this.updatePastFixturesPanelState(teamId);
+
+        if (eloInfoButton) {
+            eloInfoButton.addEventListener("click", (event) => {
+                event.preventDefault();
+                this.openEloInfoModal(team, eloPlatform);
+            });
+        }
 
         if (rosterContainer) {
             this.renderRoster(team.players || [], rosterContainer);
