@@ -457,7 +457,8 @@ main {
 }
 
 .hall-of-fame-hero {
-    border-left: 4px solid var(--warning-color);
+    border-left: 4px solid rgba(242, 204, 96, 0.48);
+    border-right: 4px solid rgba(242, 204, 96, 0.48);
 }
 
 .hall-of-fame-card {
