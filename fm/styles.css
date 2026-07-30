@@ -311,7 +311,7 @@ main {
     border: 1px solid var(--border-color);
     border-radius: 12px;
     width: min(560px, 100%);
-    padding: 1.25rem 1.25rem 1.4rem;
+    padding: 1.25rem 1.4rem 1.4rem;
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
     position: relative;
 }
