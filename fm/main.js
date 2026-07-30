@@ -1008,14 +1008,20 @@ const app = {
         }
 
         const totalTeams = this.data.teams.length;
+        const activeTeams = this.data.teams.filter((team) => !team.end_state || typeof team.end_state !== "object").length;
+        const pastTeams = this.data.teams.filter((team) => team.end_state && typeof team.end_state === "object").length;
         const totalPlayers = this.data.teams.reduce((count, team) => count + (team.players?.length || 0), 0);
         const upcomingCount = this.getUpcomingGames().length;
         const postsCount = this.data.posts.length;
 
         container.innerHTML = `
             <article class="stat-card">
-                <div class="stat-label">Teams</div>
-                <div class="stat-value">${totalTeams}</div>
+                <div class="stat-label">Active Teams</div>
+                <div class="stat-value">${activeTeams}</div>
+            </article>
+            <article class="stat-card">
+                <div class="stat-label">Past Teams</div>
+                <div class="stat-value">${pastTeams}</div>
             </article>
             <article class="stat-card">
                 <div class="stat-label">Upcoming</div>
