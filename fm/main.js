@@ -721,7 +721,7 @@ const app = {
                         <a href="#team/${teamId}" class="hall-of-fame-card ${placeClass}" data-analytics-action="hall_of_fame_click" data-analytics-category="Hall of Fame" data-analytics-label="${this.escapeHtml(team.team_name)}">
                             ${positionIcon}
                             <h3>${this.escapeHtml(team.team_name)}</h3>
-                            <p>${this.escapeHtml(team.competition || "Unknown competition")} &middot; ${this.escapeHtml(finalEndDate)}</p>
+                            <p>${this.escapeHtml(team.competition || "Unknown competition")}<br /><i>(Ended: ${this.escapeHtml(finalEndDate)})</i></p>
                             <div class="hall-of-fame-footer">
                                 <span class="hall-of-fame-meta" style="font-style: italic; font-weight: 100;">${this.escapeHtml(platform)}</span>
                             </div>
