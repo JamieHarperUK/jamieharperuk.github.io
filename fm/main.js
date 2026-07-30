@@ -694,7 +694,6 @@ const app = {
 
                 return `
                     <section class="panel hall-of-fame-panel">
-                        <h2 class="panel-title">${this.escapeHtml(platform)} Legacy Runs</h2>
                         <div class="hall-of-fame-grid">${cardsMarkup}</div>
                     </section>
                 `;
