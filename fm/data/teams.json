@@ -21,6 +21,7 @@
             "competition": "England 2nd Division",
             "country": "England",
             "home_venue": "Old Trafford",
+            "end_state": null,
             "players": [
                 ["GK", "Senne Lammens", "1", "0"],
                 ["GK", "Altay Bayindir", "1", "0"],
@@ -56,6 +57,7 @@
             "competition": "England 5th Division",
             "country": "England",
             "home_venue": "J. Davidson Stadium",
+            "end_state": null,
             "players": [
                 ["GK", "Owen Evans", "0", "0"],
                 ["GK", "Louie Fallon", "0", "0"],
@@ -93,6 +95,7 @@
             "competition": "League Level 1",
             "country": "England",
             "home_venue": "The Concourse",
+            "end_state": null,
             "players": [
                 ["GK", "Mads Lohmann", "0", "0"],
                 ["GK", "Pedro Guedes", "0", "0"],

@@ -145,6 +145,10 @@ const app = {
             return "posts";
         }
 
+        if (view === "hall-of-fame") {
+            return "hall-of-fame";
+        }
+
         if (view === "post" && slug) {
             return `post/${slug}`;
         }
@@ -165,6 +169,10 @@ const app = {
             return "/fm/?view=posts";
         }
 
+        if (path === "hall-of-fame") {
+            return "/fm/?view=hall-of-fame";
+        }
+
         if (path.startsWith("post/")) {
             return `/fm/?view=post&slug=${encodeURIComponent(path.split("/")[1])}`;
         }
@@ -183,6 +191,10 @@ const app = {
 
         if (path === "posts") {
             return "Posts";
+        }
+
+        if (path === "hall-of-fame") {
+            return "Hall of Fame";
         }
 
         if (path.startsWith("post/")) {
@@ -427,6 +439,14 @@ const app = {
         postsLink.setAttribute("data-analytics-label", "Posts");
         navLinks.appendChild(postsLink);
 
+        const hallOfFameLink = document.createElement("a");
+        hallOfFameLink.href = "#hall-of-fame";
+        hallOfFameLink.textContent = "Hall of Fame";
+        hallOfFameLink.setAttribute("data-analytics-action", "nav_click");
+        hallOfFameLink.setAttribute("data-analytics-category", "Navigation");
+        hallOfFameLink.setAttribute("data-analytics-label", "Hall of Fame");
+        navLinks.appendChild(hallOfFameLink);
+
         this.updateNavLinks();
     },
 
@@ -481,6 +501,11 @@ const app = {
             return;
         }
 
+        if (route === "hall-of-fame") {
+            this.navigate("hall-of-fame");
+            return;
+        }
+
         if (route.startsWith("post/")) {
             const postSlug = route.split("/")[1];
             this.navigate(`post/${postSlug}`);
@@ -525,6 +550,15 @@ const app = {
                 description: "Latest Football Management updates, announcements, and match progress posts.",
                 image: this.siteMeta.image,
                 url: this.getCanonicalPageUrl("posts")
+            });
+        } else if (path === "hall-of-fame") {
+            this.renderHallOfFamePage();
+            document.getElementById("hall-of-fame")?.classList.add("active");
+            this.updatePageMetadata({
+                title: `Hall of Fame | ${this.siteMeta.title}`,
+                description: "Past and finished leagues, seasons, and teams from the Football Management archive.",
+                image: this.siteMeta.image,
+                url: this.getCanonicalPageUrl("hall-of-fame")
             });
         } else if (path.startsWith("post/")) {
             const postSlug = path.split("/")[1];
@@ -571,6 +605,11 @@ const app = {
                 return;
             }
 
+            if (this.currentPage === "hall-of-fame" && href === "#hall-of-fame") {
+                link.classList.add("active");
+                return;
+            }
+
             if (this.currentPage.startsWith("team/") && href === `#${this.currentPage}`) {
                 link.classList.add("active");
             }
@@ -604,6 +643,68 @@ const app = {
         this.renderOverviewStats();
         this.renderUpcomingFixtures();
         this.renderLatestPostPreview();
+    },
+
+    renderHallOfFamePage() {
+        const container = document.getElementById("hallOfFameContent");
+        if (!container) {
+            return;
+        }
+
+        const finishedTeams = this.data.teams.filter((team) => team.end_state && typeof team.end_state === "object");
+        const byPlatform = {
+            OSM: [],
+            "Top Eleven": []
+        };
+
+        finishedTeams.forEach((team) => {
+            const platform = team.osm_or_top_eleven === "OSM" ? "OSM" : "Top Eleven";
+            byPlatform[platform].push(team);
+        });
+
+        const platformOrder = ["Top Eleven", "OSM"];
+        const sectionsMarkup = platformOrder
+            .map((platform) => {
+                const teams = byPlatform[platform]
+                    .slice()
+                    .sort((a, b) => this.compareFinishedTeamPlace(a, b));
+
+                if (!teams.length) {
+                    return "";
+                }
+
+                const cardsMarkup = teams.map((team) => {
+                    const teamId = this.toTeamId(team.team_name);
+                    const finalPlace = team.end_state?.final_place || "Finished";
+                    return `
+                        <a href="#team/${teamId}" class="hall-of-fame-card" data-analytics-action="hall_of_fame_click" data-analytics-category="Hall of Fame" data-analytics-label="${this.escapeHtml(team.team_name)}">
+                            <div class="hall-of-fame-badge">${this.escapeHtml(finalPlace)}</div>
+                            <h3>${this.escapeHtml(team.team_name)}</h3>
+                            <p>${this.escapeHtml(team.competition || "Unknown competition")}</p>
+                            <span class="hall-of-fame-meta">${this.escapeHtml(platform)}</span>
+                        </a>
+                    `;
+                }).join("");
+
+                return `
+                    <section class="panel hall-of-fame-panel">
+                        <h2 class="panel-title">${this.escapeHtml(platform)} Finished Teams</h2>
+                        <div class="hall-of-fame-grid">${cardsMarkup}</div>
+                    </section>
+                `;
+            })
+            .filter(Boolean)
+            .join("");
+
+        container.innerHTML = `
+            <h1 class="section-title">Hall of Fame</h1>
+            <div class="notes-section">
+                <div class="notes-content">
+                    Past and finished leagues, seasons, and teams are collected here so your completed runs can live on alongside the active ones.
+                </div>
+            </div>
+            ${sectionsMarkup || '<div class="empty-state">No finished teams or leagues have been recorded yet.</div>'}
+        `;
     },
 
     renderPostsPage() {
@@ -1646,6 +1747,23 @@ const app = {
 
     compareGameDateAsc(a, b) {
         return this.parseGameDate(a).getTime() - this.parseGameDate(b).getTime();
+    },
+
+    compareFinishedTeamPlace(a, b) {
+        const extractPlaceValue = (team) => {
+            const place = String(team?.end_state?.final_place || "").trim();
+            const match = place.match(/(\d+)/);
+            return match ? Number(match[1]) : Number.POSITIVE_INFINITY;
+        };
+
+        const aValue = extractPlaceValue(a);
+        const bValue = extractPlaceValue(b);
+
+        if (aValue === bValue) {
+            return (a.team_name || "").localeCompare(b.team_name || "");
+        }
+
+        return aValue - bValue;
     },
 
     compareGameDateDesc(a, b) {
