@@ -700,9 +700,18 @@ const app = {
                     const teamId = this.toTeamId(team.team_name);
                     const finalPlace = team.end_state?.final_place || "Finished";
                     const placeClass = this.getHallOfFamePlaceClass(finalPlace);
+
+                    let positionIcon = "";
+
+                    if (finalPlace === 1) {
+                        positionIcon = `<i class="fa-solid fa-trophy" style="margin-right: 0.5rem;"></i>${this.escapeHtml(finalPlace)}`;
+                    } else {
+                        positionIcon = `<i class="fa-solid fa-medal" style="margin-right: 0.5rem;"></i>${this.escapeHtml(finalPlace)}`;
+                    }
+
                     return `
                         <a href="#team/${teamId}" class="hall-of-fame-card ${placeClass}" data-analytics-action="hall_of_fame_click" data-analytics-category="Hall of Fame" data-analytics-label="${this.escapeHtml(team.team_name)}">
-                            <div class="hall-of-fame-badge">${this.escapeHtml(finalPlace)}</div>
+                            <div class="hall-of-fame-badge">${positionIcon}</div>
                             <h3>${this.escapeHtml(team.team_name)}</h3>
                             <p>${this.escapeHtml(team.competition || "Unknown competition")}</p>
                             <div class="hall-of-fame-footer">
