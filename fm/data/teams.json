@@ -122,6 +122,48 @@
                 ["ST", "Mahmoud Howash", "0", "0"],
                 ["ST", "Zsolt Gevay", "0", "0"]
             ]
+        },
+
+        {
+            "team_name": "England",
+            "osm_or_top_eleven": "OSM",
+            "competition": "World 2026",
+            "country": "N/A",
+            "home_venue": "N/A",
+            "end_state": {
+                "final_place": "1st"
+            },
+            "players": [
+                ["GK", "Pickford", "0", "0"],
+                ["GK", "Henderson", "0", "0"],
+                ["GK", "Trafford", "0", "0"],
+                
+                ["CB", "Gu&eacute;hi", "0", "0"],
+                ["RB", "James", "0", "1"],
+                ["LB", "Konsa", "1", "0"],
+                ["CB", "Stones", "2", "0"],
+                ["CB", "O'Reilly", "1", "0"],
+                ["LB", "Spence", "1", "0"],
+                ["CB", "Quansah", "0", "0"],
+                ["RB", "Livramento", "0", "0"],
+                ["CB", "Burn", "0", "0"],
+                
+                ["CAM", "Bellingham", "0", "0"],
+                ["CM", "Rice", "0", "0"],
+                ["CAM", "Rogers", "2", "0"],
+                ["CDM", "Eze", "0", "0"],
+                ["CM", "Anderson", "0", "0"],
+                ["CM", "Mainoo", "0", "0"],
+                ["CDM", "Henderson", "0", "0"],
+                
+                ["ST", "Saka", "0", "0"],
+                ["ST", "Kane", "0", "0"],
+                ["LW", "Rashford", "0", "0"],
+                ["LW", "Gordon", "0", "0"],
+                ["RW", "Madueke", "0", "0"],
+                ["ST", "Toney", "0", "0"],
+                ["ST", "Watkins", "0", "0"]
+            ]
         }
     ]
 }
