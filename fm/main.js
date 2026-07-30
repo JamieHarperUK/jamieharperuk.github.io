@@ -1417,6 +1417,7 @@ const app = {
 
         const yellowCards = (team.players || []).reduce((count, player) => count + Number(player[2] || 0), 0);
         const redCards = (team.players || []).reduce((count, player) => count + Number(player[3] || 0), 0);
+        const isCompletedTeam = Boolean(team.end_state && typeof team.end_state === "object");
         const eloPlatform = team.osm_or_top_eleven === "OSM" ? "OSM" : team.osm_or_top_eleven === "Top Eleven" ? "Top Eleven" : "Unknown";
         const platformRatings = this.data.eloRatings?.[eloPlatform] || {};
         const eloValue = Math.round(Number(platformRatings[team.team_name]) || 1500);
@@ -1490,10 +1491,12 @@ const app = {
                 </p>
             </section>
 
+            ${isCompletedTeam ? "" : `
             <section class="panel">
                 <h2 class="panel-title">Upcoming Fixtures</h2>
                 <div class="fixtures-grid" id="team-upcoming-${teamId}"></div>
             </section>
+            `}
 
             <section class="panel past-panel ${pastFixturesState.collapsed ? "is-collapsed" : ""}" id="past-panel-${teamId}">
                 <div class="panel-heading">
