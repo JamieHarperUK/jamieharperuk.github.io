@@ -1307,7 +1307,7 @@ const app = {
                     </div>
                 </article>
                 <article class="stat-card">
-                    <div class="stat-label">Competition</div>
+                    <div class="stat-label">League</div>
                     <div class="stat-value">${this.escapeHtml(team.competition || "Unknown")}</div>
                 </article>
                 <article class="stat-card">
