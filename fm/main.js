@@ -709,11 +709,11 @@ const app = {
                     let positionIcon = "";
 
                     if (finalPlace === "1st") {
-                        positionIcon = `<div class="hall-of-fame-badge" style="background-color: ${posColors.first}; color: #000;"><i class="fa-solid fa-trophy" style="margin-right: 0.5rem;"></i>${this.escapeHtml(finalPlace)}</div>`;
+                        positionIcon = `<div class="hall-of-fame-badge" style="background-color: ${posColors.first}; color: rgb(20 28 43);"><i class="fa-solid fa-trophy" style="margin-right: 0.5rem;"></i>${this.escapeHtml(finalPlace)}</div>`;
                     } else if (finalPlace === "2nd") {
-                        positionIcon = `<div class="hall-of-fame-badge" style="background-color: ${posColors.second}; color: #000;"><i class="fa-solid fa-medal" style="margin-right: 0.5rem;"></i>${this.escapeHtml(finalPlace)}</div>`;
+                        positionIcon = `<div class="hall-of-fame-badge" style="background-color: ${posColors.second}; color: rgb(20 28 43);"><i class="fa-solid fa-medal" style="margin-right: 0.5rem;"></i>${this.escapeHtml(finalPlace)}</div>`;
                     } else {
-                        positionIcon = `<div class="hall-of-fame-badge" style="background-color: ${posColors.third}; color: #000;"><i class="fa-solid fa-medal" style="margin-right: 0.5rem;"></i>${this.escapeHtml(finalPlace)}</div>`;
+                        positionIcon = `<div class="hall-of-fame-badge" style="background-color: ${posColors.third}; color: rgb(20 28 43);"><i class="fa-solid fa-medal" style="margin-right: 0.5rem;"></i>${this.escapeHtml(finalPlace)}</div>`;
                     }
 
                     return `
