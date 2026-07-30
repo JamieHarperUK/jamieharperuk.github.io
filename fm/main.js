@@ -716,7 +716,6 @@ const app = {
                             <p>${this.escapeHtml(team.competition || "Unknown competition")}</p>
                             <div class="hall-of-fame-footer">
                                 <span class="hall-of-fame-meta">${this.escapeHtml(platform)}</span>
-                                <span class="hall-of-fame-accent">Archive</span>
                             </div>
                         </a>
                     `;
