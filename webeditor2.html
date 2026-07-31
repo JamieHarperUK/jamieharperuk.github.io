@@ -1124,6 +1124,12 @@
                                         <label for="commitMessage">Update Label</label>
                                         <input id="commitMessage" type="text" placeholder="Update JSON content via GHWE">
                                     </div>
+                                    <div id="notifyOnCommitWrap" class="row hidden" style="margin-top:0.15rem;">
+                                        <label style="display:flex; align-items:center; gap:0.45rem; margin:0;">
+                                            <input id="notifyOnCommitCheckbox" type="checkbox" checked style="width:auto;">
+                                            <span>Send notifications with this commit</span>
+                                        </label>
+                                    </div>
                                     <div class="row">
                                         <button id="saveJsonBtn" class="primary">Commit Changes</button>
                                     </div>
@@ -1711,6 +1717,8 @@
                 crmDuplicateRecordBtn: document.getElementById("crmDuplicateRecordBtn"),
                 crmDeleteRecordBtn: document.getElementById("crmDeleteRecordBtn"),
                 commitMessage: document.getElementById("commitMessage"),
+                notifyOnCommitWrap: document.getElementById("notifyOnCommitWrap"),
+                notifyOnCommitCheckbox: document.getElementById("notifyOnCommitCheckbox"),
                 saveJsonBtn: document.getElementById("saveJsonBtn"),
                 editorStatus: document.getElementById("editorStatus"),
                 valueEditModal: document.getElementById("valueEditModal"),
@@ -1787,6 +1795,7 @@
                 el.brandTitle.textContent = WEBEDITOR_CONFIG.branding.appTitle;
                 el.brandTagline.textContent = WEBEDITOR_CONFIG.branding.tagline;
                 el.homeTitle.textContent = WEBEDITOR_CONFIG.branding.homeTitle;
+                updateCommitNotificationChoiceVisibility();
                 el.homeIntro.textContent = WEBEDITOR_CONFIG.branding.homeIntro;
                 el.aboutTitle.textContent = WEBEDITOR_CONFIG.branding.aboutTitle;
                 el.aboutIntro.textContent = WEBEDITOR_CONFIG.branding.aboutIntro;
@@ -1811,6 +1820,19 @@
                     target.classList.add("ok");
                 } else if (type === "bad") {
                     target.classList.add("bad");
+                }
+            }
+
+            function updateCommitNotificationChoiceVisibility() {
+                const notificationConfig = WEBEDITOR_CONFIG.notifications || {};
+                const enabled = notificationConfig.enabled !== false;
+                const endpoint = String(notificationConfig.notifyEndpoint || "").trim();
+                const shouldShow = enabled && Boolean(endpoint);
+                if (el.notifyOnCommitWrap) {
+                    el.notifyOnCommitWrap.classList.toggle("hidden", !shouldShow);
+                }
+                if (el.notifyOnCommitCheckbox && shouldShow) {
+                    el.notifyOnCommitCheckbox.checked = true;
                 }
             }
 
@@ -4534,10 +4556,12 @@
                     state.currentJsonSha = result.fileBlobShas[state.currentJsonPath] || state.currentJsonSha;
                     setStatus(el.editorStatus, "Committed " + state.currentJsonPath + " in one commit.", "ok");
 
-                    const notifyDelayMs = Math.max(0, Number((WEBEDITOR_CONFIG.notifications || {}).delayMs || 0));
-                    const notifyEnabled = (WEBEDITOR_CONFIG.notifications || {}).enabled !== false;
+                    const notificationConfig = WEBEDITOR_CONFIG.notifications || {};
+                    const notifyDelayMs = Math.max(0, Number(notificationConfig.delayMs || 0));
+                    const notifyEnabled = notificationConfig.enabled !== false;
+                    const shouldSendNotifications = Boolean(el.notifyOnCommitCheckbox && el.notifyOnCommitCheckbox.checked);
                     
-                    if (notifyDelayMs > 0 && notifyEnabled) {
+                    if (shouldSendNotifications && notifyDelayMs > 0 && notifyEnabled) {
                         const delaySeconds = Math.round(notifyDelayMs / 1000);
                         
                         showNotificationModal("Commit successful! Notifying subscribers...", "ok", "Publishing Update", {
@@ -4564,7 +4588,7 @@
                                 }
                             }
                         });
-                    } else {
+                    } else if (shouldSendNotifications) {
                         const notificationResult = await notifyPostUpdate(json, result.commitSha || "", {
                             skipDelay: true,
                             delayMs: 0
@@ -4579,6 +4603,8 @@
                                     : "Notifications were not sent for this update.";
                             showNotificationModal("Committed " + state.currentJsonPath + ". " + reasonText, "ok", "Success");
                         }
+                    } else {
+                        showNotificationModal("Committed " + state.currentJsonPath + " without sending notifications.", "ok", "Success");
                     }
                 } catch (error) {
                     if (error.message.includes("push notify")) {
