@@ -1385,6 +1385,7 @@
                     files: {
                         posts: "fm/data/posts.json",
                         games: "fm/data/games.json",
+                        teams: "fm/data/teams.json"
                     },
                     defaultFileKey: "posts"
                 },
@@ -2232,6 +2233,46 @@
                 return JSON.parse(JSON.stringify(value));
             }
 
+            function getCurrentEditorFileKind() {
+                const path = String(state.currentJsonPath || "").toLowerCase();
+                if (path.endsWith("/teams.json") || path.endsWith("teams.json")) {
+                    return "teams";
+                }
+                if (path.endsWith("/games.json") || path.endsWith("games.json")) {
+                    return "games";
+                }
+                if (path.endsWith("/posts.json") || path.endsWith("posts.json")) {
+                    return "posts";
+                }
+                return "generic";
+            }
+
+            function buildDefaultPlayerRow() {
+                return ["", "", "0", "0", "0"];
+            }
+
+            function normalizePlayerRow(row) {
+                if (!Array.isArray(row)) {
+                    return buildDefaultPlayerRow();
+                }
+
+                const values = row.slice(0, 5);
+                return [
+                    String(values[0] ?? ""),
+                    String(values[1] ?? ""),
+                    String(values[2] ?? "0"),
+                    String(values[3] ?? "0"),
+                    String(values[4] ?? "0")
+                ];
+            }
+
+            function normalizePlayers(value) {
+                if (!Array.isArray(value)) {
+                    return [];
+                }
+                return value.map(normalizePlayerRow);
+            }
+
             function inferNodeType(value) {
                 if (Array.isArray(value)) {
                     return "array";
@@ -2570,11 +2611,14 @@
                 state.crmModel.selectedIndex = Math.max(0, Math.min(recordIndex, state.crmModel.records.length - 1));
                 renderCrmRecordSelect();
 
+                const activeRecord = state.crmModel.records[state.crmModel.selectedIndex] || {};
+                const label = getRecordLabel(activeRecord, state.crmModel.selectedIndex);
+
                 if (el.crmRecordModalTitle) {
-                    el.crmRecordModalTitle.textContent = "Edit Record " + (state.crmModel.selectedIndex + 1);
+                    el.crmRecordModalTitle.textContent = label ? "Edit " + label : "Edit Record " + (state.crmModel.selectedIndex + 1);
                 }
                 if (el.crmRecordModalPath) {
-                    el.crmRecordModalPath.textContent = "record[" + state.crmModel.selectedIndex + "]";
+                    el.crmRecordModalPath.textContent = label || "record[" + state.crmModel.selectedIndex + "]";
                 }
 
                 renderCrmFields(el.crmModalFields, state.crmModel.selectedIndex);
@@ -3373,6 +3417,44 @@
                     return "Record " + (index + 1);
                 }
 
+                const kind = getCurrentEditorFileKind();
+                if (kind === "games") {
+                    const home = record.home_team || record.homeTeam || "";
+                    const away = record.away_team || record.awayTeam || "";
+                    const date = record.date || "";
+                    const homeScore = record.home_score ?? record.homeScore ?? "";
+                    const awayScore = record.away_score ?? record.awayScore ?? "";
+                    const scoreText = (homeScore === "" && awayScore === "") ? "" : String(homeScore) + "-" + String(awayScore);
+                    if (home && away) {
+                        const parts = [home + " vs " + away];
+                        if (date) parts.push(date);
+                        if (scoreText) parts.push(scoreText);
+                        return parts.join(" · ");
+                    }
+                }
+
+                if (kind === "teams") {
+                    const teamName = record.team_name || record.teamName || record.name || "";
+                    const competition = record.competition || "";
+                    const country = record.country || "";
+                    if (teamName && competition) {
+                        return teamName + " · " + competition;
+                    }
+                    if (teamName && country) {
+                        return teamName + " · " + country;
+                    }
+                    if (teamName) {
+                        return teamName;
+                    }
+                }
+
+                if (kind === "posts") {
+                    const titleValue = record.title || record.name || record.label || record.slug;
+                    if (titleValue) {
+                        return String(titleValue);
+                    }
+                }
+
                 const idValue = record.id;
                 const titleValue = record.title || record.name || record.label || record.slug;
 
@@ -3468,6 +3550,162 @@
                 });
             }
 
+            function renderSpecializedCrmFields(targetContainer, record, recordIndex) {
+                const kind = getCurrentEditorFileKind();
+
+                if (kind === "games") {
+                    const fieldDefinitions = [
+                        { key: "home_or_away", label: "Home / Away" },
+                        { key: "home_team", label: "Home Team" },
+                        { key: "away_team", label: "Away Team" },
+                        { key: "date", label: "Date" },
+                        { key: "time", label: "Time" },
+                        { key: "competition", label: "Competition" },
+                        { key: "venue", label: "Venue" },
+                        { key: "home_score", label: "Home Score" },
+                        { key: "away_score", label: "Away Score" },
+                        { key: "winner", label: "Winner" }
+                    ];
+
+                    fieldDefinitions.forEach(function(field) {
+                        const wrapper = document.createElement("div");
+                        wrapper.className = "crm-field-card";
+                        const label = document.createElement("label");
+                        label.textContent = field.label;
+                        const input = document.createElement("input");
+                        input.type = "text";
+                        input.value = record[field.key] == null ? "" : String(record[field.key]);
+                        input.addEventListener("input", function(event) {
+                            const rawValue = event.target.value;
+                            if (field.key === "home_score" || field.key === "away_score") {
+                                record[field.key] = rawValue === "" ? "" : String(Number(rawValue));
+                            } else {
+                                record[field.key] = rawValue;
+                            }
+                            syncCrmToJsonText();
+                        });
+                        wrapper.appendChild(label);
+                        wrapper.appendChild(input);
+                        targetContainer.appendChild(wrapper);
+                    });
+                    return true;
+                }
+
+                if (kind === "teams") {
+                    const basicFieldDefinitions = [
+                        { key: "team_name", label: "Team Name" },
+                        { key: "osm_or_top_eleven", label: "OSM / Top Eleven" },
+                        { key: "competition", label: "Competition" },
+                        { key: "country", label: "Country" },
+                        { key: "home_venue", label: "Home Venue" }
+                    ];
+
+                    basicFieldDefinitions.forEach(function(field) {
+                        const wrapper = document.createElement("div");
+                        wrapper.className = "crm-field-card";
+                        const label = document.createElement("label");
+                        label.textContent = field.label;
+                        const input = document.createElement("input");
+                        input.type = "text";
+                        input.value = record[field.key] == null ? "" : String(record[field.key]);
+                        input.addEventListener("input", function(event) {
+                            record[field.key] = event.target.value;
+                            syncCrmToJsonText();
+                        });
+                        wrapper.appendChild(label);
+                        wrapper.appendChild(input);
+                        targetContainer.appendChild(wrapper);
+                    });
+
+                    const playersWrapper = document.createElement("div");
+                    playersWrapper.className = "crm-field-card";
+                    const playersLabel = document.createElement("label");
+                    playersLabel.textContent = "Players";
+                    playersWrapper.appendChild(playersLabel);
+
+                    const playersList = document.createElement("div");
+                    playersList.style.display = "grid";
+                    playersList.style.gap = "0.5rem";
+                    playersList.style.marginTop = "0.5rem";
+
+                    const ensurePlayersArray = function() {
+                        if (!Array.isArray(record.players)) {
+                            record.players = [];
+                        }
+                        record.players = normalizePlayers(record.players);
+                    };
+
+                    const rerenderPlayers = function() {
+                        ensurePlayersArray();
+                        renderCrmFields(targetContainer, recordIndex);
+                        syncCrmToJsonText();
+                    };
+
+                    ensurePlayersArray();
+                    record.players.forEach(function(playerRow, playerIndex) {
+                        const row = document.createElement("div");
+                        row.style.display = "grid";
+                        row.style.gridTemplateColumns = "repeat(5, minmax(0, 1fr))";
+                        row.style.gap = "0.35rem";
+                        row.style.alignItems = "end";
+
+                        const columns = [
+                            { key: 0, label: "Position" },
+                            { key: 1, label: "Name" },
+                            { key: 2, label: "Yellow" },
+                            { key: 3, label: "Red" },
+                            { key: 4, label: "Injury" }
+                        ];
+
+                        columns.forEach(function(column) {
+                            const fieldWrapper = document.createElement("div");
+                            const fieldLabel = document.createElement("label");
+                            fieldLabel.textContent = column.label;
+                            const input = document.createElement("input");
+                            input.type = column.key === 2 || column.key === 3 || column.key === 4 ? "number" : "text";
+                            input.value = String(playerRow[column.key] ?? "");
+                            input.addEventListener("input", function(event) {
+                                const nextRow = normalizePlayerRow(record.players[playerIndex]);
+                                nextRow[column.key] = event.target.value;
+                                record.players[playerIndex] = nextRow;
+                                syncCrmToJsonText();
+                            });
+                            fieldWrapper.appendChild(fieldLabel);
+                            fieldWrapper.appendChild(input);
+                            row.appendChild(fieldWrapper);
+                        });
+
+                        const actionWrap = document.createElement("div");
+                        const removeBtn = document.createElement("button");
+                        removeBtn.type = "button";
+                        removeBtn.textContent = "Remove";
+                        removeBtn.addEventListener("click", function() {
+                            record.players.splice(playerIndex, 1);
+                            rerenderPlayers();
+                        });
+                        actionWrap.appendChild(removeBtn);
+                        row.appendChild(actionWrap);
+                        playersList.appendChild(row);
+                    });
+
+                    const addRowBtn = document.createElement("button");
+                    addRowBtn.type = "button";
+                    addRowBtn.textContent = "Add Player";
+                    addRowBtn.addEventListener("click", function() {
+                        ensurePlayersArray();
+                        record.players.push(buildDefaultPlayerRow());
+                        rerenderPlayers();
+                    });
+
+                    playersWrapper.appendChild(playersList);
+                    playersWrapper.appendChild(addRowBtn);
+                    targetContainer.appendChild(playersWrapper);
+                    return true;
+                }
+
+                return false;
+            }
+
             function renderCrmFields(targetContainer = el.crmFields, recordIndex = state.crmModel.selectedIndex) {
                 if (!targetContainer) {
                     return;
@@ -3485,6 +3723,10 @@
 
                 const safeRecordIndex = Math.max(0, Math.min(recordIndex, state.crmModel.records.length - 1));
                 const rec = state.crmModel.records[safeRecordIndex] || {};
+
+                if (renderSpecializedCrmFields(targetContainer, rec, safeRecordIndex)) {
+                    return;
+                }
 
                 let renderKeys = Object.keys(rec);
                 if (state.crmModel.schema.enabled) {
@@ -3732,6 +3974,45 @@
                 };
             }
 
+            function resolveLatestResult(jsonPayload) {
+                const games = Array.isArray(jsonPayload && jsonPayload.games) ? jsonPayload.games : [];
+                const playedGames = games.filter(function(game) {
+                    return game && typeof game === "object"
+                        && (game.home_score !== "" || game.away_score !== "" || game.winner)
+                        && game.home_score !== undefined
+                        && game.away_score !== undefined;
+                });
+
+                if (!playedGames.length) {
+                    return null;
+                }
+
+                const sorted = [...playedGames].sort(function(a, b) {
+                    const aDate = String(a.date || "");
+                    const bDate = String(b.date || "");
+                    if (aDate === bDate) {
+                        return String(b.time || "").localeCompare(String(a.time || ""));
+                    }
+                    return bDate.localeCompare(aDate);
+                });
+
+                const latest = sorted[0] || null;
+                if (!latest) {
+                    return null;
+                }
+
+                return {
+                    homeTeam: String(latest.home_team || ""),
+                    awayTeam: String(latest.away_team || ""),
+                    homeScore: String(latest.home_score ?? ""),
+                    awayScore: String(latest.away_score ?? ""),
+                    winner: String(latest.winner || ""),
+                    date: String(latest.date || ""),
+                    time: String(latest.time || ""),
+                    competition: String(latest.competition || "")
+                };
+            }
+
             async function notifyPostUpdate(jsonPayload, commitSha, options = {}) {
                 const notificationConfig = WEBEDITOR_CONFIG.notifications || {};
                 if (!notificationConfig.enabled) {
@@ -3749,7 +4030,17 @@
                     return { skipped: true, reason: "no-endpoint" };
                 }
 
-                const latestPost = resolveLatestPost(jsonPayload);
+                const fileKind = getCurrentEditorFileKind();
+                if (fileKind === "teams") {
+                    return { skipped: true, reason: "teams" };
+                }
+
+                const latestPost = fileKind === "posts" ? resolveLatestPost(jsonPayload) : null;
+                const latestResult = fileKind === "games" ? resolveLatestResult(jsonPayload) : null;
+                const shouldNotify = Boolean(fileKind === "posts" ? latestPost : latestResult);
+                if (!shouldNotify) {
+                    return { skipped: true, reason: fileKind === "games" ? "no-result" : "no-post" };
+                }
 
                 const headers = {
                     "Content-Type": "application/json"
@@ -3768,7 +4059,9 @@
                         repo: WEBEDITOR_CONFIG.repository.targetRepoFullName,
                         path: state.currentJsonPath,
                         commitSha: commitSha || "",
-                        latestPost
+                        kind: fileKind,
+                        latestPost,
+                        latestResult
                     })
                 });
 
@@ -3945,7 +4238,12 @@
                                     if (!notificationResult.skipped) {
                                         showNotificationModal("Committed " + state.currentJsonPath + " and notified subscribers.", "ok", "Success");
                                     } else {
-                                        showNotificationModal("Committed " + state.currentJsonPath + ". (Notifications disabled)", "ok", "Success");
+                                        const reasonText = notificationResult.reason === "teams"
+                                            ? "Teams updates do not trigger notifications."
+                                            : notificationResult.reason === "no-result"
+                                                ? "No match result was detected for notification."
+                                                : "Notifications were not sent for this update.";
+                                        showNotificationModal("Committed " + state.currentJsonPath + ". " + reasonText, "ok", "Success");
                                     }
                                 } catch (notifyError) {
                                     showNotificationModal("Commit succeeded, but push notify failed: " + notifyError.message, "bad", "Notification Error");
@@ -3960,7 +4258,12 @@
                         if (!notificationResult.skipped) {
                             showNotificationModal("Committed " + state.currentJsonPath + " and notified subscribers.", "ok", "Success");
                         } else {
-                            showNotificationModal("Committed " + state.currentJsonPath + ". (Notifications disabled)", "ok", "Success");
+                            const reasonText = notificationResult.reason === "teams"
+                                ? "Teams updates do not trigger notifications."
+                                : notificationResult.reason === "no-result"
+                                    ? "No match result was detected for notification."
+                                    : "Notifications were not sent for this update.";
+                            showNotificationModal("Committed " + state.currentJsonPath + ". " + reasonText, "ok", "Success");
                         }
                     }
                 } catch (error) {
