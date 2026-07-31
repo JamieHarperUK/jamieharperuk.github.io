@@ -356,6 +356,35 @@
                 display: none;
             }
 
+            .player-summary-card {
+                display: grid;
+                gap: 0.65rem;
+                border: 1px solid var(--line);
+                border-radius: 10px;
+                padding: 0.7rem;
+                background: #fff;
+            }
+
+            .player-modal-body {
+                display: grid;
+                gap: 0.75rem;
+                max-height: min(70vh, 720px);
+                overflow-y: auto;
+                padding-right: 0.2rem;
+            }
+
+            .player-row {
+                display: grid;
+                grid-template-columns: repeat(5, minmax(0, 1fr));
+                gap: 0.45rem;
+                align-items: end;
+            }
+
+            .player-row .player-action {
+                display: flex;
+                align-items: end;
+            }
+
             .crm-drag-panel {
                 margin-top: 0.8rem;
                 border: 1px solid var(--line);
@@ -1319,6 +1348,24 @@
                 </div>
             </div>
 
+            <div id="teamPlayersModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="teamPlayersModalTitle">
+                <div class="modal-card" style="width:min(100%, 980px);">
+                    <div class="modal-head">
+                        <h3 id="teamPlayersModalTitle">Edit Players</h3>
+                        <button id="teamPlayersModalCloseBtn" type="button" class="warn">Close</button>
+                    </div>
+                    <div class="stack">
+                        <div class="row">
+                            <button id="teamPlayersModalAddBtn" type="button" class="primary">Add Player</button>
+                        </div>
+                        <div id="teamPlayersModalBody" class="player-modal-body"></div>
+                        <div class="row">
+                            <button id="teamPlayersModalDoneBtn" class="primary" type="button">Done</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div id="notificationModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="notificationTitle">
                 <div class="modal-card" style="width: min(100%, 620px);">
                     <div class="modal-head">
@@ -1509,6 +1556,7 @@
                     rootMode: "array",
                     records: [],
                     selectedIndex: 0,
+                    playersModalRecordIndex: 0,
                     schema: {
                         enabled: false,
                         root: null,
@@ -1635,6 +1683,12 @@
                 crmRecordModalSaveBtn: document.getElementById("crmRecordModalSaveBtn"),
                 crmRecordModalCancelBtn: document.getElementById("crmRecordModalCancelBtn"),
                 crmRecordModalCloseBtn: document.getElementById("crmRecordModalCloseBtn"),
+                teamPlayersModal: document.getElementById("teamPlayersModal"),
+                teamPlayersModalTitle: document.getElementById("teamPlayersModalTitle"),
+                teamPlayersModalBody: document.getElementById("teamPlayersModalBody"),
+                teamPlayersModalAddBtn: document.getElementById("teamPlayersModalAddBtn"),
+                teamPlayersModalDoneBtn: document.getElementById("teamPlayersModalDoneBtn"),
+                teamPlayersModalCloseBtn: document.getElementById("teamPlayersModalCloseBtn"),
                 notificationModal: document.getElementById("notificationModal"),
                 notificationTitle: document.getElementById("notificationTitle"),
                 notificationContent: document.getElementById("notificationContent"),
@@ -3550,6 +3604,120 @@
                 });
             }
 
+            function ensureTeamPlayersArray(record) {
+                if (!record || typeof record !== "object") {
+                    return [];
+                }
+                if (!Array.isArray(record.players)) {
+                    record.players = [];
+                }
+                record.players = normalizePlayers(record.players);
+                return record.players;
+            }
+
+            function getActiveTeamPlayersRecord() {
+                const index = Number(state.crmModel.playersModalRecordIndex ?? state.crmModel.selectedIndex ?? 0);
+                const record = state.crmModel.records[index] || null;
+                if (!record || typeof record !== "object") {
+                    return null;
+                }
+                ensureTeamPlayersArray(record);
+                return record;
+            }
+
+            function openTeamPlayersModal(recordIndex) {
+                if (!state.crmModel.records.length) {
+                    return;
+                }
+                state.crmModel.playersModalRecordIndex = Math.max(0, Math.min(Number(recordIndex ?? state.crmModel.selectedIndex ?? 0), state.crmModel.records.length - 1));
+                renderTeamPlayersModal();
+                if (el.teamPlayersModal) {
+                    el.teamPlayersModal.classList.remove("hidden");
+                }
+            }
+
+            function closeTeamPlayersModal() {
+                if (el.teamPlayersModal) {
+                    el.teamPlayersModal.classList.add("hidden");
+                }
+            }
+
+            function renderTeamPlayersModal() {
+                if (!el.teamPlayersModal || !el.teamPlayersModalBody) {
+                    return;
+                }
+                const record = getActiveTeamPlayersRecord();
+                if (!record) {
+                    closeTeamPlayersModal();
+                    return;
+                }
+
+                const title = record.team_name || record.teamName || record.name || "Team";
+                if (el.teamPlayersModalTitle) {
+                    el.teamPlayersModalTitle.textContent = "Edit Players · " + title;
+                }
+
+                const players = ensureTeamPlayersArray(record);
+                el.teamPlayersModalBody.innerHTML = "";
+
+                const summary = document.createElement("div");
+                summary.className = "row";
+                const countPill = document.createElement("div");
+                countPill.className = "pill mono";
+                countPill.textContent = "Total players: " + players.length;
+                summary.appendChild(countPill);
+                el.teamPlayersModalBody.appendChild(summary);
+
+                const list = document.createElement("div");
+                list.className = "stack";
+                players.forEach(function(playerRow, playerIndex) {
+                    const row = document.createElement("div");
+                    row.className = "player-row";
+
+                    const columns = [
+                        { key: 0, label: "Position" },
+                        { key: 1, label: "Name" },
+                        { key: 2, label: "Yellow" },
+                        { key: 3, label: "Red" },
+                        { key: 4, label: "Injury" }
+                    ];
+
+                    columns.forEach(function(column) {
+                        const fieldWrap = document.createElement("div");
+                        const fieldLabel = document.createElement("label");
+                        fieldLabel.textContent = column.label;
+                        const input = document.createElement("input");
+                        input.type = column.key >= 2 ? "number" : "text";
+                        input.value = String(playerRow[column.key] ?? "");
+                        input.addEventListener("input", function(event) {
+                            const nextRow = normalizePlayerRow(record.players[playerIndex]);
+                            nextRow[column.key] = event.target.value;
+                            record.players[playerIndex] = nextRow;
+                            syncCrmToJsonText();
+                        });
+                        fieldWrap.appendChild(fieldLabel);
+                        fieldWrap.appendChild(input);
+                        row.appendChild(fieldWrap);
+                    });
+
+                    const actionWrap = document.createElement("div");
+                    actionWrap.className = "player-action";
+                    const removeBtn = document.createElement("button");
+                    removeBtn.type = "button";
+                    removeBtn.textContent = "Remove";
+                    removeBtn.addEventListener("click", function() {
+                        record.players.splice(playerIndex, 1);
+                        renderTeamPlayersModal();
+                        syncCrmToJsonText();
+                    });
+                    actionWrap.appendChild(removeBtn);
+                    row.appendChild(actionWrap);
+                    list.appendChild(row);
+                });
+
+                el.teamPlayersModalBody.appendChild(list);
+            }
+
             function renderSpecializedCrmFields(targetContainer, record, recordIndex) {
                 const kind = getCurrentEditorFileKind();
 
@@ -3618,87 +3786,25 @@
                     });
 
                     const playersWrapper = document.createElement("div");
-                    playersWrapper.className = "crm-field-card";
+                    playersWrapper.className = "player-summary-card";
                     const playersLabel = document.createElement("label");
                     playersLabel.textContent = "Players";
                     playersWrapper.appendChild(playersLabel);
 
-                    const playersList = document.createElement("div");
-                    playersList.style.display = "grid";
-                    playersList.style.gap = "0.5rem";
-                    playersList.style.marginTop = "0.5rem";
+                    const playersCount = document.createElement("div");
+                    playersCount.className = "pill mono";
+                    const normalizedPlayers = ensureTeamPlayersArray(record);
+                    playersCount.textContent = "Total players: " + normalizedPlayers.length;
+                    playersWrapper.appendChild(playersCount);
 
-                    const ensurePlayersArray = function() {
-                        if (!Array.isArray(record.players)) {
-                            record.players = [];
-                        }
-                        record.players = normalizePlayers(record.players);
-                    };
-
-                    const rerenderPlayers = function() {
-                        ensurePlayersArray();
-                        renderCrmFields(targetContainer, recordIndex);
-                        syncCrmToJsonText();
-                    };
-
-                    ensurePlayersArray();
-                    record.players.forEach(function(playerRow, playerIndex) {
-                        const row = document.createElement("div");
-                        row.style.display = "grid";
-                        row.style.gridTemplateColumns = "repeat(5, minmax(0, 1fr))";
-                        row.style.gap = "0.35rem";
-                        row.style.alignItems = "end";
-
-                        const columns = [
-                            { key: 0, label: "Position" },
-                            { key: 1, label: "Name" },
-                            { key: 2, label: "Yellow" },
-                            { key: 3, label: "Red" },
-                            { key: 4, label: "Injury" }
-                        ];
-
-                        columns.forEach(function(column) {
-                            const fieldWrapper = document.createElement("div");
-                            const fieldLabel = document.createElement("label");
-                            fieldLabel.textContent = column.label;
-                            const input = document.createElement("input");
-                            input.type = column.key === 2 || column.key === 3 || column.key === 4 ? "number" : "text";
-                            input.value = String(playerRow[column.key] ?? "");
-                            input.addEventListener("input", function(event) {
-                                const nextRow = normalizePlayerRow(record.players[playerIndex]);
-                                nextRow[column.key] = event.target.value;
-                                record.players[playerIndex] = nextRow;
-                                syncCrmToJsonText();
-                            });
-                            fieldWrapper.appendChild(fieldLabel);
-                            fieldWrapper.appendChild(input);
-                            row.appendChild(fieldWrapper);
-                        });
-
-                        const actionWrap = document.createElement("div");
-                        const removeBtn = document.createElement("button");
-                        removeBtn.type = "button";
-                        removeBtn.textContent = "Remove";
-                        removeBtn.addEventListener("click", function() {
-                            record.players.splice(playerIndex, 1);
-                            rerenderPlayers();
-                        });
-                        actionWrap.appendChild(removeBtn);
-                        row.appendChild(actionWrap);
-                        playersList.appendChild(row);
+                    const openPlayersBtn = document.createElement("button");
+                    openPlayersBtn.type = "button";
+                    openPlayersBtn.textContent = "Manage Players";
+                    openPlayersBtn.addEventListener("click", function() {
+                        openTeamPlayersModal(recordIndex);
                     });
+                    playersWrapper.appendChild(openPlayersBtn);
 
-                    const addRowBtn = document.createElement("button");
-                    addRowBtn.type = "button";
-                    addRowBtn.textContent = "Add Player";
-                    addRowBtn.addEventListener("click", function() {
-                        ensurePlayersArray();
-                        record.players.push(buildDefaultPlayerRow());
-                        rerenderPlayers();
-                    });
-
-                    playersWrapper.appendChild(playersList);
-                    playersWrapper.appendChild(addRowBtn);
                     targetContainer.appendChild(playersWrapper);
                     return true;
                 }
@@ -4584,6 +4690,31 @@
                 el.crmRecordModal.addEventListener("click", function(event) {
                     if (event.target === el.crmRecordModal) {
                         closeCrmRecordModal();
+                    }
+                });
+
+                el.teamPlayersModalCloseBtn.addEventListener("click", function() {
+                    closeTeamPlayersModal();
+                });
+
+                el.teamPlayersModalDoneBtn.addEventListener("click", function() {
+                    closeTeamPlayersModal();
+                });
+
+                el.teamPlayersModalAddBtn.addEventListener("click", function() {
+                    const record = getActiveTeamPlayersRecord();
+                    if (!record) {
+                        return;
+                    }
+                    ensureTeamPlayersArray(record);
+                    record.players.push(buildDefaultPlayerRow());
+                    syncCrmToJsonText();
+                    renderTeamPlayersModal();
+                });
+
+                el.teamPlayersModal.addEventListener("click", function(event) {
+                    if (event.target === el.teamPlayersModal) {
+                        closeTeamPlayersModal();
                     }
                 });
 
