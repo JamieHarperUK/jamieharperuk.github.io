@@ -23,162 +23,34 @@
             "home_venue": "Old Trafford",
             "end_state": null,
             "players": [
-                [
-                    "GK",
-                    "Senne Lammens",
-                    "1",
-                    "0",
-                    "0"
-                ],
-                [
-                    "GK",
-                    "Altay Bayindir",
-                    "1",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CB",
-                    "Manuel Akanji",
-                    "0",
-                    "1",
-                    "0"
-                ],
-                [
-                    "CB",
-                    "Jose Maria Gimenez",
-                    "2",
-                    "0",
-                    "0"
-                ],
-                [
-                    "LB",
-                    "Leny Yoro",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "RB",
-                    "William Pacho",
-                    "2",
-                    "0",
-                    "0"
-                ],
-                [
-                    "RB",
-                    "Diogo Dalot",
-                    "1",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CB",
-                    "Ramy Bensebaini",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CB",
-                    "Dayot Upamecano",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "LB",
-                    "Marcos Llorente",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CB",
-                    "Aymeric Laporte",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CM",
-                    "Kobbie Mainoo",
-                    "2",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CM",
-                    "Rodrigo De Paul",
-                    "2",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CAM",
-                    "Dani Olmo",
-                    "1",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CAM",
-                    "Bruno Fernandes",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CAM",
-                    "Carlos Henrique Casemiro",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CM",
-                    "Declan Rice",
-                    "1",
-                    "0",
-                    "0"
-                ],
-                [
-                    "RW",
-                    "Bryan Mbeumo",
-                    "1",
-                    "0",
-                    "0"
-                ],
-                [
-                    "LW",
-                    "Benjamin Sesko",
-                    "1",
-                    "0",
-                    "0"
-                ],
-                [
-                    "ST",
-                    "Matheus Santos Carneiro Da Cunha",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "ST",
-                    "Joshus Orobosa Zirkzee",
-                    "1",
-                    "0",
-                    "0"
-                ],
-                [
-                    "LW",
-                    "Jeremy Doku",
-                    "0",
-                    "0",
-                    "0"
-                ]
+                ["GK", "Senne Lammens", "1", "0", "0"],
+                ["GK", "Altay Bayindir", "1", "0", "0"],
+                
+                ["CB", "Manuel Akanji", "0", "1", "0"],
+                ["CB", "Jose Maria Gimenez", "2", "0", "0"],
+                ["LB", "Leny Yoro", "0", "0", "0"],
+                ["RB", "William Pacho", "2", "0", "0"],
+                ["RB", "Diogo Dalot", "1", "0", "0"],
+                ["CB", "Ramy Bensebaini", "0", "0", "0"],
+                ["CB", "Dayot Upamecano", "0", "0", "0"],
+                ["LB", "Marcos Llorente", "0", "0", "0"],
+                ["CB", "Aymeric Laporte", "0", "0", "0"],
+                
+                ["CM", "Kobbie Mainoo", "2", "0", "0"],
+                ["CM", "Rodrigo De Paul", "2", "0", "0"],
+                ["CAM", "Dani Olmo", "1", "0", "0"],
+                ["CAM", "Bruno Fernandes", "0", "0", "0"],
+                ["CAM", "Carlos Henrique Casemiro", "0", "0", "0"],
+                ["CM", "Declan Rice", "1", "0", "0"],
+                
+                ["RW", "Bryan Mbeumo", "1", "0", "0"],
+                ["LW", "Benjamin Sesko", "1", "0", "0"],
+                ["ST", "Matheus Santos Carneiro Da Cunha", "0", "0", "0"],
+                ["ST", "Joshus Orobosa Zirkzee", "1", "0", "0"],
+                ["LW", "Jeremy Doku", "0", "0", "0"]
             ]
         },
+
         {
             "team_name": "Altrincham FC",
             "osm_or_top_eleven": "OSM",
@@ -187,183 +59,37 @@
             "home_venue": "J. Davidson Stadium",
             "end_state": null,
             "players": [
-                [
-                    "GK",
-                    "Owen Evans",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "GK",
-                    "Louie Fallon",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "GK",
-                    "Alfonso Herrero",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "GK",
-                    "Patricio Sancho",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "LB",
-                    "Eddy Jones",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CB",
-                    "Joel Bailey",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "RB",
-                    "Lewis Banks",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CB",
-                    "Tylor Golden",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CB",
-                    "Elliott Moore",
-                    "1",
-                    "0",
-                    "0"
-                ],
-                [
-                    "LB",
-                    "Neco Williams",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "RB",
-                    "Odai Abdulghani",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CB",
-                    "Mihail Cojusea",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CAM",
-                    "Wallace Davi Nunes Da Silva Dias",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CM",
-                    "Jack Hinchy",
-                    "1",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CM",
-                    "Anthony Forde",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CM",
-                    "Tom Crawford",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CM",
-                    "Liam Humbles",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CM",
-                    "Jensen Weir",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "ST",
-                    "Kristian Dennis",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "ST",
-                    "Sam Taylor",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "LW",
-                    "Otis Khan",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "LW",
-                    "Matty Kosylo",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "ST",
-                    "Jimmy Knowles",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "RW",
-                    "Kahrel Reddin",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "RW",
-                    "Halil Akbunar",
-                    "0",
-                    "0",
-                    "0"
-                ]
+                ["GK", "Owen Evans", "0", "0", "0"],
+                ["GK", "Louie Fallon", "0", "0", "0"],
+                ["GK", "Alfonso Herrero", "0", "0", "0"],
+                ["GK", "Patricio Sancho", "0", "0", "0"],
+                
+                ["LB", "Eddy Jones", "0", "0", "0"],
+                ["CB", "Joel Bailey", "0", "0", "0"],
+                ["RB", "Lewis Banks", "0", "0", "0"],
+                ["CB", "Tylor Golden", "0", "0", "0"],
+                ["CB", "Elliott Moore", "1", "0", "0"],
+                ["LB", "Neco Williams", "0", "0", "0"],
+                ["RB", "Odai Abdulghani", "0", "0", "0"],
+                ["CB", "Mihail Cojusea", "0", "0", "0"],
+                
+                ["CAM", "Wallace Davi Nunes Da Silva Dias", "0", "0", "0"],
+                ["CM", "Jack Hinchy", "1", "0", "0"],
+                ["CM", "Anthony Forde", "0", "0", "0"],
+                ["CM", "Tom Crawford", "0", "0", "0"],
+                ["CM", "Liam Humbles", "0", "0", "0"],
+                ["CM", "Jensen Weir", "0", "0", "0"],
+                
+                ["ST", "Kristian Dennis", "0", "0", "0"],
+                ["ST", "Sam Taylor", "0", "0", "0"],
+                ["LW", "Otis Khan", "0", "0", "0"],
+                ["LW", "Matty Kosylo", "0", "0", "0"],
+                ["ST", "Jimmy Knowles", "0", "0", "0"],
+                ["RW", "Kahrel Reddin", "0", "0", "0"],
+                ["RW", "Halil Akbunar", "0", "0", "0"]
             ]
         },
+
         {
             "team_name": "Harper FC",
             "osm_or_top_eleven": "Top Eleven",
@@ -372,155 +98,33 @@
             "home_venue": "The Concourse",
             "end_state": null,
             "players": [
-                [
-                    "GK",
-                    "Mads Lohmann",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "GK",
-                    "Pedro Guedes",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "DL",
-                    "Janusz Pielak",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "DL",
-                    "David Pirie",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "DL",
-                    "Arnaud Bedime",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "DC",
-                    "Artur Marques",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "DC",
-                    "Raul Antonio Medina",
-                    "1",
-                    "0",
-                    "0"
-                ],
-                [
-                    "DR",
-                    "Sol Grant",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "DR",
-                    "Alcidio Fleytas",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "DR",
-                    "Mourad Bouizgar",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "MC",
-                    "Cristian Zardetto",
-                    "1",
-                    "0",
-                    "0"
-                ],
-                [
-                    "MC",
-                    "Weerasak Paphunga",
-                    "1",
-                    "0",
-                    "0"
-                ],
-                [
-                    "MC",
-                    "Stanislav Bozhankov",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "AML",
-                    "Rachid Mesquini",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "AMR",
-                    "Francis McPolin",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "AMR",
-                    "Jorge Manuel Gonzalez",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "ST",
-                    "David Douence",
-                    "1",
-                    "0",
-                    "0"
-                ],
-                [
-                    "ST",
-                    "Sergio Moreno da Silva",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "ST",
-                    "Mark Robertson",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "ST",
-                    "Mahmoud Howash",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "ST",
-                    "Zsolt Gevay",
-                    "0",
-                    "0",
-                    "0"
-                ]
+                ["GK", "Mads Lohmann", "0", "0", "0"],
+                ["GK", "Pedro Guedes", "0", "0", "0"],
+
+                ["DL", "Janusz Pielak", "0", "0", "0"],
+                ["DL", "David Pirie", "0", "0", "0"],
+                ["DL", "Arnaud Bedime", "0", "0", "0"],
+                ["DC", "Artur Marques", "0", "0", "0"],
+                ["DC", "Raul Antonio Medina", "1", "0", "0"],
+                ["DR", "Sol Grant", "0", "0", "0"],
+                ["DR", "Alcidio Fleytas", "0", "0", "0"],
+                ["DR", "Mourad Bouizgar", "0", "0", "0"],
+
+                ["MC", "Cristian Zardetto", "1", "0", "0"],
+                ["MC", "Weerasak Paphunga", "1", "0", "0"],
+                ["MC", "Stanislav Bozhankov", "0", "0", "0"],
+                ["AML", "Rachid Mesquini", "0", "0", "0"],
+                ["AMR", "Francis McPolin", "0", "0", "0"],
+                ["AMR", "Jorge Manuel Gonzalez", "0", "0", "0"],
+
+                ["ST", "David Douence", "1", "0", "0"],
+                ["ST", "Sergio Moreno da Silva", "0", "0", "0"],
+                ["ST", "Mark Robertson", "0", "0", "0"],
+                ["ST", "Mahmoud Howash", "0", "0", "0"],
+                ["ST", "Zsolt Gevay", "0", "0", "0"]
             ]
         },
+
         {
             "team_name": "England",
             "osm_or_top_eleven": "OSM",
@@ -532,188 +136,35 @@
                 "end_date": "04-07-2026"
             },
             "players": [
-                [
-                    "GK",
-                    "Pickford",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "GK",
-                    "Henderson",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "GK",
-                    "Trafford",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CB",
-                    "Guehi",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "RB",
-                    "James",
-                    "0",
-                    "1",
-                    "0"
-                ],
-                [
-                    "LB",
-                    "Konsa",
-                    "1",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CB",
-                    "Stones",
-                    "2",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CB",
-                    "O'Reilly",
-                    "1",
-                    "0",
-                    "0"
-                ],
-                [
-                    "LB",
-                    "Spence",
-                    "1",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CB",
-                    "Quansah",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "RB",
-                    "Livramento",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CB",
-                    "Burn",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CAM",
-                    "Bellingham",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CM",
-                    "Rice",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CAM",
-                    "Rogers",
-                    "2",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CDM",
-                    "Eze",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CM",
-                    "Anderson",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CM",
-                    "Mainoo",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "CDM",
-                    "Henderson",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "ST",
-                    "Saka",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "ST",
-                    "Kane",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "LW",
-                    "Rashford",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "LW",
-                    "Gordon",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "RW",
-                    "Madueke",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "ST",
-                    "Toney",
-                    "0",
-                    "0",
-                    "0"
-                ],
-                [
-                    "ST",
-                    "Watkins",
-                    "0",
-                    "0",
-                    "0"
-                ]
+                ["GK", "Pickford", "0", "0", "0"],
+                ["GK", "Henderson", "0", "0", "0"],
+                ["GK", "Trafford", "0", "0", "0"],
+                
+                ["CB", "Guehi", "0", "0", "0"],
+                ["RB", "James", "0", "1", "0"],
+                ["LB", "Konsa", "1", "0", "0"],
+                ["CB", "Stones", "2", "0", "0"],
+                ["CB", "O'Reilly", "1", "0", "0"],
+                ["LB", "Spence", "1", "0", "0"],
+                ["CB", "Quansah", "0", "0", "0"],
+                ["RB", "Livramento", "0", "0", "0"],
+                ["CB", "Burn", "0", "0", "0"],
+
+                ["CAM", "Bellingham", "0", "0", "0"],
+                ["CM", "Rice", "0", "0", "0"],
+                ["CAM", "Rogers", "2", "0", "0"],
+                ["CDM", "Eze", "0", "0", "0"],
+                ["CM", "Anderson", "0", "0", "0"],
+                ["CM", "Mainoo", "0", "0", "0"],
+                ["CDM", "Henderson", "0", "0", "0"],
+                
+                ["ST", "Saka", "0", "0", "0"],
+                ["ST", "Kane", "0", "0", "0"],
+                ["LW", "Rashford", "0", "0", "0"],
+                ["LW", "Gordon", "0", "0", "0"],
+                ["RW", "Madueke", "0", "0", "0"],
+                ["ST", "Toney", "0", "0", "0"],
+                ["ST", "Watkins", "0", "0", "0"]
             ]
         }
     ]
