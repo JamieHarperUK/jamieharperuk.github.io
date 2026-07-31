@@ -26,9 +26,9 @@
                 ["GK", "Senne Lammens", "1", "0"],
                 ["GK", "Altay Bayindir", "1", "0"],
                 
-                ["CB", "Manuel Akanji", "2", "0"],
+                ["CB", "Manuel Akanji", "0", "1"],
                 ["CB", "Jose Maria Gimenez", "2", "0"],
-                ["LB", "Leny Yoro", "0", "1"],
+                ["LB", "Leny Yoro", "0", "0"],
                 ["RB", "William Pacho", "2", "0"],
                 ["RB", "Diogo Dalot", "1", "0"],
                 ["CB", "Ramy Bensebaini", "0", "0"],
@@ -37,11 +37,11 @@
                 ["CB", "Aymeric Laporte", "0", "0"],
                 
                 ["CM", "Kobbie Mainoo", "2", "0"],
-                ["CM", "Rodrigo De Paul", "1", "0"],
+                ["CM", "Rodrigo De Paul", "2", "0"],
                 ["CAM", "Dani Olmo", "1", "0"],
                 ["CAM", "Bruno Fernandes", "0", "0"],
                 ["CAM", "Carlos Henrique Casemiro", "0", "0"],
-                ["CM", "Declan Rice", "0", "0"],
+                ["CM", "Declan Rice", "1", "0"],
                 
                 ["RW", "Bryan Mbeumo", "1", "0"],
                 ["LW", "Benjamin Sesko", "1", "0"],
