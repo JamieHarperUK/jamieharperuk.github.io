@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Away",
-      "home_team": "MONOR",
-      "away_team": "Harper FC",
-      "date": "31-07-2026",
-      "time": "10:26",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "League Level 1",
-      "venue": "The Concourse",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Home",
       "home_team": "Manchester United",
       "away_team": "Tottenham Hotspur",
@@ -72,9 +59,36 @@
       "away_score": "",
       "winner": ""
     },
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "FFC Rybnoye 1974",
+      "date": "01-08-2026",
+      "time": "11:07",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 1",
+      "venue": "FFC Rybnoye 1974's Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
 
 
 
+
+    {
+      "home_or_away": "Away",
+      "home_team": "MONOR",
+      "away_team": "Harper FC",
+      "date": "31-07-2026",
+      "time": "10:26",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 1",
+      "venue": "The Concourse",
+      "home_score": "0",
+      "away_score": "4",
+      "winner": "Harper FC"
+    },
 
     {
       "home_or_away": "Away",
