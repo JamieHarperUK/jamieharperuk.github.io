@@ -78,13 +78,12 @@
                 ["CM", "Anthony Forde", "0", "0", "0"],
                 ["CM", "Tom Crawford", "0", "0", "0"],
                 ["CM", "Liam Humbles", "0", "0", "0"],
-                ["CM", "Jensen Weir", "0", "0", "0"],
+                ["CM", "Jensen Weir", "0", "0", "8"],
                 
                 ["ST", "Kristian Dennis", "0", "0", "0"],
                 ["ST", "Sam Taylor", "0", "0", "0"],
                 ["LW", "Otis Khan", "0", "0", "0"],
                 ["LW", "Matty Kosylo", "0", "0", "0"],
-                ["ST", "Jimmy Knowles", "0", "0", "0"],
                 ["RW", "Kahrel Reddin", "0", "0", "0"],
                 ["RW", "Halil Akbunar", "0", "0", "0"]
             ]
@@ -101,7 +100,6 @@
                 ["GK", "Mads Lohmann", "0", "0", "0"],
                 ["GK", "Pedro Guedes", "0", "0", "0"],
 
-                ["DL", "Janusz Pielak", "0", "0", "0"],
                 ["DL", "David Pirie", "0", "0", "0"],
                 ["DL", "Arnaud Bedime", "0", "0", "0"],
                 ["DC", "Artur Marques", "0", "0", "0"],
