@@ -375,14 +375,24 @@
 
             .player-row {
                 display: grid;
-                grid-template-columns: repeat(5, minmax(0, 1fr));
+                grid-template-columns: minmax(90px, 0.8fr) minmax(180px, 2.2fr) 60px 60px 60px auto;
                 gap: 0.45rem;
                 align-items: end;
+            }
+
+            .player-row .player-name-field {
+                min-width: 0;
+            }
+
+            .player-row input[type="number"] {
+                max-width: 58px;
             }
 
             .player-row .player-action {
                 display: flex;
                 align-items: end;
+                gap: 0.35rem;
+                flex-wrap: wrap;
             }
 
             .crm-drag-panel {
@@ -2327,6 +2337,31 @@
                 return value.map(normalizePlayerRow);
             }
 
+            function normalizePostContentForEditor(value) {
+                if (value == null) {
+                    return "";
+                }
+                return String(value)
+                    .replace(/\\r\\n/g, "\n")
+                    .replace(/\\r/g, "\n")
+                    .replace(/\r\n/g, "\n")
+                    .replace(/\r/g, "\n");
+            }
+
+            function normalizePostContentForStorage(value) {
+                return String(value ?? "")
+                    .replace(/\r\n/g, "\n")
+                    .replace(/\r/g, "\n");
+            }
+
+            function autoResizeTextarea(textarea) {
+                if (!textarea) {
+                    return;
+                }
+                textarea.style.height = "auto";
+                textarea.style.height = Math.max(140, textarea.scrollHeight) + "px";
+            }
+
             function inferNodeType(value) {
                 if (Array.isArray(value)) {
                     return "array";
@@ -3684,10 +3719,18 @@
 
                     columns.forEach(function(column) {
                         const fieldWrap = document.createElement("div");
+                        if (column.key === 1) {
+                            fieldWrap.className = "player-name-field";
+                        }
                         const fieldLabel = document.createElement("label");
                         fieldLabel.textContent = column.label;
                         const input = document.createElement("input");
                         input.type = column.key >= 2 ? "number" : "text";
+                        if (column.key >= 2) {
+                            input.className = "player-number-input";
+                        } else if (column.key === 1) {
+                            input.className = "player-name-input";
+                        }
                         input.value = String(playerRow[column.key] ?? "");
                         input.addEventListener("input", function(event) {
                             const nextRow = normalizePlayerRow(record.players[playerIndex]);
@@ -3702,6 +3745,32 @@
 
                     const actionWrap = document.createElement("div");
                     actionWrap.className = "player-action";
+                    const moveUpBtn = document.createElement("button");
+                    moveUpBtn.type = "button";
+                    moveUpBtn.textContent = "↑";
+                    moveUpBtn.title = "Move up";
+                    moveUpBtn.addEventListener("click", function() {
+                        if (playerIndex <= 0) {
+                            return;
+                        }
+                        const [moved] = record.players.splice(playerIndex, 1);
+                        record.players.splice(playerIndex - 1, 0, moved);
+                        renderTeamPlayersModal();
+                        syncCrmToJsonText();
+                    });
+                    const moveDownBtn = document.createElement("button");
+                    moveDownBtn.type = "button";
+                    moveDownBtn.textContent = "↓";
+                    moveDownBtn.title = "Move down";
+                    moveDownBtn.addEventListener("click", function() {
+                        if (playerIndex >= record.players.length - 1) {
+                            return;
+                        }
+                        const [moved] = record.players.splice(playerIndex, 1);
+                        record.players.splice(playerIndex + 1, 0, moved);
+                        renderTeamPlayersModal();
+                        syncCrmToJsonText();
+                    });
                     const removeBtn = document.createElement("button");
                     removeBtn.type = "button";
                     removeBtn.textContent = "Remove";
@@ -3710,6 +3779,8 @@
                         renderTeamPlayersModal();
                         syncCrmToJsonText();
                     });
+                    actionWrap.appendChild(moveUpBtn);
+                    actionWrap.appendChild(moveDownBtn);
                     actionWrap.appendChild(removeBtn);
                     row.appendChild(actionWrap);
                     list.appendChild(row);
@@ -3829,6 +3900,7 @@
 
                 const safeRecordIndex = Math.max(0, Math.min(recordIndex, state.crmModel.records.length - 1));
                 const rec = state.crmModel.records[safeRecordIndex] || {};
+                const kind = getCurrentEditorFileKind();
 
                 if (renderSpecializedCrmFields(targetContainer, rec, safeRecordIndex)) {
                     return;
@@ -3892,7 +3964,22 @@
                         head.appendChild(typeSelect);
                     }
 
-                    if (fieldType === "boolean") {
+                    if (kind === "posts" && String(key).toLowerCase() === "content") {
+                        input = document.createElement("textarea");
+                        input.rows = 8;
+                        input.style.minHeight = "140px";
+                        input.style.resize = "vertical";
+                        input.style.whiteSpace = "pre-wrap";
+                        input.value = normalizePostContentForEditor(rec[key]);
+                        input.addEventListener("input", function(event) {
+                            rec[key] = normalizePostContentForStorage(event.target.value);
+                            syncCrmToJsonText();
+                            autoResizeTextarea(input);
+                        });
+                        input.addEventListener("focus", function() {
+                            autoResizeTextarea(input);
+                        });
+                    } else if (fieldType === "boolean") {
                         input = document.createElement("input");
                         input.type = "checkbox";
                         input.checked = Boolean(rec[key]);
@@ -3929,6 +4016,9 @@
                     wrapper.appendChild(head);
                     wrapper.appendChild(input);
                     targetContainer.appendChild(wrapper);
+                    if (kind === "posts" && String(key).toLowerCase() === "content") {
+                        autoResizeTextarea(input);
+                    }
                 }
 
                 const addFieldWrap = document.createElement("div");
