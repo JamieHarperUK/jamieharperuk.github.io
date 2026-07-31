@@ -1686,6 +1686,7 @@ const app = {
                     const name = this.escapeHtml(player[1] || "Unknown Player");
                     const yellow = this.escapeHtml(player[2] || "0");
                     const red = this.escapeHtml(player[3] || "0");
+                    const injury = this.escapeHtml(player[4] || "0");
 
                     return `
                         <tr>
@@ -1693,6 +1694,7 @@ const app = {
                             <td>${name}</td>
                             <td style="text-align: center;"><span class="cards-pill yellow">${yellow}</span></td>
                             <td style="text-align: center;"><span class="cards-pill red">${red}</span></td>
+                            <td style="text-align: center;"><span class="cards-pill injury">${injury}</span></td>
                         </tr>
                     `;
                 })
@@ -1707,6 +1709,7 @@ const app = {
                             <th>Player</th>
                             <th style="text-align: center;">Y</th>
                             <th style="text-align: center;">R</th>
+                            <th style="text-align: center;">Inj</th>
                         </tr>
                     </thead>
                     <tbody>${rows}</tbody>

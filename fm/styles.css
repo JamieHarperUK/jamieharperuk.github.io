@@ -837,6 +837,11 @@ main {
     background-color: var(--danger-color);
 }
 
+.cards-pill.injury {
+    color: #fff;
+    background-color: var(--accent-color);
+}
+
 .empty-state {
     color: var(--text-secondary);
     padding: 1rem;
