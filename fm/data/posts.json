@@ -425,6 +425,20 @@
         "transfers",
         "player"
       ]
+    },
+    {
+      "title": "Jensen Weir Injury",
+      "content": "The Altrincham FC midfielder Jensen Weir received a serious injury in his last game against Woking. The club doctor estimates he will be unavailable to play in the next 7 to 8 games while he recovers.",
+      "date_time": [
+        "31-07-2026",
+        "11:29"
+      ],
+      "image": "https://jamieharperuk.github.io/fm/data/osm_post.jpg",
+      "category": "OSM",
+      "tags": [
+        "injury",
+        "recovery"
+      ]
     }
   ]
 }
