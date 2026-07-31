@@ -538,11 +538,15 @@
 
             .modal-card {
                 width: min(100%, 520px);
+                max-height: calc(100vh - 2rem);
+                display: flex;
+                flex-direction: column;
                 border: 1px solid var(--line);
                 border-radius: 12px;
                 background: #fff;
                 box-shadow: var(--shadow);
                 padding: 0.9rem;
+                overflow: hidden;
             }
 
             .modal-head {
@@ -551,6 +555,39 @@
                 justify-content: space-between;
                 gap: 0.6rem;
                 margin-bottom: 0.6rem;
+                flex-shrink: 0;
+            }
+
+            .modal-body-scroll {
+                overflow: auto;
+                min-height: 0;
+                padding-right: 0.2rem;
+            }
+
+            .post-content-preview {
+                border: 1px solid var(--line);
+                border-radius: 10px;
+                padding: 0.7rem;
+                background: #fbfdff;
+                font-family: var(--mono);
+                font-size: 0.84rem;
+                line-height: 1.45;
+                white-space: pre-wrap;
+                word-break: break-word;
+                max-height: 180px;
+                overflow: auto;
+            }
+
+            .post-content-modal-textarea {
+                width: 100%;
+                min-height: 280px;
+                max-height: min(70vh, 680px);
+                resize: vertical;
+                white-space: pre-wrap;
+                overflow: auto;
+                font-family: var(--mono);
+                font-size: 0.88rem;
+                line-height: 1.45;
             }
 
             .wizard-shell {
@@ -1376,6 +1413,23 @@
                 </div>
             </div>
 
+            <div id="postContentModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="postContentModalTitle">
+                <div class="modal-card" style="width:min(100%, 920px);">
+                    <div class="modal-head">
+                        <h3 id="postContentModalTitle">Edit Post Content</h3>
+                        <button id="postContentModalCloseBtn" type="button" class="warn">Close</button>
+                    </div>
+                    <div class="stack modal-body-scroll">
+                        <div id="postContentModalPath" class="pill mono">Post content</div>
+                        <textarea id="postContentModalTextarea" class="post-content-modal-textarea" spellcheck="true"></textarea>
+                        <div class="row">
+                            <button id="postContentModalSaveBtn" class="primary" type="button">Save</button>
+                            <button id="postContentModalCancelBtn" type="button">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div id="notificationModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="notificationTitle">
                 <div class="modal-card" style="width: min(100%, 620px);">
                     <div class="modal-head">
@@ -1567,6 +1621,7 @@
                     records: [],
                     selectedIndex: 0,
                     playersModalRecordIndex: 0,
+                    postContentModalRecordIndex: 0,
                     schema: {
                         enabled: false,
                         root: null,
@@ -1699,6 +1754,13 @@
                 teamPlayersModalAddBtn: document.getElementById("teamPlayersModalAddBtn"),
                 teamPlayersModalDoneBtn: document.getElementById("teamPlayersModalDoneBtn"),
                 teamPlayersModalCloseBtn: document.getElementById("teamPlayersModalCloseBtn"),
+                postContentModal: document.getElementById("postContentModal"),
+                postContentModalTitle: document.getElementById("postContentModalTitle"),
+                postContentModalPath: document.getElementById("postContentModalPath"),
+                postContentModalTextarea: document.getElementById("postContentModalTextarea"),
+                postContentModalSaveBtn: document.getElementById("postContentModalSaveBtn"),
+                postContentModalCancelBtn: document.getElementById("postContentModalCancelBtn"),
+                postContentModalCloseBtn: document.getElementById("postContentModalCloseBtn"),
                 notificationModal: document.getElementById("notificationModal"),
                 notificationTitle: document.getElementById("notificationTitle"),
                 notificationContent: document.getElementById("notificationContent"),
@@ -3677,6 +3739,57 @@
                 }
             }
 
+            function getActivePostContentRecord() {
+                const index = Number(state.crmModel.postContentModalRecordIndex ?? state.crmModel.selectedIndex ?? 0);
+                const record = state.crmModel.records[index] || null;
+                if (!record || typeof record !== "object") {
+                    return null;
+                }
+                return record;
+            }
+
+            function openPostContentModal(recordIndex) {
+                if (!state.crmModel.records.length) {
+                    return;
+                }
+                state.crmModel.postContentModalRecordIndex = Math.max(0, Math.min(Number(recordIndex ?? state.crmModel.selectedIndex ?? 0), state.crmModel.records.length - 1));
+                const record = getActivePostContentRecord();
+                if (!record) {
+                    return;
+                }
+                if (el.postContentModalTitle) {
+                    const title = record.title || record.name || "Post";
+                    el.postContentModalTitle.textContent = "Edit Post Content · " + title;
+                }
+                if (el.postContentModalPath) {
+                    el.postContentModalPath.textContent = record.title || record.name || "post.content";
+                }
+                if (el.postContentModalTextarea) {
+                    el.postContentModalTextarea.value = normalizePostContentForEditor(record.content);
+                }
+                if (el.postContentModal) {
+                    el.postContentModal.classList.remove("hidden");
+                }
+            }
+
+            function closePostContentModal() {
+                if (el.postContentModal) {
+                    el.postContentModal.classList.add("hidden");
+                }
+            }
+
+            function savePostContentModal() {
+                const record = getActivePostContentRecord();
+                if (!record || !el.postContentModalTextarea) {
+                    closePostContentModal();
+                    return;
+                }
+                record.content = normalizePostContentForStorage(el.postContentModalTextarea.value);
+                syncCrmToJsonText();
+                renderCrmFields();
+                closePostContentModal();
+            }
+
             function renderTeamPlayersModal() {
                 if (!el.teamPlayersModal || !el.teamPlayersModalBody) {
                     return;
@@ -3901,6 +4014,7 @@
                 const safeRecordIndex = Math.max(0, Math.min(recordIndex, state.crmModel.records.length - 1));
                 const rec = state.crmModel.records[safeRecordIndex] || {};
                 const kind = getCurrentEditorFileKind();
+                state.crmModel.postContentModalRecordIndex = safeRecordIndex;
 
                 if (renderSpecializedCrmFields(targetContainer, rec, safeRecordIndex)) {
                     return;
@@ -3965,20 +4079,27 @@
                     }
 
                     if (kind === "posts" && String(key).toLowerCase() === "content") {
-                        input = document.createElement("textarea");
-                        input.rows = 8;
-                        input.style.minHeight = "140px";
-                        input.style.resize = "vertical";
-                        input.style.whiteSpace = "pre-wrap";
-                        input.value = normalizePostContentForEditor(rec[key]);
-                        input.addEventListener("input", function(event) {
-                            rec[key] = normalizePostContentForStorage(event.target.value);
-                            syncCrmToJsonText();
-                            autoResizeTextarea(input);
+                        const contentCard = document.createElement("div");
+                        contentCard.className = "crm-field-card";
+                        const contentHead = document.createElement("div");
+                        contentHead.className = "crm-field-head";
+                        const contentLabel = document.createElement("label");
+                        contentLabel.textContent = "Content";
+                        contentHead.appendChild(contentLabel);
+                        const openBtn = document.createElement("button");
+                        openBtn.type = "button";
+                        openBtn.textContent = "Open editor";
+                        openBtn.addEventListener("click", function() {
+                            openPostContentModal(safeRecordIndex);
                         });
-                        input.addEventListener("focus", function() {
-                            autoResizeTextarea(input);
-                        });
+                        contentHead.appendChild(openBtn);
+                        const preview = document.createElement("div");
+                        preview.className = "post-content-preview";
+                        preview.textContent = normalizePostContentForEditor(rec[key]).trim() || "No content yet";
+                        contentCard.appendChild(contentHead);
+                        contentCard.appendChild(preview);
+                        targetContainer.appendChild(contentCard);
+                        continue;
                     } else if (fieldType === "boolean") {
                         input = document.createElement("input");
                         input.type = "checkbox";
@@ -4016,9 +4137,6 @@
                     wrapper.appendChild(head);
                     wrapper.appendChild(input);
                     targetContainer.appendChild(wrapper);
-                    if (kind === "posts" && String(key).toLowerCase() === "content") {
-                        autoResizeTextarea(input);
-                    }
                 }
 
                 const addFieldWrap = document.createElement("div");
@@ -4805,6 +4923,24 @@
                 el.teamPlayersModal.addEventListener("click", function(event) {
                     if (event.target === el.teamPlayersModal) {
                         closeTeamPlayersModal();
+                    }
+                });
+
+                el.postContentModalCloseBtn.addEventListener("click", function() {
+                    closePostContentModal();
+                });
+
+                el.postContentModalCancelBtn.addEventListener("click", function() {
+                    closePostContentModal();
+                });
+
+                el.postContentModalSaveBtn.addEventListener("click", function() {
+                    savePostContentModal();
+                });
+
+                el.postContentModal.addEventListener("click", function(event) {
+                    if (event.target === el.postContentModal) {
+                        closePostContentModal();
                     }
                 });
 
