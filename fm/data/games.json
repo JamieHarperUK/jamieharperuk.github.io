@@ -23,8 +23,8 @@
     {
       "home_or_away": "Home",
       "home_team": "Manchester United",
-      "away_team": "Tottenham Hotspur",
-      "date": "31-07-2026",
+      "away_team": "Fulham",
+      "date": "01-08-2026",
       "time": "18:28",
       "osm_or_top_eleven": "OSM",
       "competition": "England 2nd Division",
@@ -34,27 +34,14 @@
       "winner": ""
     },
     {
-      "home_or_away": "Home",
-      "home_team": "Altrincham FC",
-      "away_team": "Southend United",
-      "date": "31-07-2026",
+      "home_or_away": "Away",
+      "home_team": "Harrogate Town",
+      "away_team": "Altrincham FC",
+      "date": "01-08-2026",
       "time": "20:20",
       "osm_or_top_eleven": "OSM",
       "competition": "England 5th Division",
-      "venue": "J. Davidson Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
-      "home_team": "scholer FC",
-      "away_team": "Harper FC",
-      "date": "31-07-2026",
-      "time": "21:30",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "Cup (Semi-Finals)",
-      "venue": "The Concourse",
+      "venue": "Marcy Fitness Stadium",
       "home_score": "",
       "away_score": "",
       "winner": ""
@@ -72,10 +59,45 @@
       "away_score": "",
       "winner": ""
     },
-
-
-
-
+    {
+      "home_or_away": "Away",
+      "home_team": "scholer FC",
+      "away_team": "Harper FC",
+      "date": "31-07-2026",
+      "time": "21:30",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Cup (Semi-Finals)",
+      "venue": "scholer FC's Stadium",
+      "home_score": "0",
+      "away_score": "6",
+      "winner": "Harper FC"
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Altrincham FC",
+      "away_team": "Southend United",
+      "date": "31-07-2026",
+      "time": "20:20",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 5th Division",
+      "venue": "J. Davidson Stadium",
+      "home_score": "4",
+      "away_score": "2",
+      "winner": "Altrincham FC"
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Manchester United",
+      "away_team": "Tottenham Hotspur",
+      "date": "31-07-2026",
+      "time": "18:28",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Old Trafford",
+      "home_score": "3",
+      "away_score": "0",
+      "winner": "Manchester United"
+    },
     {
       "home_or_away": "Away",
       "home_team": "MONOR",
@@ -89,7 +111,6 @@
       "away_score": "4",
       "winner": "Harper FC"
     },
-
     {
       "home_or_away": "Away",
       "home_team": "Woking",
@@ -129,7 +150,6 @@
       "away_score": "0",
       "winner": "Harper FC"
     },
-
     {
       "home_or_away": "Home",
       "home_team": "Harper FC",
@@ -182,7 +202,6 @@
       "away_score": "5",
       "winner": "Harper FC"
     },
-
     {
       "home_or_away": "Away",
       "home_team": "Arsenal",
@@ -209,7 +228,6 @@
       "away_score": "1",
       "winner": "Harper FC"
     },
-
     {
       "home_or_away": "Home",
       "home_team": "Manchester United",
@@ -236,7 +254,6 @@
       "away_score": "0",
       "winner": "Harper FC"
     },
-
     {
       "home_or_away": "Away",
       "home_team": "Bournemouth",
@@ -263,7 +280,6 @@
       "away_score": "5",
       "winner": "Harper FC"
     },
-
     {
       "home_or_away": "Home",
       "home_team": "Manchester United",
@@ -290,7 +306,6 @@
       "away_score": "3",
       "winner": "Harper FC"
     },
-
     {
       "home_or_away": "Away",
       "home_team": "Newcastle United",
@@ -317,7 +332,6 @@
       "away_score": "9",
       "winner": "Harper FC"
     },
-    
     {
       "home_or_away": "Home",
       "home_team": "Harper FC",
@@ -344,7 +358,6 @@
       "away_score": "0",
       "winner": "Manchester United"
     },
-    
     {
       "home_or_away": "Home",
       "home_team": "Manchester United",
@@ -371,7 +384,6 @@
       "away_score": "0",
       "winner": "Harper FC"
     },
-
     {
       "home_or_away": "Home",
       "home_team": "Manchester United",
@@ -386,19 +398,18 @@
       "winner": "Manchester United"
     },
     {
-        "home_or_away": "Away",
-        "home_team": "FFC Rybnoye 1974",
-        "away_team": "Harper FC",
-        "date": "21-07-2026",
-        "time": "11:07",
-        "osm_or_top_eleven": "Top Eleven",
-        "competition": "League Level 1",
-        "venue": "FFC Rybnoye 1974's Stadium",
-        "home_score": "2",
-        "away_score": "1",
-        "winner": "FFC Rybnoye 1974"
+      "home_or_away": "Away",
+      "home_team": "FFC Rybnoye 1974",
+      "away_team": "Harper FC",
+      "date": "21-07-2026",
+      "time": "11:07",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 1",
+      "venue": "FFC Rybnoye 1974's Stadium",
+      "home_score": "2",
+      "away_score": "1",
+      "winner": "FFC Rybnoye 1974"
     },
-
     {
       "home_or_away": "Away",
       "home_team": "Everton",
@@ -425,7 +436,6 @@
       "away_score": "0",
       "winner": "Harper FC"
     },
-
     {
       "home_or_away": "Home",
       "home_team": "Manchester United",
@@ -439,7 +449,6 @@
       "away_score": "1",
       "winner": "Manchester United"
     },
-
     {
       "home_or_away": "Away",
       "home_team": "Nottingham Forest",
@@ -453,7 +462,6 @@
       "away_score": "2",
       "winner": "Manchester United"
     },
-
     {
       "home_or_away": "Home",
       "home_team": "Manchester United",
@@ -467,7 +475,6 @@
       "away_score": "0",
       "winner": "Manchester United"
     },
-
     {
       "home_or_away": "Away",
       "home_team": "Brentford",
@@ -481,7 +488,6 @@
       "away_score": "2",
       "winner": "Manchester United"
     },
-
     {
       "home_or_away": "Home",
       "home_team": "Manchester United",
@@ -495,7 +501,6 @@
       "away_score": "0",
       "winner": "Manchester United"
     },
-
     {
       "home_or_away": "Home",
       "home_team": "Manchester United",
@@ -509,7 +514,6 @@
       "away_score": "1",
       "winner": "Manchester United"
     },
-
     {
       "home_or_away": "Away",
       "home_team": "Brighton & Hove Albion",
@@ -523,7 +527,6 @@
       "away_score": "2",
       "winner": "Manchester United"
     },
-
     {
       "home_or_away": "Away",
       "home_team": "West Ham United",
@@ -537,7 +540,6 @@
       "away_score": "1",
       "winner": "Manchester United"
     },
-
     {
       "home_or_away": "Home",
       "home_team": "Manchester United",
@@ -551,7 +553,6 @@
       "away_score": "0",
       "winner": "Manchester United"
     },
-
     {
       "home_or_away": "Away",
       "home_team": "Fulham",
@@ -565,7 +566,6 @@
       "away_score": "0",
       "winner": "Fulham"
     },
-
     {
       "home_or_away": "Home",
       "home_team": "Manchester United",
@@ -579,7 +579,6 @@
       "away_score": "0",
       "winner": "Manchester United"
     },
-
     {
       "home_or_away": "Away",
       "home_team": "Sunderland",
@@ -593,7 +592,6 @@
       "away_score": "2",
       "winner": "Manchester United"
     },
-
     {
       "home_or_away": "Home",
       "home_team": "Manchester United",
@@ -607,7 +605,6 @@
       "away_score": "0",
       "winner": "Draw"
     },
-
     {
       "home_or_away": "Away",
       "home_team": "Tottenham Hotspur",
@@ -621,7 +618,6 @@
       "away_score": "0",
       "winner": "Tottenham Hotspur"
     },
-
     {
       "home_or_away": "Home",
       "home_team": "Manchester United",
@@ -635,7 +631,6 @@
       "away_score": "0",
       "winner": "Manchester United"
     },
-
     {
       "home_or_away": "Away",
       "home_team": "Burnley",
@@ -649,7 +644,6 @@
       "away_score": "3",
       "winner": "Manchester United"
     },
-
     {
       "home_or_away": "Home",
       "home_team": "Manchester United",
@@ -663,7 +657,6 @@
       "away_score": "1",
       "winner": "Manchester United"
     },
-
     {
       "home_or_away": "Away",
       "home_team": "Manchester City",
@@ -677,7 +670,6 @@
       "away_score": "0",
       "winner": "Manchester City"
     },
-
     {
       "home_or_away": "Home",
       "home_team": "England",
