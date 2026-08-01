@@ -1094,6 +1094,9 @@
                                         <div>
                                             <label for="crmRecordSelect">Records</label>
                                             <select id="crmRecordSelect"></select>
+                                            <div class="row" style="margin-top:0.45rem;">
+                                                <button id="crmLoadMoreBtn" type="button" class="hidden">Load more games</button>
+                                            </div>
                                         </div>
                                         <div>
                                             <label for="crmRootMode">Interpretation</label>
@@ -1628,6 +1631,7 @@
                     selectedIndex: 0,
                     playersModalRecordIndex: 0,
                     postContentModalRecordIndex: 0,
+                    visibleRecordLimit: 10,
                     schema: {
                         enabled: false,
                         root: null,
@@ -1710,6 +1714,7 @@
                 nodeAddBtn: document.getElementById("nodeAddBtn"),
                 crmRootMode: document.getElementById("crmRootMode"),
                 crmRecordSelect: document.getElementById("crmRecordSelect"),
+                crmLoadMoreBtn: document.getElementById("crmLoadMoreBtn"),
                 crmDragPanel: document.getElementById("crmDragPanel"),
                 crmDragList: document.getElementById("crmDragList"),
                 crmFields: document.getElementById("crmFields"),
@@ -1828,11 +1833,18 @@
                 const enabled = notificationConfig.enabled !== false;
                 const endpoint = String(notificationConfig.notifyEndpoint || "").trim();
                 const shouldShow = enabled && Boolean(endpoint);
+                const kind = getCurrentEditorFileKind();
+                const isTeams = kind === "teams";
+                const isPosts = kind === "posts";
+                const isGames = kind === "games";
+
                 if (el.notifyOnCommitWrap) {
                     el.notifyOnCommitWrap.classList.toggle("hidden", !shouldShow);
                 }
-                if (el.notifyOnCommitCheckbox && shouldShow) {
-                    el.notifyOnCommitCheckbox.checked = true;
+                if (el.notifyOnCommitCheckbox) {
+                    el.notifyOnCommitCheckbox.checked = isPosts;
+                    el.notifyOnCommitCheckbox.disabled = isTeams;
+                    el.notifyOnCommitCheckbox.title = isTeams ? "Notifications are disabled for teams." : isGames ? "Send a game notification with this commit." : "Send a post notification with this commit.";
                 }
             }
 
@@ -3480,6 +3492,32 @@
                 }
             }
 
+            function getVisibleCrmRecords() {
+                const kind = getCurrentEditorFileKind();
+                if (kind !== "games") {
+                    return state.crmModel.records;
+                }
+
+                const limit = Number(state.crmModel.visibleRecordLimit || 10);
+                if (!Array.isArray(state.crmModel.records) || state.crmModel.records.length <= limit) {
+                    return state.crmModel.records;
+                }
+
+                return state.crmModel.records.slice(0, limit);
+            }
+
+            function loadMoreCrmRecords() {
+                if (getCurrentEditorFileKind() !== "games") {
+                    return;
+                }
+
+                const nextLimit = (Number(state.crmModel.visibleRecordLimit || 10) + 10);
+                state.crmModel.visibleRecordLimit = nextLimit;
+                renderCrmRecordSelect();
+                renderCrmDragList();
+                renderCrmFields();
+            }
+
             function hydrateCrmFromCurrentJson() {
                 if (!state.currentJsonData) {
                     return;
@@ -3552,6 +3590,7 @@
                 }
 
                 state.crmModel.selectedIndex = 0;
+                state.crmModel.visibleRecordLimit = 10;
                 el.crmRootMode.value = state.crmModel.rootMode;
                 el.crmRootMode.disabled = Boolean(state.crmModel.schema.enabled);
                 renderCrmRecordSelect();
@@ -3563,7 +3602,15 @@
             function renderCrmRecordSelect() {
                 el.crmRecordSelect.innerHTML = "";
 
-                if (!state.crmModel.records.length) {
+                const visibleRecords = getVisibleCrmRecords();
+                const kind = getCurrentEditorFileKind();
+                const hasMoreGames = kind === "games" && Array.isArray(state.crmModel.records) && state.crmModel.records.length > Number(state.crmModel.visibleRecordLimit || 10);
+
+                if (el.crmLoadMoreBtn) {
+                    el.crmLoadMoreBtn.classList.toggle("hidden", !hasMoreGames);
+                }
+
+                if (!visibleRecords.length) {
                     const option = document.createElement("option");
                     option.value = "0";
                     option.textContent = "No records";
@@ -3572,11 +3619,12 @@
                     return;
                 }
 
-                state.crmModel.records.forEach(function(record, idx) {
+                visibleRecords.forEach(function(record, idx) {
+                    const actualIndex = state.crmModel.records.indexOf(record);
                     const option = document.createElement("option");
-                    option.value = String(idx);
-                    option.textContent = getRecordLabel(record, idx);
-                    if (idx === state.crmModel.selectedIndex) {
+                    option.value = String(actualIndex >= 0 ? actualIndex : idx);
+                    option.textContent = getRecordLabel(record, actualIndex >= 0 ? actualIndex : idx);
+                    if (actualIndex === state.crmModel.selectedIndex) {
                         option.selected = true;
                     }
                     el.crmRecordSelect.appendChild(option);
@@ -3667,6 +3715,8 @@
             function renderCrmDragList() {
                 el.crmDragList.innerHTML = "";
 
+                const visibleRecords = getVisibleCrmRecords();
+
                 if (state.crmModel.rootMode !== "array") {
                     el.crmDragPanel.classList.add("hidden");
                     return;
@@ -3674,9 +3724,10 @@
 
                 el.crmDragPanel.classList.remove("hidden");
 
-                state.crmModel.records.forEach(function(record, idx) {
+                visibleRecords.forEach(function(record, idx) {
+                    const actualIndex = state.crmModel.records.indexOf(record);
                     const item = document.createElement("li");
-                    item.className = "crm-drag-item" + (idx === state.crmModel.selectedIndex ? " active" : "");
+                    item.className = "crm-drag-item" + (actualIndex === state.crmModel.selectedIndex ? " active" : "");
                     item.draggable = true;
 
                     const handle = document.createElement("span");
@@ -3691,7 +3742,7 @@
                     item.appendChild(text);
 
                     item.addEventListener("click", function() {
-                        openCrmRecordModal(idx);
+                        openCrmRecordModal(actualIndex >= 0 ? actualIndex : idx);
                     });
 
                     item.addEventListener("dragstart", function(event) {
@@ -3712,7 +3763,7 @@
                         event.preventDefault();
                         item.classList.remove("drag-over");
                         const fromIndex = Number(event.dataTransfer.getData("text/plain"));
-                        reorderRecords(fromIndex, idx);
+                        reorderRecords(fromIndex, actualIndex >= 0 ? actualIndex : idx);
                     });
 
                     item.addEventListener("dragend", function() {
@@ -4025,7 +4076,8 @@
 
                 targetContainer.innerHTML = "";
 
-                if (!state.crmModel.records.length) {
+                const visibleRecords = getVisibleCrmRecords();
+                if (!visibleRecords.length) {
                     const emptyState = document.createElement("div");
                     emptyState.className = "status";
                     emptyState.textContent = "No objects to display. Add a record or switch back to raw mode to edit JSON directly.";
@@ -4033,7 +4085,7 @@
                     return;
                 }
 
-                const safeRecordIndex = Math.max(0, Math.min(recordIndex, state.crmModel.records.length - 1));
+                const safeRecordIndex = Math.max(0, Math.min(Number(recordIndex ?? state.crmModel.selectedIndex ?? 0), state.crmModel.records.length - 1));
                 const rec = state.crmModel.records[safeRecordIndex] || {};
                 const kind = getCurrentEditorFileKind();
                 state.crmModel.postContentModalRecordIndex = safeRecordIndex;
@@ -4559,7 +4611,7 @@
                     const notificationConfig = WEBEDITOR_CONFIG.notifications || {};
                     const notifyDelayMs = Math.max(0, Number(notificationConfig.delayMs || 0));
                     const notifyEnabled = notificationConfig.enabled !== false;
-                    const shouldSendNotifications = Boolean(el.notifyOnCommitCheckbox && el.notifyOnCommitCheckbox.checked);
+                    const shouldSendNotifications = Boolean(el.notifyOnCommitCheckbox && !el.notifyOnCommitCheckbox.disabled && el.notifyOnCommitCheckbox.checked);
                     
                     if (shouldSendNotifications && notifyDelayMs > 0 && notifyEnabled) {
                         const delaySeconds = Math.round(notifyDelayMs / 1000);
@@ -4674,6 +4726,12 @@
                 el.notificationDismissBtn.addEventListener("click", function() {
                     closeNotificationModal();
                 });
+
+                if (el.crmLoadMoreBtn) {
+                    el.crmLoadMoreBtn.addEventListener("click", function() {
+                        loadMoreCrmRecords();
+                    });
+                }
 
                 el.modalCopyCodeBtn.addEventListener("click", function() {
                     const code = el.modalDeviceCode.textContent;
