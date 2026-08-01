@@ -139,7 +139,7 @@ function makePostSlug(latestPost) {
 	return slug || "post";
 }
 
-function buildNotifyPayload(body, siteId) {
+function buildPostNotifyPayload(body, siteId) {
 	const latestPost = body.latestPost && typeof body.latestPost === "object" ? body.latestPost : {};
 	const slug = makePostSlug(latestPost);
 
@@ -161,8 +161,62 @@ function buildNotifyPayload(body, siteId) {
 			url: "https://jamieharperuk.github.io/fm/#post/" + slug,
 			category,
 			commitSha: String(body.commitSha || "")
-			}
-		};
+		}
+	};
+}
+
+function buildGamesNotifyPayload(body, siteId) {
+	const latestResult = body.latestResult && typeof body.latestResult === "object" ? body.latestResult : {};
+	const homeTeam = String(latestResult.homeTeam || "Home").trim();
+	const awayTeam = String(latestResult.awayTeam || "Away").trim();
+	const homeScore = String(latestResult.homeScore ?? "").trim();
+	const awayScore = String(latestResult.awayScore ?? "").trim();
+	const winner = String(latestResult.winner || "").trim();
+	const competition = String(latestResult.competition || "").trim();
+	const date = String(latestResult.date || "").trim();
+	const time = String(latestResult.time || "").trim();
+
+	const hasScore = homeScore !== "" && awayScore !== "";
+	const fixtureText = homeTeam + " vs " + awayTeam;
+	const scoreText = hasScore ? homeScore + "-" + awayScore : "Result";
+	const title = fixtureText + " " + scoreText;
+
+	const bodyParts = [];
+	if (winner) {
+		bodyParts.push("Winner: " + winner);
+	}
+	if (competition) {
+		bodyParts.push(competition);
+	}
+	if (date) {
+		bodyParts.push(date + (time ? " " + time : ""));
+	}
+
+	const fallbackSlug = String(latestResult.winnerTeamSlug || "").trim();
+	const fallbackUrl = fallbackSlug ? "https://jamieharperuk.github.io/fm/#team/" + fallbackSlug : "https://jamieharperuk.github.io/fm/";
+	const requestedUrl = String(body.notificationUrl || latestResult.winnerTeamUrl || "").trim();
+
+	return {
+		title,
+		body: bodyParts.join(" · ") || "Latest result update",
+		icon: "https://jamieharperuk.github.io/fm/data/fm_icon.png",
+		badge: "https://jamieharperuk.github.io/fm/data/fm_icon.png",
+		data: {
+			siteId,
+			url: requestedUrl || fallbackUrl,
+			category: "Result",
+			commitSha: String(body.commitSha || "")
+		}
+	};
+}
+
+function buildNotifyPayload(body, siteId) {
+	const kind = String(body.kind || "posts").trim().toLowerCase();
+	if (kind === "games") {
+		return buildGamesNotifyPayload(body, siteId);
+	}
+
+	return buildPostNotifyPayload(body, siteId);
 }
 
 async function writeLastNotifyState(env, siteId, body, sentCount) {
