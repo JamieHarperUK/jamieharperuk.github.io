@@ -453,6 +453,20 @@
         "signing",
         "player"
       ]
+    },
+    {
+      "title": "New Signing (Louis Mafouta)",
+      "content": "Altrincham FC has picked up the striker Louis Mafouta for $4.0M from the French club En Avant Guingamp, further reinforcing the club's offensive line.",
+      "date_time": [
+        "01-08-2026",
+        "16:41"
+      ],
+      "image": "https://jamieharperuk.github.io/fm/data/osm_post.jpg",
+      "category": "OSM",
+      "tags": [
+        "signing",
+        "player"
+      ]
     }
   ]
 }
