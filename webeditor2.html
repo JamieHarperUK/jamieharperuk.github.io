@@ -4472,8 +4472,11 @@
                     if (!game || typeof game !== "object") {
                         return false;
                     }
+
+                    const hasHomeScore = String(game.home_score ?? "").trim() !== "";
+                    const hasAwayScore = String(game.away_score ?? "").trim() !== "";
                     const winner = String(game.winner || "").trim();
-                    return winner && !/^draw$/i.test(winner);
+                    return (hasHomeScore && hasAwayScore) || winner.length > 0;
                 });
 
                 if (!playedGames.length) {
@@ -4497,9 +4500,21 @@
                 }
 
                 const winner = String(latest.winner || "").trim();
-                const winnerTeamSlug = toTeamSlug(winner);
-                const winnerTeamUrl = winnerTeamSlug
-                    ? "https://jamieharperuk.github.io/fm/#team/" + winnerTeamSlug
+                const homeOrAway = String(latest.home_or_away || "").trim().toLowerCase();
+                let relevantTeam = "";
+                if (homeOrAway === "home") {
+                    relevantTeam = String(latest.home_team || "").trim();
+                } else if (homeOrAway === "away") {
+                    relevantTeam = String(latest.away_team || "").trim();
+                } else if (winner && !/^draw$/i.test(winner)) {
+                    relevantTeam = winner;
+                } else {
+                    relevantTeam = String(latest.home_team || latest.away_team || "").trim();
+                }
+
+                const relevantTeamSlug = toTeamSlug(relevantTeam);
+                const relevantTeamUrl = relevantTeamSlug
+                    ? "https://jamieharperuk.github.io/fm/#team/" + relevantTeamSlug
                     : "";
 
                 return {
@@ -4511,8 +4526,9 @@
                     date: String(latest.date || ""),
                     time: String(latest.time || ""),
                     competition: String(latest.competition || ""),
-                    winnerTeamSlug,
-                    winnerTeamUrl
+                    relevantTeam,
+                    relevantTeamSlug,
+                    relevantTeamUrl
                 };
             }
 
@@ -4545,7 +4561,7 @@
                 const latestResult = fileKind === "games" ? resolveLatestResult(jsonPayload) : null;
                 const shouldNotify = Boolean(fileKind === "posts" ? latestPost : latestResult);
                 if (!shouldNotify) {
-                    return { skipped: true, reason: fileKind === "games" ? "no-decided-winner" : "no-post" };
+                    return { skipped: true, reason: fileKind === "games" ? "no-completed-result" : "no-post" };
                 }
 
                 const headers = {
@@ -4568,7 +4584,7 @@
                         kind: fileKind,
                         latestPost,
                         latestResult,
-                        notificationUrl: fileKind === "games" ? String((latestResult && latestResult.winnerTeamUrl) || "") : ""
+                        notificationUrl: fileKind === "games" ? String((latestResult && latestResult.relevantTeamUrl) || "") : ""
                     })
                 });
 
@@ -4749,8 +4765,8 @@
                                     } else {
                                         const reasonText = notificationResult.reason === "teams"
                                             ? "Teams updates do not trigger notifications."
-                                            : notificationResult.reason === "no-decided-winner"
-                                                ? "No decided winner was detected for notification."
+                                            : notificationResult.reason === "no-completed-result"
+                                                ? "No completed result was detected for notification."
                                                 : "Notifications were not sent for this update.";
                                         showNotificationModal("Committed " + state.currentJsonPath + ". " + reasonText, "ok", "Success");
                                     }
@@ -4769,8 +4785,8 @@
                         } else {
                             const reasonText = notificationResult.reason === "teams"
                                 ? "Teams updates do not trigger notifications."
-                                : notificationResult.reason === "no-decided-winner"
-                                    ? "No decided winner was detected for notification."
+                                : notificationResult.reason === "no-completed-result"
+                                    ? "No completed result was detected for notification."
                                     : "Notifications were not sent for this update.";
                             showNotificationModal("Committed " + state.currentJsonPath + ". " + reasonText, "ok", "Success");
                         }

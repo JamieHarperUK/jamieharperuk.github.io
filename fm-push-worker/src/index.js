@@ -183,7 +183,11 @@ function buildGamesNotifyPayload(body, siteId) {
 
 	const bodyParts = [];
 	if (winner) {
-		bodyParts.push("Winner: " + winner);
+		if (/^draw$/i.test(winner)) {
+			bodyParts.push("Result: Draw");
+		} else {
+			bodyParts.push("Winner: " + winner);
+		}
 	}
 	if (competition) {
 		bodyParts.push(competition);
