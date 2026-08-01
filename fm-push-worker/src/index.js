@@ -192,7 +192,7 @@ function buildNotifyPayload(body, siteId) {
 			url: "https://jamieharperuk.github.io/fm/#post/" + slug,
 			category,
 			commitSha: String(body.commitSha || "")
-		}
+		} 
 	};
 }
 
