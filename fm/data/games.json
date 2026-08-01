@@ -22,6 +22,19 @@
   "games": [
     {
       "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "FFC Rybnoye 1974",
+      "date": "01-08-2026",
+      "time": "11:07",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 1",
+      "venue": "FFC Rybnoye 1974's Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
       "home_team": "Manchester United",
       "away_team": "Fulham",
       "date": "01-08-2026",
@@ -47,14 +60,14 @@
       "winner": ""
     },
     {
-      "home_or_away": "Home",
-      "home_team": "Harper FC",
-      "away_team": "FFC Rybnoye 1974",
-      "date": "01-08-2026",
-      "time": "11:07",
+      "home_or_away": "Away",
+      "home_team": "FC ransonet",
+      "away_team": "Harper FC",
+      "date": "04-08-2026",
+      "time": "21:58",
       "osm_or_top_eleven": "Top Eleven",
-      "competition": "League Level 1",
-      "venue": "FFC Rybnoye 1974's Stadium",
+      "competition": "Cup (Final)",
+      "venue": "FC ransonet's Stadium",
       "home_score": "",
       "away_score": "",
       "winner": ""
