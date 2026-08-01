@@ -387,7 +387,12 @@ const app = {
 
         modal.classList.remove("is-open");
         modal.setAttribute("aria-hidden", "true");
-        document.body.classList.remove("modal-open");
+        this.syncBodyModalOpenState();
+    },
+
+    syncBodyModalOpenState() {
+        const hasOpenModal = Boolean(document.querySelector(".modal-backdrop.is-open"));
+        document.body.classList.toggle("modal-open", hasOpenModal);
     },
 
     setupNavigation() {
@@ -809,6 +814,42 @@ const app = {
         };
     },
 
+    getPushModalElements() {
+        return {
+            fabButton: document.getElementById("pushFab"),
+            modal: document.getElementById("pushModal"),
+            closeButton: document.getElementById("pushModalClose")
+        };
+    },
+
+    openPushSettingsModal() {
+        const { modal, fabButton } = this.getPushModalElements();
+        if (!modal) {
+            return;
+        }
+
+        modal.classList.add("is-open");
+        modal.setAttribute("aria-hidden", "false");
+        if (fabButton) {
+            fabButton.setAttribute("aria-expanded", "true");
+        }
+        this.syncBodyModalOpenState();
+    },
+
+    closePushSettingsModal() {
+        const { modal, fabButton } = this.getPushModalElements();
+        if (!modal) {
+            return;
+        }
+
+        modal.classList.remove("is-open");
+        modal.setAttribute("aria-hidden", "true");
+        if (fabButton) {
+            fabButton.setAttribute("aria-expanded", "false");
+        }
+        this.syncBodyModalOpenState();
+    },
+
     setPushStatus(message, tone = "neutral") {
         const { statusText } = this.getPushUiElements();
         if (!statusText) {
@@ -835,6 +876,7 @@ const app = {
 
     syncPushButtons() {
         const { enableButton, disableButton } = this.getPushUiElements();
+        const { fabButton } = this.getPushModalElements();
         if (!enableButton || !disableButton) {
             return;
         }
@@ -843,10 +885,43 @@ const app = {
         const permission = this.getNotificationPermission();
         enableButton.disabled = state.isBusy || state.isSubscribed || permission === "denied";
         disableButton.disabled = state.isBusy || !state.isSubscribed;
+
+        if (fabButton) {
+            const statusText = state.isSubscribed ? "On" : "Off";
+            fabButton.setAttribute("aria-label", `Notification settings (${statusText})`);
+            fabButton.classList.toggle("is-enabled", state.isSubscribed);
+        }
     },
 
     async setupPushNotifications() {
         const { enableButton, disableButton } = this.getPushUiElements();
+        const { fabButton, modal, closeButton } = this.getPushModalElements();
+
+        if (fabButton) {
+            fabButton.addEventListener("click", () => {
+                this.trackEvent("push_modal_open", "Notifications", "Open Notification Controls");
+                this.openPushSettingsModal();
+            });
+        }
+
+        if (closeButton) {
+            closeButton.addEventListener("click", () => this.closePushSettingsModal());
+        }
+
+        if (modal) {
+            modal.addEventListener("click", (event) => {
+                if (event.target === modal) {
+                    this.closePushSettingsModal();
+                }
+            });
+        }
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && modal?.classList.contains("is-open")) {
+                this.closePushSettingsModal();
+            }
+        });
+
         if (!enableButton || !disableButton) {
             return;
         }

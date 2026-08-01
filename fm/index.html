@@ -79,16 +79,6 @@
                     </div>
                 </div>
 
-                <section class="panel notify-panel notify-panel-posts" aria-labelledby="notify-panel-title">
-                    <h2 class="panel-title" id="notify-panel-title">Post Notifications</h2>
-                    <p class="notes-content">Enable browser push notifications to get alerted when a new post is published.</p>
-                    <div class="notify-actions">
-                        <button type="button" class="notify-btn" id="enablePushBtn">Enable Notifications</button>
-                        <button type="button" class="notify-btn notify-btn-secondary" id="disablePushBtn">Disable Notifications</button>
-                    </div>
-                    <p id="pushStatusText" class="push-status-text" aria-live="polite">Checking notification support...</p>
-                </section>
-
                 <div class="updates-grid" id="allPosts"></div>
             </section>
 
@@ -102,6 +92,36 @@
 
             <div id="teamPagesContainer"></div>
         </main>
+
+        <button
+            type="button"
+            id="pushFab"
+            class="push-fab"
+            aria-haspopup="dialog"
+            aria-controls="pushModal"
+            aria-expanded="false"
+            data-analytics-action="push_modal_open"
+            data-analytics-category="Notifications"
+            data-analytics-label="Open Notification Controls"
+        >
+            <i class="fas fa-bell"></i>
+            <span>Alerts</span>
+        </button>
+
+        <div class="modal-backdrop" id="pushModal" aria-hidden="true">
+            <div class="modal-dialog push-modal" role="dialog" aria-modal="true" aria-labelledby="pushModalTitle">
+                <button class="modal-close" id="pushModalClose" type="button" aria-label="Close notification settings">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h2 id="pushModalTitle">Notification Settings</h2>
+                <p class="notes-content">Enable browser push notifications to receive post and result updates.</p>
+                <div class="notify-actions">
+                    <button type="button" class="notify-btn" id="enablePushBtn">Enable Notifications</button>
+                    <button type="button" class="notify-btn notify-btn-secondary" id="disablePushBtn">Disable Notifications</button>
+                </div>
+                <p id="pushStatusText" class="push-status-text" aria-live="polite">Checking notification support...</p>
+            </div>
+        </div>
 
         <div class="modal-backdrop" id="eloInfoModal" aria-hidden="true">
             <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="eloInfoTitle">
