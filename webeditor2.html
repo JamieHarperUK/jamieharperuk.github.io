@@ -1094,9 +1094,6 @@
                                         <div>
                                             <label for="crmRecordSelect">Records</label>
                                             <select id="crmRecordSelect"></select>
-                                            <div class="row" style="margin-top:0.45rem;">
-                                                <button id="crmLoadMoreBtn" type="button" class="hidden">Load more games</button>
-                                            </div>
                                         </div>
                                         <div>
                                             <label for="crmRootMode">Interpretation</label>
@@ -1105,6 +1102,10 @@
                                                 <option value="object">Single object</option>
                                             </select>
                                         </div>
+                                    </div>
+                                    <div id="gamesRecordLimitWrap" class="row hidden" style="margin-top:0.7rem;">
+                                        <span id="gamesRecordLimitInfo" class="pill mono"></span>
+                                        <button id="gamesRecordLoadMoreBtn" type="button">Load 10 more</button>
                                     </div>
                                     <div id="crmDragPanel" class="crm-drag-panel">
                                         <label>Reorder objects (drag and drop)</label>
@@ -1624,14 +1625,16 @@
                 currentJsonPath: "",
                 currentJsonSha: "",
                 currentJsonData: null,
+                lastNotificationPreferenceKind: "",
                 editorStep: 0,
                 crmModel: {
                     rootMode: "array",
                     records: [],
                     selectedIndex: 0,
+                    gamesVisibleCount: 10,
+                    gamesPageSize: 10,
                     playersModalRecordIndex: 0,
                     postContentModalRecordIndex: 0,
-                    visibleRecordLimit: 10,
                     schema: {
                         enabled: false,
                         root: null,
@@ -1714,7 +1717,9 @@
                 nodeAddBtn: document.getElementById("nodeAddBtn"),
                 crmRootMode: document.getElementById("crmRootMode"),
                 crmRecordSelect: document.getElementById("crmRecordSelect"),
-                crmLoadMoreBtn: document.getElementById("crmLoadMoreBtn"),
+                gamesRecordLimitWrap: document.getElementById("gamesRecordLimitWrap"),
+                gamesRecordLimitInfo: document.getElementById("gamesRecordLimitInfo"),
+                gamesRecordLoadMoreBtn: document.getElementById("gamesRecordLoadMoreBtn"),
                 crmDragPanel: document.getElementById("crmDragPanel"),
                 crmDragList: document.getElementById("crmDragList"),
                 crmFields: document.getElementById("crmFields"),
@@ -1833,18 +1838,29 @@
                 const enabled = notificationConfig.enabled !== false;
                 const endpoint = String(notificationConfig.notifyEndpoint || "").trim();
                 const shouldShow = enabled && Boolean(endpoint);
-                const kind = getCurrentEditorFileKind();
-                const isTeams = kind === "teams";
-                const isPosts = kind === "posts";
-                const isGames = kind === "games";
-
+                const fileKind = getCurrentEditorFileKind();
                 if (el.notifyOnCommitWrap) {
                     el.notifyOnCommitWrap.classList.toggle("hidden", !shouldShow);
                 }
-                if (el.notifyOnCommitCheckbox) {
-                    el.notifyOnCommitCheckbox.checked = isPosts;
-                    el.notifyOnCommitCheckbox.disabled = isTeams;
-                    el.notifyOnCommitCheckbox.title = isTeams ? "Notifications are disabled for teams." : isGames ? "Send a game notification with this commit." : "Send a post notification with this commit.";
+                if (!el.notifyOnCommitCheckbox || !shouldShow) {
+                    return;
+                }
+
+                if (fileKind === "teams") {
+                    el.notifyOnCommitCheckbox.checked = false;
+                    el.notifyOnCommitCheckbox.disabled = true;
+                    return;
+                }
+
+                el.notifyOnCommitCheckbox.disabled = false;
+
+                if (state.lastNotificationPreferenceKind !== fileKind) {
+                    if (fileKind === "posts") {
+                        el.notifyOnCommitCheckbox.checked = true;
+                    } else if (fileKind === "games") {
+                        el.notifyOnCommitCheckbox.checked = false;
+                    }
+                    state.lastNotificationPreferenceKind = fileKind;
                 }
             }
 
@@ -2152,6 +2168,10 @@
                 state.selectedRepoCandidate = "";
                 state.selectedRepo = null;
                 state.config = null;
+                state.currentJsonPath = "";
+                state.currentJsonSha = "";
+                state.currentJsonData = null;
+                state.lastNotificationPreferenceKind = "";
                 clearStoredAuthSession();
                 el.authPill.textContent = "Not authenticated";
                 el.repoList.innerHTML = "";
@@ -2164,6 +2184,7 @@
                 clearStatus(el.fileStatus);
                 setStatus(el.editorStatus, reasonMessage || "Signed out.", reasonMessage ? "bad" : "ok");
                 setEditorStep(0);
+                updateCommitNotificationChoiceVisibility();
             }
 
             function hasWritableRepoAccess(repo) {
@@ -2352,6 +2373,7 @@
                 el.jsonTextArea.value = JSON.stringify(parsed, null, 2);
 
                 hydrateCrmFromCurrentJson();
+                updateCommitNotificationChoiceVisibility();
                 el.currentFilePill.textContent = file.path;
                 setStatus(el.fileStatus, "Loaded " + file.path + ". Continue to editor stage.", "ok");
                 setEditorStep(3);
@@ -2405,6 +2427,81 @@
                     return "posts";
                 }
                 return "generic";
+            }
+
+            function toTeamSlug(name) {
+                return String(name || "team")
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]+/g, "-")
+                    .replace(/^-+|-+$/g, "");
+            }
+
+            function isGamesEditorFile() {
+                return getCurrentEditorFileKind() === "games";
+            }
+
+            function getVisibleRecordIndexes() {
+                const total = state.crmModel.records.length;
+                if (!isGamesEditorFile()) {
+                    return state.crmModel.records.map(function(_record, idx) {
+                        return idx;
+                    });
+                }
+
+                const visibleCount = Math.max(0, Math.min(total, Number(state.crmModel.gamesVisibleCount || state.crmModel.gamesPageSize || 10)));
+                return state.crmModel.records.slice(0, visibleCount).map(function(_record, idx) {
+                    return idx;
+                });
+            }
+
+            function ensureSelectedRecordIsVisible() {
+                if (!isGamesEditorFile()) {
+                    return;
+                }
+                if (state.crmModel.selectedIndex >= state.crmModel.records.length) {
+                    state.crmModel.selectedIndex = Math.max(0, state.crmModel.records.length - 1);
+                }
+                if (state.crmModel.selectedIndex >= state.crmModel.gamesVisibleCount) {
+                    state.crmModel.gamesVisibleCount = state.crmModel.selectedIndex + 1;
+                }
+            }
+
+            function resetGamesVisibleCount() {
+                state.crmModel.gamesVisibleCount = Number(state.crmModel.gamesPageSize || 10);
+            }
+
+            function renderGamesRecordLimitUi() {
+                if (!el.gamesRecordLimitWrap || !el.gamesRecordLimitInfo || !el.gamesRecordLoadMoreBtn) {
+                    return;
+                }
+
+                const isGames = isGamesEditorFile() && state.crmModel.rootMode === "array";
+                if (!isGames) {
+                    el.gamesRecordLimitWrap.classList.add("hidden");
+                    return;
+                }
+
+                const total = state.crmModel.records.length;
+                const visibleCount = Math.min(total, Number(state.crmModel.gamesVisibleCount || state.crmModel.gamesPageSize || 10));
+                el.gamesRecordLimitWrap.classList.remove("hidden");
+                el.gamesRecordLimitInfo.textContent = "Showing first " + visibleCount + " of " + total + " games";
+
+                const canLoadMore = visibleCount < total;
+                el.gamesRecordLoadMoreBtn.disabled = !canLoadMore;
+                el.gamesRecordLoadMoreBtn.textContent = canLoadMore
+                    ? "Load " + Number(state.crmModel.gamesPageSize || 10) + " more"
+                    : "All games loaded";
+            }
+
+            function loadMoreGameRecords() {
+                const increment = Number(state.crmModel.gamesPageSize || 10);
+                state.crmModel.gamesVisibleCount = Math.min(
+                    state.crmModel.records.length,
+                    Number(state.crmModel.gamesVisibleCount || 0) + increment
+                );
+                renderCrmRecordSelect();
+                renderCrmFields();
+                renderCrmDragList();
             }
 
             function buildDefaultPlayerRow() {
@@ -2774,6 +2871,7 @@
                 const insertIndex = state.crmModel.selectedIndex + 1;
                 state.crmModel.records.splice(insertIndex, 0, duplicate);
                 state.crmModel.selectedIndex = insertIndex;
+                ensureSelectedRecordIsVisible();
                 renderCrmRecordSelect();
                 renderCrmFields();
                 syncCrmToJsonText();
@@ -3492,32 +3590,6 @@
                 }
             }
 
-            function getVisibleCrmRecords() {
-                const kind = getCurrentEditorFileKind();
-                if (kind !== "games") {
-                    return state.crmModel.records;
-                }
-
-                const limit = Number(state.crmModel.visibleRecordLimit || 10);
-                if (!Array.isArray(state.crmModel.records) || state.crmModel.records.length <= limit) {
-                    return state.crmModel.records;
-                }
-
-                return state.crmModel.records.slice(0, limit);
-            }
-
-            function loadMoreCrmRecords() {
-                if (getCurrentEditorFileKind() !== "games") {
-                    return;
-                }
-
-                const nextLimit = (Number(state.crmModel.visibleRecordLimit || 10) + 10);
-                state.crmModel.visibleRecordLimit = nextLimit;
-                renderCrmRecordSelect();
-                renderCrmDragList();
-                renderCrmFields();
-            }
-
             function hydrateCrmFromCurrentJson() {
                 if (!state.currentJsonData) {
                     return;
@@ -3531,6 +3603,7 @@
                 state.crmModel.schema.fieldCatalog = {};
                 state.crmModel.schema.activeFieldGroup = "";
                 state.crmModel.schema.activeFields = {};
+                resetGamesVisibleCount();
 
                 if (
                     state.currentJsonData
@@ -3590,47 +3663,47 @@
                 }
 
                 state.crmModel.selectedIndex = 0;
-                state.crmModel.visibleRecordLimit = 10;
                 el.crmRootMode.value = state.crmModel.rootMode;
                 el.crmRootMode.disabled = Boolean(state.crmModel.schema.enabled);
                 renderCrmRecordSelect();
                 renderCrmFields();
                 renderCrmDragList();
+                renderGamesRecordLimitUi();
                 renderNodeBuilder();
             }
 
             function renderCrmRecordSelect() {
                 el.crmRecordSelect.innerHTML = "";
 
-                const visibleRecords = getVisibleCrmRecords();
-                const kind = getCurrentEditorFileKind();
-                const hasMoreGames = kind === "games" && Array.isArray(state.crmModel.records) && state.crmModel.records.length > Number(state.crmModel.visibleRecordLimit || 10);
-
-                if (el.crmLoadMoreBtn) {
-                    el.crmLoadMoreBtn.classList.toggle("hidden", !hasMoreGames);
-                }
-
-                if (!visibleRecords.length) {
+                if (!state.crmModel.records.length) {
                     const option = document.createElement("option");
                     option.value = "0";
                     option.textContent = "No records";
                     el.crmRecordSelect.appendChild(option);
                     renderCrmDragList();
+                    renderGamesRecordLimitUi();
                     return;
                 }
 
-                visibleRecords.forEach(function(record, idx) {
-                    const actualIndex = state.crmModel.records.indexOf(record);
+                ensureSelectedRecordIsVisible();
+                const visibleIndexes = getVisibleRecordIndexes();
+                if (visibleIndexes.length && !visibleIndexes.includes(state.crmModel.selectedIndex)) {
+                    state.crmModel.selectedIndex = visibleIndexes[0];
+                }
+
+                visibleIndexes.forEach(function(globalIndex) {
+                    const record = state.crmModel.records[globalIndex];
                     const option = document.createElement("option");
-                    option.value = String(actualIndex >= 0 ? actualIndex : idx);
-                    option.textContent = getRecordLabel(record, actualIndex >= 0 ? actualIndex : idx);
-                    if (actualIndex === state.crmModel.selectedIndex) {
+                    option.value = String(globalIndex);
+                    option.textContent = getRecordLabel(record, globalIndex);
+                    if (globalIndex === state.crmModel.selectedIndex) {
                         option.selected = true;
                     }
                     el.crmRecordSelect.appendChild(option);
                 });
 
                 renderCrmDragList();
+                renderGamesRecordLimitUi();
             }
 
             function getRecordLabel(record, index) {
@@ -3715,19 +3788,20 @@
             function renderCrmDragList() {
                 el.crmDragList.innerHTML = "";
 
-                const visibleRecords = getVisibleCrmRecords();
-
                 if (state.crmModel.rootMode !== "array") {
                     el.crmDragPanel.classList.add("hidden");
+                    renderGamesRecordLimitUi();
                     return;
                 }
 
                 el.crmDragPanel.classList.remove("hidden");
 
-                visibleRecords.forEach(function(record, idx) {
-                    const actualIndex = state.crmModel.records.indexOf(record);
+                const visibleIndexes = getVisibleRecordIndexes();
+
+                visibleIndexes.forEach(function(globalIndex) {
+                    const record = state.crmModel.records[globalIndex];
                     const item = document.createElement("li");
-                    item.className = "crm-drag-item" + (actualIndex === state.crmModel.selectedIndex ? " active" : "");
+                    item.className = "crm-drag-item" + (globalIndex === state.crmModel.selectedIndex ? " active" : "");
                     item.draggable = true;
 
                     const handle = document.createElement("span");
@@ -3736,18 +3810,18 @@
 
                     const text = document.createElement("span");
                     text.className = "mono";
-                    text.textContent = getRecordLabel(record, idx);
+                    text.textContent = getRecordLabel(record, globalIndex);
 
                     item.appendChild(handle);
                     item.appendChild(text);
 
                     item.addEventListener("click", function() {
-                        openCrmRecordModal(actualIndex >= 0 ? actualIndex : idx);
+                        openCrmRecordModal(globalIndex);
                     });
 
                     item.addEventListener("dragstart", function(event) {
                         event.dataTransfer.effectAllowed = "move";
-                        event.dataTransfer.setData("text/plain", String(idx));
+                        event.dataTransfer.setData("text/plain", String(globalIndex));
                     });
 
                     item.addEventListener("dragover", function(event) {
@@ -3763,7 +3837,7 @@
                         event.preventDefault();
                         item.classList.remove("drag-over");
                         const fromIndex = Number(event.dataTransfer.getData("text/plain"));
-                        reorderRecords(fromIndex, actualIndex >= 0 ? actualIndex : idx);
+                        reorderRecords(fromIndex, globalIndex);
                     });
 
                     item.addEventListener("dragend", function() {
@@ -3772,6 +3846,8 @@
 
                     el.crmDragList.appendChild(item);
                 });
+
+                renderGamesRecordLimitUi();
             }
 
             function ensureTeamPlayersArray(record) {
@@ -4076,8 +4152,7 @@
 
                 targetContainer.innerHTML = "";
 
-                const visibleRecords = getVisibleCrmRecords();
-                if (!visibleRecords.length) {
+                if (!state.crmModel.records.length) {
                     const emptyState = document.createElement("div");
                     emptyState.className = "status";
                     emptyState.textContent = "No objects to display. Add a record or switch back to raw mode to edit JSON directly.";
@@ -4085,7 +4160,7 @@
                     return;
                 }
 
-                const safeRecordIndex = Math.max(0, Math.min(Number(recordIndex ?? state.crmModel.selectedIndex ?? 0), state.crmModel.records.length - 1));
+                const safeRecordIndex = Math.max(0, Math.min(recordIndex, state.crmModel.records.length - 1));
                 const rec = state.crmModel.records[safeRecordIndex] || {};
                 const kind = getCurrentEditorFileKind();
                 state.crmModel.postContentModalRecordIndex = safeRecordIndex;
@@ -4364,11 +4439,24 @@
 
             function resolveLatestResult(jsonPayload) {
                 const games = Array.isArray(jsonPayload && jsonPayload.games) ? jsonPayload.games : [];
+                const parseDateTime = function(dateValue, timeValue) {
+                    const dateText = String(dateValue || "");
+                    const [day, month, year] = dateText.split("-").map((value) => Number(value));
+                    const [hour, minute] = String(timeValue || "00:00").split(":").map((value) => Number(value));
+
+                    if ([day, month, year, hour, minute].some((value) => Number.isNaN(value))) {
+                        return new Date(0);
+                    }
+
+                    return new Date(year, month - 1, day, hour, minute, 0, 0);
+                };
+
                 const playedGames = games.filter(function(game) {
-                    return game && typeof game === "object"
-                        && (game.home_score !== "" || game.away_score !== "" || game.winner)
-                        && game.home_score !== undefined
-                        && game.away_score !== undefined;
+                    if (!game || typeof game !== "object") {
+                        return false;
+                    }
+                    const winner = String(game.winner || "").trim();
+                    return winner && !/^draw$/i.test(winner);
                 });
 
                 if (!playedGames.length) {
@@ -4376,12 +4464,9 @@
                 }
 
                 const sorted = [...playedGames].sort(function(a, b) {
-                    const aDate = String(a.date || "");
-                    const bDate = String(b.date || "");
-                    if (aDate === bDate) {
-                        return String(b.time || "").localeCompare(String(a.time || ""));
-                    }
-                    return bDate.localeCompare(aDate);
+                    const aDate = parseDateTime(a.date, a.time);
+                    const bDate = parseDateTime(b.date, b.time);
+                    return bDate.getTime() - aDate.getTime();
                 });
 
                 const latest = sorted[0] || null;
@@ -4389,15 +4474,23 @@
                     return null;
                 }
 
+                const winner = String(latest.winner || "").trim();
+                const winnerTeamSlug = toTeamSlug(winner);
+                const winnerTeamUrl = winnerTeamSlug
+                    ? "https://jamieharperuk.github.io/fm/#team/" + winnerTeamSlug
+                    : "";
+
                 return {
                     homeTeam: String(latest.home_team || ""),
                     awayTeam: String(latest.away_team || ""),
                     homeScore: String(latest.home_score ?? ""),
                     awayScore: String(latest.away_score ?? ""),
-                    winner: String(latest.winner || ""),
+                    winner,
                     date: String(latest.date || ""),
                     time: String(latest.time || ""),
-                    competition: String(latest.competition || "")
+                    competition: String(latest.competition || ""),
+                    winnerTeamSlug,
+                    winnerTeamUrl
                 };
             }
 
@@ -4422,12 +4515,15 @@
                 if (fileKind === "teams") {
                     return { skipped: true, reason: "teams" };
                 }
+                if (fileKind !== "posts" && fileKind !== "games") {
+                    return { skipped: true, reason: "unsupported-kind" };
+                }
 
                 const latestPost = fileKind === "posts" ? resolveLatestPost(jsonPayload) : null;
                 const latestResult = fileKind === "games" ? resolveLatestResult(jsonPayload) : null;
                 const shouldNotify = Boolean(fileKind === "posts" ? latestPost : latestResult);
                 if (!shouldNotify) {
-                    return { skipped: true, reason: fileKind === "games" ? "no-result" : "no-post" };
+                    return { skipped: true, reason: fileKind === "games" ? "no-decided-winner" : "no-post" };
                 }
 
                 const headers = {
@@ -4449,7 +4545,8 @@
                         commitSha: commitSha || "",
                         kind: fileKind,
                         latestPost,
-                        latestResult
+                        latestResult,
+                        notificationUrl: fileKind === "games" ? String((latestResult && latestResult.winnerTeamUrl) || "") : ""
                     })
                 });
 
@@ -4611,7 +4708,7 @@
                     const notificationConfig = WEBEDITOR_CONFIG.notifications || {};
                     const notifyDelayMs = Math.max(0, Number(notificationConfig.delayMs || 0));
                     const notifyEnabled = notificationConfig.enabled !== false;
-                    const shouldSendNotifications = Boolean(el.notifyOnCommitCheckbox && !el.notifyOnCommitCheckbox.disabled && el.notifyOnCommitCheckbox.checked);
+                    const shouldSendNotifications = Boolean(el.notifyOnCommitCheckbox && el.notifyOnCommitCheckbox.checked);
                     
                     if (shouldSendNotifications && notifyDelayMs > 0 && notifyEnabled) {
                         const delaySeconds = Math.round(notifyDelayMs / 1000);
@@ -4630,8 +4727,8 @@
                                     } else {
                                         const reasonText = notificationResult.reason === "teams"
                                             ? "Teams updates do not trigger notifications."
-                                            : notificationResult.reason === "no-result"
-                                                ? "No match result was detected for notification."
+                                            : notificationResult.reason === "no-decided-winner"
+                                                ? "No decided winner was detected for notification."
                                                 : "Notifications were not sent for this update.";
                                         showNotificationModal("Committed " + state.currentJsonPath + ". " + reasonText, "ok", "Success");
                                     }
@@ -4650,8 +4747,8 @@
                         } else {
                             const reasonText = notificationResult.reason === "teams"
                                 ? "Teams updates do not trigger notifications."
-                                : notificationResult.reason === "no-result"
-                                    ? "No match result was detected for notification."
+                                : notificationResult.reason === "no-decided-winner"
+                                    ? "No decided winner was detected for notification."
                                     : "Notifications were not sent for this update.";
                             showNotificationModal("Committed " + state.currentJsonPath + ". " + reasonText, "ok", "Success");
                         }
@@ -4726,12 +4823,6 @@
                 el.notificationDismissBtn.addEventListener("click", function() {
                     closeNotificationModal();
                 });
-
-                if (el.crmLoadMoreBtn) {
-                    el.crmLoadMoreBtn.addEventListener("click", function() {
-                        loadMoreCrmRecords();
-                    });
-                }
 
                 el.modalCopyCodeBtn.addEventListener("click", function() {
                     const code = el.modalDeviceCode.textContent;
@@ -4932,9 +5023,16 @@
 
                 el.crmRecordSelect.addEventListener("change", function() {
                     state.crmModel.selectedIndex = Number(el.crmRecordSelect.value || 0);
+                    ensureSelectedRecordIsVisible();
                     renderCrmFields();
                     renderCrmDragList();
                 });
+
+                if (el.gamesRecordLoadMoreBtn) {
+                    el.gamesRecordLoadMoreBtn.addEventListener("click", function() {
+                        loadMoreGameRecords();
+                    });
+                }
 
                 el.crmNewRecordBtn.addEventListener("click", function() {
                     const templateRecord = state.crmModel.schema.enabled
@@ -4942,6 +5040,7 @@
                         : {};
                     state.crmModel.records.push(templateRecord);
                     state.crmModel.selectedIndex = state.crmModel.records.length - 1;
+                    ensureSelectedRecordIsVisible();
                     renderCrmRecordSelect();
                     renderCrmFields();
                     syncCrmToJsonText();
@@ -4958,6 +5057,7 @@
                     }
                     state.crmModel.records.splice(state.crmModel.selectedIndex, 1);
                     state.crmModel.selectedIndex = Math.max(0, state.crmModel.selectedIndex - 1);
+                    ensureSelectedRecordIsVisible();
                     renderCrmRecordSelect();
                     renderCrmFields();
                     syncCrmToJsonText();

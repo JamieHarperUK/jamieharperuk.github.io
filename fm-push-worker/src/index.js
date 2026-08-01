@@ -139,41 +139,10 @@ function makePostSlug(latestPost) {
 	return slug || "post";
 }
 
-function makeTeamSlug(teamName) {
-	return String(teamName || "team")
-		.toLowerCase()
-		.replace(/[^a-z0-9]+/g, "-")
-		.replace(/^-+|-+$/g, "") || "team";
-}
-
 function buildNotifyPayload(body, siteId) {
 	const latestPost = body.latestPost && typeof body.latestPost === "object" ? body.latestPost : {};
-	const latestResult = body.latestResult && typeof body.latestResult === "object" ? body.latestResult : {};
-	const hasResult = Boolean(latestResult && (latestResult.homeTeam || latestResult.awayTeam || latestResult.winner));
-
-	if (hasResult) {
-		const winner = String(latestResult.winner || "").trim();
-		const homeTeam = String(latestResult.homeTeam || "").trim();
-		const awayTeam = String(latestResult.awayTeam || "").trim();
-		const targetTeam = winner ? (winner === homeTeam ? homeTeam : winner === awayTeam ? awayTeam : winner) : homeTeam || awayTeam;
-		const scoreText = [latestResult.homeScore, latestResult.awayScore].filter((value) => value !== "" && value !== undefined && value !== null).join("-");
-		const title = targetTeam ? `${targetTeam} vs ${awayTeam || homeTeam || "opponent"} update` : "Result update";
-		const body = [homeTeam, awayTeam].filter(Boolean).join(" vs ") + (scoreText ? " — " + scoreText : "");
-		return {
-			title,
-			body: body || "A decided game result is now available.",
-			icon: "https://jamieharperuk.github.io/fm/data/fm_icon.png",
-			badge: "https://jamieharperuk.github.io/fm/data/fm_icon.png",
-			data: {
-				siteId,
-				url: targetTeam ? "https://jamieharperuk.github.io/fm/#team/" + makeTeamSlug(targetTeam) : "https://jamieharperuk.github.io/fm/",
-				category: "game-result",
-				commitSha: String(body.commitSha || "")
-			}
-		};
-	}
-
 	const slug = makePostSlug(latestPost);
+
 	const title = latestPost.title
 		? "New post: " + String(latestPost.title)
 		: "New Football Management post";
@@ -192,8 +161,8 @@ function buildNotifyPayload(body, siteId) {
 			url: "https://jamieharperuk.github.io/fm/#post/" + slug,
 			category,
 			commitSha: String(body.commitSha || "")
-		} 
-	};
+			}
+		};
 }
 
 async function writeLastNotifyState(env, siteId, body, sentCount) {
@@ -321,8 +290,6 @@ async function handleList(request, env) {
 		keys
 	});
 }
-
-export { buildNotifyPayload };
 
 export default {
 	async fetch(request, env) {
