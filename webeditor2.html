@@ -4440,10 +4440,24 @@
             function resolveLatestResult(jsonPayload) {
                 const games = Array.isArray(jsonPayload && jsonPayload.games) ? jsonPayload.games : [];
                 const parseDateTime = function(dateValue, timeValue) {
-                    const dateText = String(dateValue || "");
-                    const [day, month, year] = dateText.split("-").map((value) => Number(value));
-                    const [hour, minute] = String(timeValue || "00:00").split(":").map((value) => Number(value));
+                    const dateText = String(dateValue || "").trim();
+                    const parts = dateText.split(/[-/]/).map(function(value) {
+                        return Number(value);
+                    });
+                    if (parts.length !== 3 || parts.some((value) => Number.isNaN(value))) {
+                        return new Date(0);
+                    }
 
+                    let day = parts[0];
+                    let month = parts[1];
+                    let year = parts[2];
+                    if (String(parts[0]).length === 4) {
+                        year = parts[0];
+                        month = parts[1];
+                        day = parts[2];
+                    }
+
+                    const [hour, minute] = String(timeValue || "00:00").split(":").map((value) => Number(value));
                     if ([day, month, year, hour, minute].some((value) => Number.isNaN(value))) {
                         return new Date(0);
                     }
@@ -4451,7 +4465,10 @@
                     return new Date(year, month - 1, day, hour, minute, 0, 0);
                 };
 
-                const playedGames = games.filter(function(game) {
+                const playedGames = games.map(function(game, index) {
+                    return { game, index };
+                }).filter(function(entry) {
+                    const game = entry.game;
                     if (!game || typeof game !== "object") {
                         return false;
                     }
@@ -4464,13 +4481,18 @@
                 }
 
                 const sorted = [...playedGames].sort(function(a, b) {
-                    const aDate = parseDateTime(a.date, a.time);
-                    const bDate = parseDateTime(b.date, b.time);
-                    return bDate.getTime() - aDate.getTime();
+                    const aDate = parseDateTime(a.game.date, a.game.time).getTime();
+                    const bDate = parseDateTime(b.game.date, b.game.time).getTime();
+                    if (bDate !== aDate) {
+                        return bDate - aDate;
+                    }
+                    // Preserve array order as the tie-breaker (top-most record wins).
+                    return a.index - b.index;
                 });
 
-                const latest = sorted[0] || null;
-                if (!latest) {
+                const latestEntry = sorted[0] || null;
+                const latest = latestEntry ? latestEntry.game : null;
+                if (!latest || typeof latest !== "object") {
                     return null;
                 }
 
