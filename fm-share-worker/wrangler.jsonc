@@ -14,12 +14,19 @@
 	"compatibility_flags": [
 		"nodejs_compat"
 	],
+	"routes": [
+		{
+			"pattern": "share.jhuk.co.uk/*",
+			"custom_domain": true
+		}
+	],
 	"vars": {
 		"SITE_TITLE": "JHUK Football Management",
 		"SITE_DESCRIPTION": "Track my OSM and Top Eleven teams, fixtures, and updates in one place.",
-		"SITE_DEFAULT_IMAGE": "https://jamieharperuk.github.io/fm/data/fm_bg_thin.png",
-		"POSTS_JSON_URL": "https://jamieharperuk.github.io/fm/data/posts.json",
-		"SITE_SPA_URL": "https://jamieharperuk.github.io/fm/"
+		"SITE_DEFAULT_IMAGE": "https://jhuk.co.uk/fm/data/fm_bg_thin.png",
+		"POSTS_JSON_URL": "https://jhuk.co.uk/fm/data/posts.json",
+		"SITE_SPA_URL": "https://jhuk.co.uk/fm/",
+		"SITE_ASSET_ORIGIN": "https://jhuk.co.uk"
 	}
 	/**
 	 * Smart Placement

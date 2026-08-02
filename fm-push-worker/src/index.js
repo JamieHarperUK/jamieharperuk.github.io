@@ -2,6 +2,23 @@ import webpush from "web-push";
 
 const DEFAULT_SITE_ID = "fm";
 
+function withTrailingSlash(url) {
+	return String(url || "").replace(/\/+$/, "") + "/";
+}
+
+function getSiteBaseUrl(env) {
+	const configured = String(env.SITE_BASE_URL || "").trim();
+	return withTrailingSlash(configured || "https://jhuk.co.uk/fm/");
+}
+
+function getSiteIconUrl(env) {
+	const configured = String(env.SITE_ICON_URL || "").trim();
+	if (configured) {
+		return configured;
+	}
+	return new URL("data/fm_icon.png", getSiteBaseUrl(env)).toString();
+}
+
 function jsonResponse(status, payload, extraHeaders = {}) {
 	return new Response(JSON.stringify(payload, null, 2), {
 		status,
@@ -139,9 +156,11 @@ function makePostSlug(latestPost) {
 	return slug || "post";
 }
 
-function buildPostNotifyPayload(body, siteId) {
+function buildPostNotifyPayload(body, siteId, env) {
 	const latestPost = body.latestPost && typeof body.latestPost === "object" ? body.latestPost : {};
 	const slug = makePostSlug(latestPost);
+	const siteBaseUrl = getSiteBaseUrl(env);
+	const iconUrl = getSiteIconUrl(env);
 
 	const title = latestPost.title
 		? "New post: " + String(latestPost.title)
@@ -154,19 +173,21 @@ function buildPostNotifyPayload(body, siteId) {
 	return {
 		title,
 		body: shortBody || category,
-		icon: "https://jamieharperuk.github.io/fm/data/fm_icon.png",
-		badge: "https://jamieharperuk.github.io/fm/data/fm_icon.png",
+		icon: iconUrl,
+		badge: iconUrl,
 		data: {
 			siteId,
-			url: "https://jamieharperuk.github.io/fm/#post/" + slug,
+			url: siteBaseUrl + "#post/" + slug,
 			category,
 			commitSha: String(body.commitSha || "")
 		}
 	};
 }
 
-function buildGamesNotifyPayload(body, siteId) {
+function buildGamesNotifyPayload(body, siteId, env) {
 	const latestResult = body.latestResult && typeof body.latestResult === "object" ? body.latestResult : {};
+	const siteBaseUrl = getSiteBaseUrl(env);
+	const iconUrl = getSiteIconUrl(env);
 	const homeTeam = String(latestResult.homeTeam || "Home").trim();
 	const awayTeam = String(latestResult.awayTeam || "Away").trim();
 	const homeScore = String(latestResult.homeScore ?? "").trim();
@@ -197,14 +218,14 @@ function buildGamesNotifyPayload(body, siteId) {
 	}
 
 	const fallbackSlug = String(latestResult.winnerTeamSlug || "").trim();
-	const fallbackUrl = fallbackSlug ? "https://jamieharperuk.github.io/fm/#team/" + fallbackSlug : "https://jamieharperuk.github.io/fm/";
+	const fallbackUrl = fallbackSlug ? siteBaseUrl + "#team/" + fallbackSlug : siteBaseUrl;
 	const requestedUrl = String(body.notificationUrl || latestResult.winnerTeamUrl || "").trim();
 
 	return {
 		title,
 		body: bodyParts.join(" · ") || "Latest result update",
-		icon: "https://jamieharperuk.github.io/fm/data/fm_icon.png",
-		badge: "https://jamieharperuk.github.io/fm/data/fm_icon.png",
+		icon: iconUrl,
+		badge: iconUrl,
 		data: {
 			siteId,
 			url: requestedUrl || fallbackUrl,
@@ -214,13 +235,13 @@ function buildGamesNotifyPayload(body, siteId) {
 	};
 }
 
-function buildNotifyPayload(body, siteId) {
+function buildNotifyPayload(body, siteId, env) {
 	const kind = String(body.kind || "posts").trim().toLowerCase();
 	if (kind === "games") {
-		return buildGamesNotifyPayload(body, siteId);
+		return buildGamesNotifyPayload(body, siteId, env);
 	}
 
-	return buildPostNotifyPayload(body, siteId);
+	return buildPostNotifyPayload(body, siteId, env);
 }
 
 async function writeLastNotifyState(env, siteId, body, sentCount) {
@@ -295,7 +316,7 @@ async function handleNotify(request, env) {
 	buildVapid(env);
 	const body = await readJson(request);
 	const siteId = normalizeSiteId(body.siteId);
-	const messagePayload = buildNotifyPayload(body, siteId);
+	const messagePayload = buildNotifyPayload(body, siteId, env);
 	const payloadText = JSON.stringify(messagePayload);
 
 	const records = await getSubscriptionRecords(env, siteId);

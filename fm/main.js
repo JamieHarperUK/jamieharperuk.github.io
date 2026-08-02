@@ -1,9 +1,28 @@
-// Data sources for the Football Manager Site
-const dataDomain = "https://jamieharperuk.github.io/";
+// Core site URL configuration.
+const siteConfig = {
+    canonicalOrigin: "https://jhuk.co.uk",
+    appBasePath: "/fm/"
+};
+
+const runtimeOrigin = (typeof window !== "undefined" && window.location && window.location.origin)
+    ? window.location.origin
+    : siteConfig.canonicalOrigin;
+
+function buildFmUrl(path = "", useCanonical = false) {
+    const origin = useCanonical ? siteConfig.canonicalOrigin : runtimeOrigin;
+    const base = new URL(siteConfig.appBasePath.replace(/^\//, ""), origin.replace(/\/+$/, "") + "/");
+    return new URL(path.replace(/^\/+/, ""), base).toString();
+}
+
+function buildRootUrl(path = "", useCanonical = false) {
+    const origin = useCanonical ? siteConfig.canonicalOrigin : runtimeOrigin;
+    return new URL(path.replace(/^\/+/, ""), origin.replace(/\/+$/, "") + "/").toString();
+}
+
 const dataSources = {
-    games: dataDomain + "fm/data/games.json",
-    teams: dataDomain + "fm/data/teams.json",
-    posts: dataDomain + "fm/data/posts.json"
+    games: buildFmUrl("data/games.json"),
+    teams: buildFmUrl("data/teams.json"),
+    posts: buildFmUrl("data/posts.json")
 };
 
 const pushConfig = {
@@ -13,7 +32,12 @@ const pushConfig = {
 };
 
 const shareConfig = {
-    workerBaseUrl: "https://fm-share-worker.oakshiftsoftware.workers.dev"
+    workerBaseUrl: "https://share.jhuk.co.uk"
+};
+
+const platformLogoUrls = {
+    topEleven: buildFmUrl("data/top-eleven-logo.png", true),
+    osm: buildFmUrl("data/osm-logo.png", true)
 };
 
 function urlBase64ToUint8Array(base64String) {
@@ -41,7 +65,7 @@ const app = {
     siteMeta: {
         title: "JHUK Football Management",
         description: "Track my OSM and Top Eleven teams, fixtures, and updates in one place.",
-        image: "https://jamieharperuk.github.io/fm/data/fm_bg.png"
+        image: buildFmUrl("data/fm_bg.png", true)
     },
     data: {
         games: [],
@@ -784,8 +808,8 @@ const app = {
         let categoryGameType = latestPost.category || "Other";
 
         const gameLogoKey = {
-            "top eleven": "https://jamieharperuk.github.io/fm/data/top-eleven-logo.png",
-            "osm": "https://jamieharperuk.github.io/fm/data/osm-logo.png"
+            "top eleven": platformLogoUrls.topEleven,
+            "osm": platformLogoUrls.osm
         };
 
         if (latestPost.category?.toLowerCase() === "top eleven") {
@@ -1186,11 +1210,11 @@ const app = {
 
                 if (safeCategory.toLowerCase() === "top eleven") {
                     gameTypeDataTwo.title = "Top Eleven";
-                    gameTypeDataTwo.logo = "https://jamieharperuk.github.io/fm/data/top-eleven-logo.png";
+                    gameTypeDataTwo.logo = platformLogoUrls.topEleven;
                     categoryGameType = `<img src="${gameTypeDataTwo.logo}" alt="${gameTypeDataTwo.title} logo" style="height: 1rem; vertical-align: middle; filter: invert(1);">`;
                 } else if (safeCategory.toLowerCase() === "osm") {
                     gameTypeDataTwo.title = "Online Soccer Manager";
-                    gameTypeDataTwo.logo = "https://jamieharperuk.github.io/fm/data/osm-logo.png";
+                    gameTypeDataTwo.logo = platformLogoUrls.osm;
                     categoryGameType = `<img src="${gameTypeDataTwo.logo}" alt="${gameTypeDataTwo.title} logo" style="height: 1rem; vertical-align: middle;">`;
                 }
             } else {
@@ -1253,11 +1277,11 @@ const app = {
 
             if (safeCategory.toLowerCase() === "top eleven") {
                 gameTypeDataTwo.title = "Top Eleven";
-                gameTypeDataTwo.logo = "https://jamieharperuk.github.io/fm/data/top-eleven-logo.png";
+                gameTypeDataTwo.logo = platformLogoUrls.topEleven;
                 categoryGameType = `<img src="${gameTypeDataTwo.logo}" alt="${gameTypeDataTwo.title} logo" style="height: 2rem; vertical-align: middle; filter: invert(1);">`;
             } else if (safeCategory.toLowerCase() === "osm") {
                 gameTypeDataTwo.title = "Online Soccer Manager";
-                gameTypeDataTwo.logo = "https://jamieharperuk.github.io/fm/data/osm-logo.png";
+                gameTypeDataTwo.logo = platformLogoUrls.osm;
                 categoryGameType = `<img src="${gameTypeDataTwo.logo}" alt="${gameTypeDataTwo.title} logo" style="height: 2rem; vertical-align: middle;">`;
             }
         } else {
@@ -1345,8 +1369,10 @@ const app = {
         }
 
         const normalizedPath = postImage.replace(/^\/+/, "");
-        const assetPath = normalizedPath.startsWith("fm/") ? normalizedPath : `fm/${normalizedPath}`;
-        return new URL(assetPath, `${dataDomain}fm/`).toString();
+        if (normalizedPath.startsWith("fm/")) {
+            return buildRootUrl(normalizedPath, true);
+        }
+        return buildFmUrl(normalizedPath, true);
     },
 
     getPostImageMarkup(post, className = "post-list-image") {
@@ -1407,7 +1433,7 @@ const app = {
     },
 
     getCanonicalPageUrl(path = "") {
-        const canonicalBase = new URL("fm/", dataDomain).toString();
+        const canonicalBase = buildFmUrl("", true);
         if (!path || path === "home") {
             return canonicalBase;
         }
@@ -1523,11 +1549,11 @@ const app = {
 
         if (gameSelector == "Top Eleven") {
             gameTypeData.title = "Top Eleven";
-            gameTypeData.logo = "https://jamieharperuk.github.io/fm/data/top-eleven-logo.png";
+            gameTypeData.logo = platformLogoUrls.topEleven;
             gameTypeData.link = "https://www.topeleven.com/";
         } else if (gameSelector == "Online Soccer Manager") {
             gameTypeData.title = "Online Soccer Manager";
-            gameTypeData.logo = "https://jamieharperuk.github.io/fm/data/osm-logo.png";
+            gameTypeData.logo = platformLogoUrls.osm;
             gameTypeData.link = "https://www.onlinesoccermanager.com/";
         }
 

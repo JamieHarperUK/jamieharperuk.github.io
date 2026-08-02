@@ -22,7 +22,8 @@ export default {
 			const siteTitle = String(env.SITE_TITLE || "Site");
 			const siteDescription = String(env.SITE_DESCRIPTION || "");
 			const defaultImage = String(env.SITE_DEFAULT_IMAGE || "");
-			const spaBase = String(env.SITE_SPA_URL || "https://jamieharperuk.github.io/fm/").replace(/\/+$/, "/");
+			const spaBase = String(env.SITE_SPA_URL || "https://jhuk.co.uk/fm/").replace(/\/+$/, "/");
+			const assetOrigin = getAssetOrigin(env, spaBase, requestUrl);
 			const redirectUrl = `${spaBase}#post/${encodeURIComponent(slug)}`;
 
 			if (!post) {
@@ -38,7 +39,7 @@ export default {
 
 			const title = String(post.title || "Post");
 			const description = getPostDescription(post.content, siteDescription);
-			const image = resolvePostImage(post.image, defaultImage);
+			const image = resolvePostImage(post.image, defaultImage, assetOrigin);
 
 			const html = renderHtml({
 				title: `${title} | ${siteTitle}`,
@@ -55,7 +56,7 @@ export default {
 				description: "Unable to build share metadata right now.",
 				image: String(env.SITE_DEFAULT_IMAGE || ""),
 				canonicalUrl: requestUrl.toString(),
-				redirectUrl: String(env.SITE_SPA_URL || "https://jamieharperuk.github.io/fm/")
+				redirectUrl: String(env.SITE_SPA_URL || "https://jhuk.co.uk/fm/")
 			});
 			return htmlResponse(html, 500, error instanceof Error ? error.message : "Unknown error");
 		}
@@ -105,7 +106,7 @@ function getPostDescription(content, fallback) {
 	return text.length > 180 ? `${text.slice(0, 177)}...` : text;
 }
 
-function resolvePostImage(postImage, defaultImage) {
+function resolvePostImage(postImage, defaultImage, assetOrigin) {
 	const raw = String(postImage || "").trim();
 	if (!raw) {
 		return String(defaultImage || "");
@@ -116,7 +117,24 @@ function resolvePostImage(postImage, defaultImage) {
 
 	const normalizedPath = raw.replace(/^\/+/, "");
 	const path = normalizedPath.startsWith("fm/") ? normalizedPath : `fm/${normalizedPath}`;
-	return new URL(path, "https://jamieharperuk.github.io/").toString();
+	return new URL(path, assetOrigin).toString();
+}
+
+function getAssetOrigin(env, spaBase, requestUrl) {
+	const configuredOrigin = String(env.SITE_ASSET_ORIGIN || "").trim();
+	if (configuredOrigin) {
+		return withTrailingSlash(configuredOrigin);
+	}
+
+	try {
+		return withTrailingSlash(new URL(spaBase).origin);
+	} catch {
+		return withTrailingSlash(requestUrl.origin);
+	}
+}
+
+function withTrailingSlash(url) {
+	return String(url || "").replace(/\/+$/, "") + "/";
 }
 
 function renderHtml({ title, description, image, canonicalUrl, redirectUrl }) {
