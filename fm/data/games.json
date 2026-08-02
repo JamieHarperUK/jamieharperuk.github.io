@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Home",
-      "home_team": "Harper FC",
-      "away_team": "sambono5 FC",
-      "date": "02-08-2026",
-      "time": "11:25",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "League Level 1",
-      "venue": "The Concourse",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Away",
       "home_team": "Liverpool FC",
       "away_team": "Manchester United",
@@ -42,6 +29,19 @@
       "osm_or_top_eleven": "OSM",
       "competition": "England 2nd Division",
       "venue": "Anfield",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Tralee",
+      "away_team": "Harper FC",
+      "date": "03-08-2026",
+      "time": "12:02",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 1",
+      "venue": "Tralee's Stadium",
       "home_score": "",
       "away_score": "",
       "winner": ""
@@ -71,6 +71,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "sambono5 FC",
+      "date": "02-08-2026",
+      "time": "11:25",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 1",
+      "venue": "The Concourse",
+      "home_score": "5",
+      "away_score": "0",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Away",
