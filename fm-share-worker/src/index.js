@@ -152,6 +152,9 @@ function renderHtml({ title, description, image, canonicalUrl, redirectUrl }) {
 <title>${safeTitle}</title>
 <meta name="description" content="${safeDescription}">
 <link rel="canonical" href="${safeCanonical}">
+<meta name="robots" content="noindex,follow">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="JHUK Football Management">
 <meta property="og:title" content="${safeTitle}">
 <meta property="og:description" content="${safeDescription}">
 <meta property="og:image" content="${safeImage}">
@@ -161,7 +164,6 @@ function renderHtml({ title, description, image, canonicalUrl, redirectUrl }) {
 <meta name="twitter:description" content="${safeDescription}">
 <meta name="twitter:image" content="${safeImage}">
 <meta name="twitter:url" content="${safeCanonical}">
-<meta http-equiv="refresh" content="0;url=${safeRedirect}">
 </head>
 <body>
 <p>Redirecting to post...</p>

@@ -16,7 +16,7 @@
 	],
 	"routes": [
 		{
-			"pattern": "share.jhuk.co.uk/*",
+			"pattern": "share.jhuk.co.uk",
 			"custom_domain": true
 		}
 	],
