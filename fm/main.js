@@ -12,6 +12,10 @@ const pushConfig = {
     serviceWorkerPath: "sw.js"
 };
 
+const shareConfig = {
+    workerBaseUrl: "https://fm-share-worker.oakshiftsoftware.workers.dev"
+};
+
 function urlBase64ToUint8Array(base64String) {
     const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
     const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
@@ -1236,7 +1240,8 @@ const app = {
         const tags = Array.isArray(post.tags) ? post.tags : [];
         const postImage = this.getPostImageUrl(post);
         const postUrl = this.getCanonicalPageUrl(`post/${postSlug}`);
-        const shareUrls = this.getPostShareUrls(post, postUrl);
+        const postShareUrl = this.getPostSharePageUrl(postSlug);
+        const shareUrls = this.getPostShareUrls(post, postShareUrl);
 
         let categoryGameType = "";
 
@@ -1288,7 +1293,7 @@ const app = {
         if (copyLinkButton) {
             copyLinkButton.addEventListener("click", async () => {
                 this.trackEvent("copy_link_click", "Posts", "Copy Post Link");
-                const copied = await this.copyTextToClipboard(postUrl);
+                const copied = await this.copyTextToClipboard(postShareUrl);
                 copyLinkButton.textContent = copied ? "Copied" : "Copy Failed";
                 setTimeout(() => {
                     copyLinkButton.innerHTML = '<i class="fa-solid fa-link"></i> Copy Link';
@@ -1387,6 +1392,18 @@ const app = {
             .replace(/\s+/g, "_");
 
         return gameTwitterHandles[key] || "";
+    },
+
+    getPostSharePageUrl(postSlug) {
+        const safeSlug = encodeURIComponent(String(postSlug || "").trim());
+        const configuredBase = String(shareConfig.workerBaseUrl || "").trim().replace(/\/+$/, "");
+
+        if (configuredBase) {
+            return `${configuredBase}/post/${safeSlug}`;
+        }
+
+        // Fallback keeps existing behavior until share worker base URL is configured.
+        return this.getCanonicalPageUrl(`post/${String(postSlug || "").trim()}`);
     },
 
     getCanonicalPageUrl(path = "") {
