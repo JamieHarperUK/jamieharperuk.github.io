@@ -61,6 +61,12 @@ nav {
     white-space: nowrap;
 }
 
+.nav-logo {
+    width: auto;
+    height: 75px;
+    margin-bottom: -10px;
+}
+
 .nav-links {
     display: flex;
     gap: 0.6rem;

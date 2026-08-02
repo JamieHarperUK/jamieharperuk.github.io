@@ -2,8 +2,8 @@ self.addEventListener("push", (event) => {
 	let payload = {
 		title: "New Football Management post",
 		body: "A new update is available.",
-		icon: "https://jamieharperuk.github.io/fm/data/fm_icon.png",
-		badge: "https://jamieharperuk.github.io/fm/data/fm_icon.png",
+		icon: "https://jamieharperuk.github.io/fm/data/jhuk_fm_icon.png",
+		badge: "https://jamieharperuk.github.io/fm/data/jhuk_fm_icon.png",
 		data: {
 			url: "https://jamieharperuk.github.io/fm/#posts"
 		}
