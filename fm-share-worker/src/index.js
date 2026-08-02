@@ -14,7 +14,7 @@ export default {
 		if (!slug) {
 			return new Response("Missing post slug", { status: 400 });
 		}
-
+		
 		try {
 			const posts = await loadPosts(String(env.POSTS_JSON_URL || ""));
 			const post = findPostBySlug(posts, slug);
