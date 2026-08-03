@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Away",
-      "home_team": "Tralee",
-      "away_team": "Harper FC",
-      "date": "03-08-2026",
-      "time": "12:02",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "League Level 1",
-      "venue": "Tralee's Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Home",
       "home_team": "Manchester United",
       "away_team": "West Ham United",
@@ -61,6 +48,19 @@
     },
     {
       "home_or_away": "Away",
+      "home_team": "ammar FC",
+      "away_team": "Harper FC",
+      "date": "04-08-2026",
+      "time": "11:33",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 1",
+      "venue": "ammar FC's Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
       "home_team": "FC ransonet",
       "away_team": "Harper FC",
       "date": "04-08-2026",
@@ -71,6 +71,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Tralee",
+      "away_team": "Harper FC",
+      "date": "03-08-2026",
+      "time": "12:02",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 1",
+      "venue": "Tralee's Stadium",
+      "home_score": "0",
+      "away_score": "2",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Away",
