@@ -29,7 +29,7 @@
 	"vars": {
 		"ALLOWED_ORIGIN": "https://jhuk.co.uk",
 		"SITE_BASE_URL": "https://jhuk.co.uk/fm/",
-		"SITE_ICON_URL": "https://jhuk.co.uk/fm/data/fm_icon.png"
+		"SITE_ICON_URL": "https://jhuk.co.uk/fm/data/jhuk_fm_icon.png"
 	}
 	/**
 	 * Smart Placement
