@@ -510,6 +510,20 @@
         "signing",
         "player"
       ]
+    },
+    {
+      "title": "Jensen Weir is Back",
+      "content": "After being expected to sit out the next 7 to 8 games, Jensen Weir has just received the 'all clear' from the club doctors after a remarkably speedy recovery.\n\nWhile it is still unclear if he will be in the starting eleven against Altrincham FC's next game against AFC Fylde, he is fighting fit and will at very least be on the bench ready to jump in if called upon.",
+      "date_time": [
+        "03-08-2026",
+        "11:59"
+      ],
+      "image": "https://jhuk.co.uk/fm/data/osm_post.jpg",
+      "category": "OSM",
+      "tags": [
+        "injury",
+        "recovery"
+      ]
     }
   ]
 }
