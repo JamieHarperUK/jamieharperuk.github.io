@@ -1134,18 +1134,8 @@
                                             <span>Send notifications with this commit</span>
                                         </label>
                                     </div>
-                                    <div id="subscriberToolsWrap" class="hidden" style="margin-top:0.55rem; border:1px solid var(--line); border-radius:8px; padding:0.65rem;">
-                                        <div style="font-weight:600; margin-bottom:0.45rem;">Push Subscribers</div>
-                                        <div class="row" style="margin-bottom:0.45rem;">
-                                            <button id="refreshSubscribersBtn" type="button">Refresh List</button>
-                                            <button id="deleteSelectedSubscriberBtn" type="button" class="warn">Delete Selected</button>
-                                            <button id="deleteAllSubscribersBtn" type="button" class="warn">Unsubscribe All</button>
-                                        </div>
-                                        <label for="subscriberSelect" style="margin:0 0 0.35rem 0;">Current subscriptions</label>
-                                        <select id="subscriberSelect">
-                                            <option value="">No subscriptions loaded.</option>
-                                        </select>
-                                        <div id="subscriberStatus" class="status hidden" style="margin-top:0.5rem; display:none;"></div>
+                                    <div id="subscriberToolsLaunchWrap" class="row hidden" style="margin-top:0.55rem;">
+                                        <button id="openSubscriberManagerBtn" type="button">Manage Push Subscribers</button>
                                     </div>
                                     <div class="row">
                                         <button id="saveJsonBtn" class="primary">Commit Changes</button>
@@ -1492,6 +1482,28 @@
                     </div>
                 </div>
             </div>
+
+            <div id="subscriberManagerModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="subscriberManagerTitle">
+                <div class="modal-card" style="width:min(100%, 820px);">
+                    <div class="modal-head">
+                        <h3 id="subscriberManagerTitle">Push Subscriber Manager</h3>
+                        <button id="subscriberManagerCloseBtn" type="button" class="warn">Close</button>
+                    </div>
+                    <div class="stack">
+                        <div class="pill mono">Site ID: <span id="subscriberManagerSiteId">fm</span></div>
+                        <div class="row" style="margin-bottom:0.45rem;">
+                            <button id="refreshSubscribersBtn" type="button">Refresh List</button>
+                            <button id="deleteSelectedSubscriberBtn" type="button" class="warn">Delete Selected</button>
+                            <button id="deleteAllSubscribersBtn" type="button" class="warn">Unsubscribe All</button>
+                        </div>
+                        <label for="subscriberSelect" style="margin:0 0 0.35rem 0;">Current subscriptions</label>
+                        <select id="subscriberSelect">
+                            <option value="">No subscriptions loaded.</option>
+                        </select>
+                        <div id="subscriberStatus" class="status hidden" style="margin-top:0.5rem; display:none;"></div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <script>
@@ -1744,7 +1756,12 @@
                 commitMessage: document.getElementById("commitMessage"),
                 notifyOnCommitWrap: document.getElementById("notifyOnCommitWrap"),
                 notifyOnCommitCheckbox: document.getElementById("notifyOnCommitCheckbox"),
-                subscriberToolsWrap: document.getElementById("subscriberToolsWrap"),
+                subscriberToolsLaunchWrap: document.getElementById("subscriberToolsLaunchWrap"),
+                openSubscriberManagerBtn: document.getElementById("openSubscriberManagerBtn"),
+                subscriberManagerModal: document.getElementById("subscriberManagerModal"),
+                subscriberManagerTitle: document.getElementById("subscriberManagerTitle"),
+                subscriberManagerSiteId: document.getElementById("subscriberManagerSiteId"),
+                subscriberManagerCloseBtn: document.getElementById("subscriberManagerCloseBtn"),
                 refreshSubscribersBtn: document.getElementById("refreshSubscribersBtn"),
                 deleteSelectedSubscriberBtn: document.getElementById("deleteSelectedSubscriberBtn"),
                 deleteAllSubscribersBtn: document.getElementById("deleteAllSubscribersBtn"),
@@ -1864,12 +1881,14 @@
                     el.notifyOnCommitWrap.classList.toggle("hidden", !shouldShow);
                 }
                 if (!el.notifyOnCommitCheckbox || !shouldShow) {
+                    updateSubscriberToolsVisibility();
                     return;
                 }
 
                 if (fileKind === "teams") {
                     el.notifyOnCommitCheckbox.checked = false;
                     el.notifyOnCommitCheckbox.disabled = true;
+                    updateSubscriberToolsVisibility();
                     return;
                 }
 
@@ -1963,16 +1982,19 @@
             }
 
             function updateSubscriberToolsVisibility() {
-                if (!el.subscriberToolsWrap) {
+                if (!el.subscriberToolsLaunchWrap) {
                     return;
                 }
 
                 const workerBaseUrl = getNotificationWorkerBaseUrl();
                 const hasToken = Boolean(String((WEBEDITOR_CONFIG.notifications || {}).authToken || "").trim());
-                const canManage = Boolean(workerBaseUrl && hasToken);
+                const fileKind = getCurrentEditorFileKind();
+                const canManageForFile = fileKind === "posts" || fileKind === "games";
+                const canManage = Boolean(workerBaseUrl && hasToken && canManageForFile);
 
-                el.subscriberToolsWrap.classList.toggle("hidden", !canManage);
+                el.subscriberToolsLaunchWrap.classList.toggle("hidden", !canManage);
                 if (!canManage) {
+                    closeSubscriberManagementModal();
                     if (el.refreshSubscribersBtn) {
                         el.refreshSubscribersBtn.disabled = true;
                     }
@@ -1996,6 +2018,31 @@
                 if (el.deleteSelectedSubscriberBtn) {
                     el.deleteSelectedSubscriberBtn.disabled = !state.subscriberKeys.length;
                 }
+            }
+
+            async function openSubscriberManagementModal() {
+                if (!el.subscriberManagerModal) {
+                    return;
+                }
+
+                if (el.subscriberManagerSiteId) {
+                    el.subscriberManagerSiteId.textContent = getNotificationSiteId();
+                }
+
+                el.subscriberManagerModal.classList.remove("hidden");
+
+                try {
+                    await refreshSubscribers();
+                } catch (error) {
+                    setStatus(el.subscriberStatus, error.message, "bad");
+                }
+            }
+
+            function closeSubscriberManagementModal() {
+                if (!el.subscriberManagerModal) {
+                    return;
+                }
+                el.subscriberManagerModal.classList.add("hidden");
             }
 
             async function refreshSubscribers() {
@@ -2044,6 +2091,7 @@
 
                 await refreshSubscribers();
                 setStatus(el.subscriberStatus, "Deleted subscription " + selectedKey + ".", "ok");
+                showNotificationModal("Deleted selected subscription.", "ok", "Subscriber Manager");
             }
 
             async function deleteAllSubscribers() {
@@ -2072,6 +2120,7 @@
                 updateSubscriberSelect();
                 updateSubscriberToolsVisibility();
                 setStatus(el.subscriberStatus, "Deleted " + Number(payload.deleted || 0) + " subscriptions.", "ok");
+                showNotificationModal("Unsubscribed all users. Deleted " + Number(payload.deleted || 0) + " subscriptions.", "ok", "Subscriber Manager");
             }
 
             let notificationTimerInterval = null;
@@ -5071,6 +5120,26 @@
                 el.notificationDismissBtn.addEventListener("click", function() {
                     closeNotificationModal();
                 });
+
+                if (el.openSubscriberManagerBtn) {
+                    el.openSubscriberManagerBtn.addEventListener("click", async function() {
+                        await openSubscriberManagementModal();
+                    });
+                }
+
+                if (el.subscriberManagerCloseBtn) {
+                    el.subscriberManagerCloseBtn.addEventListener("click", function() {
+                        closeSubscriberManagementModal();
+                    });
+                }
+
+                if (el.subscriberManagerModal) {
+                    el.subscriberManagerModal.addEventListener("click", function(event) {
+                        if (event.target === el.subscriberManagerModal) {
+                            closeSubscriberManagementModal();
+                        }
+                    });
+                }
 
                 if (el.refreshSubscribersBtn) {
                     el.refreshSubscribersBtn.addEventListener("click", async function() {
