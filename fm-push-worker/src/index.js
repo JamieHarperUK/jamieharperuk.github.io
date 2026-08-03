@@ -36,7 +36,7 @@ function getCorsHeaders(request, env) {
 
 	return {
 		"Access-Control-Allow-Origin": allowOriginHeader,
-		"Access-Control-Allow-Methods": "GET,POST,OPTIONS",
+		"Access-Control-Allow-Methods": "GET,POST,DELETE,OPTIONS",
 		"Access-Control-Allow-Headers": "Content-Type, Authorization",
 		"Access-Control-Max-Age": "86400"
 	};
@@ -370,6 +370,55 @@ async function handleList(request, env) {
 	});
 }
 
+async function handleDeleteOneSubscription(request, env) {
+	if (!verifyNotifyAuth(request, env)) {
+		return jsonResponse(401, { ok: false, error: "Unauthorized" });
+	}
+
+	const body = await readJson(request);
+	const siteId = normalizeSiteId(body.siteId);
+	const keyName = String(body.keyName || "").trim();
+	const endpoint = String(body.endpoint || "").trim();
+
+	let resolvedKeyName = keyName;
+	if (!resolvedKeyName && endpoint) {
+		resolvedKeyName = await subscriptionKey(siteId, endpoint);
+	}
+
+	if (!resolvedKeyName) {
+		throw new Error("keyName or endpoint is required.");
+	}
+
+	await env.SUBSCRIPTIONS.delete(resolvedKeyName);
+
+	return jsonResponse(200, {
+		ok: true,
+		siteId,
+		deleted: 1,
+		keyName: resolvedKeyName
+	});
+}
+
+async function handleDeleteAllSubscriptions(request, env) {
+	if (!verifyNotifyAuth(request, env)) {
+		return jsonResponse(401, { ok: false, error: "Unauthorized" });
+	}
+
+	const url = new URL(request.url);
+	const siteId = normalizeSiteId(url.searchParams.get("siteId"));
+	const keys = await listSubscriptionKeys(env, siteId);
+
+	for (const keyName of keys) {
+		await env.SUBSCRIPTIONS.delete(keyName);
+	}
+
+	return jsonResponse(200, {
+		ok: true,
+		siteId,
+		deleted: keys.length
+	});
+}
+
 export default {
 	async fetch(request, env) {
 		const corsHeaders = getCorsHeaders(request, env);
@@ -409,6 +458,18 @@ export default {
 
 			if (request.method === "GET" && url.pathname === "/subscriptions") {
 				const response = await handleList(request, env);
+				response.headers.set("Access-Control-Allow-Origin", corsHeaders["Access-Control-Allow-Origin"]);
+				return response;
+			}
+
+			if (request.method === "POST" && url.pathname === "/subscriptions/delete") {
+				const response = await handleDeleteOneSubscription(request, env);
+				response.headers.set("Access-Control-Allow-Origin", corsHeaders["Access-Control-Allow-Origin"]);
+				return response;
+			}
+
+			if (request.method === "DELETE" && url.pathname === "/subscriptions") {
+				const response = await handleDeleteAllSubscriptions(request, env);
 				response.headers.set("Access-Control-Allow-Origin", corsHeaders["Access-Control-Allow-Origin"]);
 				return response;
 			}

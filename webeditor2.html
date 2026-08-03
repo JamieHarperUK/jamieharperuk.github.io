@@ -1134,6 +1134,19 @@
                                             <span>Send notifications with this commit</span>
                                         </label>
                                     </div>
+                                    <div id="subscriberToolsWrap" class="hidden" style="margin-top:0.55rem; border:1px solid var(--line); border-radius:8px; padding:0.65rem;">
+                                        <div style="font-weight:600; margin-bottom:0.45rem;">Push Subscribers</div>
+                                        <div class="row" style="margin-bottom:0.45rem;">
+                                            <button id="refreshSubscribersBtn" type="button">Refresh List</button>
+                                            <button id="deleteSelectedSubscriberBtn" type="button" class="warn">Delete Selected</button>
+                                            <button id="deleteAllSubscribersBtn" type="button" class="warn">Unsubscribe All</button>
+                                        </div>
+                                        <label for="subscriberSelect" style="margin:0 0 0.35rem 0;">Current subscriptions</label>
+                                        <select id="subscriberSelect">
+                                            <option value="">No subscriptions loaded.</option>
+                                        </select>
+                                        <div id="subscriberStatus" class="status hidden" style="margin-top:0.5rem; display:none;"></div>
+                                    </div>
                                     <div class="row">
                                         <button id="saveJsonBtn" class="primary">Commit Changes</button>
                                     </div>
@@ -1512,9 +1525,10 @@
                 },
                 notifications: {
                     enabled: true,
-                    notifyEndpoint: "https://fm-push-worker.oakshiftsoftware.workers.dev/notify",
+                    notifyEndpoint: "https://push.jhuk.co.uk/notify",
                     authToken: "T3MqM6IcYizOk0rNN5eec4E/zW0YZdVjY4XP4vVWHTMJ+RA3HhN8Jm2cuBCVvfTy",
                     siteId: "fm",
+                    siteBaseUrl: "https://jhuk.co.uk/fm/",
                     delayMs: 75000
                 }
             }; 
@@ -1625,6 +1639,7 @@
                 currentJsonPath: "",
                 currentJsonSha: "",
                 currentJsonData: null,
+                subscriberKeys: [],
                 lastNotificationPreferenceKind: "",
                 editorStep: 0,
                 crmModel: {
@@ -1729,6 +1744,12 @@
                 commitMessage: document.getElementById("commitMessage"),
                 notifyOnCommitWrap: document.getElementById("notifyOnCommitWrap"),
                 notifyOnCommitCheckbox: document.getElementById("notifyOnCommitCheckbox"),
+                subscriberToolsWrap: document.getElementById("subscriberToolsWrap"),
+                refreshSubscribersBtn: document.getElementById("refreshSubscribersBtn"),
+                deleteSelectedSubscriberBtn: document.getElementById("deleteSelectedSubscriberBtn"),
+                deleteAllSubscribersBtn: document.getElementById("deleteAllSubscribersBtn"),
+                subscriberSelect: document.getElementById("subscriberSelect"),
+                subscriberStatus: document.getElementById("subscriberStatus"),
                 saveJsonBtn: document.getElementById("saveJsonBtn"),
                 editorStatus: document.getElementById("editorStatus"),
                 valueEditModal: document.getElementById("valueEditModal"),
@@ -1862,6 +1883,195 @@
                     }
                     state.lastNotificationPreferenceKind = fileKind;
                 }
+
+                updateSubscriberToolsVisibility();
+            }
+
+            function getNotificationWorkerBaseUrl() {
+                const notificationConfig = WEBEDITOR_CONFIG.notifications || {};
+                const notifyEndpoint = String(notificationConfig.notifyEndpoint || "").trim();
+                if (!notifyEndpoint) {
+                    return "";
+                }
+
+                try {
+                    const url = new URL(notifyEndpoint);
+                    const normalizedPath = url.pathname.replace(/\/+$/, "");
+                    const basePath = normalizedPath.endsWith("/notify")
+                        ? normalizedPath.slice(0, -"/notify".length)
+                        : normalizedPath;
+                    return url.origin + (basePath || "");
+                } catch (_error) {
+                    return notifyEndpoint.replace(/\/notify\/?$/i, "").replace(/\/+$/, "");
+                }
+            }
+
+            function getNotificationSiteId() {
+                const notificationConfig = WEBEDITOR_CONFIG.notifications || {};
+                return String(notificationConfig.siteId || "fm").trim() || "fm";
+            }
+
+            function getFmAppBaseUrl() {
+                const configured = String((WEBEDITOR_CONFIG.notifications || {}).siteBaseUrl || "").trim();
+                if (configured) {
+                    return configured.replace(/\/+$/, "") + "/";
+                }
+                return "https://jhuk.co.uk/fm/";
+            }
+
+            function getNotificationAdminHeaders() {
+                const notificationConfig = WEBEDITOR_CONFIG.notifications || {};
+                const token = String(notificationConfig.authToken || "").trim();
+                const headers = {
+                    "Content-Type": "application/json"
+                };
+                if (token) {
+                    headers.Authorization = "Bearer " + token;
+                }
+                return headers;
+            }
+
+            function updateSubscriberSelect() {
+                if (!el.subscriberSelect) {
+                    return;
+                }
+
+                const keys = Array.isArray(state.subscriberKeys) ? state.subscriberKeys : [];
+                el.subscriberSelect.innerHTML = "";
+
+                if (!keys.length) {
+                    const option = document.createElement("option");
+                    option.value = "";
+                    option.textContent = "No subscriptions found.";
+                    el.subscriberSelect.appendChild(option);
+                    if (el.deleteSelectedSubscriberBtn) {
+                        el.deleteSelectedSubscriberBtn.disabled = true;
+                    }
+                    return;
+                }
+
+                keys.forEach(function(keyName) {
+                    const option = document.createElement("option");
+                    option.value = keyName;
+                    option.textContent = keyName;
+                    el.subscriberSelect.appendChild(option);
+                });
+
+                if (el.deleteSelectedSubscriberBtn) {
+                    el.deleteSelectedSubscriberBtn.disabled = false;
+                }
+            }
+
+            function updateSubscriberToolsVisibility() {
+                if (!el.subscriberToolsWrap) {
+                    return;
+                }
+
+                const workerBaseUrl = getNotificationWorkerBaseUrl();
+                const hasToken = Boolean(String((WEBEDITOR_CONFIG.notifications || {}).authToken || "").trim());
+                const canManage = Boolean(workerBaseUrl && hasToken);
+
+                el.subscriberToolsWrap.classList.toggle("hidden", !canManage);
+                if (!canManage) {
+                    if (el.refreshSubscribersBtn) {
+                        el.refreshSubscribersBtn.disabled = true;
+                    }
+                    if (el.deleteAllSubscribersBtn) {
+                        el.deleteAllSubscribersBtn.disabled = true;
+                    }
+                    if (el.deleteSelectedSubscriberBtn) {
+                        el.deleteSelectedSubscriberBtn.disabled = true;
+                    }
+                    state.subscriberKeys = [];
+                    updateSubscriberSelect();
+                    return;
+                }
+
+                if (el.refreshSubscribersBtn) {
+                    el.refreshSubscribersBtn.disabled = false;
+                }
+                if (el.deleteAllSubscribersBtn) {
+                    el.deleteAllSubscribersBtn.disabled = false;
+                }
+                if (el.deleteSelectedSubscriberBtn) {
+                    el.deleteSelectedSubscriberBtn.disabled = !state.subscriberKeys.length;
+                }
+            }
+
+            async function refreshSubscribers() {
+                const workerBaseUrl = getNotificationWorkerBaseUrl();
+                if (!workerBaseUrl) {
+                    throw new Error("Notification worker endpoint is not configured.");
+                }
+
+                setStatus(el.subscriberStatus, "Loading subscriptions...", "info");
+                const siteId = encodeURIComponent(getNotificationSiteId());
+                const response = await fetch(workerBaseUrl + "/subscriptions?siteId=" + siteId, {
+                    method: "GET",
+                    headers: getNotificationAdminHeaders()
+                });
+
+                if (!response.ok) {
+                    throw new Error("Subscriber list request failed with HTTP " + response.status + ".");
+                }
+
+                const payload = await response.json();
+                state.subscriberKeys = Array.isArray(payload.keys) ? payload.keys : [];
+                updateSubscriberSelect();
+                updateSubscriberToolsVisibility();
+                setStatus(el.subscriberStatus, "Loaded " + state.subscriberKeys.length + " subscriptions for siteId " + getNotificationSiteId() + ".", "ok");
+            }
+
+            async function deleteSelectedSubscriber() {
+                const selectedKey = String((el.subscriberSelect && el.subscriberSelect.value) || "").trim();
+                if (!selectedKey) {
+                    throw new Error("Select a subscription key first.");
+                }
+
+                const workerBaseUrl = getNotificationWorkerBaseUrl();
+                const response = await fetch(workerBaseUrl + "/subscriptions/delete", {
+                    method: "POST",
+                    headers: getNotificationAdminHeaders(),
+                    body: JSON.stringify({
+                        siteId: getNotificationSiteId(),
+                        keyName: selectedKey
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error("Delete request failed with HTTP " + response.status + ".");
+                }
+
+                await refreshSubscribers();
+                setStatus(el.subscriberStatus, "Deleted subscription " + selectedKey + ".", "ok");
+            }
+
+            async function deleteAllSubscribers() {
+                const currentCount = Array.isArray(state.subscriberKeys) ? state.subscriberKeys.length : 0;
+                const confirmed = window.confirm(
+                    "Unsubscribe all current subscribers for siteId " + getNotificationSiteId() + "?" +
+                    (currentCount ? "\n\nCurrent loaded count: " + currentCount : "")
+                );
+                if (!confirmed) {
+                    return;
+                }
+
+                const workerBaseUrl = getNotificationWorkerBaseUrl();
+                const siteId = encodeURIComponent(getNotificationSiteId());
+                const response = await fetch(workerBaseUrl + "/subscriptions?siteId=" + siteId, {
+                    method: "DELETE",
+                    headers: getNotificationAdminHeaders()
+                });
+
+                if (!response.ok) {
+                    throw new Error("Unsubscribe-all request failed with HTTP " + response.status + ".");
+                }
+
+                const payload = await response.json();
+                state.subscriberKeys = [];
+                updateSubscriberSelect();
+                updateSubscriberToolsVisibility();
+                setStatus(el.subscriberStatus, "Deleted " + Number(payload.deleted || 0) + " subscriptions.", "ok");
             }
 
             let notificationTimerInterval = null;
@@ -4514,7 +4724,7 @@
 
                 const relevantTeamSlug = toTeamSlug(relevantTeam);
                 const relevantTeamUrl = relevantTeamSlug
-                    ? "https://jamieharperuk.github.io/fm/#team/" + relevantTeamSlug
+                    ? getFmAppBaseUrl() + "#team/" + relevantTeamSlug
                     : "";
 
                 return {
@@ -4861,6 +5071,36 @@
                 el.notificationDismissBtn.addEventListener("click", function() {
                     closeNotificationModal();
                 });
+
+                if (el.refreshSubscribersBtn) {
+                    el.refreshSubscribersBtn.addEventListener("click", async function() {
+                        try {
+                            await refreshSubscribers();
+                        } catch (error) {
+                            setStatus(el.subscriberStatus, error.message, "bad");
+                        }
+                    });
+                }
+
+                if (el.deleteSelectedSubscriberBtn) {
+                    el.deleteSelectedSubscriberBtn.addEventListener("click", async function() {
+                        try {
+                            await deleteSelectedSubscriber();
+                        } catch (error) {
+                            setStatus(el.subscriberStatus, error.message, "bad");
+                        }
+                    });
+                }
+
+                if (el.deleteAllSubscribersBtn) {
+                    el.deleteAllSubscribersBtn.addEventListener("click", async function() {
+                        try {
+                            await deleteAllSubscribers();
+                        } catch (error) {
+                            setStatus(el.subscriberStatus, error.message, "bad");
+                        }
+                    });
+                }
 
                 el.modalCopyCodeBtn.addEventListener("click", function() {
                     const code = el.modalDeviceCode.textContent;
