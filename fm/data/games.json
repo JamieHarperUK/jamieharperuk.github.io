@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Home",
-      "home_team": "Altrincham FC",
-      "away_team": "AFC Fylde",
-      "date": "03-08-2026",
-      "time": "20:20",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 5th Division",
-      "venue": "J. Davidson Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Away",
       "home_team": "ammar FC",
       "away_team": "Harper FC",
@@ -61,6 +48,19 @@
     },
     {
       "home_or_away": "Away",
+      "home_team": "Kidderminster Harriers",
+      "away_team": "Altrincham FC",
+      "date": "04-08-2026",
+      "time": "20:20",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 5th Division",
+      "venue": "Aggborough Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
       "home_team": "FC ransonet",
       "away_team": "Harper FC",
       "date": "04-08-2026",
@@ -71,6 +71,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Altrincham FC",
+      "away_team": "AFC Fylde",
+      "date": "03-08-2026",
+      "time": "20:20",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 5th Division",
+      "venue": "J. Davidson Stadium",
+      "home_score": "3",
+      "away_score": "0",
+      "winner": "Altrincham FC"
     },
     {
       "home_or_away": "Home",
