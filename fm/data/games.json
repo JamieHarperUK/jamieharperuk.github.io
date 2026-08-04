@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Away",
-      "home_team": "Kidderminster Harriers",
-      "away_team": "Altrincham FC",
-      "date": "04-08-2026",
-      "time": "20:20",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 5th Division",
-      "venue": "Aggborough Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "FC ransonet",
       "away_team": "Harper FC",
       "date": "04-08-2026",
@@ -42,6 +29,19 @@
       "osm_or_top_eleven": "Top Eleven",
       "competition": "Cup (Final)",
       "venue": "FC ransonet's Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "Liverpool FC",
+      "date": "05-08-2026",
+      "time": "11:51",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 1",
+      "venue": "The Concourse",
       "home_score": "",
       "away_score": "",
       "winner": ""
@@ -61,16 +61,29 @@
     },
     {
       "home_or_away": "Home",
-      "home_team": "Harper FC",
-      "away_team": "Liverpool FC",
+      "home_team": "Altrincham FC",
+      "away_team": "Carlisle United",
       "date": "05-08-2026",
-      "time": "11:51",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "League Level 1",
-      "venue": "The Concourse",
+      "time": "20:20",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 5th Division",
+      "venue": "J. Davidson Stadium",
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Kidderminster Harriers",
+      "away_team": "Altrincham FC",
+      "date": "04-08-2026",
+      "time": "20:20",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 5th Division",
+      "venue": "Aggborough Stadium",
+      "home_score": "0",
+      "away_score": "0",
+      "winner": "Draw"
     },
     {
       "home_or_away": "Home",
