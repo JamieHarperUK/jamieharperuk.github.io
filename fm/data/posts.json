@@ -552,6 +552,21 @@
         "bulletin",
         "outstanding"
       ]
+    },
+    {
+      "title": "Cup Victory",
+      "content": "What a night for the club, as Harper FC lifts its very first trophy after an unforgettable performance in the final.\n\nWe went head-to-head against FC ransonet, expecting a tough battle on the pitch. Instead, the squad put on a masterclass from the first whistle until the last, securing a massive 8-0 win to claim the silverware.\n\nSpecial praise goes to our star player Rachid Mesquini, who led the charge in style by netting 4 of the goals by himself. Every single player fought hard, dominated possession, and made this dream a reality.",
+      "date_time": [
+        "04-08-2026",
+        "22:28"
+      ],
+      "image": "https://jhuk.co.uk/fm/data/top_eleven_post.jpg",
+      "category": "Top Eleven",
+      "tags": [
+        "trophy",
+        "cup",
+        "victory"
+      ]
     }
   ]
 }
