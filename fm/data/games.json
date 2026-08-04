@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Home",
-      "home_team": "Manchester United",
-      "away_team": "Brighton and Hove Albion",
-      "date": "04-08-2026",
-      "time": "18:28",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 2nd Division",
-      "venue": "Old Trafford",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Away",
       "home_team": "Kidderminster Harriers",
       "away_team": "Altrincham FC",
@@ -60,6 +47,19 @@
       "winner": ""
     },
     {
+      "home_or_away": "Away",
+      "home_team": "Aston Villa",
+      "away_team": "Manchester United",
+      "date": "05-08-2026",
+      "time": "18:28",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Villa Park",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
       "home_or_away": "Home",
       "home_team": "Harper FC",
       "away_team": "Liverpool FC",
@@ -71,6 +71,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Manchester United",
+      "away_team": "Brighton and Hove Albion",
+      "date": "04-08-2026",
+      "time": "18:28",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Old Trafford",
+      "home_score": "1",
+      "away_score": "0",
+      "winner": "Manchester United"
     },
     {
       "home_or_away": "Away",
