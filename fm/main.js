@@ -1912,9 +1912,9 @@ const app = {
 
     getPositionGroup(position) {
         const goalkeepers = ["GK"];
-        const defenders = ["LB", "RB", "CB", "LCB", "RCB", "DL", "DR", "DC"];
-        const midfielders = ["CM", "CDM", "CAM", "LM", "RM", "MC", "DMC", "AMC", "AML", "AMR"];
-        const forwards = ["ST", "CF", "LW", "RW", "SS"];
+        const defenders = ["LB", "RB", "CB", "LCB", "RCB", "DL", "DR", "DC", "WB", "CD"];
+        const midfielders = ["CM", "CDM", "CAM", "LM", "RM", "MC", "DMC", "AMC", "AML", "AMR", "W", "IM"];
+        const forwards = ["ST", "CF", "LW", "RW", "SS", "FW"];
 
         if (goalkeepers.includes(position)) {
             return "Goalkeepers";
