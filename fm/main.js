@@ -57,7 +57,8 @@ function urlBase64ToUint8Array(base64String) {
 // To be referenced and used when specifically sharing posts on social media platforms like X (formerly Twitter), not Facebook.
 const gameTwitterHandles = {
     top_eleven: "@topeleven",
-    osm: "@OSMLikeABoss"
+    osm: "@OSMLikeABoss",
+    hattrick: "@Hattrick"
 };
 
 const app = {
