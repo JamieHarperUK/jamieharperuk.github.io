@@ -37,7 +37,8 @@ const shareConfig = {
 
 const platformLogoUrls = {
     topEleven: buildFmUrl("data/top-eleven-logo.png", true),
-    osm: buildFmUrl("data/osm-logo.png", true)
+    osm: buildFmUrl("data/osm-logo.png", true),
+    hattrick: buildFmUrl("data/hattrick-logo.png", true)
 };
 
 function urlBase64ToUint8Array(base64String) {
@@ -64,7 +65,7 @@ const app = {
     analyticsId: "G-DXQ9XEWGGG",
     siteMeta: {
         title: "JHUK Football Management",
-        description: "Track my OSM and Top Eleven teams, fixtures, and updates in one place.",
+        description: "Track my OSM, Top Eleven, and Hattrick teams, fixtures, and updates in one place.",
         image: buildFmUrl("data/fm_bg.png", true)
     },
     data: {
@@ -284,16 +285,86 @@ const app = {
         this.calculateEloRatings();
     },
 
+    normalizePlatformName(rawPlatform) {
+        const value = String(rawPlatform || "").trim();
+        const key = value.toLowerCase();
+        if (key === "osm" || key === "online soccer manager") {
+            return "OSM";
+        }
+        if (key === "top eleven" || key === "topeleven") {
+            return "Top Eleven";
+        }
+        if (key === "hattrick") {
+            return "Hattrick";
+        }
+        return value || "Unknown";
+    },
+
+    getPlatformDetails(platformName) {
+        const normalized = this.normalizePlatformName(platformName);
+        if (normalized === "Top Eleven") {
+            return {
+                name: "Top Eleven",
+                fullName: "Top Eleven",
+                logo: platformLogoUrls.topEleven,
+                link: "https://www.topeleven.com/",
+                invertLogo: true,
+                kFactor: 28,
+                eloIntro: "This rating is a continuously evolving ELO for this Top Eleven team based on the matches I have recorded."
+            };
+        }
+        if (normalized === "OSM") {
+            return {
+                name: "OSM",
+                fullName: "Online Soccer Manager",
+                logo: platformLogoUrls.osm,
+                link: "https://www.onlinesoccermanager.com/",
+                invertLogo: false,
+                kFactor: 24,
+                eloIntro: "This rating is a season-style ELO for this OSM team based on the matches I have recorded for that platform."
+            };
+        }
+        if (normalized === "Hattrick") {
+            return {
+                name: "Hattrick",
+                fullName: "Hattrick",
+                logo: platformLogoUrls.hattrick,
+                link: "https://www.hattrick.org/",
+                invertLogo: false,
+                kFactor: 28,
+                eloIntro: "This rating is a continuously evolving ELO for this Hattrick team based on the matches I have recorded."
+            };
+        }
+        return {
+            name: normalized,
+            fullName: normalized,
+            logo: "",
+            link: "#",
+            invertLogo: false,
+            kFactor: 24,
+            eloIntro: "This rating is calculated from the matches I have recorded for this platform."
+        };
+    },
+
     calculateEloRatings() {
         const ratingsByPlatform = {};
-        const platforms = ["OSM", "Top Eleven"];
+        const platformSet = new Set();
+
+        (this.data.teams || []).forEach((team) => {
+            platformSet.add(this.normalizePlatformName(team.osm_or_top_eleven));
+        });
+        (this.data.games || []).forEach((game) => {
+            platformSet.add(this.normalizePlatformName(game.osm_or_top_eleven));
+        });
+
+        const platforms = [...platformSet].filter((platformName) => platformName && platformName !== "Unknown");
 
         platforms.forEach((platformName) => {
             const platformTeams = new Set();
-            const platformGames = this.data.games.filter((game) => game.osm_or_top_eleven === platformName && this.isPlayed(game));
+            const platformGames = this.data.games.filter((game) => this.normalizePlatformName(game.osm_or_top_eleven) === platformName && this.isPlayed(game));
 
             (this.data.teams || []).forEach((team) => {
-                if (team.osm_or_top_eleven === platformName) {
+                if (this.normalizePlatformName(team.osm_or_top_eleven) === platformName) {
                     platformTeams.add(team.team_name);
                 }
             });
@@ -308,7 +379,7 @@ const app = {
                 ratings[teamName] = 1500;
             });
 
-            const kFactor = platformName === "Top Eleven" ? 28 : 24;
+            const kFactor = this.getPlatformDetails(platformName).kFactor;
             const homeAdvantage = 40;
 
             platformGames
@@ -383,11 +454,9 @@ const app = {
             return;
         }
 
-        const isTopEleven = platform === "Top Eleven";
-        const platformName = isTopEleven ? "Top Eleven" : "OSM";
-        const intro = isTopEleven
-            ? "This rating is a continuously evolving ELO for this Top Eleven team based on the matches I have recorded."
-            : "This rating is a season-style ELO for this OSM team based on the matches I have recorded for that platform.";
+        const platformName = this.normalizePlatformName(platform);
+        const platformDetails = this.getPlatformDetails(platformName);
+        const intro = platformDetails.eloIntro;
 
         content.innerHTML = `
             <p style="margin-top: 0rem;">${this.escapeHtml(intro)}</p>
@@ -401,7 +470,7 @@ const app = {
             <p style="margin-bottom: 0rem;"><strong>${this.escapeHtml(team.team_name)}</strong> is currently being evaluated in the ${this.escapeHtml(platformName)} pool.</p>
         `;
 
-        title.textContent = `${platformName} ELO Explained`;
+        title.textContent = `${platformDetails.name} ELO Explained`;
         modal.classList.add("is-open");
         modal.setAttribute("aria-hidden", "false");
         document.body.classList.add("modal-open");
@@ -708,17 +777,23 @@ const app = {
         }
 
         const finishedTeams = this.data.teams.filter((team) => team.end_state && typeof team.end_state === "object");
-        const byPlatform = {
-            OSM: [],
-            "Top Eleven": []
-        };
+        const byPlatform = {};
 
         finishedTeams.forEach((team) => {
-            const platform = team.osm_or_top_eleven === "OSM" ? "OSM" : "Top Eleven";
+            const platform = this.normalizePlatformName(team.osm_or_top_eleven);
+            if (!byPlatform[platform]) {
+                byPlatform[platform] = [];
+            }
             byPlatform[platform].push(team);
         });
 
-        const platformOrder = ["Top Eleven", "OSM"];
+        const preferredPlatformOrder = ["Top Eleven", "Hattrick", "OSM"];
+        const dynamicPlatforms = Object.keys(byPlatform)
+            .filter((platform) => !preferredPlatformOrder.includes(platform))
+            .sort();
+        const platformOrder = preferredPlatformOrder
+            .filter((platform) => Array.isArray(byPlatform[platform]) && byPlatform[platform].length)
+            .concat(dynamicPlatforms);
         const sectionsMarkup = platformOrder
             .map((platform) => {
                 const teams = byPlatform[platform]
@@ -809,13 +884,16 @@ const app = {
 
         const gameLogoKey = {
             "top eleven": platformLogoUrls.topEleven,
-            "osm": platformLogoUrls.osm
+            "osm": platformLogoUrls.osm,
+            "hattrick": platformLogoUrls.hattrick
         };
 
         if (latestPost.category?.toLowerCase() === "top eleven") {
             categoryGameType = `<img src="${gameLogoKey["top eleven"]}" alt="Top Eleven logo" style="height: 1rem; vertical-align: middle; filter: invert(1);">`;
         } else if (latestPost.category?.toLowerCase() === "osm") {
             categoryGameType = `<img src="${gameLogoKey["osm"]}" alt="Online Soccer Manager logo" style="height: 1rem; vertical-align: middle;">`;
+        } else if (latestPost.category?.toLowerCase() === "hattrick") {
+            categoryGameType = `<img src="${gameLogoKey["hattrick"]}" alt="Hattrick logo" style="height: 1rem; vertical-align: middle;">`;
         }
 
         container.innerHTML = `
@@ -1202,7 +1280,7 @@ const app = {
 
             let categoryGameType = "";
 
-            if (safeCategory.toLowerCase() === "top eleven" || safeCategory.toLowerCase() === "osm") {
+            if (safeCategory.toLowerCase() === "top eleven" || safeCategory.toLowerCase() === "osm" || safeCategory.toLowerCase() === "hattrick") {
                 let gameTypeDataTwo = {
                     title: "Unknown",
                     logo: ""
@@ -1215,6 +1293,10 @@ const app = {
                 } else if (safeCategory.toLowerCase() === "osm") {
                     gameTypeDataTwo.title = "Online Soccer Manager";
                     gameTypeDataTwo.logo = platformLogoUrls.osm;
+                    categoryGameType = `<img src="${gameTypeDataTwo.logo}" alt="${gameTypeDataTwo.title} logo" style="height: 1rem; vertical-align: middle;">`;
+                } else if (safeCategory.toLowerCase() === "hattrick") {
+                    gameTypeDataTwo.title = "Hattrick";
+                    gameTypeDataTwo.logo = platformLogoUrls.hattrick;
                     categoryGameType = `<img src="${gameTypeDataTwo.logo}" alt="${gameTypeDataTwo.title} logo" style="height: 1rem; vertical-align: middle;">`;
                 }
             } else {
@@ -1269,7 +1351,7 @@ const app = {
 
         let categoryGameType = "";
 
-        if (safeCategory.toLowerCase() === "top eleven" || safeCategory.toLowerCase() === "osm") {
+        if (safeCategory.toLowerCase() === "top eleven" || safeCategory.toLowerCase() === "osm" || safeCategory.toLowerCase() === "hattrick") {
             let gameTypeDataTwo = {
                 title: "Unknown",
                 logo: ""
@@ -1282,6 +1364,10 @@ const app = {
             } else if (safeCategory.toLowerCase() === "osm") {
                 gameTypeDataTwo.title = "Online Soccer Manager";
                 gameTypeDataTwo.logo = platformLogoUrls.osm;
+                categoryGameType = `<img src="${gameTypeDataTwo.logo}" alt="${gameTypeDataTwo.title} logo" style="height: 2rem; vertical-align: middle;">`;
+            } else if (safeCategory.toLowerCase() === "hattrick") {
+                gameTypeDataTwo.title = "Hattrick";
+                gameTypeDataTwo.logo = platformLogoUrls.hattrick;
                 categoryGameType = `<img src="${gameTypeDataTwo.logo}" alt="${gameTypeDataTwo.title} logo" style="height: 2rem; vertical-align: middle;">`;
             }
         } else {
@@ -1536,30 +1622,16 @@ const app = {
         const yellowCards = (team.players || []).reduce((count, player) => count + Number(player[2] || 0), 0);
         const redCards = (team.players || []).reduce((count, player) => count + Number(player[3] || 0), 0);
         const isCompletedTeam = Boolean(team.end_state && typeof team.end_state === "object");
-        const eloPlatform = team.osm_or_top_eleven === "OSM" ? "OSM" : team.osm_or_top_eleven === "Top Eleven" ? "Top Eleven" : "Unknown";
+        const eloPlatform = this.normalizePlatformName(team.osm_or_top_eleven);
         const platformRatings = this.data.eloRatings?.[eloPlatform] || {};
         const eloValue = Math.round(Number(platformRatings[team.team_name]) || 1500);
 
-        const gameSelector = team.osm_or_top_eleven === "OSM" ? "Online Soccer Manager" : team.osm_or_top_eleven === "Top Eleven" ? "Top Eleven" : "Unknown";
-        let gameTypeData = {
-            title: "Unknown",
-            logo: "",
-            link: "#"
-        };
+        const gameTypeData = this.getPlatformDetails(team.osm_or_top_eleven);
 
-        if (gameSelector == "Top Eleven") {
-            gameTypeData.title = "Top Eleven";
-            gameTypeData.logo = platformLogoUrls.topEleven;
-            gameTypeData.link = "https://www.topeleven.com/";
-        } else if (gameSelector == "Online Soccer Manager") {
-            gameTypeData.title = "Online Soccer Manager";
-            gameTypeData.logo = platformLogoUrls.osm;
-            gameTypeData.link = "https://www.onlinesoccermanager.com/";
-        }
-
-        let gameLogoTag = `<img src="${gameTypeData.logo}" alt="${gameTypeData.title} logo" style="height: 1.75rem; vertical-align: middle;">`;
-        if (gameTypeData.title === "Top Eleven") {
-            gameLogoTag = `<img src="${gameTypeData.logo}" alt="${gameTypeData.title} logo" style="height: 1.75rem; vertical-align: middle; filter: invert(1);">`;
+        let gameLogoTag = this.escapeHtml(gameTypeData.fullName || "Unknown");
+        if (gameTypeData.logo) {
+            const topElevenFilterStyle = gameTypeData.invertLogo ? " filter: invert(1);" : "";
+            gameLogoTag = `<img src="${gameTypeData.logo}" alt="${gameTypeData.fullName} logo" style="height: 1.75rem; vertical-align: middle;${topElevenFilterStyle}">`;
         }
 
         content.innerHTML = `
