@@ -522,6 +522,141 @@
       ]
     },
     {
+      "team_name": "Cheshire Harriers FC",
+      "osm_or_top_eleven": "Hattrick",
+      "competition": "Series: VI.251",
+      "country": "England",
+      "home_venue": "Harriers FC",
+      "players": [
+        [
+          "GK",
+          "Chris Owls",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "GK",
+          "Russ Balding",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "WB",
+          "Clem Garfinkel",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "WB",
+          "Denzil Ratcliff",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CD",
+          "Neil Mellon",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CD",
+          "Andy Clayton",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "W",
+          "Ian Finn",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "W",
+          "Calvin Aldred",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "W",
+          "Ossie Leurquin",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "W",
+          "Dwayne Barnes",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "W",
+          "Brady Masterson",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "IM",
+          "Scott Clarke",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "IM",
+          "Johnny Ayers",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "IM",
+          "Taylor Bevan",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "IM",
+          "Sean Hoult",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "FW",
+          "Sean Browne",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "FW",
+          "Vinnie Wright",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "FW",
+          "Terence Mangan",
+          "0",
+          "0",
+          "0"
+        ]
+      ]
+    },
+    {
       "team_name": "England",
       "osm_or_top_eleven": "OSM",
       "competition": "World 2026",
