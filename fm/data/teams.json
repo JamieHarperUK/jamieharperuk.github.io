@@ -38,37 +38,9 @@
           "0"
         ],
         [
-          "CB",
-          "Manuel Akanji",
-          "0",
-          "1",
-          "0"
-        ],
-        [
-          "LB",
-          "Jose Maria Gimenez",
-          "0",
-          "1",
-          "0"
-        ],
-        [
-          "LB",
-          "Leny Yoro",
-          "0",
-          "0",
-          "6"
-        ],
-        [
           "RB",
           "William Pacho",
           "2",
-          "0",
-          "0"
-        ],
-        [
-          "CB",
-          "Ramy Bensebaini",
-          "0",
           "0",
           "0"
         ],
@@ -81,7 +53,28 @@
         ],
         [
           "LB",
+          "Leny Yoro",
+          "0",
+          "0",
+          "5"
+        ],
+        [
+          "LB",
+          "Jose Maria Gimenez",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "LB",
           "Marcos Llorente",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Manuel Akanji",
           "0",
           "0",
           "0"
@@ -94,36 +87,8 @@
           "0"
         ],
         [
-          "CM",
-          "Kobbie Mainoo",
-          "0",
-          "1",
-          "0"
-        ],
-        [
-          "CM",
-          "Rodrigo De Paul",
-          "2",
-          "0",
-          "0"
-        ],
-        [
-          "CM",
-          "Dani Olmo",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "CAM",
-          "Bruno Fernandes",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CAM",
-          "Carlos Henrique Casemiro",
+          "CB",
+          "Ramy Bensebaini",
           "0",
           "0",
           "0"
@@ -136,9 +101,58 @@
           "0"
         ],
         [
+          "CAM",
+          "Carlos Henrique Casemiro",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Kobbie Mainoo",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Dani Olmo",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Bruno Fernandes",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Rodrigo De Paul",
+          "2",
+          "0",
+          "0"
+        ],
+        [
           "RW",
           "Bryan Mbeumo",
           "1",
+          "0",
+          "0"
+        ],
+        [
+          "RW",
+          "Lamine Yamal Nasroui Ebana",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "RW",
+          "Jeremy Doku",
+          "0",
           "0",
           "0"
         ],
@@ -160,20 +174,6 @@
           "ST",
           "Joshus Orobosa Zirkzee",
           "1",
-          "0",
-          "0"
-        ],
-        [
-          "RW",
-          "Jeremy Doku",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "RW",
-          "Lamine Yamal Nasroui Ebana",
-          "0",
           "0",
           "0"
         ]
@@ -209,6 +209,34 @@
           "0"
         ],
         [
+          "GK",
+          "Mads Christiansen",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "RB",
+          "Odai Abdulghani",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "RB",
+          "Sherel Floranus",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "LB",
+          "Neco Williams",
+          "0",
+          "0",
+          "0"
+        ],
+        [
           "CB",
           "Joel Bailey",
           "0",
@@ -223,20 +251,6 @@
           "0"
         ],
         [
-          "LB",
-          "Neco Williams",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "RB",
-          "Odai Abdulghani",
-          "0",
-          "0",
-          "0"
-        ],
-        [
           "CB",
           "Geiner Martinez",
           "0",
@@ -244,8 +258,8 @@
           "0"
         ],
         [
-          "RB",
-          "Sherel Floranus",
+          "CB",
+          "Justin de Haas",
           "0",
           "0",
           "0"
@@ -283,12 +297,19 @@
           "Jensen Weir",
           "0",
           "0",
-          "1"
+          "0"
         ],
         [
           "CM",
           "Kai Klefisch",
           "1",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Giacomo Faticanti",
+          "0",
           "0",
           "0"
         ],
@@ -300,9 +321,9 @@
           "0"
         ],
         [
-          "ST",
-          "Sam Taylor",
-          "1",
+          "LW",
+          "Ivan Romero",
+          "0",
           "0",
           "0"
         ],
@@ -321,6 +342,13 @@
           "0"
         ],
         [
+          "LW",
+          "Sam Taylor",
+          "2",
+          "0",
+          "0"
+        ],
+        [
           "RW",
           "Halil Akbunar",
           "0",
@@ -328,8 +356,15 @@
           "0"
         ],
         [
-          "ST",
+          "RW",
           "Louis Mafouta",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ST",
+          "Cyriel Dessers",
           "0",
           "0",
           "0"
