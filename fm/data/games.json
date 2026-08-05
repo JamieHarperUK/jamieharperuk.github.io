@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Away",
-      "home_team": "Aston Villa",
-      "away_team": "Manchester United",
-      "date": "05-08-2026",
-      "time": "18:28",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 2nd Division",
-      "venue": "Villa Park",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Home",
       "home_team": "Altrincham FC",
       "away_team": "Carlisle United",
@@ -58,6 +45,32 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Manchester United",
+      "away_team": "Brentford",
+      "date": "06-08-2026",
+      "time": "18:28",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Old Trafford",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Aston Villa",
+      "away_team": "Manchester United",
+      "date": "05-08-2026",
+      "time": "18:28",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Villa Park",
+      "home_score": "0",
+      "away_score": "1",
+      "winner": "Manchester United"
     },
     {
       "home_or_away": "Home",
