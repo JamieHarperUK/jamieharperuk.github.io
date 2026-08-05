@@ -16,6 +16,305 @@
   },
   "teams": [
     {
+      "team_name": "Cheshire Harriers FC",
+      "osm_or_top_eleven": "Hattrick",
+      "competition": "Series: VI.251",
+      "country": "England",
+      "home_venue": "Harriers Park",
+      "players": [
+        [
+          "GK",
+          "Chris Owls",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "GK",
+          "Russ Balding",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "WB",
+          "Clem Garfinkel",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "WB",
+          "Denzil Ratcliff",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CD",
+          "Neil Mellon",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CD",
+          "Andy Clayton",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "W",
+          "Ian Finn",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "W",
+          "Calvin Aldred",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "W",
+          "Ossie Leurquin",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "W",
+          "Dwayne Barnes",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "W",
+          "Brady Masterson",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "IM",
+          "Scott Clarke",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "IM",
+          "Johnny Ayers",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "IM",
+          "Taylor Bevan",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "IM",
+          "Sean Hoult",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "IM",
+          "Glenn Clarke",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "FW",
+          "Sean Browne",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "FW",
+          "Vinnie Wright",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "FW",
+          "Terence Mangan",
+          "0",
+          "0",
+          "0"
+        ]
+      ]
+    },
+    {
+      "team_name": "Harper FC",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 1",
+      "country": "England",
+      "home_venue": "The Concourse",
+      "end_state": null,
+      "players": [
+        [
+          "GK",
+          "Mads Lohmann",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "GK",
+          "Pedro Guedes",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "DL",
+          "David Pirie",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "DL",
+          "Arnaud Bedime",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "DC",
+          "Artur Marques",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "DC",
+          "Raul Antonio Medina",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "DR",
+          "Sol Grant",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "DR",
+          "Alcidio Fleytas",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "DR",
+          "Mourad Bouizgar",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "MC",
+          "Cristian Zardetto",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "MC",
+          "Weerasak Paphunga",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "MC",
+          "Stanislav Bozhankov",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "MC",
+          "Rattasak Saiwaew",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "AML",
+          "Rachid Mesquini",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "AMR",
+          "Maximiliano Martinones",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "AMR",
+          "Jorge Manuel Gonzalez",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ST",
+          "David Douence",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "ST",
+          "Sergio Moreno da Silva",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ST",
+          "Mark Robertson",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ST",
+          "Mahmoud Howash",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ST",
+          "Zsolt Gevay",
+          "0",
+          "0",
+          "0"
+        ]
+      ]
+    },
+    {
       "team_name": "Manchester United",
       "osm_or_top_eleven": "OSM",
       "competition": "England 2nd Division",
@@ -358,305 +657,6 @@
         [
           "ST",
           "Cyriel Dessers",
-          "0",
-          "0",
-          "0"
-        ]
-      ]
-    },
-    {
-      "team_name": "Harper FC",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "League Level 1",
-      "country": "England",
-      "home_venue": "The Concourse",
-      "end_state": null,
-      "players": [
-        [
-          "GK",
-          "Mads Lohmann",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "GK",
-          "Pedro Guedes",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "DL",
-          "David Pirie",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "DL",
-          "Arnaud Bedime",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "DC",
-          "Artur Marques",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "DC",
-          "Raul Antonio Medina",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "DR",
-          "Sol Grant",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "DR",
-          "Alcidio Fleytas",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "DR",
-          "Mourad Bouizgar",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "MC",
-          "Cristian Zardetto",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "MC",
-          "Weerasak Paphunga",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "MC",
-          "Stanislav Bozhankov",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "MC",
-          "Rattasak Saiwaew",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "AML",
-          "Rachid Mesquini",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "AMR",
-          "Maximiliano Martinones",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "AMR",
-          "Jorge Manuel Gonzalez",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "ST",
-          "David Douence",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "ST",
-          "Sergio Moreno da Silva",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "ST",
-          "Mark Robertson",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "ST",
-          "Mahmoud Howash",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "ST",
-          "Zsolt Gevay",
-          "0",
-          "0",
-          "0"
-        ]
-      ]
-    },
-    {
-      "team_name": "Cheshire Harriers FC",
-      "osm_or_top_eleven": "Hattrick",
-      "competition": "Series: VI.251",
-      "country": "England",
-      "home_venue": "Harriers Park",
-      "players": [
-        [
-          "GK",
-          "Chris Owls",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "GK",
-          "Russ Balding",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "WB",
-          "Clem Garfinkel",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "WB",
-          "Denzil Ratcliff",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CD",
-          "Neil Mellon",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CD",
-          "Andy Clayton",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "W",
-          "Ian Finn",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "W",
-          "Calvin Aldred",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "W",
-          "Ossie Leurquin",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "W",
-          "Dwayne Barnes",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "W",
-          "Brady Masterson",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "IM",
-          "Scott Clarke",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "IM",
-          "Johnny Ayers",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "IM",
-          "Taylor Bevan",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "IM",
-          "Sean Hoult",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "IM",
-          "Glenn Clarke",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "FW",
-          "Sean Browne",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "FW",
-          "Vinnie Wright",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "FW",
-          "Terence Mangan",
           "0",
           "0",
           "0"
