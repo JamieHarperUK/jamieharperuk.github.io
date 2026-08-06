@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Away",
-      "home_team": "Yeovil Town",
-      "away_team": "Altrincham FC",
-      "date": "06-08-2026",
-      "time": "20:20",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 5th Division",
-      "venue": "Huish Park",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "LOD FC",
       "away_team": "Harper FC",
       "date": "07-08-2026",
@@ -55,6 +42,19 @@
       "osm_or_top_eleven": "OSM",
       "competition": "England 2nd Division",
       "venue": "Molineux Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Aldershot Town",
+      "away_team": "Altrincham FC",
+      "date": "07-08-2026",
+      "time": "20:20",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 5th Division",
+      "venue": "EBB Stadium",
       "home_score": "",
       "away_score": "",
       "winner": ""
@@ -84,6 +84,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Yeovil Town",
+      "away_team": "Altrincham FC",
+      "date": "06-08-2026",
+      "time": "20:20",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 5th Division",
+      "venue": "Huish Park",
+      "home_score": "1",
+      "away_score": "1",
+      "winner": "Draw"
     },
     {
       "home_or_away": "Home",
