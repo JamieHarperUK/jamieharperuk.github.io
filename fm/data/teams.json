@@ -354,7 +354,7 @@
           "RB",
           "Dayot Upamecano",
           "0",
-          "1",
+          "0",
           "0"
         ],
         [
@@ -362,7 +362,7 @@
           "Leny Yoro",
           "0",
           "0",
-          "1"
+          "0"
         ],
         [
           "LB",
@@ -381,7 +381,7 @@
         [
           "CB",
           "Manuel Akanji",
-          "0",
+          "1",
           "0",
           "0"
         ],
@@ -425,7 +425,7 @@
           "Dani Olmo",
           "1",
           "0",
-          "0"
+          "5"
         ],
         [
           "CM",
@@ -472,7 +472,7 @@
         [
           "LW",
           "Matheus Santos Carneiro Da Cunha",
-          "0",
+          "1",
           "0",
           "0"
         ],
@@ -509,21 +509,7 @@
         ],
         [
           "GK",
-          "Patricio Sancho",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "GK",
           "Mads Christiansen",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "RB",
-          "Odai Abdulghani",
           "0",
           "0",
           "0"
@@ -536,8 +522,29 @@
           "0"
         ],
         [
+          "RB",
+          "Odai Abdulghani",
+          "0",
+          "0",
+          "0"
+        ],
+        [
           "LB",
           "Neco Williams",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Justin de Haas",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Pedro Jorge Goncalves Malheiro",
           "0",
           "0",
           "0"
@@ -557,13 +564,6 @@
           "0"
         ],
         [
-          "CB",
-          "Justin de Haas",
-          "0",
-          "0",
-          "0"
-        ],
-        [
           "CAM",
           "Wallace Davi Nunes Da Silva Dias",
           "0",
@@ -572,28 +572,7 @@
         ],
         [
           "CM",
-          "Jack Hinchy",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "CM",
-          "Anthony Forde",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CM",
-          "Liam Humbles",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CM",
-          "Jensen Weir",
+          "Giacomo Faticanti",
           "0",
           "0",
           "0"
@@ -607,14 +586,42 @@
         ],
         [
           "CM",
-          "Giacomo Faticanti",
+          "Jack Hinchy",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Jensen Weir",
           "0",
           "0",
           "0"
         ],
         [
-          "LW",
-          "Kristian Dennis",
+          "CM",
+          "Liam Humbles",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Anthony Forde",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "RW",
+          "Louis Mafouta",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "RW",
+          "Halil Akbunar",
           "0",
           "0",
           "0"
@@ -628,6 +635,13 @@
         ],
         [
           "LW",
+          "Sam Taylor",
+          "2",
+          "0",
+          "0"
+        ],
+        [
+          "LW",
           "Otis Khan",
           "0",
           "0",
@@ -635,21 +649,7 @@
         ],
         [
           "LW",
-          "Sam Taylor",
-          "2",
-          "0",
-          "0"
-        ],
-        [
-          "RW",
-          "Halil Akbunar",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "RW",
-          "Louis Mafouta",
+          "Kristian Dennis",
           "0",
           "0",
           "0"
