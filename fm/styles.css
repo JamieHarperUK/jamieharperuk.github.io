@@ -576,12 +576,12 @@ main {
 
 .update-content a.site-link {
     text-decoration: none;
-    color: var(--primary-color);
+    color: var(--accent-color);
     font-weight: bold;
 }
 
 .update-content a.site-link:hover {
-    color: var(--danger-color);
+    color: #2653a1;
 }
 
 .post-list-image,
