@@ -1222,11 +1222,11 @@ const app = {
                 <div class="stat-value">${pastTeams}</div>
             </article>
             <article class="stat-card">
-                <div class="stat-label">Upcoming</div>
+                <div class="stat-label">Upcoming Matches</div>
                 <div class="stat-value">${upcomingCount}</div>
             </article>
             <article class="stat-card">
-                <div class="stat-label">Posts</div>
+                <div class="stat-label">Total Posts</div>
                 <div class="stat-value">${postsCount}</div>
             </article>
         `;
