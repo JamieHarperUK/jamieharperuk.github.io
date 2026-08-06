@@ -1389,7 +1389,7 @@ const app = {
         const safeDate = this.escapeHtml(post.date_time?.[0] || "Unknown date");
         const safeTime = this.escapeHtml(post.date_time?.[1] || "--:--");
         const safeCategory = this.escapeHtml(post.category || "Other");
-        const safeContent = this.escapeHtml(post.content || "").replace(/\n/g, "<br>");
+        const safeContent = this.renderPostContent(post.content || "");
         const tags = Array.isArray(post.tags) ? post.tags : [];
         const postImage = this.getPostImageUrl(post);
         const postUrl = this.getCanonicalPageUrl(`post/${postSlug}`);
@@ -1483,12 +1483,60 @@ const app = {
     },
 
     getPostDescription(content) {
-        const text = String(content || "").replace(/\s+/g, " ").trim();
+        const normalizedContent = String(content || "").replace(/\[link=[^\]\n\r]+\]([\s\S]*?)\[\/link\]/gi, "$1");
+        const text = normalizedContent.replace(/\s+/g, " ").trim();
         if (!text) {
             return this.siteMeta.description;
         }
 
         return text.length > 180 ? `${text.slice(0, 177)}...` : text;
+    },
+
+    sanitizePostLinkUrl(rawUrl) {
+        const candidate = String(rawUrl || "").trim();
+        if (!candidate) {
+            return "";
+        }
+
+        try {
+            const resolved = new URL(candidate, this.getCanonicalPageUrl("home"));
+            if (!/^https?:$/i.test(resolved.protocol)) {
+                return "";
+            }
+            return resolved.toString();
+        } catch (_error) {
+            return "";
+        }
+    },
+
+    renderPostContent(content) {
+        const rawContent = String(content || "");
+        const linkTagPattern = /\[link=([^\]\n\r]+)\]([\s\S]*?)\[\/link\]/gi;
+
+        let output = "";
+        let lastIndex = 0;
+        let match = null;
+
+        while ((match = linkTagPattern.exec(rawContent)) !== null) {
+            const fullMatch = match[0] || "";
+            const linkUrlRaw = match[1] || "";
+            const linkLabelRaw = match[2] || "";
+
+            output += this.escapeHtml(rawContent.slice(lastIndex, match.index)).replace(/\n/g, "<br>");
+
+            const safeUrl = this.sanitizePostLinkUrl(linkUrlRaw);
+            if (safeUrl) {
+                const safeLabel = this.escapeHtml(String(linkLabelRaw || "").trim() || safeUrl);
+                output += `<a href="${this.escapeHtml(safeUrl)}" class="site-link" target="_blank" rel="noopener noreferrer">${safeLabel}</a>`;
+            } else {
+                output += this.escapeHtml(fullMatch);
+            }
+
+            lastIndex = match.index + fullMatch.length;
+        }
+
+        output += this.escapeHtml(rawContent.slice(lastIndex)).replace(/\n/g, "<br>");
+        return output;
     },
 
     getPostImageUrl(post) {
