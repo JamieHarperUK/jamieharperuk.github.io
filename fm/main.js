@@ -109,18 +109,62 @@ const app = {
             return;
         }
 
+        const installButton = document.getElementById("installFab");
+
         window.addEventListener("beforeinstallprompt", (event) => {
             event.preventDefault();
             this.uiState.installPromptEvent = event;
+            this.syncInstallButton();
         });
 
         window.addEventListener("appinstalled", () => {
             this.uiState.installPromptEvent = null;
+            this.syncInstallButton();
         });
+
+        if (installButton) {
+            installButton.addEventListener("click", async () => {
+                await this.promptInstallApp();
+            });
+        }
 
         navigator.serviceWorker.register("sw.js", { scope: "./" }).catch(() => {
             // Ignore registration errors here; push notifications already handle the worker separately.
         });
+
+        this.syncInstallButton();
+    },
+
+    syncInstallButton() {
+        const installButton = document.getElementById("installFab");
+        const fabGroup = installButton?.closest(".fab-group");
+        if (!installButton || !fabGroup) {
+            return;
+        }
+
+        const isMobileViewport = window.matchMedia("(max-width: 840px)").matches;
+        const isInstallAvailable = Boolean(this.uiState.installPromptEvent);
+        fabGroup.classList.toggle("is-install-ready", isMobileViewport && isInstallAvailable);
+        installButton.disabled = !isMobileViewport || !isInstallAvailable;
+        installButton.setAttribute("aria-hidden", String(!(isMobileViewport && isInstallAvailable)));
+    },
+
+    async promptInstallApp() {
+        const installPromptEvent = this.uiState.installPromptEvent;
+        if (!installPromptEvent) {
+            return;
+        }
+
+        installPromptEvent.prompt();
+        const choice = await installPromptEvent.userChoice;
+        this.uiState.installPromptEvent = null;
+        this.syncInstallButton();
+
+        if (choice?.outcome === "accepted") {
+            this.trackEvent("pwa_install_accepted", "PWA", "Install Accepted");
+        } else {
+            this.trackEvent("pwa_install_dismissed", "PWA", "Install Dismissed");
+        }
     },
 
     setupAnalytics() {
@@ -998,6 +1042,8 @@ const app = {
             fabButton.setAttribute("aria-label", `Notification settings (${statusText})`);
             fabButton.classList.toggle("is-enabled", state.isSubscribed);
         }
+
+        this.syncInstallButton();
     },
 
     async setupPushNotifications() {

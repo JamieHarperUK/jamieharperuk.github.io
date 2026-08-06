@@ -93,20 +93,35 @@
             <div id="teamPagesContainer"></div>
         </main>
 
-        <button
-            type="button"
-            id="pushFab"
-            class="push-fab"
-            aria-haspopup="dialog"
-            aria-controls="pushModal"
-            aria-expanded="false"
-            data-analytics-action="push_modal_open"
-            data-analytics-category="Notifications"
-            data-analytics-label="Open Notification Controls"
-        >
-            <i class="fas fa-bell"></i>
-            <span>Alerts</span>
-        </button>
+        <div class="fab-group" aria-label="Quick actions">
+            <button
+                type="button"
+                id="installFab"
+                class="install-fab"
+                aria-hidden="true"
+                data-analytics-action="pwa_install_prompt"
+                data-analytics-category="PWA"
+                data-analytics-label="Install App"
+            >
+                <i class="fas fa-download"></i>
+                <span>Install</span>
+            </button>
+
+            <button
+                type="button"
+                id="pushFab"
+                class="push-fab"
+                aria-haspopup="dialog"
+                aria-controls="pushModal"
+                aria-expanded="false"
+                data-analytics-action="push_modal_open"
+                data-analytics-category="Notifications"
+                data-analytics-label="Open Notification Controls"
+            >
+                <i class="fas fa-bell"></i>
+                <span>Alerts</span>
+            </button>
+        </div>
 
         <div class="modal-backdrop" id="pushModal" aria-hidden="true">
             <div class="modal-dialog push-modal" role="dialog" aria-modal="true" aria-labelledby="pushModalTitle">

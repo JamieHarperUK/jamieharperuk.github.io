@@ -719,9 +719,6 @@ main {
 }
 
 .push-fab {
-    position: fixed;
-    right: 1rem;
-    bottom: 1rem;
     z-index: 280;
     display: inline-flex;
     align-items: center;
@@ -736,6 +733,51 @@ main {
     cursor: pointer;
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
     transition: transform 0.15s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.fab-group .push-fab,
+.fab-group .install-fab {
+    position: static;
+}
+
+.fab-group {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 280;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+}
+
+.install-fab {
+    display: none;
+    align-items: center;
+    gap: 0.45rem;
+    border: 1px solid rgba(46, 160, 67, 0.78);
+    background: linear-gradient(135deg, rgba(46, 160, 67, 0.95), rgba(0, 61, 165, 0.92));
+    color: #fff;
+    border-radius: 999px;
+    padding: 0.55rem 0.9rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+    transition: transform 0.15s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.install-fab:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.42);
+}
+
+.install-fab:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+
+.fab-group.is-install-ready .install-fab {
+    display: inline-flex;
 }
 
 .push-fab:hover {
@@ -935,9 +977,14 @@ a.site-link:hover {
         font-size: 1.45rem;
     }
 
-    .push-fab {
+    .fab-group {
         right: 0.8rem;
         bottom: 0.8rem;
+        gap: 0.5rem;
+    }
+
+    .install-fab,
+    .push-fab {
         padding: 0.5rem 0.8rem;
         font-size: 0.86rem;
     }
