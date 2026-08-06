@@ -73,6 +73,19 @@
       "winner": ""
     },
     {
+      "home_or_away": "Away",
+      "home_team": "Arsenal 1986",
+      "away_team": "Cheshire Harriers FC",
+      "date": "11-08-2026",
+      "time": "20:00",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Friendly",
+      "venue": "Arsenal 1986",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
       "home_or_away": "Home",
       "home_team": "Altrincham FC",
       "away_team": "Carlisle United",
