@@ -574,6 +574,16 @@ main {
     font-size: 0.95rem;
 }
 
+.update-content a.site-link {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.update-content a.site-link:hover {
+    color: var(--danger-color);
+}
+
 .post-list-image,
 .post-detail-image {
     width: 100%;
