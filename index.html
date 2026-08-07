@@ -482,10 +482,10 @@
         }
 
         function setMeta(metadata) {
-            const updated = safeText(metadata && metadata.lastUpdated);
+            const updated = "07-08-2026";
             const version = safeText(metadata && metadata.version);
-            document.getElementById('metaUpdated').textContent = `Last updated: ${updated || '--'}`;
-            document.getElementById('metaVersion').textContent = `Portfolio schema: ${version || '--'}`;
+            document.getElementById('metaUpdated').textContent = `Last Updated: ${updated || '--'}`;
+            document.getElementById('metaVersion').textContent = `Portfolio Version: ${version || '--'}`;
         }
 
         async function initPortfolio() {
