@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Away",
-      "home_team": "LOD FC",
-      "away_team": "Harper FC",
-      "date": "07-08-2026",
-      "time": "11:14",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "League Level 1",
-      "venue": "LOD FC's Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "Wolverhampton Wanderers",
       "away_team": "Manchester United",
       "date": "07-08-2026",
@@ -55,6 +42,19 @@
       "osm_or_top_eleven": "OSM",
       "competition": "England 5th Division",
       "venue": "EBB Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "ShowyBlast125 FC",
+      "date": "08-08-2026",
+      "time": "10:55",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 1",
+      "venue": "The Concourse",
       "home_score": "",
       "away_score": "",
       "winner": ""
@@ -84,6 +84,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "LOD FC",
+      "away_team": "Harper FC",
+      "date": "07-08-2026",
+      "time": "11:14",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 1",
+      "venue": "LOD FC's Stadium",
+      "home_score": "0",
+      "away_score": "6",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Away",
