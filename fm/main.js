@@ -374,7 +374,7 @@ const app = {
                 name: "Hattrick",
                 fullName: "Hattrick",
                 logo: platformLogoUrls.hattrick,
-                link: "https://www.hattrick.org/",
+                link: "https://www86.hattrick.org/Club/?TeamID=3417735",
                 invertLogo: false,
                 kFactor: 28,
                 eloIntro: "This rating is a continuously evolving ELO for this Hattrick team based on the matches I have recorded."
