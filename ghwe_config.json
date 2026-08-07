@@ -9,6 +9,7 @@
     "json_files": {
         "fm_games": "fm/data/games.json",
         "fm_posts": "fm/data/posts.json",
-        "fm_teams": "fm/data/teams.json"
+        "fm_teams": "fm/data/teams.json",
+        "jhuk_sites": "data/sites.json"
     }
 }
