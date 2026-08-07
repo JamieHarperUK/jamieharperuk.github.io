@@ -2437,9 +2437,25 @@
                         state.authSession = saveAuthSession(state.token, tokenData);
                         await loadUserProfile();
                         await loadTargetRepository();
-                        showNotificationModal("Authentication successful. Loading repository access...", "ok", "Login Complete");
+                        let connected = false;
+                        try {
+                            await connectSelectedRepository();
+                            connected = true;
+                        } catch (connectError) {
+                            setStatus(el.repoStatus, "Signed in, but auto-connect failed: " + connectError.message, "bad");
+                        }
+
+                        showNotificationModal(
+                            connected
+                                ? "Authentication successful. Repository connected automatically."
+                                : "Authentication successful. Repository auto-connect failed, please use Connect Site Repository.",
+                            connected ? "ok" : "bad",
+                            "Login Complete"
+                        );
                         el.deviceFlowBlock.classList.add("hidden");
-                        setEditorStep(1);
+                        if (!connected) {
+                            setEditorStep(1);
+                        }
                         return;
                     }
 
@@ -4057,6 +4073,20 @@
                     const titleValue = record.title || record.name || record.label || record.slug;
                     if (titleValue) {
                         return String(titleValue);
+                    }
+                }
+
+                if (kind === "sites") {
+                    const siteTitle = record.site_title || record.siteTitle || "";
+                    const siteLink = record.link || record.url || "";
+                    if (siteTitle && siteLink) {
+                        return String(siteTitle) + " / " + String(siteLink);
+                    }
+                    if (siteTitle) {
+                        return String(siteTitle);
+                    }
+                    if (siteLink) {
+                        return String(siteLink);
                     }
                 }
 
@@ -5727,8 +5757,18 @@
                     try {
                         await loadUserProfile();
                         await loadTargetRepository();
-                        setStatus(el.authStatus, "Restored authenticated session.", "ok");
-                        setEditorStep(1);
+                        let connected = false;
+                        try {
+                            await connectSelectedRepository();
+                            connected = true;
+                        } catch (connectError) {
+                            setStatus(el.repoStatus, "Session restored, but auto-connect failed: " + connectError.message, "bad");
+                        }
+
+                        setStatus(el.authStatus, connected ? "Restored authenticated session and connected repository." : "Restored authenticated session.", "ok");
+                        if (!connected) {
+                            setEditorStep(1);
+                        }
                     } catch (_error) {
                         signOut();
                     }
