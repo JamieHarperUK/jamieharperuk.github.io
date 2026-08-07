@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Away",
-      "home_team": "Wolverhampton Wanderers",
-      "away_team": "Manchester United",
-      "date": "07-08-2026",
-      "time": "18:28",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 2nd Division",
-      "venue": "Molineux Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "Aldershot Town",
       "away_team": "Altrincham FC",
       "date": "07-08-2026",
@@ -55,6 +42,19 @@
       "osm_or_top_eleven": "Top Eleven",
       "competition": "League Level 1",
       "venue": "The Concourse",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Manchester United",
+      "away_team": "Nottingham Forest",
+      "date": "08-08-2026",
+      "time": "18:28",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Old Trafford",
       "home_score": "",
       "away_score": "",
       "winner": ""
@@ -84,6 +84,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Wolverhampton Wanderers",
+      "away_team": "Manchester United",
+      "date": "07-08-2026",
+      "time": "18:28",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Molineux Stadium",
+      "home_score": "1",
+      "away_score": "7",
+      "winner": "Manchester United"
     },
     {
       "home_or_away": "Away",
