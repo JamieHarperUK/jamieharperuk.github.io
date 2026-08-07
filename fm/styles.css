@@ -972,6 +972,10 @@ footer {
     margin-top: 1.5rem;
 }
 
+.footer-disclaimer {
+    font-size: 12px;
+}
+
 a.site-link {
     color: var(--text-primary);
     text-decoration: none;
