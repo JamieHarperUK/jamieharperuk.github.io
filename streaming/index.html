@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="JamieHarperUK streaming hub with platforms, gallery highlights, and featured game picks.">
+    <title>JamieHarperUK | Streaming</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-img: url('../assets/icons/portal-bg.png');
+            --font-family-base: "Share Tech", sans-serif;
+            --color-bg-1: #1c1c1c;
+            --color-bg-2: #303030;
+            --color-text-1: #ffffff;
+            --color-text-2: #cbcbcb;
+            --color-accent-1: #26ae80;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            min-height: 100%;
+            font-family: var(--font-family-base);
+            color: var(--color-text-1);
+            background: linear-gradient(0deg, rgba(27, 27, 27, 0.9), rgba(4, 4, 4, 0.9)), var(--bg-img);
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .container {
+            width: min(1100px, 100% - 2rem);
+            margin: 0 auto;
+        }
+
+        header {
+            background: rgba(86, 86, 86, 0.2);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            padding: 1.5rem 0 1rem;
+            text-align: center;
+        }
+
+        .title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            letter-spacing: 2px;
+            color: var(--color-accent-1);
+            margin: 0.3rem 0 0;
+        }
+
+        .top-links {
+            margin-top: 0.9rem;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+        }
+
+        .btn {
+            background: var(--color-bg-2);
+            color: var(--color-accent-1);
+            border: 2px solid var(--color-accent-1);
+            border-radius: 8px;
+            padding: 0.55rem 1rem;
+            font-size: 1rem;
+            font-family: var(--font-family-base);
+            font-weight: 700;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s, background 0.2s, color 0.2s;
+        }
+
+        .btn:hover,
+        .btn.active {
+            background: var(--color-accent-1);
+            color: var(--color-bg-1);
+            transform: scale(1.03);
+            box-shadow: 0 6px 24px rgba(38, 174, 128, 0.25);
+        }
+
+        main {
+            padding: 1.2rem 0 2rem;
+        }
+
+        .panel {
+            background: rgba(78, 78, 78, 0.7);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+            padding: 1.6rem;
+            margin-top: 1.2rem;
+        }
+
+        .panel h2 {
+            margin-top: 0;
+            margin-bottom: 0.8rem;
+            color: var(--color-accent-1);
+            font-size: clamp(1.5rem, 3vw, 2rem);
+        }
+
+        .panel p {
+            color: var(--color-text-2);
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+
+        .social-links,
+        .platforms {
+            margin-top: 1rem;
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .social-link,
+        .platform-link,
+        .game-link,
+        .modal-website {
+            text-decoration: none;
+        }
+
+        .platform-link {
+            background: var(--color-bg-2);
+            border-radius: 12px;
+            padding: 1rem 1.4rem;
+            color: var(--color-text-1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .platform-link:hover {
+            transform: scale(1.04) rotate(-1deg);
+            box-shadow: 0 6px 24px rgba(38, 174, 128, 0.2);
+        }
+
+        .platform-icon {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+
+        .gallery-grid,
+        .games-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .gallery-item {
+            flex: 1 1 220px;
+            max-width: 240px;
+            min-width: 200px;
+            position: relative;
+        }
+
+        .gallery-img {
+            width: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+            aspect-ratio: 16 / 9;
+            display: block;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-img:hover {
+            transform: scale(1.04);
+            box-shadow: 0 6px 24px rgba(38, 174, 128, 0.22);
+        }
+
+        .gallery-label {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            background: rgba(28, 28, 28, 0.85);
+            color: var(--color-text-2);
+            font-size: 0.9rem;
+            padding: 0.3rem 0.65rem;
+            border-radius: 0 10px 0 10px;
+            max-width: 90%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .game-card {
+            background: var(--color-bg-2);
+            border-radius: 12px;
+            padding: 1rem;
+            width: 250px;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .game-card:hover {
+            transform: scale(1.04) rotate(-1deg);
+            box-shadow: 0 6px 24px rgba(38, 174, 128, 0.2);
+        }
+
+        .game-logo {
+            width: 74px;
+            height: 74px;
+            object-fit: contain;
+            border-radius: 8px;
+            padding: 8px;
+            background: #202020;
+        }
+
+        .game-title {
+            color: var(--color-accent-1);
+            font-size: 1.15rem;
+            margin: 0.8rem 0 0.4rem;
+        }
+
+        .game-desc {
+            color: var(--color-text-2);
+            margin: 0;
+            line-height: 1.5;
+            min-height: 72px;
+        }
+
+        .game-link,
+        .modal-website {
+            margin-top: 0.8rem;
+            display: inline-block;
+            background: var(--color-accent-1);
+            border: 1px solid var(--color-accent-1);
+            color: var(--color-bg-1);
+            border-radius: 6px;
+            padding: 0.45rem 0.9rem;
+            font-weight: 700;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .game-link:hover,
+        .modal-website:hover {
+            background: var(--color-bg-1);
+            color: var(--color-accent-1);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--color-bg-2);
+            border-radius: 12px;
+            padding: 1rem;
+            max-width: 920px;
+            width: 100%;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 0.3rem;
+            right: 0.6rem;
+            border: 0;
+            background: none;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .modal-close:hover {
+            color: var(--color-accent-1);
+        }
+
+        .modal-img {
+            width: 100%;
+            max-height: 65vh;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        footer {
+            background: var(--color-bg-2);
+            color: var(--color-text-2);
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 1.4rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 640px) {
+            .panel {
+                padding: 1rem;
+            }
+
+            .game-card,
+            .gallery-item {
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <img src="../assets/icons/jhuk-self.png" alt="JHUK" style="width:80px; height:80px; border-radius:50%;">
+            <h1 class="title">JamieHarperUK Streaming</h1>
+            <div class="top-links">
+                <a class="btn" href="#about">About</a>
+                <a class="btn" href="#platforms">Platforms</a>
+                <a class="btn" href="#gallery">Gallery</a>
+                <a class="btn" href="#picks">Featured Picks</a>
+                <a class="btn" href="../">Back To Web Creations</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="about" class="panel">
+            <h2>About My Content Creation</h2>
+            <p>
+                Hi there! I'm Jamie, a passionate streamer sharing gaming, tech, and creative adventures. Whether it's
+                live gameplay, tech chat, or just hanging out, I love building a positive and interactive community.
+            </p>
+            <div class="social-links" id="socialLinks"></div>
+        </section>
+
+        <section id="platforms" class="panel">
+            <h2>Streaming Platforms</h2>
+            <p>You can tune in live and catch up on highlights on these platforms.</p>
+            <div class="platforms" id="platformLinks"></div>
+        </section>
+
+        <section id="gallery" class="panel">
+            <h2>Gallery & Highlights</h2>
+            <p>Screenshots and highlights from recent streams.</p>
+            <div class="gallery-grid" id="galleryGrid"></div>
+        </section>
+
+        <section id="picks" class="panel">
+            <h2>Featured Picks</h2>
+            <p>Titles I personally recommend playing.</p>
+            <div class="games-grid" id="gamesGrid"></div>
+        </section>
+    </main>
+
+    <div class="modal" id="imgModal" aria-modal="true" role="dialog">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+            <img src="" alt="Selected Screenshot" class="modal-img" id="modalImg">
+            <a class="modal-website hidden" id="modalWebsiteBtn" target="_blank" rel="noopener noreferrer">Visit Site</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 JamieHarperUK. Streaming portal.</p>
+    </footer>
+
+    <script>
+        const socialProfiles = [
+            {
+                label: 'TikTok',
+                href: 'https://www.tiktok.com/@jamieharperuk'
+            },
+            {
+                label: 'Discord',
+                href: 'https://discord.gg/kxbFtS6tKn'
+            },
+            {
+                label: 'Xbox',
+                href: 'https://www.xbox.com/en-GB/play/user/JHarperUK'
+            },
+            {
+                label: 'Send Tip',
+                href: 'https://streamlabs.com/jamieharperuk/tip'
+            },
+            {
+                label: 'X',
+                href: 'https://twitter.com/jamieharperuk'
+            },
+            {
+                label: 'Email',
+                href: 'mailto:jhuk.contact@gmail.com'
+            }
+        ];
+
+        const platformProfiles = [
+            {
+                title: 'Twitch',
+                icon: '../assets/icons/twitch.png',
+                href: 'https://twitch.tv/jamieharperuk'
+            },
+            {
+                title: 'YouTube',
+                icon: '../assets/icons/youtube.png',
+                href: 'https://youtube.com/@jamieharperuk'
+            },
+            {
+                title: 'Rumble',
+                icon: '../assets/icons/rumble.png',
+                href: 'https://rumble.com/user/JamieHarperUK'
+            }
+        ];
+
+        const featuredGames = [
+            {
+                title: 'Generation Zero',
+                description: 'Open-world, co-op survival shooter set in 1980s Sweden overrun by deadly machines.',
+                logo: '../assets/icons/gz-logo.png',
+                url: 'https://generationzero.com/en'
+            },
+            {
+                title: 'Young Suns',
+                description: 'A narrative sci-fi adventure game with entertaining crafting, exploration and stories.',
+                logo: '../assets/icons/ys-logo.png',
+                url: 'https://www.youngsuns.com'
+            },
+            {
+                title: 'Throne and Liberty',
+                description: 'An immersive MMORPG with massive battles all set in a living, breathing world.',
+                logo: '../assets/icons/tnl-logo.png',
+                url: 'https://www.playthroneandliberty.com/en-us/'
+            },
+            {
+                title: 'Helldivers 2',
+                description: 'Co-op sci-fi action shooter where teamwork is key to galactic survival and domination.',
+                logo: '../assets/icons/hd-logo.png',
+                url: 'https://www.arrowheadgamestudios.com'
+            }
+        ];
+
+        const galleryImages = [
+            { src: '../assets/scs/ys01.png', alt: 'Young Suns', website: 'https://www.youngsuns.com' },
+            { src: '../assets/scs/ys02.png', alt: 'Young Suns', website: 'https://www.youngsuns.com' },
+            { src: '../assets/scs/tnl01.png', alt: 'Throne and Liberty', website: 'https://www.playthroneandliberty.com/en-us/' },
+            { src: '../assets/scs/tnl02.png', alt: 'Throne and Liberty', website: 'https://www.playthroneandliberty.com/en-us/' },
+            { src: '../assets/scs/pspo01.png', alt: 'Police Simulator: Patrol Officers', website: 'https://www.patrol-officers.com' },
+            { src: '../assets/scs/pspo02.png', alt: 'Police Simulator: Patrol Officers', website: 'https://www.patrol-officers.com' },
+            { src: '../assets/scs/hd01.png', alt: 'Helldivers 2', website: 'https://www.arrowheadgamestudios.com' },
+            { src: '../assets/scs/hd02.png', alt: 'Helldivers 2', website: 'https://www.arrowheadgamestudios.com' },
+            { src: '../assets/scs/stv01.jpg', alt: 'Star Trek: Voyager', website: 'https://www.stvatu.com' },
+            { src: '../assets/scs/stv02.jpg', alt: 'Star Trek: Voyager', website: 'https://www.stvatu.com' },
+            { src: '../assets/scs/gz01.png', alt: 'Generation Zero', website: 'https://generationzero.com/en' },
+            { src: '../assets/scs/gz02.png', alt: 'Generation Zero', website: 'https://generationzero.com/en' }
+        ];
+
+        function createAnchor(text, href, className) {
+            const anchor = document.createElement('a');
+            anchor.className = className;
+            anchor.href = href;
+            anchor.target = href.startsWith('mailto:') ? '_self' : '_blank';
+            if (anchor.target === '_blank') {
+                anchor.rel = 'noopener noreferrer';
+            }
+            anchor.textContent = text;
+            return anchor;
+        }
+
+        function renderSocialProfiles() {
+            const holder = document.getElementById('socialLinks');
+            holder.innerHTML = '';
+            socialProfiles.forEach(item => {
+                holder.appendChild(createAnchor(item.label, item.href, 'btn'));
+            });
+        }
+
+        function renderPlatforms() {
+            const holder = document.getElementById('platformLinks');
+            holder.innerHTML = '';
+            platformProfiles.forEach(item => {
+                const link = document.createElement('a');
+                link.className = 'platform-link';
+                link.href = item.href;
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                link.innerHTML = `<img class="platform-icon" src="${item.icon}" alt="${item.title}">${item.title}`;
+                holder.appendChild(link);
+            });
+        }
+
+        function renderGames() {
+            const holder = document.getElementById('gamesGrid');
+            holder.innerHTML = '';
+            featuredGames.forEach(game => {
+                const card = document.createElement('article');
+                card.className = 'game-card';
+                card.innerHTML = `
+                    <img class="game-logo" src="${game.logo}" alt="${game.title} Logo">
+                    <h3 class="game-title">${game.title}</h3>
+                    <p class="game-desc">${game.description}</p>
+                    <a class="game-link" href="${game.url}" target="_blank" rel="noopener noreferrer">Learn More</a>
+                `;
+                holder.appendChild(card);
+            });
+        }
+
+        const modal = document.getElementById('imgModal');
+        const modalImg = document.getElementById('modalImg');
+        const modalClose = document.getElementById('modalClose');
+        const modalWebsiteBtn = document.getElementById('modalWebsiteBtn');
+
+        function openModal(image) {
+            modalImg.src = image.src;
+            modalImg.alt = image.alt;
+            if (image.website) {
+                modalWebsiteBtn.href = image.website;
+                modalWebsiteBtn.classList.remove('hidden');
+            } else {
+                modalWebsiteBtn.classList.add('hidden');
+            }
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            modalImg.src = '';
+            document.body.style.overflow = '';
+        }
+
+        function renderGallery() {
+            const holder = document.getElementById('galleryGrid');
+            holder.innerHTML = '';
+            galleryImages.forEach(image => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'gallery-item';
+
+                const thumb = document.createElement('img');
+                thumb.className = 'gallery-img';
+                thumb.src = image.src;
+                thumb.alt = image.alt;
+                thumb.tabIndex = 0;
+
+                const label = document.createElement('div');
+                label.className = 'gallery-label';
+                label.textContent = image.alt;
+
+                thumb.addEventListener('click', () => openModal(image));
+                thumb.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        openModal(image);
+                    }
+                });
+
+                wrapper.appendChild(thumb);
+                wrapper.appendChild(label);
+                holder.appendChild(wrapper);
+            });
+        }
+
+        function updateActiveNav() {
+            const hash = window.location.hash.replace('#', '') || 'about';
+            document.querySelectorAll('.top-links a[href^="#"]').forEach(btn => {
+                const target = btn.getAttribute('href').replace('#', '');
+                btn.classList.toggle('active', target === hash);
+            });
+        }
+
+        function init() {
+            renderSocialProfiles();
+            renderPlatforms();
+            renderGallery();
+            renderGames();
+            updateActiveNav();
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+        window.addEventListener('hashchange', updateActiveNav);
+
+        modalClose.addEventListener('click', closeModal);
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) closeModal();
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+
+</html>
