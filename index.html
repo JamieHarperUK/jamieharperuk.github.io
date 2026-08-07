@@ -491,6 +491,11 @@
 
         async function initPortfolio() {
             const status = document.getElementById('loadStatus');
+            const setLoadStatus = (message) => {
+                if (status) {
+                    status.textContent = message;
+                }
+            };
             try {
                 const response = await fetch(DATA_URL, { cache: 'no-store' });
                 if (!response.ok) {
@@ -506,11 +511,11 @@
                 renderFeatured(sites[0]);
                 renderGrid(sites);
                 setMeta(payload.metadata || {});
-                status.textContent = `${sites.length} site${sites.length === 1 ? '' : 's'} loaded.`;
+                setLoadStatus(`${sites.length} site${sites.length === 1 ? '' : 's'} loaded.`);
             } catch (error) {
                 document.getElementById('featuredSite').innerHTML = '';
                 document.getElementById('sitesGrid').innerHTML = '';
-                status.textContent = `Portfolio data failed to load: ${error.message}`;
+                setLoadStatus(`Portfolio data failed to load: ${error.message}`);
             }
         }
 
