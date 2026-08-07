@@ -1556,13 +1556,15 @@
                     ttlSeconds: 8 * 60 * 60
                 },
                 repository: {
-                    // Set this to owner/repo for the client site.
                     targetRepoFullName: "jamieharperuk/jamieharperuk.github.io",
-                    // Add/edit files here for each client deployment.
                     files: {
+                        // JHUK Football Management
                         posts: "fm/data/posts.json",
                         games: "fm/data/games.json",
-                        teams: "fm/data/teams.json"
+                        teams: "fm/data/teams.json",
+
+                        // JHUK Root
+                        sites: "data/sites.json"
                     },
                     defaultFileKey: "posts"
                 },
@@ -1932,7 +1934,7 @@
                     return;
                 }
 
-                if (fileKind === "teams") {
+                if (fileKind === "teams" || fileKind === "sites") {
                     el.notifyOnCommitCheckbox.checked = false;
                     el.notifyOnCommitCheckbox.disabled = true;
                     updateSubscriberToolsVisibility();
@@ -2731,6 +2733,9 @@
                 }
                 if (path.endsWith("/posts.json") || path.endsWith("posts.json")) {
                     return "posts";
+                }
+                if (path.endsWith("/sites.json") || path.endsWith("sites.json")) {
+                    return "sites";
                 }
                 return "generic";
             }
