@@ -1435,27 +1435,40 @@
                     <div class="stack modal-body-scroll">
                         <div id="postContentModalPath" class="pill mono">Post content</div>
                         <textarea id="postContentModalTextarea" class="post-content-modal-textarea" spellcheck="true"></textarea>
-                        <div class="crm-field-card" style="gap:0.6rem;">
-                            <label style="margin:0; color: var(--ink); font-weight:600;">Insert Link</label>
-                            <p style="margin:0; color: var(--muted); font-size:0.84rem;">Use this helper to insert link tags into post content.</p>
-                            <div class="two-col">
-                                <div>
-                                    <label for="postContentLinkUrlInput">Link URL</label>
-                                    <input id="postContentLinkUrlInput" type="text" placeholder="https://jhuk.co.uk/fm">
-                                </div>
-                                <div>
-                                    <label for="postContentLinkTextInput">Link Text</label>
-                                    <input id="postContentLinkTextInput" type="text" placeholder="Read more">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <button id="postContentInsertLinkBtn" type="button">Insert Link Tag</button>
-                                <span class="mono" style="font-size:0.78rem; color: var(--muted);">Format: [link=https://jhuk.co.uk/fm]Link Text[/link]</span>
-                            </div>
+                        <div class="row">
+                            <button id="postContentInsertLinkBtn" type="button">Insert Link</button>
+                            <button id="postContentInsertFeaturedImageBtn" type="button">Insert Featured Image</button>
                         </div>
                         <div class="row">
                             <button id="postContentModalSaveBtn" class="primary" type="button">Save</button>
                             <button id="postContentModalCancelBtn" type="button">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="postTagModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="postTagModalTitle">
+                <div class="modal-card" style="width:min(100%, 720px);">
+                    <div class="modal-head">
+                        <h3 id="postTagModalTitle">Insert Tag</h3>
+                        <button id="postTagModalCloseBtn" type="button" class="warn">Close</button>
+                    </div>
+                    <div class="stack">
+                        <div id="postTagModalTypePill" class="pill mono">Tag</div>
+                        <p id="postTagModalHelpText" style="margin:0; color: var(--muted); font-size:0.9rem;"></p>
+                        <div class="two-col">
+                            <div>
+                                <label id="postTagModalUrlLabel" for="postTagModalUrlInput">URL</label>
+                                <input id="postTagModalUrlInput" type="text" placeholder="https://jhuk.co.uk/fm">
+                            </div>
+                            <div>
+                                <label id="postTagModalLabelLabel" for="postTagModalLabelInput">Text</label>
+                                <input id="postTagModalLabelInput" type="text" placeholder="Read more">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button id="postTagModalInsertBtn" class="primary" type="button">Insert</button>
+                            <button id="postTagModalCancelBtn" type="button">Cancel</button>
                         </div>
                     </div>
                 </div>
@@ -1680,6 +1693,9 @@
                     gamesPageSize: 10,
                     playersModalRecordIndex: 0,
                     postContentModalRecordIndex: 0,
+                    postTagModalMode: "",
+                    postTagModalSelectionStart: 0,
+                    postTagModalSelectionEnd: 0,
                     schema: {
                         enabled: false,
                         root: null,
@@ -1832,12 +1848,22 @@
                 postContentModalTitle: document.getElementById("postContentModalTitle"),
                 postContentModalPath: document.getElementById("postContentModalPath"),
                 postContentModalTextarea: document.getElementById("postContentModalTextarea"),
-                postContentLinkUrlInput: document.getElementById("postContentLinkUrlInput"),
-                postContentLinkTextInput: document.getElementById("postContentLinkTextInput"),
                 postContentInsertLinkBtn: document.getElementById("postContentInsertLinkBtn"),
+                postContentInsertFeaturedImageBtn: document.getElementById("postContentInsertFeaturedImageBtn"),
                 postContentModalSaveBtn: document.getElementById("postContentModalSaveBtn"),
                 postContentModalCancelBtn: document.getElementById("postContentModalCancelBtn"),
                 postContentModalCloseBtn: document.getElementById("postContentModalCloseBtn"),
+                postTagModal: document.getElementById("postTagModal"),
+                postTagModalTitle: document.getElementById("postTagModalTitle"),
+                postTagModalTypePill: document.getElementById("postTagModalTypePill"),
+                postTagModalHelpText: document.getElementById("postTagModalHelpText"),
+                postTagModalUrlLabel: document.getElementById("postTagModalUrlLabel"),
+                postTagModalLabelLabel: document.getElementById("postTagModalLabelLabel"),
+                postTagModalUrlInput: document.getElementById("postTagModalUrlInput"),
+                postTagModalLabelInput: document.getElementById("postTagModalLabelInput"),
+                postTagModalInsertBtn: document.getElementById("postTagModalInsertBtn"),
+                postTagModalCancelBtn: document.getElementById("postTagModalCancelBtn"),
+                postTagModalCloseBtn: document.getElementById("postTagModalCloseBtn"),
                 notificationModal: document.getElementById("notificationModal"),
                 notificationTitle: document.getElementById("notificationTitle"),
                 notificationContent: document.getElementById("notificationContent"),
@@ -4181,6 +4207,7 @@
                 if (!state.crmModel.records.length) {
                     return;
                 }
+                closePostTagModal();
                 state.crmModel.postContentModalRecordIndex = Math.max(0, Math.min(Number(recordIndex ?? state.crmModel.selectedIndex ?? 0), state.crmModel.records.length - 1));
                 const record = getActivePostContentRecord();
                 if (!record) {
@@ -4196,12 +4223,6 @@
                 if (el.postContentModalTextarea) {
                     el.postContentModalTextarea.value = normalizePostContentForEditor(record.content);
                 }
-                if (el.postContentLinkUrlInput) {
-                    el.postContentLinkUrlInput.value = "";
-                }
-                if (el.postContentLinkTextInput) {
-                    el.postContentLinkTextInput.value = "";
-                }
                 if (el.postContentModal) {
                     el.postContentModal.classList.remove("hidden");
                 }
@@ -4211,6 +4232,123 @@
                 if (el.postContentModal) {
                     el.postContentModal.classList.add("hidden");
                 }
+            }
+
+            function getPostTagModalConfig(tagMode) {
+                if (tagMode === "featured-image") {
+                    return {
+                        title: "Insert Featured Image",
+                        pill: "Featured Image",
+                        help: "Adds a featured image block to the post content. The caption is optional.",
+                        urlLabel: "Image URL",
+                        urlPlaceholder: "https://jhuk.co.uk/fm/data/example.png",
+                        labelLabel: "Caption",
+                        labelPlaceholder: "Optional caption"
+                    };
+                }
+
+                return {
+                    title: "Insert Link",
+                    pill: "Link",
+                    help: "Adds a custom [link=...]...[/link] tag to the post content.",
+                    urlLabel: "Link URL",
+                    urlPlaceholder: "https://jhuk.co.uk/fm",
+                    labelLabel: "Link Text",
+                    labelPlaceholder: "Read more"
+                };
+            }
+
+            function openPostTagModal(tagMode) {
+                const textarea = el.postContentModalTextarea;
+                if (!textarea || !el.postTagModal) {
+                    return;
+                }
+
+                const config = getPostTagModalConfig(tagMode);
+                const start = Number(textarea.selectionStart || 0);
+                const end = Number(textarea.selectionEnd || start);
+                const selectedText = textarea.value.slice(start, end).trim();
+
+                state.crmModel.postTagModalMode = tagMode === "featured-image" ? "featured-image" : "link";
+                state.crmModel.postTagModalSelectionStart = start;
+                state.crmModel.postTagModalSelectionEnd = end;
+
+                if (el.postTagModalTitle) {
+                    el.postTagModalTitle.textContent = config.title;
+                }
+                if (el.postTagModalTypePill) {
+                    el.postTagModalTypePill.textContent = config.pill;
+                }
+                if (el.postTagModalHelpText) {
+                    el.postTagModalHelpText.textContent = config.help;
+                }
+                if (el.postTagModalUrlLabel) {
+                    el.postTagModalUrlLabel.textContent = config.urlLabel;
+                }
+                if (el.postTagModalLabelLabel) {
+                    el.postTagModalLabelLabel.textContent = config.labelLabel;
+                }
+                if (el.postTagModalUrlInput) {
+                    el.postTagModalUrlInput.value = "";
+                    el.postTagModalUrlInput.placeholder = config.urlPlaceholder;
+                }
+                if (el.postTagModalLabelInput) {
+                    el.postTagModalLabelInput.value = selectedText;
+                    el.postTagModalLabelInput.placeholder = config.labelPlaceholder;
+                }
+                if (el.postTagModal) {
+                    el.postTagModal.classList.remove("hidden");
+                }
+                if (el.postTagModalUrlInput) {
+                    el.postTagModalUrlInput.focus();
+                }
+            }
+
+            function closePostTagModal() {
+                if (el.postTagModal) {
+                    el.postTagModal.classList.add("hidden");
+                }
+                state.crmModel.postTagModalMode = "";
+            }
+
+            function insertPostTagFromModal() {
+                if (!el.postContentModalTextarea || !el.postTagModalUrlInput || !el.postTagModalLabelInput) {
+                    closePostTagModal();
+                    return;
+                }
+
+                const tagMode = state.crmModel.postTagModalMode || "link";
+                const rawUrl = String(el.postTagModalUrlInput.value || "").trim();
+                const rawLabel = String(el.postTagModalLabelInput.value || "").trim();
+
+                if (!rawUrl) {
+                    setStatus(el.editorStatus, "Enter a URL before inserting the tag.", "bad");
+                    return;
+                }
+
+                if (tagMode === "link" && !rawLabel) {
+                    setStatus(el.editorStatus, "Enter link text before inserting the tag.", "bad");
+                    return;
+                }
+
+                const textarea = el.postContentModalTextarea;
+                const start = Number(state.crmModel.postTagModalSelectionStart ?? textarea.selectionStart ?? 0);
+                const end = Number(state.crmModel.postTagModalSelectionEnd ?? textarea.selectionEnd ?? start);
+                const before = textarea.value.slice(0, start);
+                const after = textarea.value.slice(end);
+                const markup = tagMode === "featured-image"
+                    ? "[featured-image=" + rawUrl + "]" + rawLabel + "[/featured-image]"
+                    : "[link=" + rawUrl + "]" + rawLabel + "[/link]";
+                const prefix = before.length > 0 && !/[\s\n]$/.test(before) ? " " : "";
+                const suffix = after.length > 0 && !/^[\s\n]/.test(after) ? " " : "";
+
+                textarea.value = before + prefix + markup + suffix + after;
+                const caret = (before + prefix + markup).length;
+
+                closePostTagModal();
+                textarea.focus();
+                textarea.setSelectionRange(caret, caret);
+                setStatus(el.editorStatus, tagMode === "featured-image" ? "Inserted featured image tag into post content." : "Inserted link tag into post content.", "ok");
             }
 
             function savePostContentModal() {
@@ -4223,39 +4361,6 @@
                 syncCrmToJsonText();
                 renderCrmFields();
                 closePostContentModal();
-            }
-
-            function insertPostContentLinkTag() {
-                if (!el.postContentModalTextarea || !el.postContentLinkUrlInput || !el.postContentLinkTextInput) {
-                    return;
-                }
-
-                const linkUrl = String(el.postContentLinkUrlInput.value || "").trim();
-                const linkText = String(el.postContentLinkTextInput.value || "").trim();
-
-                if (!linkUrl || !linkText) {
-                    setStatus(el.editorStatus, "Enter both a link URL and link text before inserting a link tag.", "bad");
-                    return;
-                }
-
-                const textarea = el.postContentModalTextarea;
-                const start = Number(textarea.selectionStart || 0);
-                const end = Number(textarea.selectionEnd || start);
-                const before = textarea.value.slice(0, start);
-                const after = textarea.value.slice(end);
-
-                const linkTag = "[link=" + linkUrl + "]" + linkText + "[/link]";
-                const prefix = before.length > 0 && !/[\s\n]$/.test(before) ? " " : "";
-                const suffix = after.length > 0 && !/^[\s\n]/.test(after) ? " " : "";
-
-                textarea.value = before + prefix + linkTag + suffix + after;
-                const nextCaret = (before + prefix + linkTag).length;
-                textarea.focus();
-                textarea.setSelectionRange(nextCaret, nextCaret);
-
-                el.postContentLinkUrlInput.value = "";
-                el.postContentLinkTextInput.value = "";
-                setStatus(el.editorStatus, "Inserted link tag into post content.", "ok");
             }
 
             function renderTeamPlayersModal() {
@@ -5531,15 +5636,48 @@
 
                 if (el.postContentInsertLinkBtn) {
                     el.postContentInsertLinkBtn.addEventListener("click", function() {
-                        insertPostContentLinkTag();
+                        openPostTagModal("link");
                     });
                 }
 
-                if (el.postContentLinkTextInput) {
-                    el.postContentLinkTextInput.addEventListener("keydown", function(event) {
+                if (el.postContentInsertFeaturedImageBtn) {
+                    el.postContentInsertFeaturedImageBtn.addEventListener("click", function() {
+                        openPostTagModal("featured-image");
+                    });
+                }
+
+                if (el.postTagModalInsertBtn) {
+                    el.postTagModalInsertBtn.addEventListener("click", function() {
+                        insertPostTagFromModal();
+                    });
+                }
+
+                if (el.postTagModalCancelBtn) {
+                    el.postTagModalCancelBtn.addEventListener("click", function() {
+                        closePostTagModal();
+                    });
+                }
+
+                if (el.postTagModalCloseBtn) {
+                    el.postTagModalCloseBtn.addEventListener("click", function() {
+                        closePostTagModal();
+                    });
+                }
+
+                if (el.postTagModalUrlInput) {
+                    el.postTagModalUrlInput.addEventListener("keydown", function(event) {
                         if (event.key === "Enter") {
                             event.preventDefault();
-                            insertPostContentLinkTag();
+                            insertPostTagFromModal();
+                        }
+                    });
+                }
+
+                if (el.postTagModalLabelInput) {
+                    el.postTagModalLabelInput.addEventListener("keydown", function(event) {
+                        if (event.key === "Enter") {
+                            event.preventDefault();
+                            insertPostTagFromModal();
                         }
                     });
                 }
@@ -5549,6 +5687,14 @@
                         closePostContentModal();
                     }
                 });
+
+                if (el.postTagModal) {
+                    el.postTagModal.addEventListener("click", function(event) {
+                        if (event.target === el.postTagModal) {
+                            closePostTagModal();
+                        }
+                    });
+                }
 
                 el.saveJsonBtn.addEventListener("click", async function() {
                     try {

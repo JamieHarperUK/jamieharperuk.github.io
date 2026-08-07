@@ -592,6 +592,20 @@ main {
     margin: 0.25rem 0 0.75rem;
 }
 
+.post-featured-image-block {
+    margin: 1rem 0 0.2rem;
+}
+
+.post-featured-image-block img {
+    display: block;
+}
+
+.post-featured-image-block figcaption {
+    margin-top: 0.45rem;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
 .post-detail-card {
     margin-top: 0.8rem;
 }

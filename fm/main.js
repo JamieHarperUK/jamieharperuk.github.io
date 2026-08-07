@@ -1430,7 +1430,7 @@ const app = {
                     <span>${safeDate} @ ${safeTime}</span>
                     <span class="update-category">${categoryGameType}</span>
                 </div>
-                <p class="update-content">${safeContent}</p>
+                <div class="update-content">${safeContent}</div>
                 <div class="tags">${tags.map((tag) => `<span class="tag">#${this.escapeHtml(tag)}</span>`).join("")}</div>
                 <div class="post-share-buttons">
                     <a href="${shareUrls.x}" class="share-btn share-x" target="_blank" rel="noopener noreferrer" aria-label="Share this post on X" data-analytics-action="share_click" data-analytics-category="Posts" data-analytics-label="Share on X">
@@ -1483,7 +1483,9 @@ const app = {
     },
 
     getPostDescription(content) {
-        const normalizedContent = String(content || "").replace(/\[link=[^\]\n\r]+\]([\s\S]*?)\[\/link\]/gi, "$1");
+        const normalizedContent = String(content || "")
+            .replace(/\[link=[^\]\n\r]+\]([\s\S]*?)\[\/link\]/gi, "$1")
+            .replace(/\[featured-image=[^\]\n\r]+\]([\s\S]*?)\[\/featured-image\]/gi, "$1");
         const text = normalizedContent.replace(/\s+/g, " ").trim();
         if (!text) {
             return this.siteMeta.description;
@@ -1509,27 +1511,44 @@ const app = {
         }
     },
 
+    sanitizePostMediaUrl(rawUrl) {
+        return this.sanitizePostLinkUrl(rawUrl);
+    },
+
     renderPostContent(content) {
         const rawContent = String(content || "");
-        const linkTagPattern = /\[link=([^\]\n\r]+)\]([\s\S]*?)\[\/link\]/gi;
+        const tagPattern = /\[link=([^\]\n\r]+)\]([\s\S]*?)\[\/link\]|\[featured-image=([^\]\n\r]+)\]([\s\S]*?)\[\/featured-image\]/gi;
 
         let output = "";
         let lastIndex = 0;
         let match = null;
 
-        while ((match = linkTagPattern.exec(rawContent)) !== null) {
+        while ((match = tagPattern.exec(rawContent)) !== null) {
             const fullMatch = match[0] || "";
             const linkUrlRaw = match[1] || "";
             const linkLabelRaw = match[2] || "";
+            const featuredImageUrlRaw = match[3] || "";
+            const featuredImageCaptionRaw = match[4] || "";
 
             output += this.escapeHtml(rawContent.slice(lastIndex, match.index)).replace(/\n/g, "<br>");
 
-            const safeUrl = this.sanitizePostLinkUrl(linkUrlRaw);
-            if (safeUrl) {
-                const safeLabel = this.escapeHtml(String(linkLabelRaw || "").trim() || safeUrl);
-                output += `<a href="${this.escapeHtml(safeUrl)}" class="site-link" target="_blank" rel="noopener noreferrer">${safeLabel}</a>`;
+            if (linkUrlRaw) {
+                const safeUrl = this.sanitizePostLinkUrl(linkUrlRaw);
+                if (safeUrl) {
+                    const safeLabel = this.escapeHtml(String(linkLabelRaw || "").trim() || safeUrl);
+                    output += `<a href="${this.escapeHtml(safeUrl)}" class="site-link" target="_blank" rel="noopener noreferrer">${safeLabel}</a>`;
+                } else {
+                    output += this.escapeHtml(fullMatch);
+                }
             } else {
-                output += this.escapeHtml(fullMatch);
+                const safeImageUrl = this.sanitizePostMediaUrl(featuredImageUrlRaw);
+                if (safeImageUrl) {
+                    const captionText = String(featuredImageCaptionRaw || "").trim();
+                    const safeAlt = this.escapeHtml(captionText || "Featured image");
+                    output += `<figure class="post-featured-image-block"><img src="${this.escapeHtml(safeImageUrl)}" alt="${safeAlt}" class="post-detail-image post-featured-image">${captionText ? `<figcaption>${this.escapeHtml(captionText)}</figcaption>` : ""}</figure>`;
+                } else {
+                    output += this.escapeHtml(fullMatch);
+                }
             }
 
             lastIndex = match.index + fullMatch.length;
