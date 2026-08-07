@@ -601,14 +601,6 @@ const app = {
         dropdown.appendChild(dropdownMenu);
         navLinks.appendChild(dropdown);
 
-        const postsLink = document.createElement("a");
-        postsLink.href = "#posts";
-        postsLink.textContent = "Posts";
-        postsLink.setAttribute("data-analytics-action", "nav_click");
-        postsLink.setAttribute("data-analytics-category", "Navigation");
-        postsLink.setAttribute("data-analytics-label", "Posts");
-        navLinks.appendChild(postsLink);
-
         const hallOfFameLink = document.createElement("a");
         hallOfFameLink.href = "#hall-of-fame";
         hallOfFameLink.textContent = "Hall of Fame";
@@ -616,6 +608,14 @@ const app = {
         hallOfFameLink.setAttribute("data-analytics-category", "Navigation");
         hallOfFameLink.setAttribute("data-analytics-label", "Hall of Fame");
         navLinks.appendChild(hallOfFameLink);
+
+        const postsLink = document.createElement("a");
+        postsLink.href = "#posts";
+        postsLink.textContent = "Posts";
+        postsLink.setAttribute("data-analytics-action", "nav_click");
+        postsLink.setAttribute("data-analytics-category", "Navigation");
+        postsLink.setAttribute("data-analytics-label", "Posts");
+        navLinks.appendChild(postsLink);
 
         this.updateNavLinks();
     },
