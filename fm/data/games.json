@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Home",
-      "home_team": "Harper FC",
-      "away_team": "ShowyBlast125 FC",
-      "date": "08-08-2026",
-      "time": "10:55",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "League Level 1",
-      "venue": "The Concourse",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Home",
       "home_team": "Manchester United",
       "away_team": "Nottingham Forest",
       "date": "08-08-2026",
@@ -84,6 +71,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "ShowyBlast125 FC",
+      "date": "08-08-2026",
+      "time": "10:55",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 1",
+      "venue": "The Concourse",
+      "home_score": "11",
+      "away_score": "1",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Away",
