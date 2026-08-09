@@ -74,6 +74,32 @@
     },
     {
       "home_or_away": "Away",
+      "home_team": "FC inter",
+      "away_team": "Harper FC",
+      "date": "10-08-2026",
+      "time": "17:08",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Cup (First Round)",
+      "venue": "Stadio FC inter",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "KATHMANDU UNITED",
+      "date": "10-08-2026",
+      "time": "21:40",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Elite League",
+      "venue": "The Concourse",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
       "home_team": "Arsenal 1986",
       "away_team": "Cheshire Harriers FC",
       "date": "11-08-2026",
