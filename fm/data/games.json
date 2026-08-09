@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Away",
-      "home_team": "TheTrueSasAcademy",
-      "away_team": "Cheshire Harriers FC",
-      "date": "09-08-2026",
-      "time": "17:00",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "Series: VI.251",
-      "venue": "Little sas grow up Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "Chelsea",
       "away_team": "Manchester United",
       "date": "09-08-2026",
@@ -97,6 +84,32 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Cheshire Harriers FC",
+      "away_team": "Devon Athletic FC",
+      "date": "16-08-2026",
+      "time": "17:00",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Series: VI.251",
+      "venue": "Harriers Park",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "TheTrueSasAcademy",
+      "away_team": "Cheshire Harriers FC",
+      "date": "09-08-2026",
+      "time": "17:00",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Series: VI.251",
+      "venue": "Little sas grow up Stadium",
+      "home_score": "4",
+      "away_score": "5",
+      "winner": "Cheshire Harriers FC"
     },
     {
       "home_or_away": "Home",
