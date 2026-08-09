@@ -174,7 +174,7 @@
     {
       "team_name": "Harper FC",
       "osm_or_top_eleven": "Top Eleven",
-      "competition": "League Level 1",
+      "competition": "Elite League",
       "country": "England",
       "home_venue": "The Concourse",
       "end_state": null,
@@ -223,13 +223,6 @@
         ],
         [
           "DR",
-          "Sol Grant",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "DR",
           "Alcidio Fleytas",
           "0",
           "0",
@@ -271,6 +264,13 @@
           "0"
         ],
         [
+          "MC",
+          "Mark Slegg",
+          "0",
+          "0",
+          "0"
+        ],
+        [
           "AML",
           "Rachid Mesquini",
           "0",
@@ -280,6 +280,13 @@
         [
           "AMR",
           "Maximiliano Martinones",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "AMC",
+          "Danny Smith",
           "0",
           "0",
           "0"
