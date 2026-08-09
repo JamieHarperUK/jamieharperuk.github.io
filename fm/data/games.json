@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Away",
-      "home_team": "Chelsea",
-      "away_team": "Manchester United",
-      "date": "09-08-2026",
-      "time": "18:28",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 2nd Division",
-      "venue": "Stamford Bridge",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "FC Hornchurch",
       "away_team": "Altrincham FC",
       "date": "09-08-2026",
@@ -55,6 +42,19 @@
       "osm_or_top_eleven": "Top Eleven",
       "competition": "Cup (First Round)",
       "venue": "Stadio FC inter",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Manchester United",
+      "away_team": "Everton",
+      "date": "10-08-2026",
+      "time": "18:28",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Old Trafford",
       "home_score": "",
       "away_score": "",
       "winner": ""
@@ -97,6 +97,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Chelsea",
+      "away_team": "Manchester United",
+      "date": "09-08-2026",
+      "time": "18:28",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Stamford Bridge",
+      "home_score": "0",
+      "away_score": "3",
+      "winner": "Manchester United"
     },
     {
       "home_or_away": "Away",
