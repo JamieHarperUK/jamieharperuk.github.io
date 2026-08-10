@@ -2,8 +2,8 @@
 const siteConfig = {
     canonicalOrigin: typeof window !== "undefined" && window.location && window.location.origin
         ? window.location.origin
-        : "https://example.com",
-    appBasePath: "/"
+        : "https://jhuk.co.uk",
+    appBasePath: "/fm-site"
 };
 
 const runtimeOrigin = (typeof window !== "undefined" && window.location && window.location.origin)
