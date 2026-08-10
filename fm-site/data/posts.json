@@ -1,0 +1,18 @@
+{
+  "metadata": {
+    "lastUpdated": "2026-07-21T21:00:00Z",
+    "version": "1.1.0",
+    "//": "Posts are stored as an array of objects. Each object contains the details of a single post. The date_time field is an array of two strings, the first being the date in DD-MM-YYYY format and the second being the time in 24-hour format. Categories will include (and are limited to) 'Announcement', 'OSM', 'Top Eleven', and 'Other'. Tags are optional and can be used to further categorize posts.",
+    "fields": {
+      "post": {
+        "title": "string",
+        "content": "string",
+        "date_time": "array[string]",
+        "image": "string",
+        "category": "string",
+        "tags": "array[string]"
+      }
+    }
+  },
+  "posts": []
+}

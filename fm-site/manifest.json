@@ -1,0 +1,22 @@
+{
+  "name": "Football Management",
+  "short_name": "FM",
+  "description": "A white-label football management PWA for fixtures, squads, and update posts.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0a0f1e",
+  "theme_color": "#c8102e",
+  "icons": [
+    {
+      "src": "data/fm_icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "data/fm_icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

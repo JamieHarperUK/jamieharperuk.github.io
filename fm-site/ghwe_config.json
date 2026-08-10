@@ -1,0 +1,14 @@
+{
+  "site_data": {
+    "title": "Football Management",
+    "url": "https://example.com/"
+  },
+  "metadata": {
+    "last_updated": null
+  },
+  "json_files": {
+    "games": "data/games.json",
+    "teams": "data/teams.json",
+    "posts": "data/posts.json"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "metadata": {
+    "lastUpdated": "2026-07-21T21:00:00Z",
+    "version": "1.1.0",
+    "//": "Players are stored as an array of arrays. The last three elements of each player array represent the player's current Yellow cards, Red cards, and injury days respectively ('0' if none).",
+    "fields": {
+      "team": {
+        "team_name": "string",
+        "osm_or_top_eleven": "string",
+        "competition": "string",
+        "country": "string",
+        "home_venue": "string",
+        "players": "array[array[string]]"
+      }
+    }
+  },
+  "teams": []
+}

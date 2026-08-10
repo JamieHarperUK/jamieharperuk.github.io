@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta property="og:title" content="Football Management">
+        <meta property="og:description" content="A white-label football management hub for fixtures, squads, and update posts.">
+        <meta property="og:image" content="data/fm_bg_thin.png">
+        <meta property="og:url" content="https://example.com/">
+
+        <meta property="twitter:card" content="summary_large_image">
+        <meta property="twitter:title" content="Football Management">
+        <meta property="twitter:description" content="A white-label football management hub for fixtures, squads, and update posts.">
+        <meta property="twitter:image" content="data/fm_bg_thin.png">
+        <meta property="twitter:url" content="https://example.com/">
+
+        <meta name="description" content="A white-label football management hub for fixtures, squads, and update posts.">
+        <meta name="theme-color" content="#c8102e">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <meta name="apple-mobile-web-app-title" content="Football Management">
+        <meta name="mobile-web-app-capable" content="yes">
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="icon" type="image/png" sizes="32x32" href="data/fm_icon.png">
+        <link rel="manifest" href="manifest.json">
+        <link rel="apple-touch-icon" href="data/fm_icon.png">
+        <title>Football Management</title>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <header>
+            <nav>
+                <a href="#home" class="nav-brand">
+                    <img src="data/fm_logo.png" alt="Football Management Logo" class="nav-logo">
+                </a>
+                <div class="nav-links" id="navLinks"></div>
+            </nav>
+        </header>
+
+        <main id="app">
+            <section id="home" class="page active">
+                <h1 class="section-title">Hub Overview</h1>
+                <div class="manager-stats" id="overviewStats"></div>
+                <div class="notes-section">
+                    <div class="notes-content" id="notesContent">
+                        Follow my OSM and Top Eleven journey in one place. Explore team pages for squads and form, keep track of upcoming fixtures, and check the latest update posts.
+                    </div>
+                    <img src="data/fm_bg_thin.png" alt="Football Management Hub" class="notes-image">
+                </div>
+
+                <h2 class="section-title">Upcoming Fixtures</h2>
+                <div class="fixtures-grid-home" id="upcomingFixtures"></div>
+
+                <section class="panel latest-post-panel" aria-labelledby="latest-post-title">
+                    <div class="panel-heading">
+                        <h2 class="panel-title" id="latest-post-title">Latest Post</h2>
+                    </div>
+                    <div id="latestPostPreview"></div>
+                </section>
+            </section>
+
+            <section id="posts" class="page">
+                <h1 class="section-title">Posts & Updates</h1>
+                <div class="notes-section">
+                    <div class="notes-content">
+                        The latest Football Management posts, progress updates, and announcements are shown below.
+                    </div>
+                </div>
+
+                <div class="updates-grid" id="allPosts"></div>
+            </section>
+
+            <section id="post-detail" class="page">
+                <div id="postDetailContent"></div>
+            </section>
+
+            <section id="hall-of-fame" class="page">
+                <div id="hallOfFameContent"></div>
+            </section>
+
+            <div id="teamPagesContainer"></div>
+        </main>
+
+        <div class="fab-group" aria-label="Quick actions">
+            <button
+                type="button"
+                id="installFab"
+                class="install-fab"
+                aria-hidden="true"
+                data-analytics-action="pwa_install_prompt"
+                data-analytics-category="PWA"
+                data-analytics-label="Install App"
+            >
+                <i class="fas fa-download"></i>
+                <span>Install</span>
+            </button>
+
+            <button
+                type="button"
+                id="pushFab"
+                class="push-fab"
+                aria-haspopup="dialog"
+                aria-controls="pushModal"
+                aria-expanded="false"
+                data-analytics-action="push_modal_open"
+                data-analytics-category="Notifications"
+                data-analytics-label="Open Notification Controls"
+            >
+                <i class="fas fa-bell"></i>
+                <span>Alerts</span>
+            </button>
+        </div>
+
+        <div class="modal-backdrop" id="pushModal" aria-hidden="true">
+            <div class="modal-dialog push-modal" role="dialog" aria-modal="true" aria-labelledby="pushModalTitle">
+                <button class="modal-close" id="pushModalClose" type="button" aria-label="Close notification settings">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h2 id="pushModalTitle">Notification Settings</h2>
+                <p class="notes-content">Enable browser push notifications to receive post and result updates.</p>
+                <div class="notify-actions">
+                    <button type="button" class="notify-btn" id="enablePushBtn">Enable Notifications</button>
+                    <button type="button" class="notify-btn notify-btn-secondary" id="disablePushBtn">Disable Notifications</button>
+                </div>
+                <p id="pushStatusText" class="push-status-text" aria-live="polite">Checking notification support...</p>
+            </div>
+        </div>
+
+        <div class="modal-backdrop" id="eloInfoModal" aria-hidden="true">
+            <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="eloInfoTitle">
+                <button class="modal-close" type="button" aria-label="Close ELO information">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h2 id="eloInfoTitle">ELO Rating Explained</h2>
+                <div id="eloInfoContent"></div>
+            </div>
+        </div>
+
+        <footer>
+            <span class="footer-disclaimer">This website is not affiliated with Online Soccer Manager, Top Eleven, Hattrick, or any teams mentioned.</span><br>
+            <small style="font-style: italic;">White-label football management site template.</small>
+        </footer>
+
+        <script src="main.js"></script>
+    </body>
+</html>
