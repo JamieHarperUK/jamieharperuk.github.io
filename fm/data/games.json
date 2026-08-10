@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Away",
-      "home_team": "FC inter",
-      "away_team": "Harper FC",
-      "date": "10-08-2026",
-      "time": "17:08",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "Cup (First Round)",
-      "venue": "Stadio FC inter",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Home",
       "home_team": "Manchester United",
       "away_team": "Everton",
@@ -97,6 +84,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "FC inter",
+      "away_team": "Harper FC",
+      "date": "10-08-2026",
+      "time": "17:08",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Cup (First Round)",
+      "venue": "Stadio FC inter",
+      "home_score": "0",
+      "away_score": "9",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Away",
