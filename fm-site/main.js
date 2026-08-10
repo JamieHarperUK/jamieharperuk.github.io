@@ -2,7 +2,7 @@
 const siteConfig = {
     canonicalOrigin: typeof window !== "undefined" && window.location && window.location.origin
         ? window.location.origin
-        : "https://jhuk.co.uk",
+        : "https://jamieharperuk.github.io",
     appBasePath: "/fm-site"
 };
 
