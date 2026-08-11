@@ -35,19 +35,6 @@
     },
     {
       "home_or_away": "Away",
-      "home_team": "Barrow",
-      "away_team": "Altrincham FC",
-      "date": "11-08-2026",
-      "time": "20:20",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 5th Division",
-      "venue": "Furness Building Society Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "Paradise Fc",
       "away_team": "Harper FC",
       "date": "11-08-2026",
@@ -86,6 +73,19 @@
       "winner": ""
     },
     {
+      "home_or_away": "Home",
+      "home_team": "Altrincham FC",
+      "away_team": "Eastleight",
+      "date": "12-08-2026",
+      "time": "20:20",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 5th Division",
+      "venue": "J. Davidson Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
       "home_or_away": "Away",
       "home_team": "RADRIGEN FC",
       "away_team": "Harper FC",
@@ -110,6 +110,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Barrow",
+      "away_team": "Altrincham FC",
+      "date": "11-08-2026",
+      "time": "20:20",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 5th Division",
+      "venue": "Furness Building Society Stadium",
+      "home_score": "3",
+      "away_score": "1",
+      "winner": "Barrow"
     },
     {
       "home_or_away": "Home",
