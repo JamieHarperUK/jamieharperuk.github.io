@@ -22,6 +22,19 @@
   "games": [
     {
       "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "RADRIGEN FC",
+      "date": "11-08-2026",
+      "time": "11:31",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Cup (Round of 32)",
+      "venue": "The Concourse",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
       "home_team": "Manchester United",
       "away_team": "Brighton and Hove Albion",
       "date": "11-08-2026",
@@ -55,6 +68,19 @@
       "osm_or_top_eleven": "OSM",
       "competition": "England 5th Division",
       "venue": "Furness Building Society Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Paradise Fc",
+      "away_team": "Harper FC",
+      "date": "11-08-2026",
+      "time": "21:23",
+      "osm_or_top_eleven": "OSM",
+      "competition": "League Level 2",
+      "venue": "Encouraging Fc's Stadium",
       "home_score": "",
       "away_score": "",
       "winner": ""
