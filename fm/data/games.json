@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Home",
-      "home_team": "Harper FC",
-      "away_team": "RADRIGEN FC",
-      "date": "11-08-2026",
-      "time": "11:31",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "Cup (Round of 32)",
-      "venue": "The Concourse",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Home",
       "home_team": "Manchester United",
       "away_team": "Brighton and Hove Albion",
       "date": "11-08-2026",
@@ -99,6 +86,19 @@
       "winner": ""
     },
     {
+      "home_or_away": "Away",
+      "home_team": "RADRIGEN FC",
+      "away_team": "Harper FC",
+      "date": "13-08-2026",
+      "time": "12:55",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Cup (Round of 32)",
+      "venue": "Stadion RADRIGEN FC",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
       "home_or_away": "Home",
       "home_team": "Cheshire Harriers FC",
       "away_team": "Devon Athletic FC",
@@ -110,6 +110,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "RADRIGEN FC",
+      "date": "11-08-2026",
+      "time": "11:31",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Cup (Round of 32)",
+      "venue": "The Concourse",
+      "home_score": "12",
+      "away_score": "0",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Home",
