@@ -240,6 +240,10 @@ const app = {
             return "tickets";
         }
 
+        if (view === "fixtures") {
+            return "fixtures";
+        }
+
         if (view === "tables") {
             return "tables";
         }
@@ -302,6 +306,10 @@ const app = {
 
         if (path === "tickets") {
             return "Tickets";
+        }
+
+        if (path === "fixtures") {
+            return "Fixtures";
         }
 
         if (path === "tables") {
@@ -414,9 +422,18 @@ const app = {
             dropdownToggle.setAttribute("aria-expanded", String(isOpen));
         });
 
+        moreToggle.addEventListener("click", () => {
+            const moreContainer = moreDropdown;
+            const isOpen = moreContainer.classList.toggle("open");
+            moreToggle.setAttribute("aria-expanded", String(isOpen));
+        });
+
         document.addEventListener("click", (event) => {
             if (!dropdown.contains(event.target)) {
                 this.closeTeamsDropdown();
+            }
+            if (!moreDropdown.contains(event.target)) {
+                this.closeMoreDropdown();
             }
         });
 
@@ -439,6 +456,22 @@ const app = {
         postsLink.setAttribute("data-analytics-category", "Navigation");
         postsLink.setAttribute("data-analytics-label", "Posts");
         navLinks.appendChild(postsLink);
+        // Group less-frequent items into a 'More' dropdown for mobile
+        const moreDropdown = document.createElement("div");
+        moreDropdown.className = "nav-dropdown";
+
+        const moreToggle = document.createElement("button");
+        moreToggle.className = "nav-dropdown-toggle";
+        moreToggle.type = "button";
+        moreToggle.id = "moreDropdownToggle";
+        moreToggle.setAttribute("aria-expanded", "false");
+        moreToggle.setAttribute("data-analytics-action", "nav_click");
+        moreToggle.setAttribute("data-analytics-category", "Navigation");
+        moreToggle.setAttribute("data-analytics-label", "More Menu");
+        moreToggle.textContent = "More";
+
+        const moreMenu = document.createElement("div");
+        moreMenu.className = "nav-dropdown-menu";
 
         const ticketsLink = document.createElement("a");
         ticketsLink.href = "#tickets";
@@ -446,7 +479,7 @@ const app = {
         ticketsLink.setAttribute("data-analytics-action", "nav_click");
         ticketsLink.setAttribute("data-analytics-category", "Navigation");
         ticketsLink.setAttribute("data-analytics-label", "Tickets");
-        navLinks.appendChild(ticketsLink);
+        moreMenu.appendChild(ticketsLink);
 
         const tablesLink = document.createElement("a");
         tablesLink.href = "#tables";
@@ -454,14 +487,37 @@ const app = {
         tablesLink.setAttribute("data-analytics-action", "nav_click");
         tablesLink.setAttribute("data-analytics-category", "Navigation");
         tablesLink.setAttribute("data-analytics-label", "Tables");
-        navLinks.appendChild(tablesLink);
+        moreMenu.appendChild(tablesLink);
+
+        const fixturesLink = document.createElement("a");
+        fixturesLink.href = "#fixtures";
+        fixturesLink.textContent = "Fixtures";
+        fixturesLink.setAttribute("data-analytics-action", "nav_click");
+        fixturesLink.setAttribute("data-analytics-category", "Navigation");
+        fixturesLink.setAttribute("data-analytics-label", "Fixtures");
+        moreMenu.appendChild(fixturesLink);
+
+        moreDropdown.appendChild(moreToggle);
+        moreDropdown.appendChild(moreMenu);
+        navLinks.appendChild(moreDropdown);
 
         this.updateNavLinks();
     },
 
     closeTeamsDropdown() {
-        const dropdown = document.querySelector(".nav-dropdown");
         const toggle = document.getElementById("teamsDropdownToggle");
+        const dropdown = toggle ? toggle.closest(".nav-dropdown") : null;
+        if (dropdown && dropdown.classList.contains("open")) {
+            dropdown.classList.remove("open");
+        }
+        if (toggle) {
+            toggle.setAttribute("aria-expanded", "false");
+        }
+    },
+
+    closeMoreDropdown() {
+        const toggle = document.getElementById("moreDropdownToggle");
+        const dropdown = toggle ? toggle.closest(".nav-dropdown") : null;
         if (dropdown && dropdown.classList.contains("open")) {
             dropdown.classList.remove("open");
         }
@@ -579,6 +635,15 @@ const app = {
                 image: this.siteMeta.image,
                 url: this.getCanonicalPageUrl("tickets")
             });
+        } else if (path === "fixtures") {
+            this.renderFixturesPage();
+            document.getElementById("fixtures")?.classList.add("active");
+            this.updatePageMetadata({
+                title: `Fixtures | ${this.siteMeta.title}`,
+                description: "All upcoming and recent fixtures.",
+                image: this.siteMeta.image,
+                url: this.getCanonicalPageUrl("fixtures")
+            });
         } else if (path === "tables") {
             this.renderTablesPage();
             document.getElementById("tables")?.classList.add("active");
@@ -657,6 +722,11 @@ const app = {
                 return;
             }
 
+            if (this.currentPage === "fixtures" && href === "#fixtures") {
+                link.classList.add("active");
+                return;
+            }
+
             if (this.currentPage.startsWith("team/") && href === `#${this.currentPage}`) {
                 link.classList.add("active");
             }
@@ -665,6 +735,11 @@ const app = {
         const dropdownToggle = document.getElementById("teamsDropdownToggle");
         if (dropdownToggle) {
             dropdownToggle.classList.toggle("active", this.currentPage.startsWith("team/"));
+        }
+        const moreToggle = document.getElementById("moreDropdownToggle");
+        if (moreToggle) {
+            const moreActive = ["tickets", "tables", "fixtures"].includes(this.currentPage);
+            moreToggle.classList.toggle("active", moreActive);
         }
     },
 
@@ -848,6 +923,45 @@ const app = {
                 </section>
             `;
         }).join("");
+    },
+
+    renderFixturesPage() {
+        const container = document.getElementById("fixturesList");
+        if (!container) {
+            return;
+        }
+
+        const upcoming = this.getUpcomingGames().sort((a, b) => this.compareGameDateAsc(a, b));
+        const played = [...this.data.games].filter((g) => this.isPlayed(g)).sort((a, b) => this.compareGameDateDesc(a, b));
+
+        container.innerHTML = "";
+
+        if (!upcoming.length && !played.length) {
+            container.innerHTML = '<div class="empty-state">No fixtures available.</div>';
+            return;
+        }
+
+        if (upcoming.length) {
+            const upSection = document.createElement("section");
+            upSection.className = "panel";
+            upSection.innerHTML = `<h2 class="panel-title">Upcoming Fixtures</h2>`;
+            const grid = document.createElement("div");
+            grid.className = "fixtures-grid";
+            upcoming.forEach((game) => grid.appendChild(this.createFixtureCard(game)));
+            upSection.appendChild(grid);
+            container.appendChild(upSection);
+        }
+
+        if (played.length) {
+            const recentSection = document.createElement("section");
+            recentSection.className = "panel";
+            recentSection.innerHTML = `<h2 class="panel-title">Recent Results</h2>`;
+            const grid = document.createElement("div");
+            grid.className = "fixtures-grid";
+            played.slice(0, 24).forEach((game) => grid.appendChild(this.createFixtureCard(game)));
+            recentSection.appendChild(grid);
+            container.appendChild(recentSection);
+        }
     },
 
     renderLatestPostPreview() {
@@ -1573,6 +1687,10 @@ const app = {
             return `${canonicalBase}?view=tickets`;
         }
 
+        if (path === "fixtures") {
+            return `${canonicalBase}?view=fixtures`;
+        }
+
         if (path === "tables") {
             return `${canonicalBase}?view=tables`;
         }
@@ -1705,31 +1823,9 @@ const app = {
             </section>
 
             <section class="panel">
-                <h2 class="panel-title">Club Profile</h2>
-                <p>
-                    <strong>Country:</strong> ${this.escapeHtml(team.country || "Unknown")}<br>
-                    <strong>Home Venue:</strong> ${this.escapeHtml(team.home_venue || "Unknown")}
-                </p>
-            </section>
-
-            ${isCompletedTeam ? "" : `
             <section class="panel">
-                <h2 class="panel-title">Upcoming Fixtures</h2>
-                <div class="fixtures-grid" id="team-upcoming-${teamId}"></div>
-            </section>
-            `}
-
-            <section class="panel past-panel ${pastFixturesState.collapsed ? "is-collapsed" : ""}" id="past-panel-${teamId}">
-                <div class="panel-heading">
-                    <h2 class="panel-title">Past Fixtures</h2>
-                    <button class="panel-toggle-btn" id="team-played-toggle-${teamId}" type="button" aria-expanded="${String(!pastFixturesState.collapsed)}">
-                        ${pastFixturesState.collapsed ? "Expand" : "Collapse"}
-                    </button>
-                </div>
-                <div class="panel-content" id="team-played-panel-content-${teamId}">
-                    <div class="fixtures-grid" id="team-played-${teamId}"></div>
-                    <div class="panel-controls" id="team-played-controls-${teamId}"></div>
-                </div>
+                <h2 class="panel-title">Squad & Players</h2>
+                <p class="notes-content">Player images and squad numbers are shown below. Fixtures have moved to the dedicated Fixtures page.</p>
             </section>
 
             <section class="panel">
@@ -1738,36 +1834,7 @@ const app = {
             </section>
         `;
 
-        const upcomingContainer = document.getElementById(`team-upcoming-${teamId}`);
-        const playedToggleButton = document.getElementById(`team-played-toggle-${teamId}`);
         const rosterContainer = document.getElementById(`team-roster-${teamId}`);
-        const eloInfoButton = content.querySelector(".elo-info-btn");
-
-        if (upcomingContainer) {
-            if (!upcoming.length) {
-                upcomingContainer.innerHTML = '<div class="empty-state">No upcoming fixtures listed.</div>';
-            } else {
-                upcoming.slice(0, 10).forEach((game) => upcomingContainer.appendChild(this.createFixtureCard(game)));
-            }
-        }
-
-        if (playedToggleButton) {
-            playedToggleButton.addEventListener("click", () => {
-                this.trackEvent("fixtures_toggle_click", "Teams", `Toggle ${team.team_name}`);
-                const state = this.getPastFixturesState(teamId);
-                state.collapsed = !state.collapsed;
-                this.updatePastFixturesPanelState(teamId);
-            });
-        }
-
-        this.renderPastFixturesList(teamId, played);
-        this.updatePastFixturesPanelState(teamId);
-
-        if (eloInfoButton) {
-            eloInfoButton.addEventListener("click", (event) => {
-                event.preventDefault();
-            });
-        }
 
         if (rosterContainer) {
             this.renderRoster(team.players || [], rosterContainer);
@@ -1885,7 +1952,8 @@ const app = {
         };
 
         players.forEach((player) => {
-            const position = String(player[0] || "").toUpperCase();
+            // player may be an extended array: [pos, name, yellow, red, injury, number, image]
+            const position = String((Array.isArray(player) ? player[0] : (player.position || player.pos || "")) || "").toUpperCase();
             const bucket = this.getPositionGroup(position);
             groups[bucket].push(player);
         });
@@ -1902,16 +1970,25 @@ const app = {
 
             const rows = list
                 .map((player) => {
-                    const position = this.escapeHtml(player[0] || "-");
-                    const name = this.escapeHtml(player[1] || "Unknown Player");
-                    const yellow = this.escapeHtml(player[2] || "0");
-                    const red = this.escapeHtml(player[3] || "0");
-                    const injury = this.escapeHtml(player[4] || "0");
+                    const pos = this.escapeHtml(Array.isArray(player) ? (player[0] || "-") : (player.position || "-"));
+                    const name = this.escapeHtml(Array.isArray(player) ? (player[1] || "Unknown Player") : (player.name || player.player_name || "Unknown Player"));
+                    const yellow = this.escapeHtml(Array.isArray(player) ? (player[2] || "0") : (player.yellow || player.yellows || "0"));
+                    const red = this.escapeHtml(Array.isArray(player) ? (player[3] || "0") : (player.red || player.reds || "0"));
+                    const injury = this.escapeHtml(Array.isArray(player) ? (player[4] || "0") : (player.injury || player.injuries || "0"));
+                    const number = this.escapeHtml(Array.isArray(player) ? (player[5] || "") : (player.number || ""));
+                    const image = Array.isArray(player) ? (player[6] || "") : (player.image || player.photo || "");
+
+                    const imgTag = image ? `<img src="${this.escapeHtml(image)}" alt="${name}" class="player-thumb">` : `<div class="player-thumb placeholder">${number || ""}</div>`;
 
                     return `
                         <tr>
-                            <td>${position}</td>
-                            <td>${name}</td>
+                            <td class="player-cell">
+                                <div class="player-thumb-wrap">${imgTag}<span class="player-number">${number ? `#${number}` : ""}</span></div>
+                            </td>
+                            <td class="player-info">
+                                <div class="player-name">${name}</div>
+                                <div class="player-pos">${pos}</div>
+                            </td>
                             <td style="text-align: center;"><span class="cards-pill yellow">${yellow}</span></td>
                             <td style="text-align: center;"><span class="cards-pill red">${red}</span></td>
                             <td style="text-align: center;"><span class="cards-pill injury">${injury}</span></td>
@@ -1922,10 +1999,10 @@ const app = {
 
             card.innerHTML = `
                 <h3 class="roster-heading">${title}</h3>
-                <table class="roster-table">
+                <table class="roster-table roster-players">
                     <thead>
                         <tr>
-                            <th>Pos</th>
+                            <th></th>
                             <th>Player</th>
                             <th style="text-align: center;">Y</th>
                             <th style="text-align: center;">R</th>

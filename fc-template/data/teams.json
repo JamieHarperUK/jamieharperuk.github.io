@@ -2,7 +2,7 @@
   "metadata": {
     "lastUpdated": "2026-07-21T21:00:00Z",
     "version": "1.1.0",
-    "//": "Players are stored as an array of arrays. The last three elements of each player array represent the player's current Yellow cards, Red cards, and injury days respectively ('0' if none).",
+    "//": "Players are stored as an array of arrays. Extended format includes: [position, name, yellow, red, injury, number, imageUrl]. Backwards-compatible arrays without number/image are still supported.",
     "fields": {
       "team": {
         "team_name": "string",
@@ -24,31 +24,39 @@
       "players": [
         [
           "GK",
-          "Player Name",
+          "Alex Goalkeeper",
           "0",
           "0",
-          "0"
+          "0",
+          "1",
+          "data/players/alex.jpg"
         ],
         [
           "DL",
-          "Player Name",
+          "Ben Defender",
           "0",
           "0",
-          "0"
+          "0",
+          "3",
+          "data/players/ben.jpg"
         ],
         [
           "MC",
-          "Player Name",
+          "Chris Midfield",
           "0",
           "0",
-          "0"
+          "0",
+          "6",
+          "data/players/chris.jpg"
         ],
         [
           "ST",
-          "Player Name",
+          "Dan Striker",
           "0",
           "0",
-          "0"
+          "0",
+          "9",
+          "data/players/dan.jpg"
         ]
       ]
     }

@@ -2844,21 +2844,24 @@
             }
 
             function buildDefaultPlayerRow() {
-                return ["", "", "0", "0", "0"];
+                return ["", "", "0", "0", "0", "", ""];
             }
 
             function normalizePlayerRow(row) {
+                // Support both legacy arrays and extended arrays (with number + image)
                 if (!Array.isArray(row)) {
                     return buildDefaultPlayerRow();
                 }
 
-                const values = row.slice(0, 5);
+                const values = row.slice(0, 7);
                 return [
-                    String(values[0] ?? ""),
-                    String(values[1] ?? ""),
-                    String(values[2] ?? "0"),
-                    String(values[3] ?? "0"),
-                    String(values[4] ?? "0")
+                    String(values[0] ?? ""), // position
+                    String(values[1] ?? ""), // name
+                    String(values[2] ?? "0"), // yellow
+                    String(values[3] ?? "0"), // red
+                    String(values[4] ?? "0"), // injury
+                    String(values[5] ?? ""), // number
+                    String(values[6] ?? "")  // image URL
                 ];
             }
 
@@ -4444,10 +4447,12 @@
 
                     const columns = [
                         { key: 0, label: "Position" },
+                        { key: 5, label: "Number" },
                         { key: 1, label: "Name" },
                         { key: 2, label: "Yellow" },
                         { key: 3, label: "Red" },
-                        { key: 4, label: "Injury" }
+                        { key: 4, label: "Injury" },
+                        { key: 6, label: "Image URL" }
                     ];
 
                     columns.forEach(function(column) {
@@ -4458,11 +4463,14 @@
                         const fieldLabel = document.createElement("label");
                         fieldLabel.textContent = column.label;
                         const input = document.createElement("input");
-                        input.type = column.key >= 2 ? "number" : "text";
-                        if (column.key >= 2) {
+                        // number fields and counts should be numeric where appropriate
+                        input.type = (column.key === 2 || column.key === 3 || column.key === 4 || column.key === 5) ? "number" : "text";
+                        if (column.key >= 2 && column.key <= 5) {
                             input.className = "player-number-input";
                         } else if (column.key === 1) {
                             input.className = "player-name-input";
+                        } else if (column.key === 6) {
+                            input.className = "player-image-input";
                         }
                         input.value = String(playerRow[column.key] ?? "");
                         input.addEventListener("input", function(event) {

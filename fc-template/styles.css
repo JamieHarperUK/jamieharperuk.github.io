@@ -680,6 +680,103 @@ main {
     margin-bottom: 1.2rem;
 }
 
+/* Tickets */
+.tickets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+}
+
+.ticket-card {
+    padding: 1rem;
+    border-radius: 10px;
+    background: linear-gradient(180deg, rgba(21,29,45,0.98), rgba(10,15,30,0.96));
+    border: 1px solid var(--border-color);
+}
+
+.ticket-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.6rem;
+}
+
+.ticket-meta {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 0.6rem;
+}
+
+.ticket-actions {
+    margin-top: 0.6rem;
+}
+
+.site-button {
+    display: inline-block;
+    background: linear-gradient(90deg, var(--primary-color), #de3955);
+    color: #fff;
+    padding: 0.5rem 0.85rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+/* Standings tables */
+.table-wrapper {
+    overflow-x: auto;
+}
+.standings-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.standings-table th,
+.standings-table td {
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px solid var(--border-color);
+    text-align: left;
+}
+
+/* Roster / Player styles */
+.roster-table.roster-players td {
+    vertical-align: middle;
+}
+.player-thumb-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+.player-thumb {
+    width: 48px;
+    height: 48px;
+    border-radius: 6px;
+    object-fit: cover;
+    border: 1px solid var(--border-color);
+}
+.player-thumb.placeholder {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.03);
+    color: var(--text-secondary);
+    width: 48px;
+    height: 48px;
+    border-radius: 6px;
+    font-weight: 700;
+}
+.player-number {
+    color: var(--text-secondary);
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+.player-name {
+    font-weight: 700;
+}
+.player-pos {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
 .notify-panel {
     margin-bottom: 1.3rem;
 }
