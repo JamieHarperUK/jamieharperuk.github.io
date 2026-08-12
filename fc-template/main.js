@@ -2023,7 +2023,7 @@ const app = {
 
                 const stats = document.createElement("div");
                 stats.className = "player-stats";
-                stats.innerHTML = `<span class="cards-pill yellow">Yellow Cards : ${yellow}</span><br /><span class="cards-pill red">Red Cards : ${red}</span><br /><span class="cards-pill injury">Injury Recovery : ${injury} day(s)</span>`;
+                stats.innerHTML = `<span class="cards-pill yellow">Yellow Cards : ${yellow}</span><span class="cards-pill red">Red Cards : ${red}</span><span class="cards-pill injury">Injury Recovery : ${injury} day(s)</span>`;
 
                 card.appendChild(imgWrap);
                 card.appendChild(info);
