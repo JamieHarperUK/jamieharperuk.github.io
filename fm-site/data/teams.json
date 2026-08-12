@@ -22,7 +22,34 @@
       "country": "England",
       "home_venue": "Stadium Name",
       "players": [
-        ["GK", "Player Name", "0", "0", "0"]
+        [
+          "GK",
+          "Player Name",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "DL",
+          "Player Name",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "MC",
+          "Player Name",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ST",
+          "Player Name",
+          "0",
+          "0",
+          "0"
+        ]
       ]
     }
   ]
