@@ -181,7 +181,7 @@
     {
       "team_name": "Harper FC",
       "osm_or_top_eleven": "Top Eleven",
-      "competition": "Elite League",
+      "competition": "League Level 2",
       "country": "England",
       "home_venue": "The Concourse",
       "end_state": null,
@@ -245,14 +245,7 @@
         [
           "MC",
           "Cristian Zardetto",
-          "1",
           "0",
-          "0"
-        ],
-        [
-          "MC",
-          "Weerasak Paphunga",
-          "1",
           "0",
           "0"
         ],
@@ -266,13 +259,6 @@
         [
           "MC",
           "Rattasak Saiwaew",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "MC",
-          "Mark Slegg",
           "0",
           "0",
           "0"
@@ -308,7 +294,7 @@
         [
           "ST",
           "David Douence",
-          "1",
+          "0",
           "0",
           "0"
         ],
@@ -367,7 +353,7 @@
         [
           "RB",
           "Dayot Upamecano",
-          "0",
+          "1",
           "0",
           "0"
         ],
@@ -423,8 +409,8 @@
         [
           "CAM",
           "Declan Rice",
-          "1",
           "0",
+          "1",
           "0"
         ],
         [
@@ -465,7 +451,7 @@
         [
           "RW",
           "Bryan Mbeumo",
-          "1",
+          "2",
           "0",
           "0"
         ],
@@ -493,7 +479,7 @@
         [
           "LW",
           "Matheus Santos Carneiro Da Cunha",
-          "1",
+          "2",
           "0",
           "0"
         ],
