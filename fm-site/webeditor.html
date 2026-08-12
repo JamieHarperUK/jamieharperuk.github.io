@@ -1427,31 +1427,31 @@
                 // 4. Set brokerBaseUrl to the broker URL.
                 // 5. The broker must forward /github/device/code and /github/oauth/access_token requests to GitHub.
                 oauth: {
-                    clientId: "",
+                    clientId: "Ov23liJxZCIXpxYWlATm",
                     scope: "repo read:user",
-                    brokerBaseUrl: "" // Example: https://your-oauth-broker.example.com
+                    brokerBaseUrl: "https://ghwe.oakshiftsoftware.workers.dev" // Example: https://your-oauth-broker.example.com
                 },
                 session: {
                     ttlSeconds: 8 * 60 * 60
                 },
                 repository: {
                     // The editor will auto-connect to this repository after authentication.
-                    targetRepoFullName: "owner/repo",
+                    targetRepoFullName: "owner/repo", // Example: "username/username.github.io"
                     files: {
                         // Define the JSON content files your site uses. Example:
-                        posts: "content/posts.json",
-                        games: "content/games.json",
-                        teams: "content/teams.json"
+                        posts: "data/posts.json",
+                        games: "data/games.json",
+                        teams: "data/teams.json"
                     },
-                    defaultFileKey: "posts"
+                    defaultFileKey: "teams"
                 },
                 notifications: {
                     enabled: false, // Keep notifications disabled by default for plug-and-play use.
                     notifyEndpoint: "", // Optional notification worker endpoint.
                     authToken: "", // Optional token for the notification worker.
-                    siteId: "site",
-                    siteBaseUrl: "",
-                    delayMs: 75000
+                    siteId: "site", // Optional site identifier for the notification worker.
+                    siteBaseUrl: "", // Optional base URL for the site, used in notifications.
+                    delayMs: 75000 // Optional delay before notifying subscribers, in milliseconds.
                 }
             }; 
 
