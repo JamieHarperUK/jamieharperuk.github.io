@@ -2012,7 +2012,7 @@ const app = {
                 } else {
                     const ph = document.createElement("div");
                     ph.className = "player-thumb placeholder";
-                    img.src = `${siteConfig.appBasePath}data/profile_placeholder.jpg`;
+                    // ph.src = `${siteConfig.appBasePath}data/profile_placeholder.jpg`;
                     ph.textContent = number || "";
                     imgWrap.appendChild(ph);
                 }
