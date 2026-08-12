@@ -1037,10 +1037,20 @@ const app = {
         enableButton.disabled = state.isBusy || state.isSubscribed || permission === "denied";
         disableButton.disabled = state.isBusy || !state.isSubscribed;
 
+        const showPushButton = state.isSubscribed;
+
         if (fabButton) {
-            const statusText = state.isSubscribed ? "On" : "Off";
-            fabButton.setAttribute("aria-label", `Notification settings (${statusText})`);
-            fabButton.classList.toggle("is-enabled", state.isSubscribed);
+            fabButton.style.display = showPushButton ? "" : "none";
+            fabButton.setAttribute("aria-hidden", String(!showPushButton));
+
+            if (showPushButton) {
+                const statusText = "On";
+                fabButton.setAttribute("aria-label", `Notification settings (${statusText})`);
+                fabButton.classList.add("is-enabled");
+            } else {
+                fabButton.removeAttribute("aria-label");
+                fabButton.classList.remove("is-enabled");
+            }
         }
 
         this.syncInstallButton();
