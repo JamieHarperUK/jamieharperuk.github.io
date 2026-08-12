@@ -577,6 +577,11 @@ const app = {
             return;
         }
 
+        if (route === "fixtures") {
+            this.navigate("fixtures");
+            return;
+        }
+
         if (route === "hall-of-fame") {
             this.navigate("hall-of-fame");
             return;
@@ -1337,7 +1342,6 @@ const app = {
 
         const totalTeams = this.data.teams.length;
         const activeTeams = this.data.teams.filter((team) => !team.end_state || typeof team.end_state !== "object").length;
-        const pastTeams = this.data.teams.filter((team) => team.end_state && typeof team.end_state === "object").length;
         const totalPlayers = this.data.teams.reduce((count, team) => count + (team.players?.length || 0), 0);
         const upcomingCount = this.getUpcomingGames().length;
         const postsCount = this.data.posts.length;
@@ -1348,8 +1352,8 @@ const app = {
                 <div class="stat-value">${activeTeams}</div>
             </article>
             <article class="stat-card">
-                <div class="stat-label">Past Teams</div>
-                <div class="stat-value">${pastTeams}</div>
+                <div class="stat-label">Total Players</div>
+                <div class="stat-value">${totalPlayers}</div>
             </article>
             <article class="stat-card">
                 <div class="stat-label">Upcoming Matches</div>
@@ -1953,7 +1957,6 @@ const app = {
         };
 
         players.forEach((player) => {
-            // player may be an extended array: [pos, name, yellow, red, injury, number, image]
             const position = String((Array.isArray(player) ? player[0] : (player.position || player.pos || "")) || "").toUpperCase();
             const bucket = this.getPositionGroup(position);
             groups[bucket].push(player);
@@ -1966,55 +1969,61 @@ const app = {
                 return;
             }
 
-            const card = document.createElement("article");
-            card.className = "roster-card";
+            const section = document.createElement("section");
+            section.className = "panel roster-panel";
+            const heading = document.createElement("h3");
+            heading.className = "roster-heading";
+            heading.textContent = title;
 
-            const rows = list
-                .map((player) => {
-                    const pos = this.escapeHtml(Array.isArray(player) ? (player[0] || "-") : (player.position || "-"));
-                    const name = this.escapeHtml(Array.isArray(player) ? (player[1] || "Unknown Player") : (player.name || player.player_name || "Unknown Player"));
-                    const yellow = this.escapeHtml(Array.isArray(player) ? (player[2] || "0") : (player.yellow || player.yellows || "0"));
-                    const red = this.escapeHtml(Array.isArray(player) ? (player[3] || "0") : (player.red || player.reds || "0"));
-                    const injury = this.escapeHtml(Array.isArray(player) ? (player[4] || "0") : (player.injury || player.injuries || "0"));
-                    const number = this.escapeHtml(Array.isArray(player) ? (player[5] || "") : (player.number || ""));
-                    const image = Array.isArray(player) ? (player[6] || "") : (player.image || player.photo || "");
+            const grid = document.createElement("div");
+            grid.className = "player-grid";
 
-                    const imgTag = image ? `<img src="${this.escapeHtml(image)}" alt="${name}" class="player-thumb">` : `<div class="player-thumb placeholder">${number || ""}</div>`;
+            list.forEach((player) => {
+                const pos = this.escapeHtml(Array.isArray(player) ? (player[0] || "-") : (player.position || "-"));
+                const name = this.escapeHtml(Array.isArray(player) ? (player[1] || "Unknown Player") : (player.name || player.player_name || "Unknown Player"));
+                const yellow = this.escapeHtml(Array.isArray(player) ? (player[2] || "0") : (player.yellow || player.yellows || "0"));
+                const red = this.escapeHtml(Array.isArray(player) ? (player[3] || "0") : (player.red || player.reds || "0"));
+                const injury = this.escapeHtml(Array.isArray(player) ? (player[4] || "0") : (player.injury || player.injuries || "0"));
+                const number = this.escapeHtml(Array.isArray(player) ? (player[5] || "") : (player.number || ""));
+                const image = Array.isArray(player) ? (player[6] || "") : (player.image || player.photo || "");
 
-                    return `
-                        <tr>
-                            <td class="player-cell">
-                                <div class="player-thumb-wrap">${imgTag}<span class="player-number">${number ? `#${number}` : ""}</span></div>
-                            </td>
-                            <td class="player-info">
-                                <div class="player-name">${name}</div>
-                                <div class="player-pos">${pos}</div>
-                            </td>
-                            <td style="text-align: center;"><span class="cards-pill yellow">${yellow}</span></td>
-                            <td style="text-align: center;"><span class="cards-pill red">${red}</span></td>
-                            <td style="text-align: center;"><span class="cards-pill injury">${injury}</span></td>
-                        </tr>
-                    `;
-                })
-                .join("");
+                const card = document.createElement("article");
+                const roleClass = title.toLowerCase().replace(/s$/, "");
+                card.className = `player-card ${roleClass}`;
 
-            card.innerHTML = `
-                <h3 class="roster-heading">${title}</h3>
-                <table class="roster-table roster-players">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Player</th>
-                            <th style="text-align: center;">Y</th>
-                            <th style="text-align: center;">R</th>
-                            <th style="text-align: center;">Inj</th>
-                        </tr>
-                    </thead>
-                    <tbody>${rows}</tbody>
-                </table>
-            `;
+                const imgWrap = document.createElement("div");
+                imgWrap.className = "player-thumb-wrap";
+                if (image) {
+                    const img = document.createElement("img");
+                    img.className = "player-thumb";
+                    img.src = image;
+                    img.alt = name;
+                    imgWrap.appendChild(img);
+                } else {
+                    const ph = document.createElement("div");
+                    ph.className = "player-thumb placeholder";
+                    ph.textContent = number || "";
+                    imgWrap.appendChild(ph);
+                }
 
-            container.appendChild(card);
+                const info = document.createElement("div");
+                info.className = "player-info-card";
+                info.innerHTML = `<div class="player-name">${name}</div><div class="player-pos">${pos}</div><div class="player-number">${number ? `#${number}` : ""}</div>`;
+
+                const stats = document.createElement("div");
+                stats.className = "player-stats";
+                stats.innerHTML = `<span class="cards-pill yellow">${yellow}</span><span class="cards-pill red">${red}</span><span class="cards-pill injury">${injury}</span>`;
+
+                card.appendChild(imgWrap);
+                card.appendChild(info);
+                card.appendChild(stats);
+
+                grid.appendChild(card);
+            });
+
+            section.appendChild(heading);
+            section.appendChild(grid);
+            container.appendChild(section);
         });
     },
 

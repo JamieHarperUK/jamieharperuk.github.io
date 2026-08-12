@@ -777,6 +777,67 @@ main {
     font-size: 0.85rem;
 }
 
+/* Player card grid */
+.player-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.9rem;
+    margin-top: 0.8rem;
+}
+
+.player-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.8rem;
+    border-radius: 10px;
+    background: linear-gradient(180deg, rgba(21,29,45,0.98), rgba(10,15,30,0.96));
+    border: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.player-card .player-thumb {
+    width: 72px;
+    height: 72px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid var(--border-color);
+}
+
+.player-card .player-thumb.placeholder {
+    width: 72px;
+    height: 72px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.02);
+    color: var(--text-secondary);
+    font-weight: 800;
+}
+
+.player-info-card .player-name {
+    font-size: 0.98rem;
+}
+
+.player-info-card .player-number {
+    color: var(--text-secondary);
+    font-weight: 700;
+}
+
+.player-stats {
+    display: flex;
+    gap: 0.4rem;
+}
+
+/* Role-based accents */
+.player-card.goalkeeper { border-left: 4px solid var(--warning-color); }
+.player-card.defender { border-left: 4px solid #3aa6ff; }
+.player-card.midfielder { border-left: 4px solid #8e44ad; }
+.player-card.forward { border-left: 4px solid var(--primary-color); }
+.player-card.other { border-left: 4px solid rgba(255,255,255,0.06); }
+
 .notify-panel {
     margin-bottom: 1.3rem;
 }
