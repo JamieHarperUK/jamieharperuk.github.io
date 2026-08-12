@@ -2006,12 +2006,13 @@ const app = {
                 if (image) {
                     const img = document.createElement("img");
                     img.className = "player-thumb";
-                    img.src = image;
+                    img.src = `${siteConfig.appBasePath}data/${image}`;
                     img.alt = name;
                     imgWrap.appendChild(img);
                 } else {
                     const ph = document.createElement("div");
                     ph.className = "player-thumb placeholder";
+                    img.src = `${siteConfig.appBasePath}data/profile_placeholder.jpg`;
                     ph.textContent = number || "";
                     imgWrap.appendChild(ph);
                 }

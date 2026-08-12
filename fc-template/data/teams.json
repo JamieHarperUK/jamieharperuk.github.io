@@ -29,7 +29,7 @@
           "0",
           "0",
           "1",
-          "data/players/alex.jpg"
+          ""
         ],
         [
           "DL",
@@ -38,7 +38,7 @@
           "0",
           "0",
           "3",
-          "data/players/ben.jpg"
+          "profile_placeholder.jpg"
         ],
         [
           "MC",
@@ -47,7 +47,7 @@
           "0",
           "0",
           "6",
-          "data/players/chris.jpg"
+          "chris.jpg"
         ],
         [
           "ST",
@@ -56,7 +56,7 @@
           "0",
           "0",
           "9",
-          "data/players/dan.jpg"
+          ""
         ]
       ]
     }
