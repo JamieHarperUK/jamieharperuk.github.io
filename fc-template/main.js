@@ -1,7 +1,8 @@
 // Core site URL configuration.
 const siteConfig = {
     canonicalOrigin: "https://example.com",
-    appBasePath: "/fc-template/"
+    appBasePath: "/fc-template/",
+    ticketsPageEnabled: true
 };
 
 const runtimeOrigin = (typeof window !== "undefined" && window.location && window.location.origin)
@@ -22,7 +23,9 @@ function buildRootUrl(path = "", useCanonical = false) {
 const dataSources = {
     games: buildFmUrl("data/games.json"),
     teams: buildFmUrl("data/teams.json"),
-    posts: buildFmUrl("data/posts.json")
+    posts: buildFmUrl("data/posts.json"),
+    tickets: buildFmUrl("data/tickets.json"),
+    tables: buildFmUrl("data/tables.json")
 };
 
 const pushConfig = {
@@ -34,12 +37,6 @@ const pushConfig = {
 
 const shareConfig = {
     workerBaseUrl: "https://share.jhuk.co.uk"
-};
-
-const platformLogoUrls = {
-    topEleven: buildFmUrl("data/top-eleven-logo.png", true),
-    osm: buildFmUrl("data/osm-logo.png", true),
-    hattrick: buildFmUrl("data/hattrick-logo.png", true)
 };
 
 function urlBase64ToUint8Array(base64String) {
@@ -56,12 +53,6 @@ function urlBase64ToUint8Array(base64String) {
 }
 
 // To be referenced and used when specifically sharing posts on social media platforms like X (formerly Twitter), not Facebook.
-const gameTwitterHandles = {
-    top_eleven: "@topeleven",
-    osm: "@OSMLikeABoss",
-    hattrick: "@Hattrick"
-};
-
 const app = {
     currentPage: "home",
     analyticsId: "",
@@ -74,7 +65,8 @@ const app = {
         games: [],
         teams: [],
         posts: [],
-        eloRatings: {}
+        tickets: [],
+        tables: []
     },
     uiState: {
         pastFixtures: {},
@@ -90,7 +82,6 @@ const app = {
         try {
             this.captureDefaultSiteMetadata();
             await this.loadData();
-            this.setupEloModal();
             this.setupNavigation();
             this.generateTeamPages();
             this.setupHashRouting();
@@ -245,6 +236,14 @@ const app = {
             return "posts";
         }
 
+        if (view === "tickets") {
+            return "tickets";
+        }
+
+        if (view === "tables") {
+            return "tables";
+        }
+
         if (view === "hall-of-fame") {
             return "hall-of-fame";
         }
@@ -267,6 +266,14 @@ const app = {
 
         if (path === "posts") {
             return "/fc-template/?view=posts";
+        }
+
+        if (path === "tickets") {
+            return "/fc-template/?view=tickets";
+        }
+
+        if (path === "tables") {
+            return "/fc-template/?view=tables";
         }
 
         if (path === "hall-of-fame") {
@@ -293,6 +300,14 @@ const app = {
             return "Posts";
         }
 
+        if (path === "tickets") {
+            return "Tickets";
+        }
+
+        if (path === "tables") {
+            return "Tables";
+        }
+
         if (path === "hall-of-fame") {
             return "Hall of Fame";
         }
@@ -313,228 +328,31 @@ const app = {
     },
 
     async loadData() {
-        const [gamesResponse, teamsResponse, postsResponse] = await Promise.all([
+        const [gamesResponse, teamsResponse, postsResponse, ticketsResponse, tablesResponse] = await Promise.all([
             fetch(dataSources.games),
             fetch(dataSources.teams),
-            fetch(dataSources.posts)
+            fetch(dataSources.posts),
+            fetch(dataSources.tickets),
+            fetch(dataSources.tables)
         ]);
 
-        if (!gamesResponse.ok || !teamsResponse.ok || !postsResponse.ok) {
+        if (!gamesResponse.ok || !teamsResponse.ok || !postsResponse.ok || !ticketsResponse.ok || !tablesResponse.ok) {
             throw new Error("Unable to load one or more JSON data sources.");
         }
 
-        const [gamesJson, teamsJson, postsJson] = await Promise.all([
+        const [gamesJson, teamsJson, postsJson, ticketsJson, tablesJson] = await Promise.all([
             gamesResponse.json(),
             teamsResponse.json(),
-            postsResponse.json()
+            postsResponse.json(),
+            ticketsResponse.json(),
+            tablesResponse.json()
         ]);
 
         this.data.games = Array.isArray(gamesJson.games) ? gamesJson.games : [];
         this.data.teams = Array.isArray(teamsJson.teams) ? teamsJson.teams : [];
         this.data.posts = Array.isArray(postsJson.posts) ? postsJson.posts : [];
-        this.calculateEloRatings();
-    },
-
-    normalizePlatformName(rawPlatform) {
-        const value = String(rawPlatform || "").trim();
-        const key = value.toLowerCase();
-        if (key === "osm" || key === "online soccer manager") {
-            return "OSM";
-        }
-        if (key === "top eleven" || key === "topeleven") {
-            return "Top Eleven";
-        }
-        if (key === "hattrick") {
-            return "Hattrick";
-        }
-        return value || "Unknown";
-    },
-
-    getPlatformDetails(platformName) {
-        const normalized = this.normalizePlatformName(platformName);
-        if (normalized === "Top Eleven") {
-            return {
-                name: "Top Eleven",
-                fullName: "Top Eleven",
-                logo: platformLogoUrls.topEleven,
-                link: "https://www.topeleven.com/",
-                invertLogo: true,
-                kFactor: 28,
-                eloIntro: "This rating is a continuously evolving ELO for this Top Eleven team based on the matches I have recorded."
-            };
-        }
-        if (normalized === "OSM") {
-            return {
-                name: "OSM",
-                fullName: "Online Soccer Manager",
-                logo: platformLogoUrls.osm,
-                link: "https://www.onlinesoccermanager.com/",
-                invertLogo: false,
-                kFactor: 24,
-                eloIntro: "This rating is a season-style ELO for this OSM team based on the matches I have recorded for that platform."
-            };
-        }
-        if (normalized === "Hattrick") {
-            return {
-                name: "Hattrick",
-                fullName: "Hattrick",
-                logo: platformLogoUrls.hattrick,
-                link: "https://www86.hattrick.org/Club/?TeamID=3417735",
-                invertLogo: false,
-                kFactor: 28,
-                eloIntro: "This rating is a continuously evolving ELO for this Hattrick team based on the matches I have recorded."
-            };
-        }
-        return {
-            name: normalized,
-            fullName: normalized,
-            logo: "",
-            link: "#",
-            invertLogo: false,
-            kFactor: 24,
-            eloIntro: "This rating is calculated from the matches I have recorded for this platform."
-        };
-    },
-
-    calculateEloRatings() {
-        const ratingsByPlatform = {};
-        const platformSet = new Set();
-
-        (this.data.teams || []).forEach((team) => {
-            platformSet.add(this.normalizePlatformName(team.osm_or_top_eleven));
-        });
-        (this.data.games || []).forEach((game) => {
-            platformSet.add(this.normalizePlatformName(game.osm_or_top_eleven));
-        });
-
-        const platforms = [...platformSet].filter((platformName) => platformName && platformName !== "Unknown");
-
-        platforms.forEach((platformName) => {
-            const platformTeams = new Set();
-            const platformGames = this.data.games.filter((game) => this.normalizePlatformName(game.osm_or_top_eleven) === platformName && this.isPlayed(game));
-
-            (this.data.teams || []).forEach((team) => {
-                if (this.normalizePlatformName(team.osm_or_top_eleven) === platformName) {
-                    platformTeams.add(team.team_name);
-                }
-            });
-
-            platformGames.forEach((game) => {
-                platformTeams.add(game.home_team);
-                platformTeams.add(game.away_team);
-            });
-
-            const ratings = {};
-            [...platformTeams].forEach((teamName) => {
-                ratings[teamName] = 1500;
-            });
-
-            const kFactor = this.getPlatformDetails(platformName).kFactor;
-            const homeAdvantage = 40;
-
-            platformGames
-                .slice()
-                .sort((a, b) => this.compareGameDateAsc(a, b))
-                .forEach((game) => {
-                    const homeRating = ratings[game.home_team];
-                    const awayRating = ratings[game.away_team];
-
-                    if (typeof homeRating !== "number" || typeof awayRating !== "number") {
-                        return;
-                    }
-
-                    const expectedHome = 1 / (1 + Math.pow(10, (awayRating - (homeRating + homeAdvantage)) / 400));
-                    const expectedAway = 1 - expectedHome;
-                    const homeScore = Number(game.home_score);
-                    const awayScore = Number(game.away_score);
-
-                    let actualHome = 0.5;
-                    let actualAway = 0.5;
-
-                    if (!Number.isNaN(homeScore) && !Number.isNaN(awayScore)) {
-                        if (homeScore > awayScore) {
-                            actualHome = 1;
-                            actualAway = 0;
-                        } else if (homeScore < awayScore) {
-                            actualHome = 0;
-                            actualAway = 1;
-                        }
-                    }
-
-                    ratings[game.home_team] = homeRating + kFactor * (actualHome - expectedHome);
-                    ratings[game.away_team] = awayRating + kFactor * (actualAway - expectedAway);
-                });
-
-            ratingsByPlatform[platformName] = ratings;
-        });
-
-        this.data.eloRatings = ratingsByPlatform;
-        return ratingsByPlatform;
-    },
-
-    setupEloModal() {
-        const modal = document.getElementById("eloInfoModal");
-        const closeButton = modal?.querySelector(".modal-close");
-
-        if (!modal || !closeButton) {
-            return;
-        }
-
-        closeButton.addEventListener("click", () => this.closeEloInfoModal());
-
-        modal.addEventListener("click", (event) => {
-            if (event.target === modal) {
-                this.closeEloInfoModal();
-            }
-        });
-
-        document.addEventListener("keydown", (event) => {
-            if (event.key === "Escape") {
-                this.closeEloInfoModal();
-            }
-        });
-    },
-
-    openEloInfoModal(team, platform) {
-        const modal = document.getElementById("eloInfoModal");
-        const content = document.getElementById("eloInfoContent");
-        const title = document.getElementById("eloInfoTitle");
-
-        if (!modal || !content || !title) {
-            return;
-        }
-
-        const platformName = this.normalizePlatformName(platform);
-        const platformDetails = this.getPlatformDetails(platformName);
-        const intro = platformDetails.eloIntro;
-
-        content.innerHTML = `
-            <p style="margin-top: 0rem;">${this.escapeHtml(intro)}</p>
-            <ul>
-                <li>Each team starts at a baseline rating of 1500.</li>
-                <li>Ratings are updated after every played match in date order.</li>
-                <li>Wins, draws, and losses are converted into expected outcomes using the current ratings.</li>
-                <li>Home advantage is included as a small bump to the home team.</li>
-            </ul>
-            <p><strong>Caveats:</strong> this is calculated from the results I record in the match data, not from every league game in the wider competition. It also does not factor in yellow or red cards yet, so the rating is based on results rather than disciplinary events.</p>
-            <p style="margin-bottom: 0rem;"><strong>${this.escapeHtml(team.team_name)}</strong> is currently being evaluated in the ${this.escapeHtml(platformName)} pool.</p>
-        `;
-
-        title.textContent = `${platformDetails.name} ELO Explained`;
-        modal.classList.add("is-open");
-        modal.setAttribute("aria-hidden", "false");
-        document.body.classList.add("modal-open");
-    },
-
-    closeEloInfoModal() {
-        const modal = document.getElementById("eloInfoModal");
-        if (!modal) {
-            return;
-        }
-
-        modal.classList.remove("is-open");
-        modal.setAttribute("aria-hidden", "true");
-        this.syncBodyModalOpenState();
+        this.data.tickets = Array.isArray(ticketsJson.tickets) ? ticketsJson.tickets : [];
+        this.data.tables = Array.isArray(tablesJson.tables) ? tablesJson.tables : [];
     },
 
     syncBodyModalOpenState() {
@@ -622,6 +440,22 @@ const app = {
         postsLink.setAttribute("data-analytics-label", "Posts");
         navLinks.appendChild(postsLink);
 
+        const ticketsLink = document.createElement("a");
+        ticketsLink.href = "#tickets";
+        ticketsLink.textContent = "Tickets";
+        ticketsLink.setAttribute("data-analytics-action", "nav_click");
+        ticketsLink.setAttribute("data-analytics-category", "Navigation");
+        ticketsLink.setAttribute("data-analytics-label", "Tickets");
+        navLinks.appendChild(ticketsLink);
+
+        const tablesLink = document.createElement("a");
+        tablesLink.href = "#tables";
+        tablesLink.textContent = "Tables";
+        tablesLink.setAttribute("data-analytics-action", "nav_click");
+        tablesLink.setAttribute("data-analytics-category", "Navigation");
+        tablesLink.setAttribute("data-analytics-label", "Tables");
+        navLinks.appendChild(tablesLink);
+
         this.updateNavLinks();
     },
 
@@ -676,6 +510,16 @@ const app = {
             return;
         }
 
+        if (route === "tickets") {
+            this.navigate("tickets");
+            return;
+        }
+
+        if (route === "tables") {
+            this.navigate("tables");
+            return;
+        }
+
         if (route === "hall-of-fame") {
             this.navigate("hall-of-fame");
             return;
@@ -725,6 +569,24 @@ const app = {
                 description: "Latest club updates, news, and match reports.",
                 image: this.siteMeta.image,
                 url: this.getCanonicalPageUrl("posts")
+            });
+        } else if (path === "tickets") {
+            this.renderTicketsPage();
+            document.getElementById("tickets")?.classList.add("active");
+            this.updatePageMetadata({
+                title: `Tickets | ${this.siteMeta.title}`,
+                description: "Ticket availability and club matchday ticket details.",
+                image: this.siteMeta.image,
+                url: this.getCanonicalPageUrl("tickets")
+            });
+        } else if (path === "tables") {
+            this.renderTablesPage();
+            document.getElementById("tables")?.classList.add("active");
+            this.updatePageMetadata({
+                title: `Tables | ${this.siteMeta.title}`,
+                description: "League tables and club standings across the season.",
+                image: this.siteMeta.image,
+                url: this.getCanonicalPageUrl("tables")
             });
         } else if (path === "hall-of-fame") {
             this.renderHallOfFamePage();
@@ -785,6 +647,16 @@ const app = {
                 return;
             }
 
+            if (this.currentPage === "tickets" && href === "#tickets") {
+                link.classList.add("active");
+                return;
+            }
+
+            if (this.currentPage === "tables" && href === "#tables") {
+                link.classList.add("active");
+                return;
+            }
+
             if (this.currentPage.startsWith("team/") && href === `#${this.currentPage}`) {
                 link.classList.add("active");
             }
@@ -827,74 +699,46 @@ const app = {
         }
 
         const finishedTeams = this.data.teams.filter((team) => team.end_state && typeof team.end_state === "object");
-        const byPlatform = {};
 
-        finishedTeams.forEach((team) => {
-            const platform = this.normalizePlatformName(team.osm_or_top_eleven);
-            if (!byPlatform[platform]) {
-                byPlatform[platform] = [];
+        const teams = finishedTeams
+            .slice()
+            .sort((a, b) => this.compareFinishedTeamPlace(a, b));
+
+        const cardsMarkup = teams.map((team) => {
+            const teamId = this.toTeamId(team.team_name);
+            const finalPlace = team.end_state?.final_place || "Finished";
+            const finalEndDate = team.end_state?.end_date || "Unknown date";
+            const placeClass = this.getHallOfFamePlaceClass(finalPlace);
+
+            const posColors = {
+                first: "rgba(242, 204, 96, 0.5)",
+                second: "rgba(192, 192, 192, 0.5)",
+                third: "rgba(205, 127, 50, 0.5)"
+            };
+            let positionIcon = "";
+
+            if (finalPlace === "1st") {
+                positionIcon = `<div class="hall-of-fame-badge" style="background-color: ${posColors.first}; color: rgb(20 28 43);"><i class="fa-solid fa-trophy" style="margin-right: 0.5rem;"></i>${this.escapeHtml(finalPlace)}</div>`;
+            } else if (finalPlace === "2nd") {
+                positionIcon = `<div class="hall-of-fame-badge" style="background-color: ${posColors.second}; color: rgb(20 28 43);"><i class="fa-solid fa-medal" style="margin-right: 0.5rem;"></i>${this.escapeHtml(finalPlace)}</div>`;
+            } else {
+                positionIcon = `<div class="hall-of-fame-badge" style="background-color: ${posColors.third}; color: rgb(20 28 43);"><i class="fa-solid fa-medal" style="margin-right: 0.5rem;"></i>${this.escapeHtml(finalPlace)}</div>`;
             }
-            byPlatform[platform].push(team);
-        });
 
-        const preferredPlatformOrder = ["Top Eleven", "Hattrick", "OSM"];
-        const dynamicPlatforms = Object.keys(byPlatform)
-            .filter((platform) => !preferredPlatformOrder.includes(platform))
-            .sort();
-        const platformOrder = preferredPlatformOrder
-            .filter((platform) => Array.isArray(byPlatform[platform]) && byPlatform[platform].length)
-            .concat(dynamicPlatforms);
-        const sectionsMarkup = platformOrder
-            .map((platform) => {
-                const teams = byPlatform[platform]
-                    .slice()
-                    .sort((a, b) => this.compareFinishedTeamPlace(a, b));
+            return `
+                <a href="#team/${teamId}" class="hall-of-fame-card ${placeClass}" data-analytics-action="hall_of_fame_click" data-analytics-category="Hall of Fame" data-analytics-label="${this.escapeHtml(team.team_name)}">
+                    ${positionIcon}
+                    <h3>${this.escapeHtml(team.team_name)}</h3>
+                    <p>${this.escapeHtml(team.competition || "Unknown competition")}<br /><i>(Ended: ${this.escapeHtml(finalEndDate)})</i></p>
+                </a>
+            `;
+        }).join("");
 
-                if (!teams.length) {
-                    return "";
-                }
-
-                const cardsMarkup = teams.map((team) => {
-                    const teamId = this.toTeamId(team.team_name);
-                    const finalPlace = team.end_state?.final_place || "Finished";
-                    const finalEndDate = team.end_state?.end_date || "Unknown date";
-                    const placeClass = this.getHallOfFamePlaceClass(finalPlace);
-
-                    const posColors = {
-                        first: "rgba(242, 204, 96, 0.5)",
-                        second: "rgba(192, 192, 192, 0.5)",
-                        third: "rgba(205, 127, 50, 0.5)"
-                    };
-                    let positionIcon = "";
-
-                    if (finalPlace === "1st") {
-                        positionIcon = `<div class="hall-of-fame-badge" style="background-color: ${posColors.first}; color: rgb(20 28 43);"><i class="fa-solid fa-trophy" style="margin-right: 0.5rem;"></i>${this.escapeHtml(finalPlace)}</div>`;
-                    } else if (finalPlace === "2nd") {
-                        positionIcon = `<div class="hall-of-fame-badge" style="background-color: ${posColors.second}; color: rgb(20 28 43);"><i class="fa-solid fa-medal" style="margin-right: 0.5rem;"></i>${this.escapeHtml(finalPlace)}</div>`;
-                    } else {
-                        positionIcon = `<div class="hall-of-fame-badge" style="background-color: ${posColors.third}; color: rgb(20 28 43);"><i class="fa-solid fa-medal" style="margin-right: 0.5rem;"></i>${this.escapeHtml(finalPlace)}</div>`;
-                    }
-
-                    return `
-                        <a href="#team/${teamId}" class="hall-of-fame-card ${placeClass}" data-analytics-action="hall_of_fame_click" data-analytics-category="Hall of Fame" data-analytics-label="${this.escapeHtml(team.team_name)}">
-                            ${positionIcon}
-                            <h3>${this.escapeHtml(team.team_name)}</h3>
-                            <p>${this.escapeHtml(team.competition || "Unknown competition")}<br /><i>(Ended: ${this.escapeHtml(finalEndDate)})</i></p>
-                            <div class="hall-of-fame-footer">
-                                <span class="hall-of-fame-meta" style="font-style: italic; font-weight: 100;">${this.escapeHtml(platform)}</span>
-                            </div>
-                        </a>
-                    `;
-                }).join("");
-
-                return `
-                    <section class="panel hall-of-fame-panel">
-                        <div class="hall-of-fame-grid">${cardsMarkup}</div>
-                    </section>
-                `;
-            })
-            .filter(Boolean)
-            .join("");
+        const sectionsMarkup = cardsMarkup ? `
+            <section class="panel hall-of-fame-panel">
+                <div class="hall-of-fame-grid">${cardsMarkup}</div>
+            </section>
+        ` : "";
 
         container.innerHTML = `
             <h1 class="section-title">Hall of Fame</h1>
@@ -909,6 +753,101 @@ const app = {
 
     renderPostsPage() {
         this.renderPosts("allPosts", Number.POSITIVE_INFINITY);
+    },
+
+    renderTicketsPage() {
+        const container = document.getElementById("ticketsContent");
+        if (!container) {
+            return;
+        }
+
+        const tickets = [...this.data.tickets];
+        if (!tickets.length) {
+            container.innerHTML = '<div class="empty-state">No ticket listings are available right now.</div>';
+            return;
+        }
+
+        container.innerHTML = tickets.map((ticket) => {
+            const title = this.escapeHtml(ticket.title || ticket.match || "Match ticket");
+            const date = this.escapeHtml(ticket.date || ticket.match_date || "TBA");
+            const venue = this.escapeHtml(ticket.venue || ticket.location || "Unknown venue");
+            const status = this.escapeHtml(ticket.status || ticket.availability || "Available");
+            const notes = this.escapeHtml(ticket.notes || ticket.description || "");
+            const link = String(ticket.link || ticket.url || "").trim();
+            const actionButton = link ? `<a href="${this.escapeHtml(link)}" class="site-button" target="_blank" rel="noopener">Buy / View</a>` : "";
+
+            return `
+                <article class="ticket-card">
+                    <div class="ticket-header">
+                        <h3>${title}</h3>
+                        <span class="ticket-status">${status}</span>
+                    </div>
+                    <div class="ticket-meta">
+                        <span>${date}</span>
+                        <span>${venue}</span>
+                    </div>
+                    <p class="ticket-description">${notes}</p>
+                    <div class="ticket-actions">${actionButton}</div>
+                </article>
+            `;
+        }).join("");
+    },
+
+    renderTablesPage() {
+        const container = document.getElementById("tablesContent");
+        if (!container) {
+            return;
+        }
+
+        const tables = [...this.data.tables];
+        if (!tables.length) {
+            container.innerHTML = '<div class="empty-state">No standing tables have been added yet.</div>';
+            return;
+        }
+
+        container.innerHTML = tables.map((table) => {
+            const title = this.escapeHtml(table.title || table.name || "League Table");
+            const subtitle = this.escapeHtml(table.season || table.competition || "");
+            const rows = Array.isArray(table.rows) ? table.rows : [];
+            const headers = rows.length && typeof rows[0] === "object" && !Array.isArray(rows[0])
+                ? Object.keys(rows[0])
+                : [];
+
+            const rowsMarkup = rows.length
+                ? rows.map((row) => {
+                    if (typeof row === "object" && !Array.isArray(row)) {
+                        return `<tr>${headers.map((key) => `<td>${this.escapeHtml(String(row[key] ?? ""))}</td>`).join("")}</tr>`;
+                    }
+
+                    if (Array.isArray(row)) {
+                        return `<tr>${row.map((cell) => `<td>${this.escapeHtml(String(cell ?? ""))}</td>`).join("")}</tr>`;
+                    }
+
+                    return `<tr><td>${this.escapeHtml(String(row ?? ""))}</td></tr>`;
+                }).join("")
+                : "<tr><td colspan=100 class=\"empty-state\">No rows available for this table.</td></tr>";
+
+            const tableHeader = headers.length
+                ? `<thead><tr>${headers.map((key) => `<th>${this.escapeHtml(key)}</th>`).join("")}</tr></thead>`
+                : "";
+
+            const tableBody = `<tbody>${rowsMarkup}</tbody>`;
+
+            return `
+                <section class="panel table-panel">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">${title}</h2>
+                        ${subtitle ? `<span class="panel-subtitle">${subtitle}</span>` : ""}
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="standings-table">
+                            ${tableHeader}
+                            ${tableBody}
+                        </table>
+                    </div>
+                </section>
+            `;
+        }).join("");
     },
 
     renderLatestPostPreview() {
@@ -932,19 +871,7 @@ const app = {
         const tags = Array.isArray(latestPost.tags) ? latestPost.tags : [];
         let categoryGameType = latestPost.category || "Other";
 
-        const gameLogoKey = {
-            "top eleven": platformLogoUrls.topEleven,
-            "osm": platformLogoUrls.osm,
-            "hattrick": platformLogoUrls.hattrick
-        };
-
-        if (latestPost.category?.toLowerCase() === "top eleven") {
-            categoryGameType = `<img src="${gameLogoKey["top eleven"]}" alt="Top Eleven logo" style="height: 1rem; vertical-align: middle; filter: invert(1);">`;
-        } else if (latestPost.category?.toLowerCase() === "osm") {
-            categoryGameType = `<img src="${gameLogoKey["osm"]}" alt="Online Soccer Manager logo" style="height: 1rem; vertical-align: middle;">`;
-        } else if (latestPost.category?.toLowerCase() === "hattrick") {
-            categoryGameType = `<img src="${gameLogoKey["hattrick"]}" alt="Hattrick logo" style="height: 1rem; vertical-align: middle;">`;
-        }
+        categoryGameType = this.escapeHtml(latestPost.category || "News");
 
         container.innerHTML = `
             <article class="latest-post-card">
@@ -1369,28 +1296,7 @@ const app = {
 
             let categoryGameType = "";
 
-            if (safeCategory.toLowerCase() === "top eleven" || safeCategory.toLowerCase() === "osm" || safeCategory.toLowerCase() === "hattrick") {
-                let gameTypeDataTwo = {
-                    title: "Unknown",
-                    logo: ""
-                };
-
-                if (safeCategory.toLowerCase() === "top eleven") {
-                    gameTypeDataTwo.title = "Top Eleven";
-                    gameTypeDataTwo.logo = platformLogoUrls.topEleven;
-                    categoryGameType = `<img src="${gameTypeDataTwo.logo}" alt="${gameTypeDataTwo.title} logo" style="height: 1rem; vertical-align: middle; filter: invert(1);">`;
-                } else if (safeCategory.toLowerCase() === "osm") {
-                    gameTypeDataTwo.title = "Online Soccer Manager";
-                    gameTypeDataTwo.logo = platformLogoUrls.osm;
-                    categoryGameType = `<img src="${gameTypeDataTwo.logo}" alt="${gameTypeDataTwo.title} logo" style="height: 1rem; vertical-align: middle;">`;
-                } else if (safeCategory.toLowerCase() === "hattrick") {
-                    gameTypeDataTwo.title = "Hattrick";
-                    gameTypeDataTwo.logo = platformLogoUrls.hattrick;
-                    categoryGameType = `<img src="${gameTypeDataTwo.logo}" alt="${gameTypeDataTwo.title} logo" style="height: 1rem; vertical-align: middle;">`;
-                }
-            } else {
-                categoryGameType = safeCategory;
-            }
+            categoryGameType = safeCategory;
 
             card.innerHTML = `
                 <h3 class="update-title"><a href="#post/${this.getPostSlug(post)}" class="post-link" data-analytics-action="post_click" data-analytics-category="Posts" data-analytics-label="${this.escapeHtml(post.title || "Untitled update")}">${safeTitle}</a></h3>
@@ -1440,28 +1346,7 @@ const app = {
 
         let categoryGameType = "";
 
-        if (safeCategory.toLowerCase() === "top eleven" || safeCategory.toLowerCase() === "osm" || safeCategory.toLowerCase() === "hattrick") {
-            let gameTypeDataTwo = {
-                title: "Unknown",
-                logo: ""
-            };
-
-            if (safeCategory.toLowerCase() === "top eleven") {
-                gameTypeDataTwo.title = "Top Eleven";
-                gameTypeDataTwo.logo = platformLogoUrls.topEleven;
-                categoryGameType = `<img src="${gameTypeDataTwo.logo}" alt="${gameTypeDataTwo.title} logo" style="height: 2rem; vertical-align: middle; filter: invert(1);">`;
-            } else if (safeCategory.toLowerCase() === "osm") {
-                gameTypeDataTwo.title = "Online Soccer Manager";
-                gameTypeDataTwo.logo = platformLogoUrls.osm;
-                categoryGameType = `<img src="${gameTypeDataTwo.logo}" alt="${gameTypeDataTwo.title} logo" style="height: 2rem; vertical-align: middle;">`;
-            } else if (safeCategory.toLowerCase() === "hattrick") {
-                gameTypeDataTwo.title = "Hattrick";
-                gameTypeDataTwo.logo = platformLogoUrls.hattrick;
-                categoryGameType = `<img src="${gameTypeDataTwo.logo}" alt="${gameTypeDataTwo.title} logo" style="height: 2rem; vertical-align: middle;">`;
-            }
-        } else {
-            categoryGameType = safeCategory;
-        }
+        categoryGameType = safeCategory;
 
         container.innerHTML = `
             <a href="#posts" class="site-link" data-analytics-action="post_back_click" data-analytics-category="Posts" data-analytics-label="Back to Posts">&larr; Back to Posts</a>
@@ -1684,6 +1569,14 @@ const app = {
             return `${canonicalBase}?view=posts`;
         }
 
+        if (path === "tickets") {
+            return `${canonicalBase}?view=tickets`;
+        }
+
+        if (path === "tables") {
+            return `${canonicalBase}?view=tables`;
+        }
+
         if (path.startsWith("post/")) {
             const postSlug = path.split("/")[1];
             return `${canonicalBase}?view=post&slug=${encodeURIComponent(postSlug)}`;
@@ -1778,29 +1671,20 @@ const app = {
         const yellowCards = (team.players || []).reduce((count, player) => count + Number(player[2] || 0), 0);
         const redCards = (team.players || []).reduce((count, player) => count + Number(player[3] || 0), 0);
         const isCompletedTeam = Boolean(team.end_state && typeof team.end_state === "object");
-        const eloPlatform = this.normalizePlatformName(team.osm_or_top_eleven);
-        const platformRatings = this.data.eloRatings?.[eloPlatform] || {};
-        const eloValue = Math.round(Number(platformRatings[team.team_name]) || 1500);
-
-        const gameTypeData = this.getPlatformDetails(team.osm_or_top_eleven);
-
-        let gameLogoTag = this.escapeHtml(gameTypeData.fullName || "Unknown");
-        if (gameTypeData.logo) {
-            const topElevenFilterStyle = gameTypeData.invertLogo ? " filter: invert(1);" : "";
-            gameLogoTag = `<img src="${gameTypeData.logo}" alt="${gameTypeData.fullName} logo" style="height: 1.75rem; vertical-align: middle;${topElevenFilterStyle}">`;
-        }
+        const teamType = this.escapeHtml(team.team_type || team.category || "First Team");
+        const teamImageUrl = String(team.team_image || "").trim();
+        const teamImageTag = teamImageUrl
+            ? `<img src="${this.escapeHtml(teamImageUrl)}" alt="${this.escapeHtml(team.team_name)} image" class="team-page-image">`
+            : "";
 
         content.innerHTML = `
             <h1 class="section-title">${this.escapeHtml(team.team_name)}</h1>
+            ${teamImageTag ? `<div class="team-image-wrapper">${teamImageTag}</div>` : ""}
 
             <section class="team-stats">
                 <article class="stat-card">
-                    <div class="stat-label">Game</div>
-                    <div class="stat-value">
-                        <a href="${gameTypeData.link}" target="_blank">
-                            ${gameLogoTag}
-                        </a>
-                    </div>
+                    <div class="stat-label">Team Type</div>
+                    <div class="stat-value">${teamType}</div>
                 </article>
                 <article class="stat-card">
                     <div class="stat-label">League</div>
@@ -1813,15 +1697,6 @@ const app = {
                 <article class="stat-card">
                     <div class="stat-label">Recent Form</div>
                     ${recentFormMarkup}
-                </article>
-                <article class="stat-card elo-card">
-                    <div class="stat-label">
-                        ELO Rating
-                        <button class="elo-info-btn" type="button" data-analytics-action="elo_info_click" data-analytics-category="Teams" data-analytics-label="${this.escapeHtml(team.team_name)}" aria-label="Explain how ELO is calculated for ${this.escapeHtml(team.team_name)}">
-                            <i class="fas fa-info-circle"></i>
-                        </button>
-                    </div>
-                    <div class="stat-value">${eloValue}</div>
                 </article>
                 <article class="stat-card">
                     <div class="stat-label">Cards</div>
@@ -1891,7 +1766,6 @@ const app = {
         if (eloInfoButton) {
             eloInfoButton.addEventListener("click", (event) => {
                 event.preventDefault();
-                this.openEloInfoModal(team, eloPlatform);
             });
         }
 
@@ -1969,7 +1843,7 @@ const app = {
         const homeTeam = this.escapeHtml(game.home_team || "Unknown");
         const awayTeam = this.escapeHtml(game.away_team || "Unknown");
         const competition = this.escapeHtml(game.competition || "Unknown Competition");
-        const gameType = this.escapeHtml(game.osm_or_top_eleven || "Unknown");
+        const gameType = this.escapeHtml(game.competition || "Competition");
         const gameDate = this.escapeHtml(game.date || "Unknown date");
         const gameTime = this.escapeHtml(game.time || "--:--");
         const venue = this.escapeHtml(game.venue || "Unknown");
