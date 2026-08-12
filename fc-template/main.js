@@ -464,6 +464,9 @@ const app = {
         ticketsLink.setAttribute("data-analytics-action", "nav_click");
         ticketsLink.setAttribute("data-analytics-category", "Navigation");
         ticketsLink.setAttribute("data-analytics-label", "Tickets");
+        ticketsLink.addEventListener("click", () => {
+            this.closeMoreDropdown();
+        });
         moreMenu.appendChild(ticketsLink);
 
         const tablesLink = document.createElement("a");
@@ -472,6 +475,9 @@ const app = {
         tablesLink.setAttribute("data-analytics-action", "nav_click");
         tablesLink.setAttribute("data-analytics-category", "Navigation");
         tablesLink.setAttribute("data-analytics-label", "Tables");
+        tablesLink.addEventListener("click", () => {
+            this.closeMoreDropdown();
+        });
         moreMenu.appendChild(tablesLink);
 
         const fixturesLink = document.createElement("a");
@@ -480,6 +486,9 @@ const app = {
         fixturesLink.setAttribute("data-analytics-action", "nav_click");
         fixturesLink.setAttribute("data-analytics-category", "Navigation");
         fixturesLink.setAttribute("data-analytics-label", "Fixtures");
+        fixturesLink.addEventListener("click", () => {
+            this.closeMoreDropdown();
+        });
         moreMenu.appendChild(fixturesLink);
 
         moreDropdown.appendChild(moreToggle);
@@ -693,6 +702,7 @@ const app = {
         }
 
         this.closeTeamsDropdown();
+        this.closeMoreDropdown();
         this.trackPageView(path);
 
         window.scrollTo(0, 0);
