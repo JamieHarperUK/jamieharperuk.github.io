@@ -2,8 +2,8 @@
 const siteConfig = {
     canonicalOrigin: typeof window !== "undefined" && window.location && window.location.origin
         ? window.location.origin
-        : "https://jamieharperuk.github.io",
-    appBasePath: "/fm-site/"
+        : "https://jamieharperuk.github.io", // GitHub URL or Custom Domain Name
+    appBasePath: "/fm-site/" // Application Directory ('/' if hosted at root, or '/[subdirectory]/' if hosted in a subdirectory)
 };
 
 const runtimeOrigin = (typeof window !== "undefined" && window.location && window.location.origin)
