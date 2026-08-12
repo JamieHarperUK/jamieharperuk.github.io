@@ -26,6 +26,7 @@ const dataSources = {
 };
 
 const pushConfig = {
+    enabled: true,
     workerBaseUrl: "https://fm-push-worker.oakshiftsoftware.workers.dev",
     siteId: "fm-template",
     serviceWorkerPath: "sw.js"
@@ -97,7 +98,11 @@ const app = {
             this.setupAnalytics();
             this.setupInstallPrompt();
             this.renderHome();
-            await this.setupPushNotifications();
+            if (pushConfig.enabled) {
+                await this.setupPushNotifications();
+            } else {
+                this.disablePushNotifications();
+            }
             this.handleRoute();
         } catch (error) {
             this.renderError(error);
@@ -1056,6 +1061,28 @@ const app = {
         this.syncInstallButton();
     },
 
+    disablePushNotifications() {
+        const { fabButton } = this.getPushModalElements();
+        const { enableButton, disableButton, statusText } = this.getPushUiElements();
+
+        if (fabButton) {
+            fabButton.style.display = "none";
+            fabButton.setAttribute("aria-hidden", "true");
+        }
+
+        if (enableButton) {
+            enableButton.disabled = true;
+        }
+
+        if (disableButton) {
+            disableButton.disabled = true;
+        }
+
+        if (statusText) {
+            statusText.textContent = "Push notifications are disabled for this site.";
+        }
+    },
+
     async setupPushNotifications() {
         const { enableButton, disableButton } = this.getPushUiElements();
         const { fabButton, modal, closeButton } = this.getPushModalElements();
@@ -1084,6 +1111,11 @@ const app = {
                 this.closePushSettingsModal();
             }
         });
+
+        if (!pushConfig.enabled) {
+            this.disablePushNotifications();
+            return;
+        }
 
         if (!enableButton || !disableButton) {
             return;
