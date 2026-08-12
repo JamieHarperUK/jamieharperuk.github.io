@@ -4,17 +4,17 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <meta property="og:title" content="Football Management WebEditor" />
-        <meta property="og:description" content="Client-side GitHub JSON editor with OAuth login, repository validation, and commit workflow." />
-        <meta property="og:image" content="https://oakshiftsoftware.github.io/source/images/headers/img-5.png" />
+        <meta property="og:title" content="Repository JSON Editor" />
+        <meta property="og:description" content="Repository-locked GitHub JSON editor for structured site content." />
+        <meta property="og:image" content="data/fm_bg_thin.png" />
 
-        <meta property="twitter:title" content="Football Management WebEditor" />
-        <meta property="twitter:description" content="Client-side GitHub JSON editor with OAuth login, repository validation, and commit workflow." />
-        <meta property="twitter:image" content="https://oakshiftsoftware.github.io/source/images/headers/img-5.png" />
+        <meta property="twitter:title" content="Repository JSON Editor" />
+        <meta property="twitter:description" content="Repository-locked GitHub JSON editor for structured site content." />
+        <meta property="twitter:image" content="data/fm_bg_thin.png" />
 
         <link rel="shortcut icon" href="data/fm_icon.png" type="image/png">
-        <title>Football Management WebEditor</title>
-        <meta name="description" content="Client-side GitHub JSON editor with OAuth login, repository validation, and commit workflow.">
+        <title>Repository JSON Editor</title>
+        <meta name="description" content="Repository-locked GitHub JSON editor for structured site content.">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -318,7 +318,7 @@
 
             .field-grid {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(40%, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
                 gap: 1rem;
                 align-items: start;
             }
@@ -353,6 +353,46 @@
                 max-width: 170px;
                 padding: 0.32rem 0.45rem;
                 font-size: 0.82rem;
+                display: none;
+            }
+
+            .player-summary-card {
+                display: grid;
+                gap: 0.65rem;
+                border: 1px solid var(--line);
+                border-radius: 10px;
+                padding: 0.7rem;
+                background: #fff;
+            }
+
+            .player-modal-body {
+                display: grid;
+                gap: 0.75rem;
+                max-height: min(70vh, 720px);
+                overflow-y: auto;
+                padding-right: 0.2rem;
+            }
+
+            .player-row {
+                display: grid;
+                grid-template-columns: minmax(90px, 0.8fr) minmax(180px, 2.2fr) 60px 60px 60px auto;
+                gap: 0.45rem;
+                align-items: end;
+            }
+
+            .player-row .player-name-field {
+                min-width: 0;
+            }
+
+            .player-row input[type="number"] {
+                max-width: 58px;
+            }
+
+            .player-row .player-action {
+                display: flex;
+                align-items: end;
+                gap: 0.35rem;
+                flex-wrap: wrap;
             }
 
             .crm-drag-panel {
@@ -498,11 +538,15 @@
 
             .modal-card {
                 width: min(100%, 520px);
+                max-height: calc(100vh - 2rem);
+                display: flex;
+                flex-direction: column;
                 border: 1px solid var(--line);
                 border-radius: 12px;
                 background: #fff;
                 box-shadow: var(--shadow);
                 padding: 0.9rem;
+                overflow: hidden;
             }
 
             .modal-head {
@@ -511,6 +555,39 @@
                 justify-content: space-between;
                 gap: 0.6rem;
                 margin-bottom: 0.6rem;
+                flex-shrink: 0;
+            }
+
+            .modal-body-scroll {
+                overflow: auto;
+                min-height: 0;
+                padding-right: 0.2rem;
+            }
+
+            .post-content-preview {
+                border: 1px solid var(--line);
+                border-radius: 10px;
+                padding: 0.7rem;
+                background: #fbfdff;
+                font-family: var(--mono);
+                font-size: 0.84rem;
+                line-height: 1.45;
+                white-space: pre-wrap;
+                word-break: break-word;
+                max-height: 180px;
+                overflow: auto;
+            }
+
+            .post-content-modal-textarea {
+                width: 100%;
+                min-height: 280px;
+                max-height: min(70vh, 680px);
+                resize: vertical;
+                white-space: pre-wrap;
+                overflow: auto;
+                font-family: var(--mono);
+                font-size: 0.88rem;
+                line-height: 1.45;
             }
 
             .wizard-shell {
@@ -625,6 +702,204 @@
                 padding: 0.7rem;
             }
 
+            .hero-card {
+                position: relative;
+                overflow: hidden;
+                padding: 1.35rem;
+                background:
+                    radial-gradient(circle at top right, rgba(0, 95, 115, 0.14), transparent 28%),
+                    linear-gradient(145deg, #ffffff 0%, #f7fbff 100%);
+            }
+
+            .hero-card::after {
+                content: "";
+                position: absolute;
+                inset: auto -80px -80px auto;
+                width: 220px;
+                height: 220px;
+                border-radius: 50%;
+                background: radial-gradient(circle, rgba(0, 95, 115, 0.08), transparent 68%);
+                pointer-events: none;
+            }
+
+            .eyebrow {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.4rem;
+                margin-bottom: 0.7rem;
+                padding: 0.26rem 0.7rem;
+                border-radius: 999px;
+                border: 1px solid rgba(0, 95, 115, 0.22);
+                background: rgba(0, 95, 115, 0.06);
+                color: var(--brand);
+                font-size: 0.78rem;
+                font-weight: 700;
+                letter-spacing: 0.04em;
+                text-transform: uppercase;
+            }
+
+            .hero-grid {
+                display: grid;
+                grid-template-columns: 1.5fr 1fr;
+                gap: 1rem;
+                align-items: start;
+                position: relative;
+                z-index: 1;
+            }
+
+            .hero-title {
+                margin: 0 0 0.7rem;
+                font-size: clamp(1.9rem, 4vw, 3rem);
+                line-height: 1.03;
+                max-width: 11ch;
+            }
+
+            .hero-copy {
+                max-width: 62ch;
+                color: var(--muted);
+                font-size: 0.98rem;
+            }
+
+            .hero-actions {
+                display: flex;
+                gap: 0.7rem;
+                flex-wrap: wrap;
+                margin-top: 1rem;
+            }
+
+            .hero-link {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                text-decoration: none;
+            }
+
+            .hero-stat-grid,
+            .feature-grid,
+            .about-grid,
+            .explain-grid {
+                display: grid;
+                gap: 1rem;
+            }
+
+            .hero-stat-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .mini-stat,
+            .feature-card,
+            .about-card,
+            .workflow-step,
+            .config-card {
+                border: 1px solid var(--line);
+                border-radius: 12px;
+                background: rgba(255, 255, 255, 0.92);
+                box-shadow: 0 10px 26px rgba(13, 27, 42, 0.06);
+            }
+
+            .mini-stat {
+                padding: 0.9rem;
+            }
+
+            .mini-stat-label {
+                color: var(--muted);
+                font-size: 0.76rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
+
+            .mini-stat-value {
+                margin-top: 0.35rem;
+                font-size: 1.3rem;
+                font-weight: 700;
+                color: var(--brand-strong);
+            }
+
+            .section-copy {
+                color: var(--muted);
+                max-width: 70ch;
+                margin-bottom: 1rem;
+            }
+
+            .feature-grid,
+            .about-grid,
+            .explain-grid {
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            }
+
+            .feature-card,
+            .about-card,
+            .config-card {
+                padding: 1rem;
+            }
+
+            .feature-card h3,
+            .about-card h3,
+            .config-card h3 {
+                margin-bottom: 0.45rem;
+            }
+
+            .feature-card p,
+            .about-card p,
+            .config-card p {
+                color: var(--muted);
+                font-size: 0.92rem;
+            }
+
+            .workflow-list {
+                display: grid;
+                gap: 0.8rem;
+                margin-top: 1rem;
+            }
+
+            .workflow-step {
+                display: grid;
+                grid-template-columns: auto 1fr;
+                gap: 0.85rem;
+                padding: 0.9rem 1rem;
+                align-items: start;
+            }
+
+            .step-marker {
+                width: 2rem;
+                height: 2rem;
+                border-radius: 50%;
+                display: grid;
+                place-items: center;
+                background: linear-gradient(135deg, var(--brand), #1d7f95);
+                color: #fff;
+                font-weight: 700;
+                font-size: 0.86rem;
+            }
+
+            .step-body p {
+                color: var(--muted);
+                margin-top: 0.15rem;
+            }
+
+            .muted-list {
+                margin: 0.5rem 0 0;
+                padding-left: 1.1rem;
+                color: var(--muted);
+            }
+
+            .muted-list li + li {
+                margin-top: 0.3rem;
+            }
+
+            .callout-band {
+                margin-top: 1rem;
+                padding: 1rem 1.05rem;
+                border-radius: 12px;
+                border: 1px solid rgba(0, 95, 115, 0.18);
+                background: linear-gradient(145deg, rgba(0, 95, 115, 0.07), rgba(205, 228, 247, 0.24));
+            }
+
+            .callout-band p {
+                color: var(--ink);
+            }
+
             footer {
                 color: var(--muted);
                 text-align: center;
@@ -632,9 +907,26 @@
                 padding: 1rem 0 2.5rem;
             }
 
+            a.site-link {
+                color: var(--brand);
+                text-decoration: none;
+            }
+
+            a.site-link:hover {
+                font-weight: 600;
+            }
+
             @media (max-width: 980px) {
                 .two-col {
                     grid-template-columns: 1fr;
+                }
+
+                .hero-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .hero-title {
+                    max-width: none;
                 }
 
                 header {
@@ -647,26 +939,66 @@
         <div class="shell">
             <header>
                 <div class="brand">
-                    <h1 id="brandTitle">Football Management WebEditor</h1>
-                    <p id="brandTagline">Browser-based GitHub JSON publishing</p>
+                    <h1 id="brandTitle">Site WebEditor</h1>
+                    <p id="brandTagline">Repository-locked JSON editor</p>
                 </div>
-                <nav>
-                    <a class="nav-link" href="#home" data-route="home">Home</a>
-                    <a class="nav-link" href="#editor" data-route="editor">Editor</a>
-                    <a class="nav-link" href="#about" data-route="about">About</a>
-                    <a class="nav-link" href="#licence" data-route="licence">Licence</a>
+                <nav aria-label="Editor context">
+                    <span class="pill">CRM editor</span>
                 </nav>
             </header>
 
             <main>
-                <section id="home" class="page card">
-                    <h2 id="homeTitle">Welcome</h2>
-                    <p id="homeIntro">This SPA runs entirely in the browser and can authenticate to GitHub, validate repositories that contain both ghwe_config.json and ghwe_log.json, then edit and commit JSON files listed in configuration.</p>
-                    <ul class="list">
-                        <li>OAuth sign-in uses GitHub Device Flow so no backend is required.</li>
-                        <li>Repository validation is based on root files ghwe_config.json and ghwe_log.json.</li>
-                        <li>Editor offers two modes: drag/drop raw JSON and CRM-style form entry.</li>
-                    </ul>
+                <section id="home" class="page card hero-card">
+                    <div class="eyebrow">Site Editor</div>
+                    <div class="hero-grid">
+                        <div>
+                            <h2 id="homeTitle" class="hero-title">Publish structured site content without leaving the browser.</h2>
+                            <p id="homeIntro" class="hero-copy">This editor authenticates with GitHub, locks itself to a configured repository, and provides a CRM-style editor for JSON-driven site content.</p>
+                            <div class="hero-actions">
+                                <a class="hero-link primary" href="#editor">Open Editor</a>
+                                <a class="hero-link" href="#about">How It Works</a>
+                            </div>
+                        </div>
+                        <div class="hero-stat-grid">
+                            <article class="mini-stat">
+                                <div class="mini-stat-label">Auth Model</div>
+                                <div class="mini-stat-value">GitHub OAuth</div>
+                            </article>
+                            <article class="mini-stat">
+                                <div class="mini-stat-label">Commit Scope</div>
+                                <div class="mini-stat-value">Single File</div>
+                            </article>
+                            <article class="mini-stat">
+                                <div class="mini-stat-label">Edit Modes</div>
+                                <div class="mini-stat-value">CRM only</div>
+                            </article>
+                            <article class="mini-stat">
+                                <div class="mini-stat-label">Client Fit</div>
+                                <div class="mini-stat-value">Config Driven</div>
+                            </article>
+                        </div>
+                    </div>
+
+                    <p class="section-copy" style="margin-top:1.2rem;">Use this as a site-specific deployment or transplant the same file into another client repository and reconfigure the target repo, file map, branding, and optional notification worker.</p>
+
+                    <div class="feature-grid">
+                        <article class="feature-card">
+                            <h3>Repository Guardrails</h3>
+                            <p>Access is restricted to the configured repository, so editors can sign in with GitHub without being handed a broad repo picker workflow.</p>
+                        </article>
+                        <article class="feature-card">
+                            <h3>Multiple JSON Targets</h3>
+                            <p>Configured file targets come from <span class="mono">WEBEDITOR_CONFIG.repository.files</span>, making it practical to reuse the same editor across multiple client sites.</p>
+                        </article>
+                        <article class="feature-card">
+                            <h3>Structured Record Editing</h3>
+                            <p>CRM mode supports schema-aware fields, drag reordering, record duplication, and focused modal editing for content teams who should not be hand-editing JSON blobs.</p>
+                        </article>
+                    </div>
+
+                    <div class="callout-band">
+                        <p><strong>Best use case:</strong> static websites driven by JSON files that need a controlled, client-friendly publishing surface.</p>
+                    </div>
                 </section>
 
                 <section id="editor" class="page">
@@ -686,7 +1018,7 @@
                                     <span class="pill" id="authPill">Not authenticated</span>
                                 </div>
                                 <div class="status hidden" id="authStatus" style="margin-top:0.7rem;"></div>
-                                <p style="margin-top:0.8rem; color: var(--muted);">By authenticating and using this tool, you agree to the licence terms set out by the site administrator.</p>
+                                <p style="margin-top:0.8rem; color: var(--muted);">Authentication uses GitHub Device Flow through the configured OAuth broker.</p>
                                 <div class="hidden code-box" id="deviceFlowBlock" style="margin-top:0.8rem;">
                                     <p>A popup was opened to GitHub login. If needed, use this device code:</p>
                                     <p class="mono">URL: <strong id="deviceUriText"></strong></p>
@@ -699,32 +1031,31 @@
                             </section>
 
                             <section class="wizard-panel">
-                                <h2>Stage 2: Select Repository</h2>
+                                <h2>Stage 2: Verify Repository Access</h2>
                                 <div class="row">
-                                    <button id="loadReposBtn">Refresh Repositories</button>
-                                    <span id="repoSummary" class="pill">No repository selected</span>
+                                    <button id="loadReposBtn">Check Repository Access</button>
+                                    <span id="repoSummary" class="pill">No repository checked</span>
                                 </div>
-                                <p style="margin-top:0.7rem;">Repositories with both required root files show a green status.</p>
+                                <p style="margin-top:0.7rem;">This editor is locked to the configured repository and will only connect if the authenticated account has write access.</p>
                                 <div id="repoList" class="repo-list" style="margin-top:0.6rem;"></div>
                                 <div class="row" style="margin-top:0.7rem;">
-                                    <button id="connectRepoBtn" class="primary">Use Selected Repository</button>
+                                    <button id="connectRepoBtn" class="primary">Connect Site Repository</button>
                                 </div>
                                 <div class="status hidden" id="repoStatus" style="margin-top:0.7rem;"></div>
                             </section>
 
                             <section class="wizard-panel">
-                                <h2>Stage 3: Select Configured JSON File</h2>
+                                <h2>Stage 3: Load Site Data File</h2>
                                 <div class="two-col">
                                     <div>
-                                        <label for="jsonFileSelect">Configured files from ghwe_config.json</label>
+                                        <label for="jsonFileSelect">Site JSON file</label>
                                         <select id="jsonFileSelect"></select>
                                         <div class="row" style="margin-top:0.7rem;">
                                             <button id="loadJsonBtn" class="primary">Load Selected File</button>
-                                            <button id="refreshConfigBtn">Reload Config</button>
                                         </div>
                                     </div>
                                     <div>
-                                        <h3>Configured File Map</h3>
+                                        <h3>Configured File Targets</h3>
                                         <ul id="configuredFilesList" class="list"></ul>
                                     </div>
                                 </div>
@@ -733,35 +1064,18 @@
 
                             <section class="wizard-panel">
                                 <h2>Stage 4: Edit and Commit</h2>
-                                <div class="row">
-                                    <div class="mode-switch" role="tablist" aria-label="editor mode switch">
-                                        <button id="modeDndBtn" class="active">Drag & Drop</button>
-                                        <button id="modeCrmBtn">CRM Entry</button>
-                                        <button id="modeTextBtn">Text</button>
-                                    </div>
+                                <div class="row" style="margin-bottom:0.7rem;">
+                                    <span class="pill">CRM editing mode</span>
                                     <span class="pill mono" id="currentFilePill">No file loaded</span>
                                 </div>
 
-                                <div id="dndMode" style="margin-top:0.8rem;">
-                                    <div class="drop-zone" id="dropZone">Drop a .json file here to load it into the editor</div>
-                                    <div class="node-builder" id="nodeBuilderPanel">
-                                        <label>JSON object node editor (drag to reorder siblings)</label>
-                                        <p style="margin-top:0.2rem; color: var(--muted);">Expands objects and arrays recursively. Root key metadata is hidden here by design.</p>
-                                        <div class="row" style="margin-top:0.45rem;">
-                                            <button id="nodeAddBtn" type="button">Add Root Node</button>
-                                            <span id="nodeBuilderHint" class="pill">No node selected</span>
-                                        </div>
-                                        <ul id="nodeTreeList" class="node-list"></ul>
-                                    </div>
-                                </div>
-
-                                <div id="crmMode" class="hidden" style="margin-top:0.8rem;">
+                                <div id="crmMode" style="margin-top:0.8rem;">
                                     <p>CRM mode expects either an object or an array of objects.</p>
                                     <p style="color: var(--muted);">For drag-and-drop reordering, the root JSON must be an array of objects.</p>
                                     <div class="row" style="margin-bottom:0.7rem;">
                                         <button id="crmNewRecordBtn">Add Record</button>
+                                        <button id="crmDuplicateRecordBtn">Duplicate Selected</button>
                                         <button id="crmDeleteRecordBtn" class="warn">Delete Selected</button>
-                                        <button id="crmApplyRecordJsonBtn">Apply Selected Record JSON</button>
                                     </div>
                                     <div class="two-col">
                                         <div>
@@ -776,73 +1090,119 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div id="gamesRecordLimitWrap" class="row hidden" style="margin-top:0.7rem;">
+                                        <span id="gamesRecordLimitInfo" class="pill mono"></span>
+                                        <button id="gamesRecordLoadMoreBtn" type="button">Load 10 more</button>
+                                    </div>
                                     <div id="crmDragPanel" class="crm-drag-panel">
                                         <label>Reorder objects (drag and drop)</label>
                                         <ul id="crmDragList" class="crm-drag-list"></ul>
                                     </div>
-                                    <div id="crmFields" class="field-grid" style="margin-top:0.8rem;"></div>
-                                    <div style="margin-top:0.8rem;">
-                                        <label for="crmRecordJsonInput">Selected record JSON (object only)</label>
-                                        <textarea id="crmRecordJsonInput" spellcheck="false" style="min-height:150px;"></textarea>
-                                    </div>
+                                    <div id="crmFields" class="field-grid" style="margin-top:0.8rem; display: none;"></div>
                                 </div>
 
-                                <div id="textMode" class="hidden" style="margin-top:0.8rem;">
-                                    <label for="jsonTextArea" style="margin-top:0.8rem;">JSON content</label>
+                                <div id="jsonTextStorage" style="display:none;">
                                     <textarea id="jsonTextArea" spellcheck="false"></textarea>
-                                    <div class="row" style="margin-top:0.7rem;">
-                                        <button id="formatJsonBtn">Format JSON</button>
-                                        <button id="validateJsonBtn">Validate JSON</button>
-                                    </div>
                                 </div>
-
                                 <div style="margin-top:0.85rem;" class="stack">
                                     <div>
-                                        <label for="commitMessage">Commit message</label>
-                                        <input id="commitMessage" type="text" placeholder="Update JSON content via WebEditor">
+                                        <label for="commitMessage">Update Label</label>
+                                        <input id="commitMessage" type="text" placeholder="Update JSON content via the editor">
                                     </div>
                                     <div class="row">
-                                        <button id="saveJsonBtn" class="primary">Commit JSON Changes</button>
-                                        <button id="saveConfigBtn">Commit ghwe_config.json</button>
-                                        <button id="viewLogBtn">Load ghwe_log.json</button>
+                                        <button id="saveJsonBtn" class="primary">Commit Changes</button>
                                     </div>
                                 </div>
-                                <div class="status hidden" id="editorStatus" style="margin-top:0.7rem;"></div>
+                                <div class="status hidden" id="editorStatus" style="margin-top:0.7rem; display: none;"></div>
                             </section>
                         </div>
                     </div>
                 </section>
 
                 <section id="about" class="page card">
-                    <h2 id="aboutTitle">About</h2>
-                    <p id="aboutIntro">This editor is a browser-based publishing tool for static GitHub Pages sites driven by JSON content.</p>
-                    <p>Workflow:</p>
-                    <ul class="list">
-                        <li>Authenticate with GitHub.</li>
-                        <li>Select a repository containing root files ghwe_config.json and ghwe_log.json.</li>
-                        <li>Load configured JSON files, edit in raw or CRM mode, and commit changes.</li>
-                        <li>Automatic append to ghwe_log.json for each successful commit action.</li>
-                    </ul>
-                </section>
+                    <div class="eyebrow">Operational Overview</div>
+                    <h2 id="aboutTitle">How the tool works, where it fits, and what it protects.</h2>
+                    <p id="aboutIntro" class="section-copy">This editor is a browser-based publishing surface for JSON-driven static sites. It keeps content changes explicit and reviewable while remaining browser-native.</p>
 
-                <section id="licence" class="page card">
-                    <h2>Licence and EULA</h2>
-                    <p>This software is a generic GitHub JSON editor deployed for static site content management. By accessing, authenticating with, or using this tool, you agree to the terms set by the deployment owner.</p>
-                    <ul class="list">
-                        <li>This editor is supplied as a repository configuration and content management tool for GitHub-hosted JSON workflows.</li>
-                        <li>Users remain solely responsible for all repository content, configuration, commits, publications, and downstream effects arising from changes made through the tool.</li>
-                        <li>The deployment owner does not accept liability for content errors, site breakage, malformed data, publication defects, data loss, or business interruption caused by user-authored or user-approved changes.</li>
-                        <li>Users must review content before saving changes and are responsible for maintaining their own repository governance, approvals, backups, and release discipline.</li>
-                        <li>The deployment owner provides the application and repository configuration expectations but does not assume editorial ownership or legal responsibility for customer site content.</li>
-                        <li>Rollback, restoration, revision recovery, remediation, and similar intervention services are not included by default.</li>
-                        <li>Support and recovery services, if offered, are governed by the deployment owner or hosting provider agreement.</li>
-                        <li>Use of this application constitutes acceptance of these terms and of any deployment-specific agreement where one exists.</li>
-                    </ul>
+                    <div class="workflow-list">
+                        <article class="workflow-step">
+                            <div class="step-marker">1</div>
+                            <div class="step-body">
+                                <h3>Authenticate</h3>
+                                <p>The user signs in with GitHub Device Flow. The editor keeps the token in session storage and uses the configured OAuth broker to complete the exchange safely.</p>
+                            </div>
+                        </article>
+                        <article class="workflow-step">
+                            <div class="step-marker">2</div>
+                            <div class="step-body">
+                                <h3>Verify Repository Access</h3>
+                                <p>The editor checks that the authenticated GitHub account can write to the configured repository. This prevents the tool from drifting into unrelated repos when transplanted for other client sites.</p>
+                            </div>
+                        </article>
+                        <article class="workflow-step">
+                            <div class="step-marker">3</div>
+                            <div class="step-body">
+                                <h3>Load a Configured File</h3>
+                                <p>Available JSON targets are taken from <span class="mono">WEBEDITOR_CONFIG.repository.files</span>. That means each deployment can expose one file or several, depending on the site structure.</p>
+                            </div>
+                        </article>
+                        <article class="workflow-step">
+                            <div class="step-marker">4</div>
+                            <div class="step-body">
+                                <h3>Edit using CRM mode</h3>
+                                <p>Use the CRM editor for record-based content maintenance and structured site data updates.</p>
+                            </div>
+                        </article>
+                        <article class="workflow-step">
+                            <div class="step-marker">5</div>
+                            <div class="step-body">
+                                <h3>Commit One File at a Time</h3>
+                                <p>Each save performs a latest-SHA check, writes a single targeted commit, and can optionally call a notification endpoint after a configured delay to allow published content to propagate first.</p>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="about-grid" style="margin-top:1.1rem;">
+                        <article class="about-card">
+                            <h3>Why this model works</h3>
+                            <p>It gives clients and maintainers a constrained editing surface without requiring a bespoke CMS or a full backend. Git stays the source of truth, and the site can remain static.</p>
+                        </article>
+                        <article class="about-card">
+                            <h3>What CRM mode is for</h3>
+                            <p>CRM mode assumes array or object records and favors content entry over syntax editing. Records can be reordered, duplicated, and edited through structured fields.</p>
+                        </article>
+                        <article class="about-card">
+                            <h3>What still needs discipline</h3>
+                            <p>The tool narrows risk, but it does not replace governance. File maps, schema expectations, and commit review practices still need to be set sensibly per deployment.</p>
+                        </article>
+                    </div>
+
+                    <div class="explain-grid" style="margin-top:1rem;">
+                        <article class="config-card">
+                            <h3>Per-site configuration</h3>
+                            <p>To deploy this into another repository, update branding, set the target repository, define the file map, choose a default file key, and optionally connect a site-specific notification worker.</p>
+                            <ul class="muted-list">
+                                <li>Change <span class="mono">branding</span> for the client identity.</li>
+                                <li>Set <span class="mono">repository.targetRepoFullName</span>.</li>
+                                <li>Populate <span class="mono">repository.files</span>.</li>
+                                <li>Set <span class="mono">repository.defaultFileKey</span>.</li>
+                            </ul>
+                        </article>
+                        <article class="config-card">
+                            <h3>Notification support</h3>
+                            <p>When enabled, the editor can call a Cloudflare Worker after commit. That worker can then handle subscriber state, VAPID-based push delivery, and optional delivery delay rules for the destination site.</p>
+                            <ul class="muted-list">
+                                <li>Use a dedicated Worker per client or per product.</li>
+                                <li>Keep notification auth separate from OAuth configuration.</li>
+                                <li>Prefer rotating tokens over long-lived hardcoded secrets.</li>
+                            </ul>
+                        </article>
+                    </div>
                 </section>
             </main>
 
             <footer>
-                <p><span id="yearNow"></span> <span id="footerTitle">WebEditor</span></p>
+                <p><span id="yearNow"></span> <span id="footerTitle">Repository JSON Editor</span></p>
             </footer>
 
             <div id="valueEditModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="valueEditTitle">
@@ -924,30 +1284,176 @@
                     </div>
                 </div>
             </div>
+
+            <div id="crmRecordModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="crmRecordModalTitle">
+                <div class="modal-card" style="width:min(100%, 860px);">
+                    <div class="modal-head">
+                        <h3 id="crmRecordModalTitle">Edit Record</h3>
+                        <button id="crmRecordModalCloseBtn" type="button" class="warn">Close</button>
+                    </div>
+                    <div class="stack">
+                        <div id="crmRecordModalPath" class="pill mono" style="display: none;">Record</div>
+                        <div id="crmModalFields" class="field-grid"></div>
+                        <div class="row">
+                            <button id="crmRecordModalSaveBtn" class="primary" type="button">Done</button>
+                            <button id="crmRecordModalCancelBtn" type="button">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="teamPlayersModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="teamPlayersModalTitle">
+                <div class="modal-card" style="width:min(100%, 980px);">
+                    <div class="modal-head">
+                        <h3 id="teamPlayersModalTitle">Edit Players</h3>
+                        <button id="teamPlayersModalCloseBtn" type="button" class="warn">Close</button>
+                    </div>
+                    <div class="stack">
+                        <div class="row">
+                            <button id="teamPlayersModalAddBtn" type="button" class="primary">Add Player</button>
+                        </div>
+                        <div id="teamPlayersModalBody" class="player-modal-body"></div>
+                        <div class="row">
+                            <button id="teamPlayersModalDoneBtn" class="primary" type="button">Done</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="postContentModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="postContentModalTitle">
+                <div class="modal-card" style="width:min(100%, 920px);">
+                    <div class="modal-head">
+                        <h3 id="postContentModalTitle">Edit Post Content</h3>
+                        <button id="postContentModalCloseBtn" type="button" class="warn">Close</button>
+                    </div>
+                    <div class="stack modal-body-scroll">
+                        <div id="postContentModalPath" class="pill mono">Post content</div>
+                        <textarea id="postContentModalTextarea" class="post-content-modal-textarea" spellcheck="true"></textarea>
+                        <div class="row">
+                            <button id="postContentInsertLinkBtn" type="button">Insert Link</button>
+                            <button id="postContentInsertFeaturedImageBtn" type="button">Insert Featured Image</button>
+                        </div>
+                        <div class="row">
+                            <button id="postContentModalSaveBtn" class="primary" type="button">Save</button>
+                            <button id="postContentModalCancelBtn" type="button">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="postTagModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="postTagModalTitle">
+                <div class="modal-card" style="width:min(100%, 720px);">
+                    <div class="modal-head">
+                        <h3 id="postTagModalTitle">Insert Tag</h3>
+                        <button id="postTagModalCloseBtn" type="button" class="warn">Close</button>
+                    </div>
+                    <div class="stack">
+                        <div id="postTagModalTypePill" class="pill mono">Tag</div>
+                        <p id="postTagModalHelpText" style="margin:0; color: var(--muted); font-size:0.9rem;"></p>
+                        <div class="two-col">
+                            <div>
+                                <label id="postTagModalUrlLabel" for="postTagModalUrlInput">URL</label>
+                                <input id="postTagModalUrlInput" type="text" placeholder="https://example.com">
+                            </div>
+                            <div>
+                                <label id="postTagModalLabelLabel" for="postTagModalLabelInput">Text</label>
+                                <input id="postTagModalLabelInput" type="text" placeholder="Read more">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button id="postTagModalInsertBtn" class="primary" type="button">Insert</button>
+                            <button id="postTagModalCancelBtn" type="button">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="notificationModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="notificationTitle">
+                <div class="modal-card" style="width: min(100%, 620px);">
+                    <div class="modal-head">
+                        <h3 id="notificationTitle">Notification</h3>
+                        <button id="notificationCloseBtn" type="button" class="warn">Dismiss</button>
+                    </div>
+                    <div class="stack">
+                        <!-- Main message -->
+                        <div id="notificationContent" style="padding: 0.5rem 0; line-height: 1.5;"></div>
+                        
+                        <!-- Device flow section -->
+                        <div id="deviceFlowSection" style="display: none; margin-top: 1rem; padding: 1rem; border-radius: 8px; background: rgba(0, 0, 0, 0.05);">
+                            <p style="margin-top: 0; font-size: 0.95rem;">A popup was opened to GitHub login. If needed, use this device code:</p>
+                            <p class="mono" style="margin: 0.5rem 0;"><strong>URL:</strong> <strong id="modalDeviceUri"></strong></p>
+                            <p class="mono" style="margin: 0.5rem 0;"><strong>Code:</strong> <strong id="modalDeviceCode"></strong></p>
+                            <div class="row" style="margin-top: 0.8rem;">
+                                <button id="modalCopyCodeBtn" type="button">Copy Code</button><button id="modalCopyUrlBtn" type="button">Copy URL</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Commit log section -->
+                        <div id="commitLogSection" style="display: none; margin-top: 1rem; padding: 1rem; border-radius: 8px; background: rgba(0, 0, 0, 0.03); border: 1px solid rgba(0, 0, 0, 0.1);">
+                            <p style="margin: 0 0 0.8rem 0; font-weight: 600; font-size: 0.95rem;">Commit Progress:</p>
+                            <div id="commitLogList" style="font-family: monospace; font-size: 0.85rem; line-height: 1.6; max-height: 250px; overflow-y: auto; color: var(--text-secondary);"></div>
+                        </div>
+                        
+                        <!-- Notification timer section -->
+                        <div id="notificationTimerSection" style="display: none; margin-top: 1rem; padding: 1rem; border-radius: 8px; background: rgba(0, 0, 0, 0.03); text-align: center;">
+                            <p style="margin: 0 0 0.5rem 0; font-size: 0.9rem;">Notifying subscribers in:</p>
+                            <div style="font-size: 2.5rem; font-weight: 700; font-family: monospace; color: var(--ok);" id="notificationTimer">0:00</div>
+                            <p style="margin: 0.5rem 0 0 0; font-size: 0.85rem; color: var(--text-secondary);">Sending push notifications to subscribed devices...</p>
+                        </div>
+                        
+                        <div class="row" style="margin-top: 1rem;">
+                            <button id="notificationDismissBtn" class="primary" type="button">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <script>
             const WEBEDITOR_CONFIG = {
                 branding: {
-                    appTitle: "Football Management WebEditor",
-                    tagline: "OAuth login, repository validation, and browser-based JSON publishing.",
+                    appTitle: "Repository JSON Editor",
+                    tagline: "Repository-locked GitHub editor for structured site content.",
                     homeTitle: "Welcome",
-                    homeIntro: "This SPA authenticates with GitHub, validates a repository containing ghwe_config.json and ghwe_log.json, and lets you edit configured JSON files in the browser.",
+                    homeIntro: "This tool authenticates with GitHub, locks to a configured repository, and provides a CRM-style JSON editor for site content.",
                     aboutTitle: "About",
-                    aboutIntro: "This editor is a browser-based publishing tool for static GitHub Pages sites driven by JSON content."
+                    aboutIntro: "A browser-based static site editor for JSON-driven content."
                 },
+                // EDIT THESE VALUES ONLY
+                // 1. Create a GitHub OAuth App under your account or organization.
+                // 2. Use the app Client ID here.
+                // 3. Deploy an OAuth broker or proxy for GitHub token exchange.
+                // 4. Set brokerBaseUrl to the broker URL.
+                // 5. The broker must forward /github/device/code and /github/oauth/access_token requests to GitHub.
                 oauth: {
                     clientId: "",
                     scope: "repo read:user",
-                    brokerBaseUrl: ""
+                    brokerBaseUrl: "" // Example: https://your-oauth-broker.example.com
                 },
                 session: {
                     ttlSeconds: 8 * 60 * 60
                 },
                 repository: {
-                    requiredRootFiles: ["ghwe_config.json", "ghwe_log.json"]
+                    // The editor will auto-connect to this repository after authentication.
+                    targetRepoFullName: "owner/repo",
+                    files: {
+                        // Define the JSON content files your site uses. Example:
+                        posts: "content/posts.json",
+                        games: "content/games.json",
+                        teams: "content/teams.json"
+                    },
+                    defaultFileKey: "posts"
+                },
+                notifications: {
+                    enabled: false, // Keep notifications disabled by default for plug-and-play use.
+                    notifyEndpoint: "", // Optional notification worker endpoint.
+                    authToken: "", // Optional token for the notification worker.
+                    siteId: "site",
+                    siteBaseUrl: "",
+                    delayMs: 75000
                 }
-            };
+            }; 
 
             const JSON_OBJECT_NODE_TYPES = {
                 jon_strong: "string",
@@ -959,8 +1465,36 @@
             };
 
             const API_BASE = "https://api.github.com";
-            const REQUIRED_ROOT_FILES = WEBEDITOR_CONFIG.repository.requiredRootFiles;
-            const AUTH_STORAGE_KEY = "ghwe_auth_session";
+            const TARGET_REPO_FULL_NAME = String(WEBEDITOR_CONFIG.repository.targetRepoFullName || "").toLowerCase();
+            const REPOSITORY_FILE_MAP = (function resolveRepositoryFileMap() {
+                const configured = WEBEDITOR_CONFIG.repository && WEBEDITOR_CONFIG.repository.files;
+                if (configured && typeof configured === "object" && !Array.isArray(configured)) {
+                    const entries = Object.entries(configured).filter(function(entry) {
+                        return typeof entry[1] === "string" && entry[1].trim().length > 0;
+                    });
+                    if (entries.length) {
+                        return Object.fromEntries(entries);
+                    }
+                }
+
+                const legacyPath = WEBEDITOR_CONFIG.repository && WEBEDITOR_CONFIG.repository.targetJsonPath;
+                if (typeof legacyPath === "string" && legacyPath.trim().length > 0) {
+                    return {
+                        primary: legacyPath.trim()
+                    };
+                }
+
+                return {};
+            })();
+            const DEFAULT_FILE_KEY = (function resolveDefaultFileKey() {
+                const configuredKey = String((WEBEDITOR_CONFIG.repository && WEBEDITOR_CONFIG.repository.defaultFileKey) || "").trim();
+                if (configuredKey && Object.prototype.hasOwnProperty.call(REPOSITORY_FILE_MAP, configuredKey)) {
+                    return configuredKey;
+                }
+                const firstKey = Object.keys(REPOSITORY_FILE_MAP)[0];
+                return firstKey || "";
+            })();
+            const AUTH_STORAGE_KEY = "repo_json_editor_auth_session";
             const DEFAULT_SESSION_TTL_SECONDS = WEBEDITOR_CONFIG.session.ttlSeconds;
 
             function loadStoredAuthSession() {
@@ -1032,6 +1566,13 @@
                     rootMode: "array",
                     records: [],
                     selectedIndex: 0,
+                    gamesVisibleCount: 10,
+                    gamesPageSize: 10,
+                    playersModalRecordIndex: 0,
+                    postContentModalRecordIndex: 0,
+                    postTagModalMode: "",
+                    postTagModalSelectionStart: 0,
+                    postTagModalSelectionEnd: 0,
                     schema: {
                         enabled: false,
                         root: null,
@@ -1091,21 +1632,14 @@
                 loadReposBtn: document.getElementById("loadReposBtn"),
                 repoList: document.getElementById("repoList"),
                 connectRepoBtn: document.getElementById("connectRepoBtn"),
-                refreshConfigBtn: document.getElementById("refreshConfigBtn"),
                 repoSummary: document.getElementById("repoSummary"),
                 repoStatus: document.getElementById("repoStatus"),
                 configuredFilesList: document.getElementById("configuredFilesList"),
                 jsonFileSelect: document.getElementById("jsonFileSelect"),
                 loadJsonBtn: document.getElementById("loadJsonBtn"),
                 fileStatus: document.getElementById("fileStatus"),
-                modeDndBtn: document.getElementById("modeDndBtn"),
-                modeCrmBtn: document.getElementById("modeCrmBtn"),
-                modeTextBtn: document.getElementById("modeTextBtn"),
                 currentFilePill: document.getElementById("currentFilePill"),
-                dndMode: document.getElementById("dndMode"),
                 crmMode: document.getElementById("crmMode"),
-                textMode: document.getElementById("textMode"),
-                dropZone: document.getElementById("dropZone"),
                 jsonTextArea: document.getElementById("jsonTextArea"),
                 formatJsonBtn: document.getElementById("formatJsonBtn"),
                 validateJsonBtn: document.getElementById("validateJsonBtn"),
@@ -1115,17 +1649,17 @@
                 nodeAddBtn: document.getElementById("nodeAddBtn"),
                 crmRootMode: document.getElementById("crmRootMode"),
                 crmRecordSelect: document.getElementById("crmRecordSelect"),
+                gamesRecordLimitWrap: document.getElementById("gamesRecordLimitWrap"),
+                gamesRecordLimitInfo: document.getElementById("gamesRecordLimitInfo"),
+                gamesRecordLoadMoreBtn: document.getElementById("gamesRecordLoadMoreBtn"),
                 crmDragPanel: document.getElementById("crmDragPanel"),
                 crmDragList: document.getElementById("crmDragList"),
                 crmFields: document.getElementById("crmFields"),
                 crmNewRecordBtn: document.getElementById("crmNewRecordBtn"),
+                crmDuplicateRecordBtn: document.getElementById("crmDuplicateRecordBtn"),
                 crmDeleteRecordBtn: document.getElementById("crmDeleteRecordBtn"),
-                crmRecordJsonInput: document.getElementById("crmRecordJsonInput"),
-                crmApplyRecordJsonBtn: document.getElementById("crmApplyRecordJsonBtn"),
                 commitMessage: document.getElementById("commitMessage"),
                 saveJsonBtn: document.getElementById("saveJsonBtn"),
-                saveConfigBtn: document.getElementById("saveConfigBtn"),
-                viewLogBtn: document.getElementById("viewLogBtn"),
                 editorStatus: document.getElementById("editorStatus"),
                 valueEditModal: document.getElementById("valueEditModal"),
                 valueEditPath: document.getElementById("valueEditPath"),
@@ -1154,7 +1688,54 @@
                 nodeJsonEditInput: document.getElementById("nodeJsonEditInput"),
                 nodeJsonEditApplyBtn: document.getElementById("nodeJsonEditApplyBtn"),
                 nodeJsonEditCancelBtn: document.getElementById("nodeJsonEditCancelBtn"),
-                nodeJsonEditCloseBtn: document.getElementById("nodeJsonEditCloseBtn")
+                nodeJsonEditCloseBtn: document.getElementById("nodeJsonEditCloseBtn"),
+                crmRecordModal: document.getElementById("crmRecordModal"),
+                crmRecordModalTitle: document.getElementById("crmRecordModalTitle"),
+                crmRecordModalPath: document.getElementById("crmRecordModalPath"),
+                crmModalFields: document.getElementById("crmModalFields"),
+                crmRecordModalSaveBtn: document.getElementById("crmRecordModalSaveBtn"),
+                crmRecordModalCancelBtn: document.getElementById("crmRecordModalCancelBtn"),
+                crmRecordModalCloseBtn: document.getElementById("crmRecordModalCloseBtn"),
+                teamPlayersModal: document.getElementById("teamPlayersModal"),
+                teamPlayersModalTitle: document.getElementById("teamPlayersModalTitle"),
+                teamPlayersModalBody: document.getElementById("teamPlayersModalBody"),
+                teamPlayersModalAddBtn: document.getElementById("teamPlayersModalAddBtn"),
+                teamPlayersModalDoneBtn: document.getElementById("teamPlayersModalDoneBtn"),
+                teamPlayersModalCloseBtn: document.getElementById("teamPlayersModalCloseBtn"),
+                postContentModal: document.getElementById("postContentModal"),
+                postContentModalTitle: document.getElementById("postContentModalTitle"),
+                postContentModalPath: document.getElementById("postContentModalPath"),
+                postContentModalTextarea: document.getElementById("postContentModalTextarea"),
+                postContentInsertLinkBtn: document.getElementById("postContentInsertLinkBtn"),
+                postContentInsertFeaturedImageBtn: document.getElementById("postContentInsertFeaturedImageBtn"),
+                postContentModalSaveBtn: document.getElementById("postContentModalSaveBtn"),
+                postContentModalCancelBtn: document.getElementById("postContentModalCancelBtn"),
+                postContentModalCloseBtn: document.getElementById("postContentModalCloseBtn"),
+                postTagModal: document.getElementById("postTagModal"),
+                postTagModalTitle: document.getElementById("postTagModalTitle"),
+                postTagModalTypePill: document.getElementById("postTagModalTypePill"),
+                postTagModalHelpText: document.getElementById("postTagModalHelpText"),
+                postTagModalUrlLabel: document.getElementById("postTagModalUrlLabel"),
+                postTagModalLabelLabel: document.getElementById("postTagModalLabelLabel"),
+                postTagModalUrlInput: document.getElementById("postTagModalUrlInput"),
+                postTagModalLabelInput: document.getElementById("postTagModalLabelInput"),
+                postTagModalInsertBtn: document.getElementById("postTagModalInsertBtn"),
+                postTagModalCancelBtn: document.getElementById("postTagModalCancelBtn"),
+                postTagModalCloseBtn: document.getElementById("postTagModalCloseBtn"),
+                notificationModal: document.getElementById("notificationModal"),
+                notificationTitle: document.getElementById("notificationTitle"),
+                notificationContent: document.getElementById("notificationContent"),
+                notificationCloseBtn: document.getElementById("notificationCloseBtn"),
+                notificationDismissBtn: document.getElementById("notificationDismissBtn"),
+                deviceFlowSection: document.getElementById("deviceFlowSection"),
+                modalDeviceUri: document.getElementById("modalDeviceUri"),
+                modalDeviceCode: document.getElementById("modalDeviceCode"),
+                modalCopyCodeBtn: document.getElementById("modalCopyCodeBtn"),
+                modalCopyUrlBtn: document.getElementById("modalCopyUrlBtn"),
+                commitLogSection: document.getElementById("commitLogSection"),
+                commitLogList: document.getElementById("commitLogList"),
+                notificationTimerSection: document.getElementById("notificationTimerSection"),
+                notificationTimer: document.getElementById("notificationTimer")
             };
 
             function applyBranding() {
@@ -1167,6 +1748,7 @@
                 el.brandTitle.textContent = WEBEDITOR_CONFIG.branding.appTitle;
                 el.brandTagline.textContent = WEBEDITOR_CONFIG.branding.tagline;
                 el.homeTitle.textContent = WEBEDITOR_CONFIG.branding.homeTitle;
+                updateCommitNotificationChoiceVisibility();
                 el.homeIntro.textContent = WEBEDITOR_CONFIG.branding.homeIntro;
                 el.aboutTitle.textContent = WEBEDITOR_CONFIG.branding.aboutTitle;
                 el.aboutIntro.textContent = WEBEDITOR_CONFIG.branding.aboutIntro;
@@ -1194,6 +1776,100 @@
                 }
             }
 
+            function updateCommitNotificationChoiceVisibility() {
+                // Notifications are configured through WEBEDITOR_CONFIG.notifications.
+                // No visible commit notification options are shown in this deployment.
+            }
+
+            function getFmAppBaseUrl() {
+                const configured = String((WEBEDITOR_CONFIG.notifications || {}).siteBaseUrl || "").trim();
+                return configured ? configured.replace(/\/+$/, "") + "/" : "";
+            }
+
+            let notificationTimerInterval = null;
+
+            function showNotificationModal(message, type = "info", title = "Notification", options = {}) {
+                const modal = el.notificationModal;
+                const titleEl = el.notificationTitle;
+                const contentEl = el.notificationContent;
+                const dismissBtn = el.notificationDismissBtn;
+
+                // Clear previous state
+                el.deviceFlowSection.style.display = "none";
+                el.commitLogSection.style.display = "none";
+                el.notificationTimerSection.style.display = "none";
+                if (notificationTimerInterval) {
+                    clearInterval(notificationTimerInterval);
+                    notificationTimerInterval = null;
+                }
+
+                titleEl.textContent = title;
+                contentEl.textContent = message;
+
+                dismissBtn.className = "primary";
+                if (type === "bad") {
+                    dismissBtn.className = "warn";
+                } else if (type === "ok") {
+                    dismissBtn.className = "primary";
+                }
+
+                // Handle device flow display
+                if (options.showDeviceFlow) {
+                    el.modalDeviceUri.textContent = options.deviceUri || "";
+                    el.modalDeviceCode.textContent = options.deviceCode || "";
+                    el.deviceFlowSection.style.display = "block";
+                }
+
+                // Handle commit log display
+                if (options.showCommitLog) {
+                    el.commitLogList.innerHTML = "";
+                    el.commitLogSection.style.display = "block";
+                }
+
+                // Handle timer display
+                if (options.showTimer && options.timerSeconds > 0) {
+                    el.notificationTimerSection.style.display = "block";
+                    let secondsRemaining = options.timerSeconds;
+                    let timerFired = false;
+                    
+                    function updateTimer() {
+                        const minutes = Math.floor(secondsRemaining / 60);
+                        const seconds = secondsRemaining % 60;
+                        el.notificationTimer.textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+                        
+                        if (secondsRemaining <= 0 && !timerFired) {
+                            timerFired = true;
+                            clearInterval(notificationTimerInterval);
+                            notificationTimerInterval = null;
+                            if (options.onTimerComplete && typeof options.onTimerComplete === "function") {
+                                options.onTimerComplete();
+                            }
+                        } else if (secondsRemaining > 0) {
+                            secondsRemaining -= 1;
+                        }
+                    }
+                    
+                    updateTimer();
+                    notificationTimerInterval = setInterval(updateTimer, 1000);
+                }
+
+                modal.classList.remove("hidden");
+            }
+
+            function addCommitLogEntry(message) {
+                const logList = el.commitLogList;
+                const entry = document.createElement("div");
+                entry.style.marginBottom = "0.3rem";
+                entry.textContent = "→ " + message;
+                logList.appendChild(entry);
+                logList.scrollTop = logList.scrollHeight;
+            }
+
+            function closeNotificationModal() {
+                const modal = el.notificationModal;
+                modal.classList.add("hidden");
+            }
+
             function clearStatus(target) {
                 target.classList.add("hidden");
                 target.textContent = "";
@@ -1201,12 +1877,16 @@
             }
 
             function route() {
-                const routeId = (location.hash || "#home").replace("#", "");
+                const targetRoute = "editor";
+                if (!location.hash || location.hash !== "#" + targetRoute) {
+                    history.replaceState(null, "", "#" + targetRoute);
+                }
+
                 for (const page of el.pages) {
-                    page.classList.toggle("active", page.id === routeId);
+                    page.classList.toggle("active", page.id === targetRoute);
                 }
                 for (const link of el.navLinks) {
-                    link.classList.toggle("active", link.dataset.route === routeId);
+                    link.classList.toggle("active", link.dataset.route === targetRoute);
                 }
             }
 
@@ -1306,20 +1986,31 @@
                 }
 
                 const verificationUrl = payload.verification_uri_complete || payload.verification_uri || "https://github.com/login/device";
-                el.deviceFlowBlock.classList.remove("hidden");
-                el.deviceUriText.textContent = verificationUrl;
-                el.deviceCodeText.textContent = payload.user_code;
+                
                 if (payload.verification_uri_complete) {
-                    setStatus(el.authStatus, "Popup opened with your code prefilled. Confirm access in GitHub. If the popup closes after approval, that is expected.", "ok");
+                    showNotificationModal("Popup opened with your code prefilled. Confirm access in GitHub. If the popup closes after approval, that is expected.", "ok", "GitHub Login", {
+                        showDeviceFlow: true,
+                        deviceUri: verificationUrl,
+                        deviceCode: payload.user_code
+                    });
                 } else {
-                    setStatus(el.authStatus, "Popup opened. Enter code " + payload.user_code + " in the GitHub window, then this app will continue automatically.", "ok");
+                    showNotificationModal("Popup opened. Enter code " + payload.user_code + " in the GitHub window, then this app will continue automatically.", "ok", "GitHub Login", {
+                        showDeviceFlow: true,
+                        deviceUri: verificationUrl,
+                        deviceCode: payload.user_code
+                    });
                 }
 
-                const popup = window.open(verificationUrl, "ghwe-github-login", "popup=yes,width=840,height=900");
+                const popup = window.open(verificationUrl, "repo-json-editor-login", "popup=yes,width=840,height=900");
+
                 if (popup) {
                     popup.focus();
                 } else {
-                    setStatus(el.authStatus, "Popup was blocked by the browser. Open the URL shown below and enter code " + payload.user_code + ".", "bad");
+                    showNotificationModal("Popup was blocked by the browser. Use the device code shown above to authenticate.", "bad", "Browser Popup Blocked", {
+                        showDeviceFlow: true,
+                        deviceUri: verificationUrl,
+                        deviceCode: payload.user_code
+                    });
                 }
 
                 await pollForAccessToken(clientId, payload.device_code, payload.interval || 5);
@@ -1360,10 +2051,26 @@
                         state.token = tokenData.access_token;
                         state.authSession = saveAuthSession(state.token, tokenData);
                         await loadUserProfile();
-                        await fetchAllRepos();
-                        setStatus(el.authStatus, "Authentication successful.", "ok");
+                        await loadTargetRepository();
+                        let connected = false;
+                        try {
+                            await connectSelectedRepository();
+                            connected = true;
+                        } catch (connectError) {
+                            setStatus(el.repoStatus, "Signed in, but auto-connect failed: " + connectError.message, "bad");
+                        }
+
+                        showNotificationModal(
+                            connected
+                                ? "Authentication successful. Repository connected automatically."
+                                : "Authentication successful. Repository auto-connect failed, please use Connect Site Repository.",
+                            connected ? "ok" : "bad",
+                            "Login Complete"
+                        );
                         el.deviceFlowBlock.classList.add("hidden");
-                        setEditorStep(1);
+                        if (!connected) {
+                            setEditorStep(1);
+                        }
                         return;
                     }
 
@@ -1400,6 +2107,10 @@
                 state.selectedRepoCandidate = "";
                 state.selectedRepo = null;
                 state.config = null;
+                state.currentJsonPath = "";
+                state.currentJsonSha = "";
+                state.currentJsonData = null;
+                state.lastNotificationPreferenceKind = "";
                 clearStoredAuthSession();
                 el.authPill.textContent = "Not authenticated";
                 el.repoList.innerHTML = "";
@@ -1412,61 +2123,50 @@
                 clearStatus(el.fileStatus);
                 setStatus(el.editorStatus, reasonMessage || "Signed out.", reasonMessage ? "bad" : "ok");
                 setEditorStep(0);
+                updateCommitNotificationChoiceVisibility();
             }
 
-            async function fetchAllRepos() {
+            function hasWritableRepoAccess(repo) {
+                return Boolean(repo && repo.permissions && (repo.permissions.push || repo.permissions.admin || repo.permissions.maintain));
+            }
+
+            function normalizeRepoName(value) {
+                return String(value || "").trim().toLowerCase();
+            }
+
+            async function loadTargetRepository() {
                 if (!state.token) {
                     throw new Error("Authenticate first.");
                 }
 
-                setStatus(el.editorStatus, "Loading repositories from GitHub...", "info");
-                let page = 1;
-                const perPage = 100;
-                const result = [];
+                const targetFullName = WEBEDITOR_CONFIG.repository.targetRepoFullName;
+                setStatus(el.editorStatus, "Checking access to " + targetFullName + "...", "info");
 
-                while (true) {
-                    const response = await ghFetch("/user/repos?per_page=" + perPage + "&page=" + page + "&sort=updated");
-                    const repos = await response.json();
-                    result.push(...repos);
-                    if (repos.length < perPage) {
-                        break;
+                const response = await ghFetch("/repos/" + targetFullName);
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        throw new Error("GitHub user does not have access to " + targetFullName + ".");
                     }
-                    page += 1;
+                    throw new Error("Failed to load target repository (HTTP " + response.status + ").");
                 }
 
-                state.repos = result;
-                state.repoChecks = await validateRepos(result);
-                state.validRepos = result.filter(function(repo) {
-                    return Boolean(state.repoChecks[repo.full_name]);
-                });
+                const repo = await response.json();
+                if (!hasWritableRepoAccess(repo)) {
+                    throw new Error("The authenticated GitHub user can read " + targetFullName + " but does not have write access.");
+                }
+
+                if (normalizeRepoName(repo.full_name) !== TARGET_REPO_FULL_NAME) {
+                    throw new Error("Authenticated repository does not match the configured site repository.");
+                }
+
+                state.repos = [repo];
+                state.repoChecks = {
+                    [repo.full_name]: true
+                };
+                state.validRepos = [repo];
+                state.selectedRepoCandidate = repo.full_name;
                 renderRepoList();
-                setStatus(el.repoStatus, "Loaded " + state.repos.length + " repositories. " + state.validRepos.length + " configured repositories are eligible.", "ok");
-            }
-
-            async function repoHasRequiredFiles(repoFullName) {
-                for (const fileName of REQUIRED_ROOT_FILES) {
-                    const response = await ghFetch("/repos/" + repoFullName + "/contents/" + fileName);
-                    const payload = await response.json();
-                    if (payload.type !== "file") {
-                        return false;
-                    }
-                }
-                return true;
-            }
-
-            async function validateRepos(repos) {
-                const checks = {};
-                setStatus(el.repoStatus, "Checking repository root files (ghwe_config.json + ghwe_log.json)...", "info");
-
-                for (const repo of repos) {
-                    try {
-                        checks[repo.full_name] = await repoHasRequiredFiles(repo.full_name);
-                    } catch (_error) {
-                        checks[repo.full_name] = false;
-                    }
-                }
-
-                return checks;
+                setStatus(el.repoStatus, "Connected to " + repo.full_name + " with write access.", "ok");
             }
 
             function renderRepoList() {
@@ -1475,7 +2175,7 @@
                 if (!state.repos.length) {
                     const div = document.createElement("div");
                     div.className = "repo-item";
-                    div.textContent = "No repositories found.";
+                    div.textContent = "Target repository not loaded.";
                     el.repoList.appendChild(div);
                     return;
                 }
@@ -1484,7 +2184,8 @@
                     const ok = Boolean(state.repoChecks[repo.full_name]);
                     const row = document.createElement("button");
                     row.type = "button";
-                    row.className = "repo-item" + (state.selectedRepoCandidate === repo.full_name ? " active" : "");
+                    row.className = "repo-item active";
+                    row.disabled = true;
 
                     const name = document.createElement("span");
                     name.className = "mono";
@@ -1492,15 +2193,10 @@
 
                     const badge = document.createElement("span");
                     badge.className = "repo-badge " + (ok ? "ok" : "bad");
-                    badge.textContent = ok ? "✓ Valid" : "✕ Invalid";
+                    badge.textContent = ok ? "✓ Valid Access" : "✕ Access check failed";
 
                     row.appendChild(name);
                     row.appendChild(badge);
-
-                    row.addEventListener("click", function() {
-                        state.selectedRepoCandidate = repo.full_name;
-                        renderRepoList();
-                    });
 
                     el.repoList.appendChild(row);
                 }
@@ -1550,49 +2246,36 @@
             }
 
             async function connectSelectedRepository() {
-                const selectedFullName = state.selectedRepoCandidate;
-                if (!selectedFullName) {
-                    throw new Error("Choose a repository first.");
-                }
-
-                if (!state.repoChecks[selectedFullName]) {
-                    throw new Error("Selected repository does not contain required ghwe root files.");
-                }
-
-                const selected = state.validRepos.find(function(repo) {
-                    return repo.full_name === selectedFullName;
-                });
-
-                if (!selected) {
-                    throw new Error("Selected repository is not validated.");
+                const selected = state.validRepos[0] || state.repos[0];
+                if (!selected || normalizeRepoName(selected.full_name) !== TARGET_REPO_FULL_NAME) {
+                    throw new Error("This editor can only connect to its configured repository.");
                 }
 
                 state.selectedRepo = selected;
-                const configResult = await loadRepoJsonFile(selected.full_name, "ghwe_config.json");
-                const logResult = await loadRepoJsonFile(selected.full_name, "ghwe_log.json");
-
-                state.config = {
-                    path: configResult.fileMeta.path,
-                    sha: configResult.fileMeta.sha,
-                    data: configResult.data
-                };
-
-                state.log = Array.isArray(logResult.data) ? logResult.data : [];
-                state.logSha = logResult.fileMeta.sha || "";
 
                 el.repoSummary.textContent = selected.full_name + " (branch: " + selected.default_branch + ")";
                 renderConfiguredFiles();
-                setStatus(el.repoStatus, "Repository connected. Continue to file selection.", "ok");
+                setStatus(el.repoStatus, "Repository connected. Continue to file loading.", "ok");
                 setEditorStep(2);
             }
 
             function renderConfiguredFiles() {
-                const fileMap = (state.config && state.config.data && state.config.data.json_files) || {};
                 el.configuredFilesList.innerHTML = "";
                 el.jsonFileSelect.innerHTML = "";
 
-                const entries = Object.entries(fileMap);
-                for (const [key, path] of entries) {
+                const entries = Object.entries(REPOSITORY_FILE_MAP);
+                if (!entries.length) {
+                    const item = document.createElement("li");
+                    item.className = "mono";
+                    item.textContent = "No repository files configured.";
+                    el.configuredFilesList.appendChild(item);
+                    return;
+                }
+
+                entries.forEach(function(entry, idx) {
+                    const key = entry[0];
+                    const path = entry[1];
+
                     const item = document.createElement("li");
                     item.className = "mono";
                     item.textContent = key + " -> " + path;
@@ -1601,20 +2284,19 @@
                     const option = document.createElement("option");
                     option.value = path;
                     option.textContent = key + " (" + path + ")";
+                    if (DEFAULT_FILE_KEY && key === DEFAULT_FILE_KEY) {
+                        option.selected = true;
+                    } else if (!DEFAULT_FILE_KEY && idx === 0) {
+                        option.selected = true;
+                    }
                     el.jsonFileSelect.appendChild(option);
-                }
-
-                if (!entries.length) {
-                    const item = document.createElement("li");
-                    item.textContent = "No json_files configured.";
-                    el.configuredFilesList.appendChild(item);
-                }
+                });
             }
 
             async function loadSelectedJsonFile() {
                 const filePath = el.jsonFileSelect.value;
                 if (!filePath) {
-                    throw new Error("Choose a configured JSON file.");
+                    throw new Error("No JSON file is configured for this editor.");
                 }
                 if (!state.selectedRepo) {
                     throw new Error("Connect a repository first.");
@@ -1630,31 +2312,169 @@
                 el.jsonTextArea.value = JSON.stringify(parsed, null, 2);
 
                 hydrateCrmFromCurrentJson();
+                updateCommitNotificationChoiceVisibility();
                 el.currentFilePill.textContent = file.path;
                 setStatus(el.fileStatus, "Loaded " + file.path + ". Continue to editor stage.", "ok");
                 setEditorStep(3);
             }
 
             function switchEditorMode(mode) {
-                const isDnd = mode === "dnd";
-                const isCrm = mode === "crm";
-                const isText = mode === "text";
+                if (el.crmMode) {
+                    el.crmMode.classList.toggle("hidden", false);
+                }
 
-                el.dndMode.classList.toggle("hidden", !isDnd);
-                el.crmMode.classList.toggle("hidden", !isCrm);
-                el.textMode.classList.toggle("hidden", !isText);
-
-                el.modeDndBtn.classList.toggle("active", isDnd);
-                el.modeCrmBtn.classList.toggle("active", isCrm);
-                el.modeTextBtn.classList.toggle("active", isText);
-
-                if (isDnd) {
-                    renderNodeBuilder();
+                if (state.currentJsonData) {
+                    hydrateCrmFromCurrentJson();
+                } else if (el.jsonTextArea && el.jsonTextArea.value) {
+                    hydrateCrmFromTextarea();
                 }
             }
 
             function deepClone(value) {
                 return JSON.parse(JSON.stringify(value));
+            }
+
+            function getCurrentEditorFileKind() {
+                const path = String(state.currentJsonPath || "").toLowerCase();
+                if (path.endsWith("/teams.json") || path.endsWith("teams.json")) {
+                    return "teams";
+                }
+                if (path.endsWith("/games.json") || path.endsWith("games.json")) {
+                    return "games";
+                }
+                if (path.endsWith("/posts.json") || path.endsWith("posts.json")) {
+                    return "posts";
+                }
+                if (path.endsWith("/sites.json") || path.endsWith("sites.json")) {
+                    return "sites";
+                }
+                return "generic";
+            }
+
+            function toTeamSlug(name) {
+                return String(name || "team")
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]+/g, "-")
+                    .replace(/^-+|-+$/g, "");
+            }
+
+            function isGamesEditorFile() {
+                return getCurrentEditorFileKind() === "games";
+            }
+
+            function getVisibleRecordIndexes() {
+                const total = state.crmModel.records.length;
+                if (!isGamesEditorFile()) {
+                    return state.crmModel.records.map(function(_record, idx) {
+                        return idx;
+                    });
+                }
+
+                const visibleCount = Math.max(0, Math.min(total, Number(state.crmModel.gamesVisibleCount || state.crmModel.gamesPageSize || 10)));
+                return state.crmModel.records.slice(0, visibleCount).map(function(_record, idx) {
+                    return idx;
+                });
+            }
+
+            function ensureSelectedRecordIsVisible() {
+                if (!isGamesEditorFile()) {
+                    return;
+                }
+                if (state.crmModel.selectedIndex >= state.crmModel.records.length) {
+                    state.crmModel.selectedIndex = Math.max(0, state.crmModel.records.length - 1);
+                }
+                if (state.crmModel.selectedIndex >= state.crmModel.gamesVisibleCount) {
+                    state.crmModel.gamesVisibleCount = state.crmModel.selectedIndex + 1;
+                }
+            }
+
+            function resetGamesVisibleCount() {
+                state.crmModel.gamesVisibleCount = Number(state.crmModel.gamesPageSize || 10);
+            }
+
+            function renderGamesRecordLimitUi() {
+                if (!el.gamesRecordLimitWrap || !el.gamesRecordLimitInfo || !el.gamesRecordLoadMoreBtn) {
+                    return;
+                }
+
+                const isGames = isGamesEditorFile() && state.crmModel.rootMode === "array";
+                if (!isGames) {
+                    el.gamesRecordLimitWrap.classList.add("hidden");
+                    return;
+                }
+
+                const total = state.crmModel.records.length;
+                const visibleCount = Math.min(total, Number(state.crmModel.gamesVisibleCount || state.crmModel.gamesPageSize || 10));
+                el.gamesRecordLimitWrap.classList.remove("hidden");
+                el.gamesRecordLimitInfo.textContent = "Showing first " + visibleCount + " of " + total + " games";
+
+                const canLoadMore = visibleCount < total;
+                el.gamesRecordLoadMoreBtn.disabled = !canLoadMore;
+                el.gamesRecordLoadMoreBtn.textContent = canLoadMore
+                    ? "Load " + Number(state.crmModel.gamesPageSize || 10) + " more"
+                    : "All games loaded";
+            }
+
+            function loadMoreGameRecords() {
+                const increment = Number(state.crmModel.gamesPageSize || 10);
+                state.crmModel.gamesVisibleCount = Math.min(
+                    state.crmModel.records.length,
+                    Number(state.crmModel.gamesVisibleCount || 0) + increment
+                );
+                renderCrmRecordSelect();
+                renderCrmFields();
+                renderCrmDragList();
+            }
+
+            function buildDefaultPlayerRow() {
+                return ["", "", "0", "0", "0"];
+            }
+
+            function normalizePlayerRow(row) {
+                if (!Array.isArray(row)) {
+                    return buildDefaultPlayerRow();
+                }
+
+                const values = row.slice(0, 5);
+                return [
+                    String(values[0] ?? ""),
+                    String(values[1] ?? ""),
+                    String(values[2] ?? "0"),
+                    String(values[3] ?? "0"),
+                    String(values[4] ?? "0")
+                ];
+            }
+
+            function normalizePlayers(value) {
+                if (!Array.isArray(value)) {
+                    return [];
+                }
+                return value.map(normalizePlayerRow);
+            }
+
+            function normalizePostContentForEditor(value) {
+                if (value == null) {
+                    return "";
+                }
+                return String(value)
+                    .replace(/\\r\\n/g, "\n")
+                    .replace(/\\r/g, "\n")
+                    .replace(/\r\n/g, "\n")
+                    .replace(/\r/g, "\n");
+            }
+
+            function normalizePostContentForStorage(value) {
+                return String(value ?? "")
+                    .replace(/\r\n/g, "\n")
+                    .replace(/\r/g, "\n");
+            }
+
+            function autoResizeTextarea(textarea) {
+                if (!textarea) {
+                    return;
+                }
+                textarea.style.height = "auto";
+                textarea.style.height = Math.max(140, textarea.scrollHeight) + "px";
             }
 
             function inferNodeType(value) {
@@ -1806,7 +2626,7 @@
                     return false;
                 }
 
-                const definitionKeys = [
+                const strongDefinitionKeys = [
                     "type",
                     "default",
                     "field_type",
@@ -1814,16 +2634,22 @@
                     "value_type",
                     "required",
                     "optional",
-                    "description",
                     "label",
                     "hint",
                     "options",
                     "enum"
                 ];
 
-                return definitionKeys.some(function(key) {
+                if (strongDefinitionKeys.some(function(key) {
                     return Object.prototype.hasOwnProperty.call(definition, key);
-                });
+                })) {
+                    return true;
+                }
+
+                return Object.prototype.hasOwnProperty.call(definition, "description")
+                    && Object.keys(definition).some(function(key) {
+                        return ["type", "default", "field_type", "node_type", "value_type", "required", "optional", "label", "hint", "options", "enum"].includes(key);
+                    });
             }
 
             function isFieldMapCandidate(value) {
@@ -1842,6 +2668,37 @@
                 });
             }
 
+            function normalizeFieldMap(fieldMap) {
+                if (!fieldMap || typeof fieldMap !== "object" || Array.isArray(fieldMap)) {
+                    return {};
+                }
+
+                const directFields = {};
+                Object.entries(fieldMap).forEach(function(entry) {
+                    const key = entry[0];
+                    const value = entry[1];
+                    if (typeof value === "string" || isFieldDefinitionObject(value)) {
+                        directFields[key] = value;
+                    }
+                });
+
+                if (Object.keys(directFields).length) {
+                    return directFields;
+                }
+
+                const singleGroupEntry = Object.entries(fieldMap).find(function(entry) {
+                    const value = entry[1];
+                    return value && typeof value === "object" && !Array.isArray(value);
+                });
+
+                if (!singleGroupEntry) {
+                    return {};
+                }
+
+                const nestedCandidate = normalizeFieldMap(singleGroupEntry[1]);
+                return nestedCandidate && typeof nestedCandidate === "object" ? nestedCandidate : {};
+            }
+
             function resolveActiveFieldGroup(fieldCatalog, dataKey) {
                 if (!fieldCatalog || typeof fieldCatalog !== "object" || Array.isArray(fieldCatalog)) {
                     return {
@@ -1850,17 +2707,18 @@
                     };
                 }
 
-                if (isFieldMapCandidate(fieldCatalog)) {
+                const normalizedCatalog = normalizeFieldMap(fieldCatalog);
+                if (Object.keys(normalizedCatalog).length) {
                     return {
                         groupName: "",
-                        activeFields: fieldCatalog
+                        activeFields: normalizedCatalog
                     };
                 }
 
                 if (fieldCatalog[dataKey] && isFieldMapCandidate(fieldCatalog[dataKey])) {
                     return {
                         groupName: dataKey,
-                        activeFields: fieldCatalog[dataKey]
+                        activeFields: normalizeFieldMap(fieldCatalog[dataKey])
                     };
                 }
 
@@ -1868,7 +2726,7 @@
                 if (singular && fieldCatalog[singular] && isFieldMapCandidate(fieldCatalog[singular])) {
                     return {
                         groupName: singular,
-                        activeFields: fieldCatalog[singular]
+                        activeFields: normalizeFieldMap(fieldCatalog[singular])
                     };
                 }
 
@@ -1878,7 +2736,7 @@
                 if (firstKey) {
                     return {
                         groupName: firstKey,
-                        activeFields: fieldCatalog[firstKey]
+                        activeFields: normalizeFieldMap(fieldCatalog[firstKey])
                     };
                 }
 
@@ -1890,7 +2748,8 @@
 
             function buildRecordFromFields(fieldMap) {
                 const record = {};
-                Object.entries(fieldMap || {}).forEach(function(entry) {
+                const normalizedFieldMap = normalizeFieldMap(fieldMap);
+                Object.entries(normalizedFieldMap).forEach(function(entry) {
                     const key = entry[0];
                     const config = entry[1];
                     if (config && typeof config === "object" && !Array.isArray(config) && Object.prototype.hasOwnProperty.call(config, "default")) {
@@ -1924,39 +2783,51 @@
                 return String(rawValue ?? "");
             }
 
-            function renderCrmRecordJsonEditor() {
-                if (!el.crmRecordJsonInput) {
-                    return;
-                }
-
+            function duplicateSelectedCrmRecord() {
                 if (!state.crmModel.records.length) {
-                    el.crmRecordJsonInput.value = "";
                     return;
                 }
 
-                const record = state.crmModel.records[state.crmModel.selectedIndex] || {};
-                el.crmRecordJsonInput.value = JSON.stringify(record, null, 2);
+                const source = state.crmModel.records[state.crmModel.selectedIndex] || {};
+                const duplicate = deepClone(source);
+                const insertIndex = state.crmModel.selectedIndex + 1;
+                state.crmModel.records.splice(insertIndex, 0, duplicate);
+                state.crmModel.selectedIndex = insertIndex;
+                ensureSelectedRecordIsVisible();
+                renderCrmRecordSelect();
+                renderCrmFields();
+                syncCrmToJsonText();
+                setStatus(el.editorStatus, "Record duplicated.", "ok");
             }
 
-            function applyCrmRecordJsonEditor() {
-                if (!state.crmModel.records.length) {
+            function closeCrmRecordModal() {
+                if (el.crmRecordModal) {
+                    el.crmRecordModal.classList.add("hidden");
+                }
+                renderCrmRecordSelect();
+                renderCrmDragList();
+            }
+
+            function openCrmRecordModal(recordIndex) {
+                if (!el.crmRecordModal || !state.crmModel.records.length) {
                     return;
                 }
 
-                try {
-                    const parsed = JSON.parse(el.crmRecordJsonInput.value);
-                    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
-                        throw new Error("Selected record JSON must be an object.");
-                    }
+                state.crmModel.selectedIndex = Math.max(0, Math.min(recordIndex, state.crmModel.records.length - 1));
+                renderCrmRecordSelect();
 
-                    state.crmModel.records[state.crmModel.selectedIndex] = parsed;
-                    renderCrmRecordSelect();
-                    renderCrmFields();
-                    syncCrmToJsonText();
-                    setStatus(el.editorStatus, "Selected record JSON applied.", "ok");
-                } catch (error) {
-                    setStatus(el.editorStatus, "Record JSON parse error: " + error.message, "bad");
+                const activeRecord = state.crmModel.records[state.crmModel.selectedIndex] || {};
+                const label = getRecordLabel(activeRecord, state.crmModel.selectedIndex);
+
+                if (el.crmRecordModalTitle) {
+                    el.crmRecordModalTitle.textContent = label ? "Edit " + label : "Edit Record " + (state.crmModel.selectedIndex + 1);
                 }
+                if (el.crmRecordModalPath) {
+                    el.crmRecordModalPath.textContent = label || "record[" + state.crmModel.selectedIndex + "]";
+                }
+
+                renderCrmFields(el.crmModalFields, state.crmModel.selectedIndex);
+                el.crmRecordModal.classList.remove("hidden");
             }
 
             function getNodeBuilderRoot() {
@@ -2654,6 +3525,7 @@
                 state.crmModel.schema.fieldCatalog = {};
                 state.crmModel.schema.activeFieldGroup = "";
                 state.crmModel.schema.activeFields = {};
+                resetGamesVisibleCount();
 
                 if (
                     state.currentJsonData
@@ -2718,6 +3590,7 @@
                 renderCrmRecordSelect();
                 renderCrmFields();
                 renderCrmDragList();
+                renderGamesRecordLimitUi();
                 renderNodeBuilder();
             }
 
@@ -2730,20 +3603,29 @@
                     option.textContent = "No records";
                     el.crmRecordSelect.appendChild(option);
                     renderCrmDragList();
+                    renderGamesRecordLimitUi();
                     return;
                 }
 
-                state.crmModel.records.forEach(function(_record, idx) {
+                ensureSelectedRecordIsVisible();
+                const visibleIndexes = getVisibleRecordIndexes();
+                if (visibleIndexes.length && !visibleIndexes.includes(state.crmModel.selectedIndex)) {
+                    state.crmModel.selectedIndex = visibleIndexes[0];
+                }
+
+                visibleIndexes.forEach(function(globalIndex) {
+                    const record = state.crmModel.records[globalIndex];
                     const option = document.createElement("option");
-                    option.value = String(idx);
-                    option.textContent = "Record " + (idx + 1);
-                    if (idx === state.crmModel.selectedIndex) {
+                    option.value = String(globalIndex);
+                    option.textContent = getRecordLabel(record, globalIndex);
+                    if (globalIndex === state.crmModel.selectedIndex) {
                         option.selected = true;
                     }
                     el.crmRecordSelect.appendChild(option);
                 });
 
                 renderCrmDragList();
+                renderGamesRecordLimitUi();
             }
 
             function getRecordLabel(record, index) {
@@ -2751,16 +3633,75 @@
                     return "Record " + (index + 1);
                 }
 
-                const candidateKeys = ["title", "name", "id", "slug", "label"];
-                for (const key of candidateKeys) {
-                    if (record[key]) {
-                        return "Record " + (index + 1) + ": " + String(record[key]);
+                const kind = getCurrentEditorFileKind();
+                if (kind === "games") {
+                    const home = record.home_team || record.homeTeam || "";
+                    const away = record.away_team || record.awayTeam || "";
+                    const date = record.date || "";
+                    const homeScore = record.home_score ?? record.homeScore ?? "";
+                    const awayScore = record.away_score ?? record.awayScore ?? "";
+                    const scoreText = (homeScore === "" && awayScore === "") ? "" : String(homeScore) + "-" + String(awayScore);
+                    if (home && away) {
+                        const parts = [home + " vs " + away];
+                        if (date) parts.push(date);
+                        if (scoreText) parts.push(scoreText);
+                        return parts.join(" · ");
                     }
+                }
+
+                if (kind === "teams") {
+                    const teamName = record.team_name || record.teamName || record.name || "";
+                    const competition = record.competition || "";
+                    const country = record.country || "";
+                    if (teamName && competition) {
+                        return teamName + " · " + competition;
+                    }
+                    if (teamName && country) {
+                        return teamName + " · " + country;
+                    }
+                    if (teamName) {
+                        return teamName;
+                    }
+                }
+
+                if (kind === "posts") {
+                    const titleValue = record.title || record.name || record.label || record.slug;
+                    if (titleValue) {
+                        return String(titleValue);
+                    }
+                }
+
+                if (kind === "sites") {
+                    const siteTitle = record.site_title || record.siteTitle || "";
+                    const siteLink = record.link || record.url || "";
+                    if (siteTitle && siteLink) {
+                        return String(siteTitle) + " / " + String(siteLink);
+                    }
+                    if (siteTitle) {
+                        return String(siteTitle);
+                    }
+                    if (siteLink) {
+                        return String(siteLink);
+                    }
+                }
+
+                const idValue = record.id;
+                const titleValue = record.title || record.name || record.label || record.slug;
+
+                if (idValue !== undefined && idValue !== null && idValue !== "") {
+                    if (titleValue !== undefined && titleValue !== null && titleValue !== "") {
+                        return String(idValue) + " — " + String(titleValue);
+                    }
+                    return String(idValue);
+                }
+
+                if (titleValue !== undefined && titleValue !== null && titleValue !== "") {
+                    return String(titleValue);
                 }
 
                 const keys = Object.keys(record);
                 if (keys.length) {
-                    return "Record " + (index + 1) + ": " + keys.slice(0, 2).join(" / ");
+                    return keys.slice(0, 2).join(" / ");
                 }
 
                 return "Record " + (index + 1);
@@ -2785,14 +3726,18 @@
 
                 if (state.crmModel.rootMode !== "array") {
                     el.crmDragPanel.classList.add("hidden");
+                    renderGamesRecordLimitUi();
                     return;
                 }
 
                 el.crmDragPanel.classList.remove("hidden");
 
-                state.crmModel.records.forEach(function(record, idx) {
+                const visibleIndexes = getVisibleRecordIndexes();
+
+                visibleIndexes.forEach(function(globalIndex) {
+                    const record = state.crmModel.records[globalIndex];
                     const item = document.createElement("li");
-                    item.className = "crm-drag-item" + (idx === state.crmModel.selectedIndex ? " active" : "");
+                    item.className = "crm-drag-item" + (globalIndex === state.crmModel.selectedIndex ? " active" : "");
                     item.draggable = true;
 
                     const handle = document.createElement("span");
@@ -2801,20 +3746,18 @@
 
                     const text = document.createElement("span");
                     text.className = "mono";
-                    text.textContent = getRecordLabel(record, idx);
+                    text.textContent = getRecordLabel(record, globalIndex);
 
                     item.appendChild(handle);
                     item.appendChild(text);
 
                     item.addEventListener("click", function() {
-                        state.crmModel.selectedIndex = idx;
-                        renderCrmRecordSelect();
-                        renderCrmFields();
+                        openCrmRecordModal(globalIndex);
                     });
 
                     item.addEventListener("dragstart", function(event) {
                         event.dataTransfer.effectAllowed = "move";
-                        event.dataTransfer.setData("text/plain", String(idx));
+                        event.dataTransfer.setData("text/plain", String(globalIndex));
                     });
 
                     item.addEventListener("dragover", function(event) {
@@ -2830,7 +3773,7 @@
                         event.preventDefault();
                         item.classList.remove("drag-over");
                         const fromIndex = Number(event.dataTransfer.getData("text/plain"));
-                        reorderRecords(fromIndex, idx);
+                        reorderRecords(fromIndex, globalIndex);
                     });
 
                     item.addEventListener("dragend", function() {
@@ -2839,21 +3782,446 @@
 
                     el.crmDragList.appendChild(item);
                 });
+
+                renderGamesRecordLimitUi();
             }
 
-            function renderCrmFields() {
-                el.crmFields.innerHTML = "";
+            function ensureTeamPlayersArray(record) {
+                if (!record || typeof record !== "object") {
+                    return [];
+                }
+                if (!Array.isArray(record.players)) {
+                    record.players = [];
+                }
+                record.players = normalizePlayers(record.players);
+                return record.players;
+            }
+
+            function getActiveTeamPlayersRecord() {
+                const index = Number(state.crmModel.playersModalRecordIndex ?? state.crmModel.selectedIndex ?? 0);
+                const record = state.crmModel.records[index] || null;
+                if (!record || typeof record !== "object") {
+                    return null;
+                }
+                ensureTeamPlayersArray(record);
+                return record;
+            }
+
+            function openTeamPlayersModal(recordIndex) {
+                if (!state.crmModel.records.length) {
+                    return;
+                }
+                state.crmModel.playersModalRecordIndex = Math.max(0, Math.min(Number(recordIndex ?? state.crmModel.selectedIndex ?? 0), state.crmModel.records.length - 1));
+                renderTeamPlayersModal();
+                if (el.teamPlayersModal) {
+                    el.teamPlayersModal.classList.remove("hidden");
+                }
+            }
+
+            function closeTeamPlayersModal() {
+                if (el.teamPlayersModal) {
+                    el.teamPlayersModal.classList.add("hidden");
+                }
+            }
+
+            function getActivePostContentRecord() {
+                const index = Number(state.crmModel.postContentModalRecordIndex ?? state.crmModel.selectedIndex ?? 0);
+                const record = state.crmModel.records[index] || null;
+                if (!record || typeof record !== "object") {
+                    return null;
+                }
+                return record;
+            }
+
+            function openPostContentModal(recordIndex) {
+                if (!state.crmModel.records.length) {
+                    return;
+                }
+                closePostTagModal();
+                state.crmModel.postContentModalRecordIndex = Math.max(0, Math.min(Number(recordIndex ?? state.crmModel.selectedIndex ?? 0), state.crmModel.records.length - 1));
+                const record = getActivePostContentRecord();
+                if (!record) {
+                    return;
+                }
+                if (el.postContentModalTitle) {
+                    const title = record.title || record.name || "Post";
+                    el.postContentModalTitle.textContent = "Edit Post Content · " + title;
+                }
+                if (el.postContentModalPath) {
+                    el.postContentModalPath.textContent = record.title || record.name || "post.content";
+                }
+                if (el.postContentModalTextarea) {
+                    el.postContentModalTextarea.value = normalizePostContentForEditor(record.content);
+                }
+                if (el.postContentModal) {
+                    el.postContentModal.classList.remove("hidden");
+                }
+            }
+
+            function closePostContentModal() {
+                if (el.postContentModal) {
+                    el.postContentModal.classList.add("hidden");
+                }
+            }
+
+            function getPostTagModalConfig(tagMode) {
+                if (tagMode === "featured-image") {
+                    return {
+                        title: "Insert Featured Image",
+                        pill: "Featured Image",
+                        help: "Adds a featured image block to the post content. The caption is optional.",
+                        urlLabel: "Image URL",
+                        urlPlaceholder: "https://example.com/data/example.png",
+                        labelLabel: "Caption",
+                        labelPlaceholder: "Optional caption"
+                    };
+                }
+
+                return {
+                    title: "Insert Link",
+                    pill: "Link",
+                    help: "Adds a custom [link=...]...[/link] tag to the post content.",
+                    urlLabel: "Link URL",
+                    urlPlaceholder: "https://example.com",
+                    labelLabel: "Link Text",
+                    labelPlaceholder: "Read more"
+                };
+            }
+
+            function openPostTagModal(tagMode) {
+                const textarea = el.postContentModalTextarea;
+                if (!textarea || !el.postTagModal) {
+                    return;
+                }
+
+                const config = getPostTagModalConfig(tagMode);
+                const start = Number(textarea.selectionStart || 0);
+                const end = Number(textarea.selectionEnd || start);
+                const selectedText = textarea.value.slice(start, end).trim();
+
+                state.crmModel.postTagModalMode = tagMode === "featured-image" ? "featured-image" : "link";
+                state.crmModel.postTagModalSelectionStart = start;
+                state.crmModel.postTagModalSelectionEnd = end;
+
+                if (el.postTagModalTitle) {
+                    el.postTagModalTitle.textContent = config.title;
+                }
+                if (el.postTagModalTypePill) {
+                    el.postTagModalTypePill.textContent = config.pill;
+                }
+                if (el.postTagModalHelpText) {
+                    el.postTagModalHelpText.textContent = config.help;
+                }
+                if (el.postTagModalUrlLabel) {
+                    el.postTagModalUrlLabel.textContent = config.urlLabel;
+                }
+                if (el.postTagModalLabelLabel) {
+                    el.postTagModalLabelLabel.textContent = config.labelLabel;
+                }
+                if (el.postTagModalUrlInput) {
+                    el.postTagModalUrlInput.value = "";
+                    el.postTagModalUrlInput.placeholder = config.urlPlaceholder;
+                }
+                if (el.postTagModalLabelInput) {
+                    el.postTagModalLabelInput.value = selectedText;
+                    el.postTagModalLabelInput.placeholder = config.labelPlaceholder;
+                }
+                if (el.postTagModal) {
+                    el.postTagModal.classList.remove("hidden");
+                }
+                if (el.postTagModalUrlInput) {
+                    el.postTagModalUrlInput.focus();
+                }
+            }
+
+            function closePostTagModal() {
+                if (el.postTagModal) {
+                    el.postTagModal.classList.add("hidden");
+                }
+                state.crmModel.postTagModalMode = "";
+            }
+
+            function insertPostTagFromModal() {
+                if (!el.postContentModalTextarea || !el.postTagModalUrlInput || !el.postTagModalLabelInput) {
+                    closePostTagModal();
+                    return;
+                }
+
+                const tagMode = state.crmModel.postTagModalMode || "link";
+                const rawUrl = String(el.postTagModalUrlInput.value || "").trim();
+                const rawLabel = String(el.postTagModalLabelInput.value || "").trim();
+
+                if (!rawUrl) {
+                    setStatus(el.editorStatus, "Enter a URL before inserting the tag.", "bad");
+                    return;
+                }
+
+                if (tagMode === "link" && !rawLabel) {
+                    setStatus(el.editorStatus, "Enter link text before inserting the tag.", "bad");
+                    return;
+                }
+
+                const textarea = el.postContentModalTextarea;
+                const start = Number(state.crmModel.postTagModalSelectionStart ?? textarea.selectionStart ?? 0);
+                const end = Number(state.crmModel.postTagModalSelectionEnd ?? textarea.selectionEnd ?? start);
+                const before = textarea.value.slice(0, start);
+                const after = textarea.value.slice(end);
+                const markup = tagMode === "featured-image"
+                    ? "[featured-image=" + rawUrl + "]" + rawLabel + "[/featured-image]"
+                    : "[link=" + rawUrl + "]" + rawLabel + "[/link]";
+                const prefix = before.length > 0 && !/[\s\n]$/.test(before) ? " " : "";
+                const suffix = after.length > 0 && !/^[\s\n]/.test(after) ? " " : "";
+
+                textarea.value = before + prefix + markup + suffix + after;
+                const caret = (before + prefix + markup).length;
+
+                closePostTagModal();
+                textarea.focus();
+                textarea.setSelectionRange(caret, caret);
+                setStatus(el.editorStatus, tagMode === "featured-image" ? "Inserted featured image tag into post content." : "Inserted link tag into post content.", "ok");
+            }
+
+            function savePostContentModal() {
+                const record = getActivePostContentRecord();
+                if (!record || !el.postContentModalTextarea) {
+                    closePostContentModal();
+                    return;
+                }
+                record.content = normalizePostContentForStorage(el.postContentModalTextarea.value);
+                syncCrmToJsonText();
+                renderCrmFields();
+                closePostContentModal();
+            }
+
+            function renderTeamPlayersModal() {
+                if (!el.teamPlayersModal || !el.teamPlayersModalBody) {
+                    return;
+                }
+                const record = getActiveTeamPlayersRecord();
+                if (!record) {
+                    closeTeamPlayersModal();
+                    return;
+                }
+
+                const title = record.team_name || record.teamName || record.name || "Team";
+                if (el.teamPlayersModalTitle) {
+                    el.teamPlayersModalTitle.textContent = "Edit Players · " + title;
+                }
+
+                const players = ensureTeamPlayersArray(record);
+                el.teamPlayersModalBody.innerHTML = "";
+
+                const summary = document.createElement("div");
+                summary.className = "row";
+                const countPill = document.createElement("div");
+                countPill.className = "pill mono";
+                countPill.textContent = "Total players: " + players.length;
+                summary.appendChild(countPill);
+                el.teamPlayersModalBody.appendChild(summary);
+
+                const list = document.createElement("div");
+                list.className = "stack";
+                players.forEach(function(playerRow, playerIndex) {
+                    const row = document.createElement("div");
+                    row.className = "player-row";
+
+                    const columns = [
+                        { key: 0, label: "Position" },
+                        { key: 1, label: "Name" },
+                        { key: 2, label: "Yellow" },
+                        { key: 3, label: "Red" },
+                        { key: 4, label: "Injury" }
+                    ];
+
+                    columns.forEach(function(column) {
+                        const fieldWrap = document.createElement("div");
+                        if (column.key === 1) {
+                            fieldWrap.className = "player-name-field";
+                        }
+                        const fieldLabel = document.createElement("label");
+                        fieldLabel.textContent = column.label;
+                        const input = document.createElement("input");
+                        input.type = column.key >= 2 ? "number" : "text";
+                        if (column.key >= 2) {
+                            input.className = "player-number-input";
+                        } else if (column.key === 1) {
+                            input.className = "player-name-input";
+                        }
+                        input.value = String(playerRow[column.key] ?? "");
+                        input.addEventListener("input", function(event) {
+                            const nextRow = normalizePlayerRow(record.players[playerIndex]);
+                            nextRow[column.key] = event.target.value;
+                            record.players[playerIndex] = nextRow;
+                            syncCrmToJsonText();
+                        });
+                        fieldWrap.appendChild(fieldLabel);
+                        fieldWrap.appendChild(input);
+                        row.appendChild(fieldWrap);
+                    });
+
+                    const actionWrap = document.createElement("div");
+                    actionWrap.className = "player-action";
+                    const moveUpBtn = document.createElement("button");
+                    moveUpBtn.type = "button";
+                    moveUpBtn.textContent = "↑";
+                    moveUpBtn.title = "Move up";
+                    moveUpBtn.addEventListener("click", function() {
+                        if (playerIndex <= 0) {
+                            return;
+                        }
+                        const [moved] = record.players.splice(playerIndex, 1);
+                        record.players.splice(playerIndex - 1, 0, moved);
+                        renderTeamPlayersModal();
+                        syncCrmToJsonText();
+                    });
+                    const moveDownBtn = document.createElement("button");
+                    moveDownBtn.type = "button";
+                    moveDownBtn.textContent = "↓";
+                    moveDownBtn.title = "Move down";
+                    moveDownBtn.addEventListener("click", function() {
+                        if (playerIndex >= record.players.length - 1) {
+                            return;
+                        }
+                        const [moved] = record.players.splice(playerIndex, 1);
+                        record.players.splice(playerIndex + 1, 0, moved);
+                        renderTeamPlayersModal();
+                        syncCrmToJsonText();
+                    });
+                    const removeBtn = document.createElement("button");
+                    removeBtn.type = "button";
+                    removeBtn.textContent = "Remove";
+                    removeBtn.addEventListener("click", function() {
+                        record.players.splice(playerIndex, 1);
+                        renderTeamPlayersModal();
+                        syncCrmToJsonText();
+                    });
+                    actionWrap.appendChild(moveUpBtn);
+                    actionWrap.appendChild(moveDownBtn);
+                    actionWrap.appendChild(removeBtn);
+                    row.appendChild(actionWrap);
+                    list.appendChild(row);
+                });
+
+                el.teamPlayersModalBody.appendChild(list);
+            }
+
+            function renderSpecializedCrmFields(targetContainer, record, recordIndex) {
+                const kind = getCurrentEditorFileKind();
+
+                if (kind === "games") {
+                    const fieldDefinitions = [
+                        { key: "home_or_away", label: "Home / Away" },
+                        { key: "home_team", label: "Home Team" },
+                        { key: "away_team", label: "Away Team" },
+                        { key: "date", label: "Date" },
+                        { key: "time", label: "Time" },
+                        { key: "competition", label: "Competition" },
+                        { key: "venue", label: "Venue" },
+                        { key: "home_score", label: "Home Score" },
+                        { key: "away_score", label: "Away Score" },
+                        { key: "winner", label: "Winner" }
+                    ];
+
+                    fieldDefinitions.forEach(function(field) {
+                        const wrapper = document.createElement("div");
+                        wrapper.className = "crm-field-card";
+                        const label = document.createElement("label");
+                        label.textContent = field.label;
+                        const input = document.createElement("input");
+                        input.type = "text";
+                        input.value = record[field.key] == null ? "" : String(record[field.key]);
+                        input.addEventListener("input", function(event) {
+                            const rawValue = event.target.value;
+                            if (field.key === "home_score" || field.key === "away_score") {
+                                record[field.key] = rawValue === "" ? "" : String(Number(rawValue));
+                            } else {
+                                record[field.key] = rawValue;
+                            }
+                            syncCrmToJsonText();
+                        });
+                        wrapper.appendChild(label);
+                        wrapper.appendChild(input);
+                        targetContainer.appendChild(wrapper);
+                    });
+                    return true;
+                }
+
+                if (kind === "teams") {
+                    const basicFieldDefinitions = [
+                        { key: "team_name", label: "Team Name" },
+                        { key: "osm_or_top_eleven", label: "Platform" },
+                        { key: "competition", label: "Competition" },
+                        { key: "country", label: "Country" },
+                        { key: "home_venue", label: "Home Venue" }
+                    ];
+
+                    basicFieldDefinitions.forEach(function(field) {
+                        const wrapper = document.createElement("div");
+                        wrapper.className = "crm-field-card";
+                        const label = document.createElement("label");
+                        label.textContent = field.label;
+                        const input = document.createElement("input");
+                        input.type = "text";
+                        input.value = record[field.key] == null ? "" : String(record[field.key]);
+                        input.addEventListener("input", function(event) {
+                            record[field.key] = event.target.value;
+                            syncCrmToJsonText();
+                        });
+                        wrapper.appendChild(label);
+                        wrapper.appendChild(input);
+                        targetContainer.appendChild(wrapper);
+                    });
+
+                    const playersWrapper = document.createElement("div");
+                    playersWrapper.className = "player-summary-card";
+                    const playersLabel = document.createElement("label");
+                    playersLabel.textContent = "Players";
+                    playersWrapper.appendChild(playersLabel);
+
+                    const playersCount = document.createElement("div");
+                    playersCount.className = "pill mono";
+                    const normalizedPlayers = ensureTeamPlayersArray(record);
+                    playersCount.textContent = "Total players: " + normalizedPlayers.length;
+                    playersWrapper.appendChild(playersCount);
+
+                    const openPlayersBtn = document.createElement("button");
+                    openPlayersBtn.type = "button";
+                    openPlayersBtn.textContent = "Manage Players";
+                    openPlayersBtn.addEventListener("click", function() {
+                        openTeamPlayersModal(recordIndex);
+                    });
+                    playersWrapper.appendChild(openPlayersBtn);
+
+                    targetContainer.appendChild(playersWrapper);
+                    return true;
+                }
+
+                return false;
+            }
+
+            function renderCrmFields(targetContainer = el.crmFields, recordIndex = state.crmModel.selectedIndex) {
+                if (!targetContainer) {
+                    return;
+                }
+
+                targetContainer.innerHTML = "";
 
                 if (!state.crmModel.records.length) {
                     const emptyState = document.createElement("div");
                     emptyState.className = "status";
                     emptyState.textContent = "No objects to display. Add a record or switch back to raw mode to edit JSON directly.";
-                    el.crmFields.appendChild(emptyState);
-                    renderCrmRecordJsonEditor();
+                    targetContainer.appendChild(emptyState);
                     return;
                 }
 
-                const rec = state.crmModel.records[state.crmModel.selectedIndex] || {};
+                const safeRecordIndex = Math.max(0, Math.min(recordIndex, state.crmModel.records.length - 1));
+                const rec = state.crmModel.records[safeRecordIndex] || {};
+                const kind = getCurrentEditorFileKind();
+                state.crmModel.postContentModalRecordIndex = safeRecordIndex;
+
+                if (renderSpecializedCrmFields(targetContainer, rec, safeRecordIndex)) {
+                    return;
+                }
 
                 let renderKeys = Object.keys(rec);
                 if (state.crmModel.schema.enabled) {
@@ -2907,13 +4275,35 @@
                         typeSelect.addEventListener("change", function(event) {
                             const nextType = event.target.value;
                             rec[key] = getDefaultByType(nextType);
-                            renderCrmFields();
+                            renderCrmFields(targetContainer, safeRecordIndex);
                             syncCrmToJsonText();
                         });
                         head.appendChild(typeSelect);
                     }
 
-                    if (fieldType === "boolean") {
+                    if (kind === "posts" && String(key).toLowerCase() === "content") {
+                        const contentCard = document.createElement("div");
+                        contentCard.className = "crm-field-card";
+                        const contentHead = document.createElement("div");
+                        contentHead.className = "crm-field-head";
+                        const contentLabel = document.createElement("label");
+                        contentLabel.textContent = "Content";
+                        contentHead.appendChild(contentLabel);
+                        const openBtn = document.createElement("button");
+                        openBtn.type = "button";
+                        openBtn.textContent = "Open editor";
+                        openBtn.addEventListener("click", function() {
+                            openPostContentModal(safeRecordIndex);
+                        });
+                        contentHead.appendChild(openBtn);
+                        const preview = document.createElement("div");
+                        preview.className = "post-content-preview";
+                        preview.textContent = normalizePostContentForEditor(rec[key]).trim() || "No content yet";
+                        contentCard.appendChild(contentHead);
+                        contentCard.appendChild(preview);
+                        targetContainer.appendChild(contentCard);
+                        continue;
+                    } else if (fieldType === "boolean") {
                         input = document.createElement("input");
                         input.type = "checkbox";
                         input.checked = Boolean(rec[key]);
@@ -2949,7 +4339,7 @@
                     wrapper.className = "crm-field-card";
                     wrapper.appendChild(head);
                     wrapper.appendChild(input);
-                    el.crmFields.appendChild(wrapper);
+                    targetContainer.appendChild(wrapper);
                 }
 
                 const addFieldWrap = document.createElement("div");
@@ -2966,9 +4356,8 @@
                         hint: "Create a new field for the selected CRM record."
                     });
                 });
-                addFieldWrap.appendChild(addFieldBtn);
-                el.crmFields.appendChild(addFieldWrap);
-                renderCrmRecordJsonEditor();
+                // addFieldWrap.appendChild(addFieldBtn);
+                // targetContainer.appendChild(addFieldWrap);
             }
 
             function syncCrmToJsonText() {
@@ -2997,6 +4386,9 @@
             }
 
             function renderNodeBuilder() {
+                if (!el.nodeTreeList) {
+                    return;
+                }
                 const root = getNodeBuilderRoot();
                 el.nodeTreeList.innerHTML = "";
 
@@ -3063,6 +4455,203 @@
                 return parsed;
             }
 
+            function resolveLatestPost(jsonPayload) {
+                const posts = Array.isArray(jsonPayload && jsonPayload.posts) ? jsonPayload.posts : [];
+                if (!posts.length) {
+                    return null;
+                }
+
+                const parseDateTime = function(dateValue, timeValue) {
+                    const dateText = String(dateValue || "");
+                    const [day, month, year] = dateText.split("-").map((value) => Number(value));
+                    const [hour, minute] = String(timeValue || "00:00").split(":").map((value) => Number(value));
+
+                    if ([day, month, year, hour, minute].some((value) => Number.isNaN(value))) {
+                        return new Date(0);
+                    }
+
+                    return new Date(year, month - 1, day, hour, minute, 0, 0);
+                };
+
+                const sorted = [...posts].sort(function(a, b) {
+                    const aDate = parseDateTime(a?.date_time?.[0], a?.date_time?.[1]);
+                    const bDate = parseDateTime(b?.date_time?.[0], b?.date_time?.[1]);
+                    return bDate.getTime() - aDate.getTime();
+                });
+
+                const latest = sorted[0] || null;
+                if (!latest) {
+                    return null;
+                }
+
+                return {
+                    title: String(latest.title || "New post"),
+                    category: String(latest.category || "Other"),
+                    date: String((latest.date_time && latest.date_time[0]) || ""),
+                    time: String((latest.date_time && latest.date_time[1]) || ""),
+                    content: String(latest.content || ""),
+                    tags: Array.isArray(latest.tags) ? latest.tags : []
+                };
+            }
+
+            function resolveLatestResult(jsonPayload) {
+                const games = Array.isArray(jsonPayload && jsonPayload.games) ? jsonPayload.games : [];
+                const parseDateTime = function(dateValue, timeValue) {
+                    const dateText = String(dateValue || "").trim();
+                    const parts = dateText.split(/[-/]/).map(function(value) {
+                        return Number(value);
+                    });
+                    if (parts.length !== 3 || parts.some((value) => Number.isNaN(value))) {
+                        return new Date(0);
+                    }
+
+                    let day = parts[0];
+                    let month = parts[1];
+                    let year = parts[2];
+                    if (String(parts[0]).length === 4) {
+                        year = parts[0];
+                        month = parts[1];
+                        day = parts[2];
+                    }
+
+                    const [hour, minute] = String(timeValue || "00:00").split(":").map((value) => Number(value));
+                    if ([day, month, year, hour, minute].some((value) => Number.isNaN(value))) {
+                        return new Date(0);
+                    }
+
+                    return new Date(year, month - 1, day, hour, minute, 0, 0);
+                };
+
+                const playedGames = games.map(function(game, index) {
+                    return { game, index };
+                }).filter(function(entry) {
+                    const game = entry.game;
+                    if (!game || typeof game !== "object") {
+                        return false;
+                    }
+
+                    const hasHomeScore = String(game.home_score ?? "").trim() !== "";
+                    const hasAwayScore = String(game.away_score ?? "").trim() !== "";
+                    const winner = String(game.winner || "").trim();
+                    return (hasHomeScore && hasAwayScore) || winner.length > 0;
+                });
+
+                if (!playedGames.length) {
+                    return null;
+                }
+
+                const sorted = [...playedGames].sort(function(a, b) {
+                    const aDate = parseDateTime(a.game.date, a.game.time).getTime();
+                    const bDate = parseDateTime(b.game.date, b.game.time).getTime();
+                    if (bDate !== aDate) {
+                        return bDate - aDate;
+                    }
+                    // Preserve array order as the tie-breaker (top-most record wins).
+                    return a.index - b.index;
+                });
+
+                const latestEntry = sorted[0] || null;
+                const latest = latestEntry ? latestEntry.game : null;
+                if (!latest || typeof latest !== "object") {
+                    return null;
+                }
+
+                const winner = String(latest.winner || "").trim();
+                const homeOrAway = String(latest.home_or_away || "").trim().toLowerCase();
+                let relevantTeam = "";
+                if (homeOrAway === "home") {
+                    relevantTeam = String(latest.home_team || "").trim();
+                } else if (homeOrAway === "away") {
+                    relevantTeam = String(latest.away_team || "").trim();
+                } else if (winner && !/^draw$/i.test(winner)) {
+                    relevantTeam = winner;
+                } else {
+                    relevantTeam = String(latest.home_team || latest.away_team || "").trim();
+                }
+
+                const relevantTeamSlug = toTeamSlug(relevantTeam);
+                const relevantTeamUrl = relevantTeamSlug
+                    ? getFmAppBaseUrl() + "#team/" + relevantTeamSlug
+                    : "";
+
+                return {
+                    homeTeam: String(latest.home_team || ""),
+                    awayTeam: String(latest.away_team || ""),
+                    homeScore: String(latest.home_score ?? ""),
+                    awayScore: String(latest.away_score ?? ""),
+                    winner,
+                    date: String(latest.date || ""),
+                    time: String(latest.time || ""),
+                    competition: String(latest.competition || ""),
+                    relevantTeam,
+                    relevantTeamSlug,
+                    relevantTeamUrl
+                };
+            }
+
+            async function notifyPostUpdate(jsonPayload, commitSha, options = {}) {
+                const notificationConfig = WEBEDITOR_CONFIG.notifications || {};
+                if (!notificationConfig.enabled) {
+                    return { skipped: true, reason: "disabled" };
+                }
+
+                const delayMs = options.delayMs !== undefined ? Number(options.delayMs || 0) : Math.max(0, Number(notificationConfig.delayMs || 0));
+                const skipDelay = Boolean(options.skipDelay);
+                if (delayMs > 0 && !skipDelay) {
+                    await new Promise((resolve) => setTimeout(resolve, delayMs));
+                }
+
+                const endpoint = String(notificationConfig.notifyEndpoint || "").trim();
+                if (!endpoint) {
+                    return { skipped: true, reason: "no-endpoint" };
+                }
+
+                const fileKind = getCurrentEditorFileKind();
+                if (fileKind === "teams") {
+                    return { skipped: true, reason: "teams" };
+                }
+                if (fileKind !== "posts" && fileKind !== "games") {
+                    return { skipped: true, reason: "unsupported-kind" };
+                }
+
+                const latestPost = fileKind === "posts" ? resolveLatestPost(jsonPayload) : null;
+                const latestResult = fileKind === "games" ? resolveLatestResult(jsonPayload) : null;
+                const shouldNotify = Boolean(fileKind === "posts" ? latestPost : latestResult);
+                if (!shouldNotify) {
+                    return { skipped: true, reason: fileKind === "games" ? "no-completed-result" : "no-post" };
+                }
+
+                const headers = {
+                    "Content-Type": "application/json"
+                };
+
+                const token = String(notificationConfig.authToken || "").trim();
+                if (token) {
+                    headers.Authorization = "Bearer " + token;
+                }
+
+                const response = await fetch(endpoint, {
+                    method: "POST",
+                    headers,
+                    body: JSON.stringify({
+                        siteId: String(notificationConfig.siteId || "uu"), // default to "uu" for UniquelyUs
+                        repo: WEBEDITOR_CONFIG.repository.targetRepoFullName,
+                        path: state.currentJsonPath,
+                        commitSha: commitSha || "",
+                        kind: fileKind,
+                        latestPost,
+                        latestResult,
+                        notificationUrl: fileKind === "games" ? String((latestResult && latestResult.relevantTeamUrl) || "") : ""
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error("Notification endpoint returned HTTP " + response.status + ".");
+                }
+
+                return { skipped: false };
+            }
+
             async function getBranchHeadCommitSha(repoFullName, branch) {
                 const refResponse = await ghFetch("/repos/" + repoFullName + "/git/ref/heads/" + encodeURIComponent(branch));
                 const refPayload = await refResponse.json();
@@ -3090,12 +4679,14 @@
                 return blobPayload.sha;
             }
 
-            async function commitFilesTogether(repoFullName, branch, message, files) {
+            async function commitFilesTogether(repoFullName, branch, message, files, onProgress = null) {
+                if (onProgress) onProgress("Resolving branch head commit...");
                 const parentCommitSha = await getBranchHeadCommitSha(repoFullName, branch);
                 if (!parentCommitSha) {
                     throw new Error("Unable to resolve branch head commit.");
                 }
 
+                if (onProgress) onProgress("Resolving base tree...");
                 const baseTreeSha = await getCommitTreeSha(repoFullName, parentCommitSha);
                 if (!baseTreeSha) {
                     throw new Error("Unable to resolve base tree for branch.");
@@ -3105,6 +4696,7 @@
                 const fileBlobShas = {};
 
                 for (const file of files) {
+                    if (onProgress) onProgress("Creating blob for " + file.path + "...");
                     const blobSha = await createBlob(repoFullName, file.content);
                     fileBlobShas[file.path] = blobSha;
                     treeEntries.push({
@@ -3115,6 +4707,7 @@
                     });
                 }
 
+                if (onProgress) onProgress("Creating tree...");
                 const treeResponse = await ghFetch("/repos/" + repoFullName + "/git/trees", {
                     method: "POST",
                     headers: {
@@ -3127,6 +4720,7 @@
                 });
                 const treePayload = await treeResponse.json();
 
+                if (onProgress) onProgress("Creating commit...");
                 const commitResponse = await ghFetch("/repos/" + repoFullName + "/git/commits", {
                     method: "POST",
                     headers: {
@@ -3140,6 +4734,7 @@
                 });
                 const commitPayload = await commitResponse.json();
 
+                if (onProgress) onProgress("Updating branch reference...");
                 await ghFetch("/repos/" + repoFullName + "/git/refs/heads/" + encodeURIComponent(branch), {
                     method: "PATCH",
                     headers: {
@@ -3151,6 +4746,7 @@
                     })
                 });
 
+                if (onProgress) onProgress("Commit complete!");
                 return {
                     commitSha: commitPayload.sha,
                     fileBlobShas
@@ -3167,29 +4763,6 @@
                 }
             }
 
-            async function buildUpdatedLog(action, details) {
-                if (!state.selectedRepo) {
-                    throw new Error("Connect a repository first.");
-                }
-
-                const repoFullName = state.selectedRepo.full_name;
-                const logLoaded = await loadRepoJsonFile(repoFullName, "ghwe_log.json");
-                const existing = Array.isArray(logLoaded.data) ? logLoaded.data : [];
-
-                existing.push({
-                    timestamp: new Date().toISOString(),
-                    actor: state.user ? state.user.login : "unknown",
-                    action,
-                    details
-                });
-
-                return {
-                    records: existing,
-                    sha: logLoaded.fileMeta.sha || "",
-                    content: JSON.stringify(existing, null, 2)
-                };
-            }
-
             async function commitCurrentJson() {
                 if (!state.selectedRepo || !state.currentJsonPath) {
                     throw new Error("Load a configured JSON file first.");
@@ -3201,79 +4774,97 @@
                 const commitMessage = (el.commitMessage.value || "Update " + state.currentJsonPath + " via GHWE").trim();
                 const jsonPayload = JSON.stringify(json, null, 2);
 
-                await assertLatestFileSha(repoFullName, state.currentJsonPath, state.currentJsonSha);
-                if (state.logSha) {
-                    await assertLatestFileSha(repoFullName, "ghwe_log.json", state.logSha);
-                }
-
-                const logUpdate = await buildUpdatedLog("update_json", {
-                    path: state.currentJsonPath
+                // Show modal with commit log
+                showNotificationModal("Preparing commit...", "info", "Publishing Update", {
+                    showCommitLog: true
                 });
 
-                const result = await commitFilesTogether(
-                    repoFullName,
-                    branch,
-                    commitMessage,
-                    [
-                        {
-                            path: state.currentJsonPath,
-                            content: jsonPayload
-                        },
-                        {
-                            path: "ghwe_log.json",
-                            content: logUpdate.content
+                try {
+                    await assertLatestFileSha(repoFullName, state.currentJsonPath, state.currentJsonSha);
+
+                    const result = await commitFilesTogether(
+                        repoFullName,
+                        branch,
+                        commitMessage,
+                        [
+                            {
+                                path: state.currentJsonPath,
+                                content: jsonPayload
+                            }
+                        ],
+                        function(message) {
+                            addCommitLogEntry(message);
                         }
-                    ]
-                );
+                    );
 
-                state.currentJsonSha = result.fileBlobShas[state.currentJsonPath] || state.currentJsonSha;
-                state.logSha = result.fileBlobShas["ghwe_log.json"] || logUpdate.sha;
-                state.log = logUpdate.records;
-                setStatus(el.editorStatus, "Committed " + state.currentJsonPath + " and ghwe_log.json in one commit.", "ok");
-            }
+                    state.currentJsonSha = result.fileBlobShas[state.currentJsonPath] || state.currentJsonSha;
+                    setStatus(el.editorStatus, "Committed " + state.currentJsonPath + " in one commit.", "ok");
 
-            async function commitConfig() {
-                if (!state.selectedRepo || !state.config) {
-                    throw new Error("Connect a repository first.");
-                }
-
-                const repoFullName = state.selectedRepo.full_name;
-                const branch = state.selectedRepo.default_branch;
-                const commitMessage = (el.commitMessage.value || "Update ghwe_config.json via GHWE").trim();
-                const payload = JSON.stringify(state.config.data, null, 2);
-                await assertLatestFileSha(repoFullName, "ghwe_config.json", state.config.sha);
-                if (state.logSha) {
-                    await assertLatestFileSha(repoFullName, "ghwe_log.json", state.logSha);
-                }
-
-                const logUpdate = await buildUpdatedLog("update_config", {
-                    path: "ghwe_config.json"
-                });
-
-                const result = await commitFilesTogether(
-                    repoFullName,
-                    branch,
-                    commitMessage,
-                    [
-                        {
-                            path: "ghwe_config.json",
-                            content: payload
-                        },
-                        {
-                            path: "ghwe_log.json",
-                            content: logUpdate.content
+                    const notificationConfig = WEBEDITOR_CONFIG.notifications || {};
+                    const notifyDelayMs = Math.max(0, Number(notificationConfig.delayMs || 0));
+                    const notifyEndpoint = String(notificationConfig.notifyEndpoint || "").trim();
+                    const notifyEnabled = notificationConfig.enabled !== false && Boolean(notifyEndpoint);
+                    const shouldSendNotifications = notifyEnabled;
+                    
+                    if (shouldSendNotifications && notifyDelayMs > 0) {
+                        const delaySeconds = Math.round(notifyDelayMs / 1000);
+                        
+                        showNotificationModal("Commit successful! Notifying subscribers...", "ok", "Publishing Update", {
+                            showTimer: true,
+                            timerSeconds: delaySeconds,
+                            onTimerComplete: async function() {
+                                try {
+                                    const notificationResult = await notifyPostUpdate(json, result.commitSha || "", {
+                                        skipDelay: true,
+                                        delayMs: 0
+                                    });
+                                    if (!notificationResult.skipped) {
+                                        showNotificationModal("Committed " + state.currentJsonPath + " and notified subscribers.", "ok", "Success");
+                                    } else {
+                                        const reasonText = notificationResult.reason === "teams"
+                                            ? "Teams updates do not trigger notifications."
+                                            : notificationResult.reason === "no-completed-result"
+                                                ? "No completed result was detected for notification."
+                                                : "Notifications were not sent for this update.";
+                                        showNotificationModal("Committed " + state.currentJsonPath + ". " + reasonText, "ok", "Success");
+                                    }
+                                } catch (notifyError) {
+                                    showNotificationModal("Commit succeeded, but push notify failed: " + notifyError.message, "bad", "Notification Error");
+                                }
+                            }
+                        });
+                    } else if (shouldSendNotifications) {
+                        const notificationResult = await notifyPostUpdate(json, result.commitSha || "", {
+                            skipDelay: true,
+                            delayMs: 0
+                        });
+                        if (!notificationResult.skipped) {
+                            showNotificationModal("Committed " + state.currentJsonPath + " and notified subscribers.", "ok", "Success");
+                        } else {
+                            const reasonText = notificationResult.reason === "teams"
+                                ? "Teams updates do not trigger notifications."
+                                : notificationResult.reason === "no-completed-result"
+                                    ? "No completed result was detected for notification."
+                                    : "Notifications were not sent for this update.";
+                            showNotificationModal("Committed " + state.currentJsonPath + ". " + reasonText, "ok", "Success");
                         }
-                    ]
-                );
-
-                state.config.sha = result.fileBlobShas["ghwe_config.json"] || state.config.sha;
-                state.logSha = result.fileBlobShas["ghwe_log.json"] || logUpdate.sha;
-                state.log = logUpdate.records;
-
-                setStatus(el.editorStatus, "Committed ghwe_config.json and ghwe_log.json in one commit.", "ok");
+                    } else {
+                        showNotificationModal("Committed " + state.currentJsonPath + " without sending notifications.", "ok", "Success");
+                    }
+                } catch (error) {
+                    if (error.message.includes("push notify")) {
+                        showNotificationModal("Commit succeeded, but push notify failed: " + error.message, "bad", "Notification Error");
+                    } else {
+                        showNotificationModal("Commit failed: " + error.message, "bad", "Error");
+                        throw error;
+                    }
+                }
             }
 
             function setupDropZone() {
+                if (!el.dropZone) {
+                    return;
+                }
                 ["dragenter", "dragover"].forEach(function(eventName) {
                     el.dropZone.addEventListener(eventName, function(event) {
                         event.preventDefault();
@@ -3320,13 +4911,42 @@
 
             function wireUiEvents() {
                 window.addEventListener("hashchange", route);
-                if (!location.hash) {
-                    location.hash = "#home";
-                } else {
-                    route();
-                }
+                route();
 
                 el.yearNow.textContent = String(new Date().getFullYear());
+
+                el.notificationCloseBtn.addEventListener("click", function() {
+                    closeNotificationModal();
+                });
+
+                el.notificationDismissBtn.addEventListener("click", function() {
+                    closeNotificationModal();
+                });
+
+
+                el.modalCopyCodeBtn.addEventListener("click", function() {
+                    const code = el.modalDeviceCode.textContent;
+                    if (code) {
+                        navigator.clipboard.writeText(code).then(function() {
+                            el.modalCopyCodeBtn.textContent = "Copied!";
+                            setTimeout(function() {
+                                el.modalCopyCodeBtn.textContent = "Copy Code";
+                            }, 2000);
+                        });
+                    }
+                });
+
+                el.modalCopyUrlBtn.addEventListener("click", function() {
+                    const url = el.modalDeviceUri.textContent;
+                    if (url) {
+                        navigator.clipboard.writeText(url).then(function() {
+                            el.modalCopyUrlBtn.textContent = "Copied!";
+                            setTimeout(function() {
+                                el.modalCopyUrlBtn.textContent = "Copy URL";
+                            }, 2000);
+                        });
+                    }
+                });
 
                 el.stepPills.forEach(function(pill, index) {
                     pill.addEventListener("click", function() {
@@ -3356,7 +4976,7 @@
 
                 el.loadReposBtn.addEventListener("click", async function() {
                     try {
-                        await fetchAllRepos();
+                        await loadTargetRepository();
                     } catch (error) {
                         setStatus(el.repoStatus, error.message, "bad");
                     }
@@ -3370,39 +4990,12 @@
                     }
                 });
 
-                el.refreshConfigBtn.addEventListener("click", async function() {
-                    try {
-                        await connectSelectedRepository();
-                    } catch (error) {
-                        setStatus(el.fileStatus, error.message, "bad");
-                    }
-                });
-
                 el.loadJsonBtn.addEventListener("click", async function() {
                     try {
                         await loadSelectedJsonFile();
                     } catch (error) {
                         setStatus(el.fileStatus, error.message, "bad");
                     }
-                });
-
-                el.modeDndBtn.addEventListener("click", function() {
-                    switchEditorMode("dnd");
-                });
-
-                el.modeCrmBtn.addEventListener("click", function() {
-                    switchEditorMode("crm");
-                    if (hydrateCrmFromTextarea()) {
-                        if (state.crmModel.rootMode === "array") {
-                            setStatus(el.editorStatus, "CRM loaded. Use drag-and-drop below to reorder top-level objects.", "ok");
-                        } else {
-                            setStatus(el.editorStatus, "CRM loaded for object editing.", "ok");
-                        }
-                    }
-                });
-
-                el.modeTextBtn.addEventListener("click", function() {
-                    switchEditorMode("text");
                 });
 
                 el.formatJsonBtn.addEventListener("click", function() {
@@ -3505,9 +5098,16 @@
 
                 el.crmRecordSelect.addEventListener("change", function() {
                     state.crmModel.selectedIndex = Number(el.crmRecordSelect.value || 0);
+                    ensureSelectedRecordIsVisible();
                     renderCrmFields();
                     renderCrmDragList();
                 });
+
+                if (el.gamesRecordLoadMoreBtn) {
+                    el.gamesRecordLoadMoreBtn.addEventListener("click", function() {
+                        loadMoreGameRecords();
+                    });
+                }
 
                 el.crmNewRecordBtn.addEventListener("click", function() {
                     const templateRecord = state.crmModel.schema.enabled
@@ -3515,9 +5115,15 @@
                         : {};
                     state.crmModel.records.push(templateRecord);
                     state.crmModel.selectedIndex = state.crmModel.records.length - 1;
+                    ensureSelectedRecordIsVisible();
                     renderCrmRecordSelect();
                     renderCrmFields();
                     syncCrmToJsonText();
+                    openCrmRecordModal(state.crmModel.selectedIndex);
+                });
+
+                el.crmDuplicateRecordBtn.addEventListener("click", function() {
+                    duplicateSelectedCrmRecord();
                 });
 
                 el.crmDeleteRecordBtn.addEventListener("click", function() {
@@ -3526,41 +5132,136 @@
                     }
                     state.crmModel.records.splice(state.crmModel.selectedIndex, 1);
                     state.crmModel.selectedIndex = Math.max(0, state.crmModel.selectedIndex - 1);
+                    ensureSelectedRecordIsVisible();
                     renderCrmRecordSelect();
                     renderCrmFields();
                     syncCrmToJsonText();
+                    if (!state.crmModel.records.length) {
+                        closeCrmRecordModal();
+                    }
                 });
 
-                el.crmApplyRecordJsonBtn.addEventListener("click", function() {
-                    applyCrmRecordJsonEditor();
+                el.crmRecordModalSaveBtn.addEventListener("click", function() {
+                    closeCrmRecordModal();
+                    setStatus(el.editorStatus, "Record updates applied.", "ok");
                 });
+
+                el.crmRecordModalCancelBtn.addEventListener("click", function() {
+                    closeCrmRecordModal();
+                });
+
+                el.crmRecordModalCloseBtn.addEventListener("click", function() {
+                    closeCrmRecordModal();
+                });
+
+                el.crmRecordModal.addEventListener("click", function(event) {
+                    if (event.target === el.crmRecordModal) {
+                        closeCrmRecordModal();
+                    }
+                });
+
+                el.teamPlayersModalCloseBtn.addEventListener("click", function() {
+                    closeTeamPlayersModal();
+                });
+
+                el.teamPlayersModalDoneBtn.addEventListener("click", function() {
+                    closeTeamPlayersModal();
+                });
+
+                el.teamPlayersModalAddBtn.addEventListener("click", function() {
+                    const record = getActiveTeamPlayersRecord();
+                    if (!record) {
+                        return;
+                    }
+                    ensureTeamPlayersArray(record);
+                    record.players.push(buildDefaultPlayerRow());
+                    syncCrmToJsonText();
+                    renderTeamPlayersModal();
+                });
+
+                el.teamPlayersModal.addEventListener("click", function(event) {
+                    if (event.target === el.teamPlayersModal) {
+                        closeTeamPlayersModal();
+                    }
+                });
+
+                el.postContentModalCloseBtn.addEventListener("click", function() {
+                    closePostContentModal();
+                });
+
+                el.postContentModalCancelBtn.addEventListener("click", function() {
+                    closePostContentModal();
+                });
+
+                el.postContentModalSaveBtn.addEventListener("click", function() {
+                    savePostContentModal();
+                });
+
+                if (el.postContentInsertLinkBtn) {
+                    el.postContentInsertLinkBtn.addEventListener("click", function() {
+                        openPostTagModal("link");
+                    });
+                }
+
+                if (el.postContentInsertFeaturedImageBtn) {
+                    el.postContentInsertFeaturedImageBtn.addEventListener("click", function() {
+                        openPostTagModal("featured-image");
+                    });
+                }
+
+                if (el.postTagModalInsertBtn) {
+                    el.postTagModalInsertBtn.addEventListener("click", function() {
+                        insertPostTagFromModal();
+                    });
+                }
+
+                if (el.postTagModalCancelBtn) {
+                    el.postTagModalCancelBtn.addEventListener("click", function() {
+                        closePostTagModal();
+                    });
+                }
+
+                if (el.postTagModalCloseBtn) {
+                    el.postTagModalCloseBtn.addEventListener("click", function() {
+                        closePostTagModal();
+                    });
+                }
+
+                if (el.postTagModalUrlInput) {
+                    el.postTagModalUrlInput.addEventListener("keydown", function(event) {
+                        if (event.key === "Enter") {
+                            event.preventDefault();
+                            insertPostTagFromModal();
+                        }
+                    });
+                }
+
+                if (el.postTagModalLabelInput) {
+                    el.postTagModalLabelInput.addEventListener("keydown", function(event) {
+                        if (event.key === "Enter") {
+                            event.preventDefault();
+                            insertPostTagFromModal();
+                        }
+                    });
+                }
+
+                el.postContentModal.addEventListener("click", function(event) {
+                    if (event.target === el.postContentModal) {
+                        closePostContentModal();
+                    }
+                });
+
+                if (el.postTagModal) {
+                    el.postTagModal.addEventListener("click", function(event) {
+                        if (event.target === el.postTagModal) {
+                            closePostTagModal();
+                        }
+                    });
+                }
 
                 el.saveJsonBtn.addEventListener("click", async function() {
                     try {
                         await commitCurrentJson();
-                    } catch (error) {
-                        setStatus(el.editorStatus, error.message, "bad");
-                    }
-                });
-
-                el.saveConfigBtn.addEventListener("click", async function() {
-                    try {
-                        await commitConfig();
-                    } catch (error) {
-                        setStatus(el.editorStatus, error.message, "bad");
-                    }
-                });
-
-                el.viewLogBtn.addEventListener("click", async function() {
-                    try {
-                        if (!state.selectedRepo) {
-                            throw new Error("Connect a repository first.");
-                        }
-                        const logLoaded = await loadRepoJsonFile(state.selectedRepo.full_name, "ghwe_log.json");
-                        const data = Array.isArray(logLoaded.data) ? logLoaded.data : [];
-                        state.log = data;
-                        state.logSha = logLoaded.fileMeta.sha || state.logSha;
-                        setStatus(el.editorStatus, "ghwe_log.json entries: " + data.length, "ok");
                     } catch (error) {
                         setStatus(el.editorStatus, error.message, "bad");
                     }
@@ -3573,7 +5274,7 @@
                 applyBranding();
                 wireUiEvents();
                 route();
-                switchEditorMode("dnd");
+                switchEditorMode("crm");
                 setEditorStep(0);
                 renderNodeBuilder();
                 if (state.authSession && isStoredSessionExpired()) {
@@ -3583,9 +5284,19 @@
                 if (state.token) {
                     try {
                         await loadUserProfile();
-                        await fetchAllRepos();
-                        setStatus(el.authStatus, "Restored authenticated session.", "ok");
-                        setEditorStep(1);
+                        await loadTargetRepository();
+                        let connected = false;
+                        try {
+                            await connectSelectedRepository();
+                            connected = true;
+                        } catch (connectError) {
+                            setStatus(el.repoStatus, "Session restored, but auto-connect failed: " + connectError.message, "bad");
+                        }
+
+                        setStatus(el.authStatus, connected ? "Restored authenticated session and connected repository." : "Restored authenticated session.", "ok");
+                        if (!connected) {
+                            setEditorStep(1);
+                        }
                     } catch (_error) {
                         signOut();
                     }
