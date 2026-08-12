@@ -827,7 +827,7 @@ main {
 }
 
 .player-stats {
-    display: flex;
+    display: block;
     gap: 0.4rem;
 }
 
