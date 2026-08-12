@@ -1,10 +1,11 @@
-# White-Label Football Management Site
+# Custom Football Management Site
+This directory is a plug-and-play custom football management showcase site, including an accompanying browser-based JSON editor for editing the site data via GitHub OAuth.
 
-This directory is a plug-and-play white-label version of the `/fm` site, including an accompanying browser-based JSON editor for editing the site data via GitHub OAuth.
+
 
 ## What is included
 
-- `index.html` — main football management front-end
+- `index.html` — main football management site front-end
 - `main.js` — site logic for fixtures, teams, posts, sharing, and optional push notifications
 - `styles.css` — site styling
 - `manifest.json` — PWA metadata
@@ -16,17 +17,95 @@ This directory is a plug-and-play white-label version of the `/fm` site, includi
 - `ghwe_config.example.json` — example GitHub WebEditor repo config
 - `ghwe_log.example.json` — example commit log file
 
+
+
 ## Quick start
 
-1. Copy the entire `fm-site` directory contents to your GitHub Pages repository root.
-2. Replace the sample images in `fm-site/data/` if you want custom branding.
-3. Fill the `data/*.json` templates with your own football management data.
-4. Configure the GitHub WebEditor and optional Cloudflare Workers as described below.
+### Pre-requisites
+1 - GitHub Account (with an empty GitHub Pages site / repository ready to use)
+
+2 - Cloudflare Account (preferable one used entirely for this site's purposes - to allow for the account's free plan daily usage limit to be adequite)
+
+3 - Clone your GitHub Pages repository to your local computer / laptop.
+
+### Setup
+Start by cloning your GitHub Pages repository to your local machine, by following the below steps:
+
+1 - Ensure you have `Git` installed on your machine (if NOT installed, install using this link - https://git-scm.com/install/)
+
+2 - Create / navigate to the directory where you wish to store your site files, in your file manager.
+
+3 - Open `Git Bash` and navigate to that same directory.
+
+4 - Using the `Git Bash` terminal, clone the existing GitHub Pages repository using the below command: 
+```cmd
+git clone https://github.com/[username]/[username].github.io
+``` 
+(replacing the '[username]' elements with your own GitHub username).
+
+5 - Once this operation is complete, you'll be able to see the new folder in your file manager, and you should then also navigate into this folder in the `Git Bash` terminal using the command below:
+```cmd
+cd [username].github.io
+```
+(once again replacing the '[username]' element with your own GitHub username).
+
+
+
+## Installation Steps
+1 - Copy the contents of the `fm-site` directory into your now cloned GitHub Pages root directory folder.
+
+2 - Replace placeholder images with images of the same dimensions (if custom branding is desired - or leave as-is if not).
+
+3 - Configure the `main.js` and `webeditor.html` files as outlined below.
+
+### Configuring `main.js`
+Configuring this file will enable the site to fetch and display the details stored in the `teams.json`, `games.json` and `posts.json` files as they are updated. Perform these edits in the order shown below:
+
+1 - Edit `line 6` to be equal to the URL of your GitHub Pages site (i.e. `username.github.io`).
+
+2 - Ensure `line 7` is equal to "/" to signify the root directory of your GitHub Pages site.
+
+### Create oAuth App / Worker
+This is the first element that will allow you to login to the `webeditor.html` file using you GitHub login details and edit the relevant data while protecting login information and allowing the ability to update your site from anywhere.
+
+You will need to follow the steps below exactly and in order to set this up:
+
+1 - Login to your GitHub account in bowser and head to the GitHub Developer Settings page (https://github.com/settings/developers).
+
+2 - Click `New oAuth App`.
+
+3 - Set the application name to your site name.
+
+4 - Set the homepage URL to your GitHub Pages site URL.
+
+5 - Use any valid callback URL (GitHub requires one), such as `https://example.com/`.
+
+6 - Save the app and copy the `Client ID` and `Client Secret`.
+
+7 - Install Wrangler or use Cloudflare's UI.
+
+8 - Create a new Worker project.
+
+9 - Add `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` as Worker secrets.
+
+10 - Deploy the worker.
+
+11 - Copy the worker URL.
+
+### Configure WebEditor
+The WebEditor is how you will update and manage your teams, games and site posts. To enable basic usage of the editor, and therefore edit the files / content shown on your site, you will need to implement the oAuth functionality at the bare minimum.
+
+To do this you will need to edit two files, the `webeditor.html` and the `ghwe_config.json` files.
+
+1 - Start by opening the `ghwe_config.json` file and setting the 'url' elemennt on `line 4` to your GitHub Pages URL that you used before.
+
+2 - 
+
+
 
 ## Deploying the site
 
 ### Root deployment
-
 This package is configured to work when hosted at the repository root.
 
 - `index.html`, `main.js`, `styles.css`, `sw.js`, `manifest.json`, and `data/` should all be at the root level.
@@ -34,28 +113,31 @@ This package is configured to work when hosted at the repository root.
 - `manifest.json` is already configured for root scope and start URL.
 
 ### If your site is hosted in a subdirectory
-
 If you host the site under a subfolder, update the following paths:
 
 - `main.js` service worker registration and canonical URLs
 - `manifest.json` `start_url` and `scope`
 - `index.html` metadata URLs and social image references
 
-## Configuring the GitHub OAuth broker worker
 
+
+## Configuring the GitHub OAuth broker worker
 The WebEditor uses GitHub Device Flow and requires a Cloudflare Worker to exchange GitHub OAuth tokens safely.
 
 ### 1. Register a GitHub OAuth app
+1 - Go to GitHub Settings > Developer settings > OAuth Apps.
 
-1. Go to GitHub Settings > Developer settings > OAuth Apps.
-2. Create a new OAuth App.
-3. Set the application name to your site name.
-4. Set the homepage URL to your site URL.
-5. Use any valid callback URL (GitHub requires one), such as `https://example.com/`.
-6. Save the app and copy the `Client ID` and `Client Secret`.
+2 - Create a new OAuth App.
+
+3 - Set the application name to your site name.
+
+4 - Set the homepage URL to your site URL.
+
+5 - Use any valid callback URL (GitHub requires one), such as `https://example.com/`.
+
+6 - Save the app and copy the `Client ID` and `Client Secret`.
 
 ### 2. Create the OAuth broker worker
-
 Use a Cloudflare Worker to proxy GitHub OAuth requests.
 
 Example worker code:
@@ -142,15 +224,17 @@ export default {
 ```
 
 ### 3. Deploy the worker
+1 - Install Wrangler or use Cloudflare's UI.
 
-1. Install Wrangler or use Cloudflare's UI.
-2. Create a new Worker project.
-3. Add `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` as Worker secrets.
-4. Deploy the worker.
-5. Copy the worker URL.
+2 - Create a new Worker project.
+
+3 - Add `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` as Worker secrets.
+
+4 - Deploy the worker.
+
+5 - Copy the worker URL.
 
 ### 4. Configure `webeditor.html`
-
 Open `webeditor.html` and set:
 
 ```js
@@ -161,15 +245,15 @@ oauth: {
 }
 ```
 
-## Configuring the WebEditor repository mapping
 
+
+## Configuring the WebEditor repository mapping
 The WebEditor requires two root files in the repository:
 
 - `ghwe_config.json`
 - `ghwe_log.json`
 
 ### Example `ghwe_config.json`
-
 ```json
 {
   "site_data": {
@@ -188,19 +272,18 @@ The WebEditor requires two root files in the repository:
 ```
 
 ### Example `ghwe_log.json`
-
 ```json
 []
 ```
 
 Place these two files at the repository root.
 
-## Setting up the share worker (optional)
 
+
+## Setting up the share worker (optional)
 The share worker generates social preview pages for individual posts.
 
 ### 1. Create the share worker
-
 Use this worker code as the handler:
 
 ```js
@@ -247,7 +330,6 @@ export default {
 ```
 
 ### 2. Worker environment variables
-
 - `POSTS_JSON_URL` — URL to `data/posts.json` on your site
 - `SITE_TITLE` — site title
 - `SITE_DESCRIPTION` — default meta description
@@ -256,9 +338,9 @@ export default {
 - `SITE_ASSET_ORIGIN` — optional origin to resolve local images
 
 ### 3. Deploy and connect
+1 - Deploy the worker.
 
-1. Deploy the worker.
-2. Set `shareConfig.workerBaseUrl` in `fm-site/main.js`:
+2 - Set `shareConfig.workerBaseUrl` in `fm-site/main.js`:
 
 ```js
 const shareConfig = {
@@ -268,12 +350,12 @@ const shareConfig = {
 
 This enables the post share button and copy link preview pages.
 
-## Setting up optional push notifications
 
+
+## Setting up optional push notifications
 This site supports browser push notifications if you deploy a push worker and configure `main.js`.
 
 ### 1. Create the push worker
-
 Use the worker code from the optional push worker template. It should support these endpoints:
 
 - `GET /vapid-public-key`
@@ -282,7 +364,6 @@ Use the worker code from the optional push worker template. It should support th
 - `POST /notify`
 
 ### 2. Generate VAPID keys
-
 Run locally:
 
 ```bash
@@ -293,7 +374,6 @@ npx web-push generate-vapid-keys --json
 Copy the generated `publicKey` and `privateKey`.
 
 ### 3. Configure Cloudflare secrets
-
 In your worker settings, add:
 
 - `VAPID_PUBLIC_KEY`
@@ -305,7 +385,6 @@ In your worker settings, add:
 - `NOTIFY_BEARER_TOKEN` (secret for posting notifications)
 
 ### 4. Configure `fm-site/main.js`
-
 Set:
 
 ```js
@@ -317,14 +396,12 @@ const pushConfig = {
 ```
 
 ### 5. Enable notifications in the browser
-
 - Open your site.
 - Click the `Alerts` button.
 - Grant notification permission.
 - Click `Enable Notifications`.
 
 ### 6. Send notifications
-
 Use the worker `POST /notify` endpoint with your bearer token.
 
 Example body for a new post:
@@ -362,10 +439,11 @@ Example body for a match result:
 }
 ```
 
+
+
 ## Connecting everything
 
 ### 1. Populate `data` templates
-
 - `data/games.json`
 - `data/teams.json`
 - `data/posts.json`
@@ -373,33 +451,30 @@ Example body for a match result:
 Keep the JSON structure consistent with the sample metadata fields inside each template.
 
 ### 2. Customize `index.html`
-
 - Update the page title and description.
 - Replace the logo image path if desired.
 - Keep `script src="main.js"` and `styles.css` in place.
 
 ### 3. Customize `webeditor.html`
-
 - Set `WEBEDITOR_CONFIG.branding` text.
 - Set `WEBEDITOR_CONFIG.oauth.clientId` and `brokerBaseUrl`.
 - Keep `repository.requiredRootFiles` as `ghwe_config.json` and `ghwe_log.json`.
 
 ### 4. Push to GitHub Pages
-
 - Commit your updated `fm-site` files.
 - Push to `main` or your GitHub Pages branch.
 - Access the site at `https://<username>.github.io/`.
 
 ### 5. Use the WebEditor
-
 - Open `https://<username>.github.io/webeditor`.
 - Login with GitHub.
 - Select your repository.
 - Load a configured JSON file.
 - Edit and commit changes.
 
-## Notes
 
+
+## Notes
 - `ghwe_config.json` and `ghwe_log.json` are required by the editor.
 - The share worker is optional and only needed if you want social preview pages for individual posts.
 - Push notifications are optional and require a Cloudflare Worker and valid browser permissions.
