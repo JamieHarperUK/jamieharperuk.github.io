@@ -10,6 +10,11 @@
         "fm_games": "fm/data/games.json",
         "fm_posts": "fm/data/posts.json",
         "fm_teams": "fm/data/teams.json",
+
+        "fmt_games": "fm-template/data/games.json",
+        "fmt_posts": "fm-template/data/posts.json",
+        "fmt_teams": "fm-template/data/teams.json",
+
         "jhuk_sites": "data/sites.json"
     }
 }

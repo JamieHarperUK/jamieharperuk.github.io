@@ -1,0 +1,22 @@
+{
+  "name": "Football Management Site",
+  "short_name": "FM Site",
+  "description": "Track my virtual teams, fixtures, and updates in one place.",
+  "start_url": "/fm-template/?source=pwa",
+  "scope": "/fm-template/",
+  "display": "standalone",
+  "background_color": "#0a0f1e",
+  "theme_color": "#c8102e",
+  "icons": [
+    {
+      "src": "/fm-template/data/jhukfm_soc_logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/fm-template/data/jhukfm_soc_logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
