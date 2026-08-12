@@ -422,21 +422,6 @@ const app = {
             dropdownToggle.setAttribute("aria-expanded", String(isOpen));
         });
 
-        moreToggle.addEventListener("click", () => {
-            const moreContainer = moreDropdown;
-            const isOpen = moreContainer.classList.toggle("open");
-            moreToggle.setAttribute("aria-expanded", String(isOpen));
-        });
-
-        document.addEventListener("click", (event) => {
-            if (!dropdown.contains(event.target)) {
-                this.closeTeamsDropdown();
-            }
-            if (!moreDropdown.contains(event.target)) {
-                this.closeMoreDropdown();
-            }
-        });
-
         dropdown.appendChild(dropdownToggle);
         dropdown.appendChild(dropdownMenu);
         navLinks.appendChild(dropdown);
@@ -500,6 +485,22 @@ const app = {
         moreDropdown.appendChild(moreToggle);
         moreDropdown.appendChild(moreMenu);
         navLinks.appendChild(moreDropdown);
+
+        // Attach event listeners after the elements exist to avoid TDZ errors
+        moreToggle.addEventListener("click", () => {
+            const moreContainer = moreDropdown;
+            const isOpen = moreContainer.classList.toggle("open");
+            moreToggle.setAttribute("aria-expanded", String(isOpen));
+        });
+
+        document.addEventListener("click", (event) => {
+            if (!dropdown.contains(event.target)) {
+                this.closeTeamsDropdown();
+            }
+            if (!moreDropdown.contains(event.target)) {
+                this.closeMoreDropdown();
+            }
+        });
 
         this.updateNavLinks();
     },
