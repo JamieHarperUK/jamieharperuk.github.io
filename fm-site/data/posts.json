@@ -14,5 +14,20 @@
       }
     }
   },
-  "posts": []
+  "posts": [
+    {
+      "title": "Post Title",
+      "content": "Post content.",
+      "date_time": [
+        "12-08-2026",
+        "01:45"
+      ],
+      "image": "",
+      "category": "Announcement",
+      "tags": [
+        "welcome",
+        "announcement"
+      ]
+    }
+  ]
 }

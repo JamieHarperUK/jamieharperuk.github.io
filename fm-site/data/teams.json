@@ -14,5 +14,16 @@
       }
     }
   },
-  "teams": []
+  "teams": [
+    {
+      "team_name": "Placeholder FC",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Name",
+      "country": "England",
+      "home_venue": "Stadium Name",
+      "players": [
+        ["GK", "Player Name", "0", "0", "0"]
+      ]
+    }
+  ]
 }
