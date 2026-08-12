@@ -15,46 +15,84 @@
   },
   "sites": [
     {
-        "site_title": "JHUK Football Management",
-        "description": "A football management website that showcases the saves and runs of Jamie Harper's career on Top Eleven, Online Soccer Manager, and Hattrick.",
-        "technologies": ["HTML", "CSS", "JavaScript", "oAuth", "JSON", "Google Analytics"],
-        "image": "https://jhuk.co.uk/fm/data/fm_bg_thin.png",
-        "link": "https://jhuk.co.uk/fm/"
+      "site_title": "JHUK Football Management",
+      "description": "A football management website that showcases the saves and runs of Jamie Harper's career on Top Eleven, Online Soccer Manager, and Hattrick.",
+      "technologies": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "oAuth",
+        "JSON",
+        "Google Analytics"
+      ],
+      "image": "https://jhuk.co.uk/fm/data/fm_bg_thin.png",
+      "link": "https://jhuk.co.uk/fm/"
     },
     {
       "site_title": "Uniquely Us",
       "description": "A website for a creative craft business, showcasing their classes and services.",
-      "technologies": ["HTML", "CSS", "JavaScript", "oAuth", "JSON", "Google Analytics"],
+      "technologies": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "oAuth",
+        "JSON",
+        "Google Analytics"
+      ],
       "image": "#",
       "link": "https://uniquely-us.co.uk/"
     },
     {
-        "site_title": "SinisterEXP",
-        "description": "Voice acting portfolio website showcasing the client's work in various projects, including video games and animations.",
-        "technologies": ["HTML", "CSS", "JavaScript", "JSON", "Google Analytics"],
-        "image": "#",
-        "link": "https://sinisterexp.github.io/"
+      "site_title": "SinisterEXP",
+      "description": "Voice acting portfolio website showcasing the client's work in various projects, including video games and animations.",
+      "technologies": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "JSON",
+        "Google Analytics"
+      ],
+      "image": "#",
+      "link": "https://sinisterexp.github.io/"
     },
     {
-        "site_title": "Xeno Championship",
-        "description": "An official website for the Xeno Championship esports tournament, featuring current standings, match schedules, and a Hall of Fame.",
-        "technologies": ["HTML", "CSS", "JavaScript", "JSON", "Google Analytics"],
-        "image": "#",
-        "link": "https://xenochampionship.co.uk/"
+      "site_title": "Xeno Championship",
+      "description": "An official website for the Xeno Championship esports tournament, featuring current standings, match schedules, and a Hall of Fame.",
+      "technologies": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "JSON",
+        "Google Analytics"
+      ],
+      "image": "#",
+      "link": "https://xenochampionship.co.uk/"
     },
     {
-        "site_title": "Oakshift Software",
-        "description": "A website for Oakshift Software, showcasing their software products and services.",
-        "technologies": ["HTML", "CSS", "JavaScript", "JSON", "Google Analytics"],
-        "image": "#",
-        "link": "https://oakshiftsoftware.co.uk/"
+      "site_title": "Oakshift Software",
+      "description": "A website for Oakshift Software, showcasing their software products and services.",
+      "technologies": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "JSON",
+        "Google Analytics"
+      ],
+      "image": "#",
+      "link": "https://oakshiftsoftware.co.uk/"
     },
     {
-        "site_title": "Orbital Conservation Institute (OCI)",
-        "description": "A website for the Orbital Conservation Institute, showcasing their projects, software and research in the field of orbital conservation.",
-        "technologies": ["HTML", "CSS", "JavaScript", "JSON", "Google Analytics"],
-        "image": "#",
-        "link": "https://orbitalconservation.github.io/"
+      "site_title": "Orbital Conservation Institute (OCI)",
+      "description": "A website for the Orbital Conservation Institute, showcasing their projects, software and research in the field of orbital conservation.",
+      "technologies": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "JSON",
+        "Google Analytics"
+      ],
+      "image": "#",
+      "link": "https://orbitalconservation.github.io/"
     }
   ]
 }
