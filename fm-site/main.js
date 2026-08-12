@@ -1051,6 +1051,15 @@ const app = {
     async setupPushNotifications() {
         const { enableButton, disableButton } = this.getPushUiElements();
         const { fabButton, modal, closeButton } = this.getPushModalElements();
+        // If push notifications are not configured for this deployment,
+        // hide the Alerts/fab button and skip setup.
+        const notificationsConfigured = String(pushConfig.workerBaseUrl || "").trim() !== "" && String(pushConfig.siteId || "").trim() !== "";
+        if (!notificationsConfigured) {
+            if (fabButton) {
+                try { fabButton.style.display = "none"; } catch (e) { /* ignore */ }
+            }
+            return;
+        }
 
         if (fabButton) {
             fabButton.addEventListener("click", () => {
