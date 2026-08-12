@@ -7,7 +7,8 @@
 :root {
     /* Brand variables */
     --site-name: "Football Management";
-    --site-description: "A white-label football management hub for fixtures, squads, and update posts.";
+    --site-description: "A custom football management hub for fixtures, squads, and update posts.";
+    --accent-color: #003da5;
     --brand-accent: #c8102e;
     --brand-secondary: #ffffff;
     --brand-highlight: #003da5;
