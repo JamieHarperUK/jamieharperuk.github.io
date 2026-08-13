@@ -668,6 +668,21 @@
         "signing",
         "player"
       ]
+    },
+    {
+      "title": "England 2nd Division",
+      "content": "After an interesting season, my management of Manchester United has come to an end. We ended up placing 3rd in the league table, allowing the club to get promoted to England 1st Division, where the club has elected to select a new manager.\n\nA rather disappointing result against Brighton and Hove Albion meant that the silverware was snatched away in a 1-0 defeat in the Cup final on 11-08-2026. Regardless, however, the entire team put in 110% and under the right leadership could see themselves taking the top spot in their new division.\n\nWhen this journey came to an ended, I initially thought about selecting a new club also in England 1st Division, however instead I chose to remain in England 2nd Division but this time managing the Portsmouth football club.\n\nFirst impressions after signing the management contract is that a lot of club funds are tied up in players we won't play, so clearing out and selling a number of players will be the initial goal before our first match tomorrow (14-08-2026).",
+      "date_time": [
+        "13-08-2026",
+        "19:14"
+      ],
+      "image": "https://jhuk.co.uk/fm/data/osm_post.jpg",
+      "category": "OSM",
+      "tags": [
+        "announcement",
+        "update",
+        "osm"
+      ]
     }
   ]
 }
