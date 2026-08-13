@@ -375,9 +375,17 @@
 
             .player-row {
                 display: grid;
-                grid-template-columns: 80px 70px 1fr 60px 60px 60px 1fr auto;
                 gap: 0.45rem;
                 align-items: end;
+                grid-template-columns: var(--player-row-cols, 80px 1fr 60px 60px 60px auto);
+            }
+
+            .player-row.fm {
+                --player-row-cols: 80px 1fr 60px 60px 60px auto; /* Pos, Name, Y, R, Inj, actions */
+            }
+
+            .player-row.fc {
+                --player-row-cols: 80px 70px 1fr 60px 60px 60px 1fr auto; /* Pos, Num, Name, Y, R, Inj, Image, actions */
             }
 
             .player-row .player-name-field {
@@ -4465,7 +4473,6 @@
                 const isFc = isFcTemplateFile();
                 players.forEach(function(playerRow, playerIndex) {
                     const row = document.createElement("div");
-                    row.className = "player-row";
 
                     const columns = isFc
                         ? [
@@ -4484,6 +4491,9 @@
                             { key: 3, label: "Red" },
                             { key: 4, label: "Injury" }
                         ];
+
+                    // apply class based on the actual columns we will render
+                    row.className = "player-row " + (columns.length > 5 ? "fc" : "fm");
 
                     columns.forEach(function(column) {
                         const fieldWrap = document.createElement("div");
