@@ -338,14 +338,14 @@
       "players": [
         [
           "GK",
-          "Owen Evans",
+          "Alfonso Herrero",
           "0",
           "0",
           "0"
         ],
         [
           "GK",
-          "Alfonso Herrero",
+          "Owen Evans",
           "0",
           "0",
           "0"
@@ -358,20 +358,6 @@
           "0"
         ],
         [
-          "RB",
-          "Sherel Floranus",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "RB",
-          "Odai Abdulghani",
-          "0",
-          "0",
-          "0"
-        ],
-        [
           "LB",
           "Neco Williams",
           "0",
@@ -379,16 +365,23 @@
           "0"
         ],
         [
-          "LB",
-          "Geiner Martinez",
+          "CB",
+          "Evan N'Dicka",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Agustin Oliveros",
           "0",
           "0",
           "0"
         ],
         [
-          "LB",
-          "Elliott Moore",
-          "1",
+          "RB",
+          "Tristan Crama",
+          "0",
           "0",
           "0"
         ],
@@ -407,22 +400,50 @@
           "0"
         ],
         [
-          "CB",
-          "Evan N'Dicka",
+          "RB",
+          "Sherel Floranus",
           "1",
           "0",
           "0"
         ],
         [
-          "CAM",
-          "Wallace Davi Nunes Da Silva Dias",
+          "LB",
+          "Elliott Moore",
           "1",
+          "0",
+          "0"
+        ],
+        [
+          "LB",
+          "Geiner Martinez",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "RB",
+          "Odai Abdulghani",
+          "0",
           "0",
           "0"
         ],
         [
           "CAM",
           "Ismael Saibari",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Fransisco Roman Alarcon Suarez",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CAM",
+          "Wallace Davi Nunes Da Silva Dias",
           "1",
           "0",
           "0"
@@ -436,14 +457,14 @@
         ],
         [
           "CM",
-          "Kai Klefisch",
+          "Jack Hinchy",
           "1",
           "0",
           "0"
         ],
         [
           "CM",
-          "Jack Hinchy",
+          "Kai Klefisch",
           "1",
           "0",
           "0"
@@ -456,8 +477,22 @@
           "0"
         ],
         [
-          "CM",
-          "Liam Humbles",
+          "LW",
+          "Ivan Romero",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ST",
+          "Cyriel Dessers",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "ST",
+          "Halil Akbunar",
           "0",
           "0",
           "0"
@@ -465,13 +500,6 @@
         [
           "RW",
           "Louis Mafouta",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "LW",
-          "Ivan Romero",
           "0",
           "0",
           "0"
@@ -494,20 +522,6 @@
           "LW",
           "Kristian Dennis",
           "0",
-          "0",
-          "0"
-        ],
-        [
-          "ST",
-          "Halil Akbunar",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "ST",
-          "Cyriel Dessers",
-          "1",
           "0",
           "0"
         ]
