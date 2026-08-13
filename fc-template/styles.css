@@ -829,6 +829,7 @@ main {
 .player-stats {
     display: grid;
     gap: 0.4rem;
+    width: -webkit-fill-available;
 }
 
 /* Role-based accents */
