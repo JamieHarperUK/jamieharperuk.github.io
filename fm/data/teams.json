@@ -528,6 +528,261 @@
       ]
     },
     {
+      "team_name": "Portsmouth",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "country": "England",
+      "home_venue": "Fratton Park",
+      "end_state": null,
+      "players": [
+        [
+          "GK",
+          "Nicolas Schmid",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "GK",
+          "Daniel Bielica",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "GK",
+          "Josef Bursik",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "GK",
+          "Ben Killip",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "RB",
+          "Terry Devlin",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Conor Shaughnessy",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "RB",
+          "Zak Swanson",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Hayden Matthews",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Regan Poole",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "LB",
+          "Conor Ogilvie",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Josh Knight",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Ibane Bowat",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "LB",
+          "Jacob Farrell",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Madiodio Dia",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "RB",
+          "Michael Ani",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "RB",
+          "Chinedu Agu",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Rocco Robert Shein",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CAM",
+          "John Swift",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Ebou Adams",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Mark Kosznovsky",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Luke Le Roux",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CAM",
+          "Odin Bailey",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Marlon Pack",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CAM",
+          "Luke Brooke-Smith",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "RW",
+          "Adrian Segecic",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "LW",
+          "Josh Murphy",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ST",
+          "Marko Milovanovic",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ST",
+          "Colby Bishop",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "LW",
+          "Keshi Anderson",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ST",
+          "Thomas Waddingham",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "RW",
+          "Franco Umeh-Chhibueze",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "RW",
+          "Harvey Blair",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ST",
+          "Eoin Kenny",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ST",
+          "Tayo Singerr",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ST",
+          "Nathaniel Chioma",
+          "0",
+          "0",
+          "0"
+        ]
+      ]
+    },
+    {
       "team_name": "Manchester United",
       "osm_or_top_eleven": "OSM",
       "competition": "England 2nd Division",
