@@ -21,32 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Away",
-      "home_team": "Црвена Звезда",
-      "away_team": "Harper FC",
-      "date": "12-08-2026",
-      "time": "12:58",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "Elite League",
-      "venue": "MAPAKAHA",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
-      "home_team": "sheba Fc",
-      "away_team": "Harper FC",
-      "date": "12-08-2026",
-      "time": "17:16",
-      "osm_or_top_eleven": "OSM",
-      "competition": "League Level 2",
-      "venue": "sheba Fc's Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Home",
       "home_team": "Manchester United",
       "away_team": "Leeds United",
@@ -62,7 +36,7 @@
     {
       "home_or_away": "Home",
       "home_team": "Altrincham FC",
-      "away_team": "Eastleight",
+      "away_team": "Eastleigh",
       "date": "12-08-2026",
       "time": "20:20",
       "osm_or_top_eleven": "OSM",
@@ -87,6 +61,19 @@
     },
     {
       "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "Thimphu City",
+      "date": "13-08-2026",
+      "time": "21:56",
+      "osm_or_top_eleven": "OSM",
+      "competition": "League Level 2",
+      "venue": "The Concourse",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
       "home_team": "Cheshire Harriers FC",
       "away_team": "Devon Athletic FC",
       "date": "16-08-2026",
@@ -97,6 +84,32 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "sheba Fc",
+      "away_team": "Harper FC",
+      "date": "12-08-2026",
+      "time": "17:16",
+      "osm_or_top_eleven": "OSM",
+      "competition": "League Level 2",
+      "venue": "sheba Fc's Stadium",
+      "home_score": "0",
+      "away_score": "10",
+      "winner": "Harper FC"
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Црвена Звезда",
+      "away_team": "Harper FC",
+      "date": "12-08-2026",
+      "time": "12:58",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Elite League",
+      "venue": "MAPAKAHA",
+      "home_score": "0",
+      "away_score": "9",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Away",
