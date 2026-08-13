@@ -329,170 +329,6 @@
       ]
     },
     {
-      "team_name": "Manchester United",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 2nd Division",
-      "country": "England",
-      "home_venue": "Old Trafford",
-      "end_state": null,
-      "players": [
-        [
-          "GK",
-          "Senne Lammens",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "GK",
-          "Altay Bayindir",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "RB",
-          "Dayot Upamecano",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "LB",
-          "Leny Yoro",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "LB",
-          "Jose Maria Gimenez",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "LB",
-          "Marcos Llorente",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CB",
-          "William Pacho",
-          "2",
-          "0",
-          "0"
-        ],
-        [
-          "CB",
-          "Manuel Akanji",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "CB",
-          "Aymeric Laporte",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CB",
-          "Ramy Bensebaini",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CAM",
-          "Declan Rice",
-          "0",
-          "1",
-          "0"
-        ],
-        [
-          "CAM",
-          "Carlos Henrique Casemiro",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CM",
-          "Kobbie Mainoo",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CM",
-          "Dani Olmo",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "CM",
-          "Bruno Fernandes",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CM",
-          "Rodrigo De Paul",
-          "2",
-          "0",
-          "0"
-        ],
-        [
-          "RW",
-          "Bryan Mbeumo",
-          "2",
-          "0",
-          "0"
-        ],
-        [
-          "RW",
-          "Lamine Yamal Nasroui Ebana",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "RW",
-          "Jeremy Doku",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "LW",
-          "Benjamin Sesko",
-          "0",
-          "1",
-          "0"
-        ],
-        [
-          "LW",
-          "Matheus Santos Carneiro Da Cunha",
-          "2",
-          "0",
-          "0"
-        ],
-        [
-          "ST",
-          "Joshus Orobosa Zirkzee",
-          "1",
-          "0",
-          "0"
-        ]
-      ]
-    },
-    {
       "team_name": "Altrincham FC",
       "osm_or_top_eleven": "OSM",
       "competition": "England 5th Division",
@@ -671,6 +507,170 @@
         [
           "ST",
           "Cyriel Dessers",
+          "1",
+          "0",
+          "0"
+        ]
+      ]
+    },
+    {
+      "team_name": "Manchester United",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "country": "England",
+      "home_venue": "Old Trafford",
+      "end_state": null,
+      "players": [
+        [
+          "GK",
+          "Senne Lammens",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "GK",
+          "Altay Bayindir",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "RB",
+          "Dayot Upamecano",
+          "2",
+          "0",
+          "0"
+        ],
+        [
+          "LB",
+          "Leny Yoro",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "LB",
+          "Jose Maria Gimenez",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "LB",
+          "Marcos Llorente",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "William Pacho",
+          "2",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Manuel Akanji",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Aymeric Laporte",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Ramy Bensebaini",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CAM",
+          "Declan Rice",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "CAM",
+          "Carlos Henrique Casemiro",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Kobbie Mainoo",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Dani Olmo",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Bruno Fernandes",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Rodrigo De Paul",
+          "2",
+          "0",
+          "0"
+        ],
+        [
+          "RW",
+          "Bryan Mbeumo",
+          "2",
+          "0",
+          "0"
+        ],
+        [
+          "RW",
+          "Lamine Yamal Nasroui Ebana",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "RW",
+          "Jeremy Doku",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "LW",
+          "Benjamin Sesko",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "LW",
+          "Matheus Santos Carneiro Da Cunha",
+          "2",
+          "0",
+          "0"
+        ],
+        [
+          "ST",
+          "Joshus Orobosa Zirkzee",
           "1",
           "0",
           "0"
