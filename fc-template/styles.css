@@ -833,10 +833,10 @@ main {
 }
 
 /* Role-based accents */
-.player-card.goalkeeper { border-left: 4px solid var(--warning-color); }
-.player-card.defender { border-left: 4px solid #3aa6ff; }
-.player-card.midfielder { border-left: 4px solid #8e44ad; }
-.player-card.forward { border-left: 4px solid var(--primary-color); }
+.player-card.goalkeeper { border-left: 4px solid #fff34d; }
+.player-card.defender { border-left: 4px solid #187bcd; }
+.player-card.midfielder { border-left: 4px solid #51c440; }
+.player-card.forward { border-left: 4px solid #bd2b39; }
 .player-card.other { border-left: 4px solid rgba(255,255,255,0.06); }
 
 .notify-panel {
