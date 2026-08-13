@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Away",
-      "home_team": "RADRIGEN FC",
-      "away_team": "Harper FC",
-      "date": "13-08-2026",
-      "time": "12:55",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "Cup (Round of 32)",
-      "venue": "Stadion RADRIGEN FC",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Home",
       "home_team": "Altrincham FC",
       "away_team": "Sutton United",
@@ -84,6 +71,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "RADRIGEN FC",
+      "away_team": "Harper FC",
+      "date": "13-08-2026",
+      "time": "12:55",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Cup (Round of 32)",
+      "venue": "Stadion RADRIGEN FC",
+      "home_score": "0",
+      "away_score": "6",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Home",
