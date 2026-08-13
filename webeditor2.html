@@ -375,7 +375,7 @@
 
             .player-row {
                 display: grid;
-                grid-template-columns: minmax(90px, 0.8fr) minmax(180px, 2.2fr) 60px 60px 60px auto;
+                grid-template-columns: 80px 70px 1fr 60px 60px 60px 1fr auto;
                 gap: 0.45rem;
                 align-items: end;
             }
@@ -2768,6 +2768,11 @@
                 return "generic";
             }
 
+            function isFcTemplateFile() {
+                const path = String(state.currentJsonPath || "").toLowerCase();
+                return path.includes("fc-template/") || path.includes("/fc-template/");
+            }
+
             function toTeamSlug(name) {
                 return String(name || "team")
                     .toLowerCase()
@@ -2844,7 +2849,11 @@
             }
 
             function buildDefaultPlayerRow() {
-                return ["", "", "0", "0", "0", "", ""];
+                const isFc = isFcTemplateFile();
+                if (isFc) {
+                    return ["", "", "0", "0", "0", "", ""];
+                }
+                return ["", "", "0", "0", "0"];
             }
 
             function normalizePlayerRow(row) {
@@ -2854,14 +2863,26 @@
                 }
 
                 const values = row.slice(0, 7);
+                const isFc = isFcTemplateFile();
+                if (isFc) {
+                    return [
+                        String(values[0] ?? ""), // position
+                        String(values[1] ?? ""), // name
+                        String(values[2] ?? "0"), // yellow
+                        String(values[3] ?? "0"), // red
+                        String(values[4] ?? "0"), // injury
+                        String(values[5] ?? ""), // number
+                        String(values[6] ?? "")  // image URL
+                    ];
+                }
+
+                // Legacy FM format: keep 5 elements only
                 return [
                     String(values[0] ?? ""), // position
                     String(values[1] ?? ""), // name
                     String(values[2] ?? "0"), // yellow
                     String(values[3] ?? "0"), // red
-                    String(values[4] ?? "0"), // injury
-                    String(values[5] ?? ""), // number
-                    String(values[6] ?? "")  // image URL
+                    String(values[4] ?? "0")  // injury
                 ];
             }
 
@@ -4441,19 +4462,28 @@
 
                 const list = document.createElement("div");
                 list.className = "stack";
+                const isFc = isFcTemplateFile();
                 players.forEach(function(playerRow, playerIndex) {
                     const row = document.createElement("div");
                     row.className = "player-row";
 
-                    const columns = [
-                        { key: 0, label: "Position" },
-                        { key: 5, label: "Number" },
-                        { key: 1, label: "Name" },
-                        { key: 2, label: "Yellow" },
-                        { key: 3, label: "Red" },
-                        { key: 4, label: "Injury" },
-                        { key: 6, label: "Image URL" }
-                    ];
+                    const columns = isFc
+                        ? [
+                            { key: 0, label: "Position" },
+                            { key: 5, label: "Number" },
+                            { key: 1, label: "Name" },
+                            { key: 2, label: "Yellow" },
+                            { key: 3, label: "Red" },
+                            { key: 4, label: "Injury" },
+                            { key: 6, label: "Image URL" }
+                        ]
+                        : [
+                            { key: 0, label: "Position" },
+                            { key: 1, label: "Name" },
+                            { key: 2, label: "Yellow" },
+                            { key: 3, label: "Red" },
+                            { key: 4, label: "Injury" }
+                        ];
 
                     columns.forEach(function(column) {
                         const fieldWrap = document.createElement("div");
