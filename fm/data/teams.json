@@ -519,7 +519,10 @@
       "competition": "England 2nd Division",
       "country": "England",
       "home_venue": "Old Trafford",
-      "end_state": null,
+      "end_state": {
+        "final_place": "3rd",
+        "end_date": "12-08-2026"
+      },
       "players": [
         [
           "GK",
