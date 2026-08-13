@@ -523,14 +523,42 @@
       "players": [
         [
           "GK",
-          "Senne Lammens",
+          "Altay Bayindir",
           "1",
           "0",
           "0"
         ],
         [
           "GK",
-          "Altay Bayindir",
+          "Senne Lammens",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "LB",
+          "Leny Yoro",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Aymeric Laporte",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "William Pacho",
+          "2",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Manuel Akanji",
           "1",
           "0",
           "0"
@@ -543,8 +571,8 @@
           "0"
         ],
         [
-          "LB",
-          "Leny Yoro",
+          "CB",
+          "Davinson Sanchez",
           "0",
           "0",
           "0"
@@ -565,42 +593,7 @@
         ],
         [
           "CB",
-          "William Pacho",
-          "2",
-          "0",
-          "0"
-        ],
-        [
-          "CB",
-          "Manuel Akanji",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "CB",
-          "Aymeric Laporte",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CB",
           "Ramy Bensebaini",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CAM",
-          "Declan Rice",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "CAM",
-          "Carlos Henrique Casemiro",
           "0",
           "0",
           "0"
@@ -613,8 +606,8 @@
           "0"
         ],
         [
-          "CM",
-          "Dani Olmo",
+          "CAM",
+          "Declan Rice",
           "1",
           "0",
           "0"
@@ -628,14 +621,49 @@
         ],
         [
           "CM",
+          "Dani Olmo",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
           "Rodrigo De Paul",
           "2",
           "0",
           "0"
         ],
         [
+          "CAM",
+          "Carlos Henrique Casemiro",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "LW",
+          "Benjamin Sesko",
+          "0",
+          "0",
+          "0"
+        ],
+        [
           "RW",
           "Bryan Mbeumo",
+          "2",
+          "0",
+          "0"
+        ],
+        [
+          "ST",
+          "Joshus Orobosa Zirkzee",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "LW",
+          "Matheus Santos Carneiro Da Cunha",
           "2",
           "0",
           "0"
@@ -651,27 +679,6 @@
           "RW",
           "Jeremy Doku",
           "0",
-          "0",
-          "0"
-        ],
-        [
-          "LW",
-          "Benjamin Sesko",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "LW",
-          "Matheus Santos Carneiro Da Cunha",
-          "2",
-          "0",
-          "0"
-        ],
-        [
-          "ST",
-          "Joshus Orobosa Zirkzee",
-          "1",
           "0",
           "0"
         ]
