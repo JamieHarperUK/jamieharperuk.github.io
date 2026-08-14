@@ -373,6 +373,27 @@
                 padding-right: 0.2rem;
             }
 
+            .field-item {
+                display: flex;
+                flex-direction: column;
+                gap: 0.35rem;
+            }
+
+            .player-field-input {
+                padding: 0.5rem;
+                border: 1px solid var(--line);
+                border-radius: 4px;
+                font-family: inherit;
+                font-size: 0.95rem;
+                background: #fff;
+            }
+
+            .player-field-input:focus {
+                outline: none;
+                border-color: var(--primary);
+                box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.1);
+            }
+
             .player-row {
                 display: grid;
                 gap: 0.45rem;
@@ -1441,18 +1462,18 @@
                 </div>
             </div>
 
-            <div id="playerDetailEditModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="playerDetailEditTitle">
+            <div id="playerEditModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="playerEditModalTitle">
                 <div class="modal-card" style="width:min(100%, 620px);">
                     <div class="modal-head">
-                        <h3 id="playerDetailEditTitle">Edit Player Details</h3>
-                        <button id="playerDetailEditCloseBtn" type="button" class="warn">Close</button>
+                        <h3 id="playerEditModalTitle">Edit Player</h3>
+                        <button id="playerEditModalCloseBtn" type="button" class="warn">Close</button>
                     </div>
-                    <div class="modal-body-scroll">
-                        <div class="stack" id="playerDetailEditFields"></div>
-                    </div>
-                    <div class="row" style="margin-top: 1rem; gap: 0.6rem;">
-                        <button id="playerDetailEditSaveBtn" class="primary" type="button">Save</button>
-                        <button id="playerDetailEditCancelBtn" type="button">Cancel</button>
+                    <div class="stack modal-body-scroll">
+                        <div id="playerEditModalFields" class="field-grid"></div>
+                        <div class="row">
+                            <button id="playerEditModalSaveBtn" class="primary" type="button">Save</button>
+                            <button id="playerEditModalCancelBtn" type="button">Cancel</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1737,13 +1758,12 @@
                     gamesVisibleCount: 10,
                     gamesPageSize: 10,
                     playersModalRecordIndex: 0,
+                    playerEditModalRecordIndex: 0,
+                    playerEditModalPlayerIndex: -1,
                     postContentModalRecordIndex: 0,
                     postTagModalMode: "",
                     postTagModalSelectionStart: 0,
                     postTagModalSelectionEnd: 0,
-                    playerDetailEditRecordIndex: 0,
-                    playerDetailEditPlayerIndex: 0,
-                    playerDetailEditPlayerData: null,
                     schema: {
                         enabled: false,
                         root: null,
@@ -1892,12 +1912,12 @@
                 teamPlayersModalAddBtn: document.getElementById("teamPlayersModalAddBtn"),
                 teamPlayersModalDoneBtn: document.getElementById("teamPlayersModalDoneBtn"),
                 teamPlayersModalCloseBtn: document.getElementById("teamPlayersModalCloseBtn"),
-                playerDetailEditModal: document.getElementById("playerDetailEditModal"),
-                playerDetailEditTitle: document.getElementById("playerDetailEditTitle"),
-                playerDetailEditFields: document.getElementById("playerDetailEditFields"),
-                playerDetailEditSaveBtn: document.getElementById("playerDetailEditSaveBtn"),
-                playerDetailEditCancelBtn: document.getElementById("playerDetailEditCancelBtn"),
-                playerDetailEditCloseBtn: document.getElementById("playerDetailEditCloseBtn"),
+                playerEditModal: document.getElementById("playerEditModal"),
+                playerEditModalTitle: document.getElementById("playerEditModalTitle"),
+                playerEditModalFields: document.getElementById("playerEditModalFields"),
+                playerEditModalSaveBtn: document.getElementById("playerEditModalSaveBtn"),
+                playerEditModalCancelBtn: document.getElementById("playerEditModalCancelBtn"),
+                playerEditModalCloseBtn: document.getElementById("playerEditModalCloseBtn"),
                 postContentModal: document.getElementById("postContentModal"),
                 postContentModalTitle: document.getElementById("postContentModalTitle"),
                 postContentModalPath: document.getElementById("postContentModalPath"),
@@ -4541,235 +4561,242 @@
                 const list = document.createElement("div");
                 list.className = "stack";
                 const isFc = isFcTemplateFile();
+                
                 players.forEach(function(playerRow, playerIndex) {
-                    const row = document.createElement("div");
+                    const normalized = normalizePlayerRow(playerRow);
                     const isObjectFormat = typeof playerRow === "object" && !Array.isArray(playerRow);
-
-                    // Only show essential fields in the list view
-                    const columns = isFc && isObjectFormat
-                        ? [
-                            { key: "position", label: "Position" },
-                            { key: "number", label: "Number" },
-                            { key: "name", label: "Name" },
-                            { key: "yellow", label: "Yellow", type: "number" },
-                            { key: "red", label: "Red", type: "number" },
-                            { key: "injury", label: "Injury", type: "number" }
-                        ]
-                        : isFc
-                        ? [
-                            { key: 0, label: "Position" },
-                            { key: 5, label: "Number" },
-                            { key: 1, label: "Name" },
-                            { key: 2, label: "Yellow" },
-                            { key: 3, label: "Red" },
-                            { key: 4, label: "Injury" }
-                        ]
-                        : [
-                            { key: 0, label: "Position" },
-                            { key: 1, label: "Name" },
-                            { key: 2, label: "Yellow" },
-                            { key: 3, label: "Red" },
-                            { key: 4, label: "Injury" }
-                        ];
-
-                    row.className = "player-row " + (columns.length > 5 ? "fc" : "fm");
-
-                    columns.forEach(function(column) {
-                        const fieldWrap = document.createElement("div");
-                        const fieldLabel = document.createElement("label");
-                        fieldLabel.textContent = column.label;
-                        
-                        const isObject = typeof column.key === "string";
-                        const fieldType = column.type || "text";
-                        let input;
-                        
-                        input = document.createElement("input");
-                        input.type = fieldType === "number" ? "number" : "text";
-                        input.value = isObject ? String(playerRow[column.key] ?? "") : String(playerRow[column.key] ?? "");
-                        
-                        if (isObject && (column.key === "name")) {
-                            input.className = "player-name-input";
-                            fieldWrap.className = "player-name-field";
-                        } else if (isObject && ["yellow", "red", "injury"].includes(column.key)) {
-                            input.className = "player-number-input";
-                        }
-                        
-                        input.addEventListener("input", function(event) {
-                            if (isObject) {
-                                record.players[playerIndex][column.key] = fieldType === "number" ? Number(event.target.value) : event.target.value;
-                            } else {
-                                const nextRow = normalizePlayerRow(record.players[playerIndex]);
-                                if (Array.isArray(nextRow)) {
-                                    nextRow[column.key] = event.target.value;
-                                    record.players[playerIndex] = nextRow;
-                                }
-                            }
-                            syncCrmToJsonText();
-                        });
-                        fieldWrap.appendChild(fieldLabel);
-                        fieldWrap.appendChild(input);
-                        row.appendChild(fieldWrap);
-                    });
-
-                    const actionWrap = document.createElement("div");
-                    actionWrap.className = "player-action";
                     
-                    // Add Edit Details button for fc-template
-                    if (isFc && isObjectFormat) {
-                        const editBtn = document.createElement("button");
-                        editBtn.type = "button";
-                        editBtn.textContent = "Edit Details";
-                        editBtn.className = "primary";
-                        editBtn.title = "Edit player stats and details";
-                        editBtn.addEventListener("click", function() {
-                            openPlayerDetailEditModal(state.crmModel.playersModalRecordIndex, playerIndex);
-                        });
-                        actionWrap.appendChild(editBtn);
-                    }
+                    // Build simplified player display
+                    const row = document.createElement("div");
+                    row.style.display = "grid";
+                    row.style.gridTemplateColumns = "1fr auto";
+                    row.style.gap = "0.6rem";
+                    row.style.alignItems = "center";
+                    row.style.padding = "0.7rem";
+                    row.style.border = "1px solid var(--line)";
+                    row.style.borderRadius = "8px";
+                    row.style.background = "#fff";
+
+                    const info = document.createElement("div");
+                    info.style.display = "flex";
+                    info.style.gap = "0.8rem";
+                    info.style.alignItems = "center";
+                    
+                    const pos = String(isObjectFormat ? (normalized.position || "-") : (normalized[0] || "-"));
+                    const num = String(isObjectFormat ? (normalized.number || "") : (normalized[5] || ""));
+                    const name = String(isObjectFormat ? (normalized.name || "Unknown") : (normalized[1] || "Unknown"));
+                    
+                    const posSpan = document.createElement("span");
+                    posSpan.textContent = pos;
+                    posSpan.style.fontWeight = "600";
+                    posSpan.style.minWidth = "50px";
+                    
+                    const numSpan = document.createElement("span");
+                    numSpan.textContent = "#" + num;
+                    numSpan.style.color = "var(--muted)";
+                    numSpan.style.fontSize = "0.9rem";
+                    numSpan.style.minWidth = "50px";
+                    
+                    const nameSpan = document.createElement("span");
+                    nameSpan.textContent = name;
+                    nameSpan.style.flex = "1";
+                    
+                    info.appendChild(posSpan);
+                    info.appendChild(numSpan);
+                    info.appendChild(nameSpan);
+                    row.appendChild(info);
+
+                    const actions = document.createElement("div");
+                    actions.style.display = "flex";
+                    actions.style.gap = "0.35rem";
+                    actions.style.alignItems = "center";
+                    
+                    const editBtn = document.createElement("button");
+                    editBtn.type = "button";
+                    editBtn.textContent = "Edit";
+                    editBtn.className = "primary";
+                    editBtn.style.padding = "0.38rem 0.6rem";
+                    editBtn.style.fontSize = "0.85rem";
+                    editBtn.addEventListener("click", function() {
+                        openPlayerEditModal(state.crmModel.playersModalRecordIndex, playerIndex);
+                    });
+                    actions.appendChild(editBtn);
                     
                     const moveUpBtn = document.createElement("button");
                     moveUpBtn.type = "button";
                     moveUpBtn.textContent = "↑";
                     moveUpBtn.title = "Move up";
+                    moveUpBtn.style.padding = "0.38rem 0.45rem";
                     moveUpBtn.addEventListener("click", function() {
-                        if (playerIndex <= 0) {
-                            return;
-                        }
+                        if (playerIndex <= 0) return;
                         const [moved] = record.players.splice(playerIndex, 1);
                         record.players.splice(playerIndex - 1, 0, moved);
                         renderTeamPlayersModal();
                         syncCrmToJsonText();
                     });
+                    actions.appendChild(moveUpBtn);
+                    
                     const moveDownBtn = document.createElement("button");
                     moveDownBtn.type = "button";
                     moveDownBtn.textContent = "↓";
                     moveDownBtn.title = "Move down";
+                    moveDownBtn.style.padding = "0.38rem 0.45rem";
                     moveDownBtn.addEventListener("click", function() {
-                        if (playerIndex >= record.players.length - 1) {
-                            return;
-                        }
+                        if (playerIndex >= record.players.length - 1) return;
                         const [moved] = record.players.splice(playerIndex, 1);
                         record.players.splice(playerIndex + 1, 0, moved);
                         renderTeamPlayersModal();
                         syncCrmToJsonText();
                     });
+                    actions.appendChild(moveDownBtn);
+                    
                     const removeBtn = document.createElement("button");
                     removeBtn.type = "button";
                     removeBtn.textContent = "Remove";
+                    removeBtn.style.padding = "0.38rem 0.6rem";
+                    removeBtn.style.fontSize = "0.85rem";
                     removeBtn.addEventListener("click", function() {
                         record.players.splice(playerIndex, 1);
                         renderTeamPlayersModal();
                         syncCrmToJsonText();
                     });
-                    actionWrap.appendChild(moveUpBtn);
-                    actionWrap.appendChild(moveDownBtn);
-                    actionWrap.appendChild(removeBtn);
-                    row.appendChild(actionWrap);
+                    actions.appendChild(removeBtn);
+                    
+                    row.appendChild(actions);
                     list.appendChild(row);
                 });
 
                 el.teamPlayersModalBody.appendChild(list);
             }
 
-            function openPlayerDetailEditModal(recordIndex, playerIndex) {
-                const record = state.crmModel.records[recordIndex];
-                if (!record || !record.players || !record.players[playerIndex]) {
+            function openPlayerEditModal(recordIndex, playerIndex) {
+                const record = getActiveTeamPlayersRecord();
+                if (!record || !record.players || playerIndex < 0 || playerIndex >= record.players.length) {
                     return;
                 }
-                
-                state.crmModel.playerDetailEditRecordIndex = recordIndex;
-                state.crmModel.playerDetailEditPlayerIndex = playerIndex;
-                state.crmModel.playerDetailEditPlayerData = deepClone(record.players[playerIndex]);
-                
-                if (el.playerDetailEditTitle) {
-                    const playerRow = record.players[playerIndex];
-                    const isObject = typeof playerRow === "object" && !Array.isArray(playerRow);
-                    const playerName = isObject ? (playerRow.name || "Player") : (playerRow[1] || "Player");
-                    el.playerDetailEditTitle.textContent = "Edit Player: " + playerName;
-                }
-                
-                renderPlayerDetailEditFields();
-                
-                if (el.playerDetailEditModal) {
-                    el.playerDetailEditModal.classList.remove("hidden");
-                }
-            }
 
-            function closePlayerDetailEditModal() {
-                if (el.playerDetailEditModal) {
-                    el.playerDetailEditModal.classList.add("hidden");
-                }
-                state.crmModel.playerDetailEditPlayerData = null;
-            }
+                state.crmModel.playerEditModalRecordIndex = recordIndex;
+                state.crmModel.playerEditModalPlayerIndex = playerIndex;
 
-            function renderPlayerDetailEditFields() {
-                if (!el.playerDetailEditFields) {
+                const player = record.players[playerIndex];
+                const normalized = normalizePlayerRow(player);
+                const isObjectFormat = typeof player === "object" && !Array.isArray(player);
+
+                if (!el.playerEditModalFields) {
                     return;
                 }
-                
-                const playerData = state.crmModel.playerDetailEditPlayerData;
-                if (!playerData) {
-                    return;
-                }
-                
-                const isObject = typeof playerData === "object" && !Array.isArray(playerData);
-                el.playerDetailEditFields.innerHTML = "";
-                
+
+                el.playerEditModalFields.innerHTML = "";
+
                 const fields = [
-                    { key: isObject ? "position" : 0, label: "Position" },
-                    { key: isObject ? "number" : 5, label: "Number" },
-                    { key: isObject ? "name" : 1, label: "Name" },
-                    { key: isObject ? "yellow" : 2, label: "Yellow Cards", type: "number" },
-                    { key: isObject ? "red" : 3, label: "Red Cards", type: "number" },
-                    { key: isObject ? "injury" : 4, label: "Injury Recovery (days)", type: "number" },
-                    { key: isObject ? "goals" : null, label: "Goals", type: "number" },
-                    { key: isObject ? "assists" : null, label: "Assists", type: "number" },
-                    { key: isObject ? "appearances" : null, label: "Appearances", type: "number" },
-                    { key: isObject ? "imageUrl" : 6, label: "Image URL" },
-                    { key: isObject ? "notes" : null, label: "Notes", type: "textarea" }
+                    { key: "position", label: "Position", type: "text" },
+                    { key: "number", label: "Number", type: "text" },
+                    { key: "name", label: "Name", type: "text" },
+                    { key: "imageUrl", label: "Image URL", type: "text" },
+                    { key: "goals", label: "Goals", type: "number" },
+                    { key: "assists", label: "Assists", type: "number" },
+                    { key: "appearances", label: "Appearances", type: "number" },
+                    { key: "yellow", label: "Yellow Cards", type: "number" },
+                    { key: "red", label: "Red Cards", type: "number" },
+                    { key: "injury", label: "Injury Status", type: "text" },
+                    { key: "notes", label: "Notes", type: "textarea" }
                 ];
-                
-                fields.forEach(function(field) {
-                    if (!isObject && field.key === null) {
-                        return; // Skip object-only fields for legacy format
-                    }
-                    
-                    const wrapper = document.createElement("div");
+
+                fields.forEach(function(fieldDef) {
+                    const fieldGroup = document.createElement("div");
+                    fieldGroup.className = "field-item";
+
                     const label = document.createElement("label");
-                    label.textContent = field.label;
-                    
+                    label.textContent = fieldDef.label;
+                    label.style.display = "block";
+                    label.style.marginBottom = "0.3rem";
+                    label.style.fontSize = "0.85rem";
+                    label.style.fontWeight = "600";
+                    label.style.color = "var(--text)";
+
                     let input;
-                    if (field.type === "textarea") {
+                    if (fieldDef.type === "textarea") {
                         input = document.createElement("textarea");
-                        input.value = String(playerData[field.key] ?? "");
                         input.rows = 3;
+                        input.className = "player-field-input";
                     } else {
                         input = document.createElement("input");
-                        input.type = field.type === "number" ? "number" : "text";
-                        input.value = String(playerData[field.key] ?? "");
+                        input.type = fieldDef.type || "text";
+                        input.className = "player-field-input";
                     }
-                    
-                    input.addEventListener("input", function(event) {
-                        const value = field.type === "number" ? Number(event.target.value) : event.target.value;
-                        state.crmModel.playerDetailEditPlayerData[field.key] = value;
-                    });
-                    
-                    wrapper.appendChild(label);
-                    wrapper.appendChild(input);
-                    el.playerDetailEditFields.appendChild(wrapper);
+
+                    if (isObjectFormat) {
+                        input.value = String(normalized[fieldDef.key] ?? "");
+                    } else {
+                        // Handle legacy array format
+                        const keyMap = { position: 0, name: 1, yellow: 2, red: 3, injury: 4, number: 5, imageUrl: 6 };
+                        const idx = keyMap[fieldDef.key];
+                        input.value = typeof idx === "number" ? String(normalized[idx] ?? "") : "";
+                    }
+
+                    input.setAttribute("data-field-key", fieldDef.key);
+                    fieldGroup.appendChild(label);
+                    fieldGroup.appendChild(input);
+                    el.playerEditModalFields.appendChild(fieldGroup);
                 });
+
+                const titleRecord = getActiveTeamPlayersRecord();
+                const titleTeam = titleRecord.team_name || titleRecord.teamName || titleRecord.name || "Team";
+                const playerName = normalized.name || normalized[1] || "Player";
+                if (el.playerEditModalTitle) {
+                    el.playerEditModalTitle.textContent = "Edit Player · " + playerName + " · " + titleTeam;
+                }
+
+                if (el.playerEditModal) {
+                    el.playerEditModal.classList.remove("hidden");
+                }
             }
 
-            function savePlayerDetailEdit() {
-                const record = state.crmModel.records[state.crmModel.playerDetailEditRecordIndex];
-                if (!record || !record.players) {
+            function closePlayerEditModal() {
+                if (el.playerEditModal) {
+                    el.playerEditModal.classList.add("hidden");
+                }
+                state.crmModel.playerEditModalPlayerIndex = -1;
+                state.crmModel.playerEditModalRecordIndex = 0;
+            }
+
+            function savePlayerEdit() {
+                const record = getActiveTeamPlayersRecord();
+                const recordIndex = state.crmModel.playerEditModalRecordIndex;
+                const playerIndex = state.crmModel.playerEditModalPlayerIndex;
+
+                if (!record || playerIndex < 0 || playerIndex >= record.players.length || !el.playerEditModalFields) {
+                    closePlayerEditModal();
                     return;
                 }
-                
-                record.players[state.crmModel.playerDetailEditPlayerIndex] = state.crmModel.playerDetailEditPlayerData;
+
+                const player = record.players[playerIndex];
+                const isObjectFormat = typeof player === "object" && !Array.isArray(player);
+                const inputs = el.playerEditModalFields.querySelectorAll(".player-field-input");
+
+                inputs.forEach(function(input) {
+                    const fieldKey = input.getAttribute("data-field-key");
+                    const fieldValue = input.value;
+
+                    if (isObjectFormat) {
+                        if (["goals", "assists", "appearances", "yellow", "red"].includes(fieldKey)) {
+                            record.players[playerIndex][fieldKey] = Number(fieldValue) || 0;
+                        } else {
+                            record.players[playerIndex][fieldKey] = fieldValue;
+                        }
+                    } else {
+                        // Handle legacy array format
+                        const keyMap = { position: 0, name: 1, yellow: 2, red: 3, injury: 4, number: 5, imageUrl: 6 };
+                        const idx = keyMap[fieldKey];
+                        if (typeof idx === "number") {
+                            record.players[playerIndex][idx] = fieldValue;
+                        }
+                    }
+                });
+
                 syncCrmToJsonText();
                 renderTeamPlayersModal();
-                closePlayerDetailEditModal();
+                closePlayerEditModal();
             }
 
 
@@ -5920,29 +5947,21 @@
                     }
                 });
 
-                el.playerDetailEditSaveBtn.addEventListener("click", function() {
-                    savePlayerDetailEdit();
+                el.playerEditModalCloseBtn.addEventListener("click", function() {
+                    closePlayerEditModal();
                 });
 
-                el.playerDetailEditCancelBtn.addEventListener("click", function() {
-                    closePlayerDetailEditModal();
+                el.playerEditModalCancelBtn.addEventListener("click", function() {
+                    closePlayerEditModal();
                 });
 
-                el.playerDetailEditCloseBtn.addEventListener("click", function() {
-                    closePlayerDetailEditModal();
+                el.playerEditModalSaveBtn.addEventListener("click", function() {
+                    savePlayerEdit();
                 });
 
-                el.playerDetailEditModal.addEventListener("click", function(event) {
-                    if (event.target === el.playerDetailEditModal) {
-                        closePlayerDetailEditModal();
-                    }
-                });
-
-                document.addEventListener("keydown", function(event) {
-                    if (event.key === "Escape") {
-                        if (!el.playerDetailEditModal.classList.contains("hidden")) {
-                            closePlayerDetailEditModal();
-                        }
+                el.playerEditModal.addEventListener("click", function(event) {
+                    if (event.target === el.playerEditModal) {
+                        closePlayerEditModal();
                     }
                 });
 
