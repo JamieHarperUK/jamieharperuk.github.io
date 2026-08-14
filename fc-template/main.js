@@ -2169,7 +2169,7 @@ const app = {
         elements.assists.textContent = normalized.assists;
         elements.yellow.textContent = normalized.yellow;
         elements.red.textContent = normalized.red;
-        elements.injury.textContent = normalized.injury;
+        elements.injury.textContent = `${normalized.injury} days`;
 
         if (normalized.imageUrl) {
             elements.image.src = `${siteConfig.appBasePath}data/${normalized.imageUrl}`;
