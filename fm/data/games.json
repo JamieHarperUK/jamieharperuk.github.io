@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Away",
-      "home_team": "Watford",
-      "away_team": "Portsmouth",
-      "date": "14-08-2026",
-      "time": "22:16",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 2nd Division",
-      "venue": "Vicarage Road",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Home",
       "home_team": "Harper FC",
       "away_team": "pompi67 FC",
@@ -74,6 +61,19 @@
     },
     {
       "home_or_away": "Home",
+      "home_team": "Portsmouth",
+      "away_team": "Bolton Wanderers",
+      "date": "15-08-2026",
+      "time": "22:16",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Fratton Park",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
       "home_team": "Cheshire Harriers FC",
       "away_team": "Devon Athletic FC",
       "date": "16-08-2026",
@@ -97,6 +97,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Watford",
+      "away_team": "Portsmouth",
+      "date": "14-08-2026",
+      "time": "22:16",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Vicarage Road",
+      "home_score": "1",
+      "away_score": "0",
+      "winner": "Watford"
     },
     {
       "home_or_away": "Away",
