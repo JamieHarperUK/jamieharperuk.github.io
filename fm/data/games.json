@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Away",
-      "home_team": "Wealdstone FC",
-      "away_team": "Altrincham FC",
-      "date": "14-08-2026",
-      "time": "20:20",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 5th Division",
-      "venue": "Grosvenor Vale",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "Watford",
       "away_team": "Portsmouth",
       "date": "14-08-2026",
@@ -55,6 +42,19 @@
       "osm_or_top_eleven": "Top Eleven",
       "competition": "Cup (Round of 16)",
       "venue": "The Concourse",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Altrincham FC",
+      "away_team": "Hartlepool",
+      "date": "15-08-2026",
+      "time": "20:20",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 5th Division",
+      "venue": "J. Davidson Stadium",
       "home_score": "",
       "away_score": "",
       "winner": ""
@@ -110,6 +110,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Wealdstone FC",
+      "away_team": "Altrincham FC",
+      "date": "14-08-2026",
+      "time": "20:20",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 5th Division",
+      "venue": "Grosvenor Vale",
+      "home_score": "0",
+      "away_score": "2",
+      "winner": "Altrincham FC"
     },
     {
       "home_or_away": "Away",
