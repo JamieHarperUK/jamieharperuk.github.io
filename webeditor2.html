@@ -2991,6 +2991,32 @@
                 return value.map(normalizePlayerRow);
             }
 
+            function getPlayerEditFieldDefinitions() {
+                if (isFcTemplateFile()) {
+                    return [
+                        { key: "position", label: "Position", type: "text" },
+                        { key: "number", label: "Number", type: "text" },
+                        { key: "name", label: "Name", type: "text" },
+                        { key: "imageUrl", label: "Image URL", type: "text" },
+                        { key: "goals", label: "Goals", type: "number" },
+                        { key: "assists", label: "Assists", type: "number" },
+                        { key: "appearances", label: "Appearances", type: "number" },
+                        { key: "yellow", label: "Yellow Cards", type: "number" },
+                        { key: "red", label: "Red Cards", type: "number" },
+                        { key: "injury", label: "Injury Status", type: "text" },
+                        { key: "notes", label: "Notes", type: "textarea" }
+                    ];
+                }
+
+                return [
+                    { key: "position", label: "Position", type: "text" },
+                    { key: "name", label: "Name", type: "text" },
+                    { key: "yellow", label: "Yellow Cards", type: "number" },
+                    { key: "red", label: "Red Cards", type: "number" },
+                    { key: "injury", label: "Injury Status", type: "text" }
+                ];
+            }
+
             function normalizePostContentForEditor(value) {
                 if (value == null) {
                     return "";
@@ -4680,27 +4706,15 @@
 
                 const player = record.players[playerIndex];
                 const normalized = normalizePlayerRow(player);
-                const isObjectFormat = typeof player === "object" && !Array.isArray(player);
+                const isFc = isFcTemplateFile();
+                const isObjectFormat = isFc && typeof player === "object" && !Array.isArray(player);
 
                 if (!el.playerEditModalFields) {
                     return;
                 }
 
                 el.playerEditModalFields.innerHTML = "";
-
-                const fields = [
-                    { key: "position", label: "Position", type: "text" },
-                    { key: "number", label: "Number", type: "text" },
-                    { key: "name", label: "Name", type: "text" },
-                    { key: "imageUrl", label: "Image URL", type: "text" },
-                    { key: "goals", label: "Goals", type: "number" },
-                    { key: "assists", label: "Assists", type: "number" },
-                    { key: "appearances", label: "Appearances", type: "number" },
-                    { key: "yellow", label: "Yellow Cards", type: "number" },
-                    { key: "red", label: "Red Cards", type: "number" },
-                    { key: "injury", label: "Injury Status", type: "text" },
-                    { key: "notes", label: "Notes", type: "textarea" }
-                ];
+                const fields = getPlayerEditFieldDefinitions();
 
                 fields.forEach(function(fieldDef) {
                     const fieldGroup = document.createElement("div");
@@ -4725,10 +4739,9 @@
                         input.className = "player-field-input";
                     }
 
-                    if (isObjectFormat) {
+                    if (isFc && isObjectFormat) {
                         input.value = String(normalized[fieldDef.key] ?? "");
                     } else {
-                        // Handle legacy array format
                         const keyMap = { position: 0, name: 1, yellow: 2, red: 3, injury: 4, number: 5, imageUrl: 6 };
                         const idx = keyMap[fieldDef.key];
                         input.value = typeof idx === "number" ? String(normalized[idx] ?? "") : "";
@@ -4762,7 +4775,6 @@
 
             function savePlayerEdit() {
                 const record = getActiveTeamPlayersRecord();
-                const recordIndex = state.crmModel.playerEditModalRecordIndex;
                 const playerIndex = state.crmModel.playerEditModalPlayerIndex;
 
                 if (!record || playerIndex < 0 || playerIndex >= record.players.length || !el.playerEditModalFields) {
@@ -4771,7 +4783,8 @@
                 }
 
                 const player = record.players[playerIndex];
-                const isObjectFormat = typeof player === "object" && !Array.isArray(player);
+                const isFc = isFcTemplateFile();
+                const isObjectFormat = isFc && typeof player === "object" && !Array.isArray(player);
                 const inputs = el.playerEditModalFields.querySelectorAll(".player-field-input");
 
                 inputs.forEach(function(input) {
@@ -4785,7 +4798,6 @@
                             record.players[playerIndex][fieldKey] = fieldValue;
                         }
                     } else {
-                        // Handle legacy array format
                         const keyMap = { position: 0, name: 1, yellow: 2, red: 3, injury: 4, number: 5, imageUrl: 6 };
                         const idx = keyMap[fieldKey];
                         if (typeof idx === "number") {
