@@ -88,6 +88,7 @@ const app = {
             this.setupInternalLinkNavigation();
             this.setupAnalytics();
             this.setupInstallPrompt();
+            this.setupModals();
             this.renderHome();
             if (pushConfig.enabled) {
                 await this.setupPushNotifications();
@@ -161,6 +162,36 @@ const app = {
         } else {
             this.trackEvent("pwa_install_dismissed", "PWA", "Install Dismissed");
         }
+    },
+
+    setupModals() {
+        // Setup player detail modal
+        const playerDetailCloseBtn = document.getElementById("playerDetailModalClose");
+        const playerDetailModal = document.getElementById("playerDetailModal");
+
+        if (playerDetailCloseBtn) {
+            playerDetailCloseBtn.addEventListener("click", () => {
+                this.closePlayerDetailModal();
+            });
+        }
+
+        if (playerDetailModal) {
+            playerDetailModal.addEventListener("click", (event) => {
+                if (event.target === playerDetailModal) {
+                    this.closePlayerDetailModal();
+                }
+            });
+        }
+
+        // Close modals on Escape key
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") {
+                const playerModal = document.getElementById("playerDetailModal");
+                if (playerModal?.classList.contains("is-open")) {
+                    this.closePlayerDetailModal();
+                }
+            }
+        });
     },
 
     setupAnalytics() {
@@ -1967,9 +1998,10 @@ const app = {
         };
 
         players.forEach((player) => {
-            const position = String((Array.isArray(player) ? player[0] : (player.position || player.pos || "")) || "").toUpperCase();
+            const normalized = this.normalizePlayerData(player);
+            const position = String(normalized.position || "").toUpperCase();
             const bucket = this.getPositionGroup(position);
-            groups[bucket].push(player);
+            groups[bucket].push({ normalized, raw: player });
         });
 
         container.innerHTML = "";
@@ -1988,46 +2020,37 @@ const app = {
             const grid = document.createElement("div");
             grid.className = "player-grid";
 
-            list.forEach((player) => {
-                const pos = this.escapeHtml(Array.isArray(player) ? (player[0] || "-") : (player.position || "-"));
-                const name = this.escapeHtml(Array.isArray(player) ? (player[1] || "Unknown Player") : (player.name || player.player_name || "Unknown Player"));
-                const yellow = this.escapeHtml(Array.isArray(player) ? (player[2] || "0") : (player.yellow || player.yellows || "0"));
-                const red = this.escapeHtml(Array.isArray(player) ? (player[3] || "0") : (player.red || player.reds || "0"));
-                const injury = this.escapeHtml(Array.isArray(player) ? (player[4] || "0") : (player.injury || player.injuries || "0"));
-                const number = this.escapeHtml(Array.isArray(player) ? (player[5] || "") : (player.number || ""));
-                const image = Array.isArray(player) ? (player[6] || "") : (player.image || player.photo || "");
-
+            list.forEach(({ normalized, raw }) => {
                 const card = document.createElement("article");
                 const roleClass = title.toLowerCase().replace(/s$/, "");
                 card.className = `player-card ${roleClass}`;
 
                 const imgWrap = document.createElement("div");
                 imgWrap.className = "player-thumb-wrap";
-                if (image) {
+                if (normalized.imageUrl) {
                     const img = document.createElement("img");
                     img.className = "player-thumb";
-                    img.src = `${siteConfig.appBasePath}data/${image}`;
-                    img.alt = name;
+                    img.src = `${siteConfig.appBasePath}data/${normalized.imageUrl}`;
+                    img.alt = normalized.name;
                     imgWrap.appendChild(img);
                 } else {
                     const ph = document.createElement("div");
                     ph.className = "player-thumb placeholder";
-                    // ph.src = `${siteConfig.appBasePath}data/profile_placeholder.jpg`;
-                    ph.textContent = number || "";
+                    ph.textContent = normalized.number || "";
                     imgWrap.appendChild(ph);
                 }
 
                 const info = document.createElement("div");
                 info.className = "player-info-card";
-                info.innerHTML = `<div class="player-name">${name}</div><div class="player-pos">${pos}</div><div class="player-number">${number ? `#${number}` : ""}</div>`;
-
-                const stats = document.createElement("div");
-                stats.className = "player-stats";
-                stats.innerHTML = `<span class="cards-pill yellow">Yellow Cards : ${yellow}</span><span class="cards-pill red">Red Cards : ${red}</span><span class="cards-pill injury">Injury Recovery : ${injury} day(s)</span>`;
+                info.innerHTML = `<div class="player-pos">${this.escapeHtml(normalized.position)}</div><div class="player-number">${normalized.number ? `#${normalized.number}` : ""}</div>`;
 
                 card.appendChild(imgWrap);
                 card.appendChild(info);
-                card.appendChild(stats);
+
+                // Add click handler to open player detail modal
+                card.addEventListener("click", () => {
+                    this.openPlayerDetailModal(raw);
+                });
 
                 grid.appendChild(card);
             });
@@ -2061,6 +2084,110 @@ const app = {
         }
 
         return "Other";
+    },
+
+    normalizePlayerData(player) {
+        // Handle both array and object formats for backwards compatibility
+        if (Array.isArray(player)) {
+            return {
+                position: player[0] || "",
+                name: player[1] || "Unknown Player",
+                yellow: Number(player[2] || 0),
+                red: Number(player[3] || 0),
+                injury: Number(player[4] || 0),
+                number: player[5] || "",
+                imageUrl: player[6] || "",
+                goals: 0,
+                assists: 0,
+                appearances: 0,
+                notes: ""
+            };
+        }
+        // Object format (new)
+        return {
+            position: player.position || "",
+            name: player.name || "Unknown Player",
+            yellow: Number(player.yellow || 0),
+            red: Number(player.red || 0),
+            injury: Number(player.injury || 0),
+            number: player.number || "",
+            imageUrl: player.imageUrl || "",
+            goals: Number(player.goals || 0),
+            assists: Number(player.assists || 0),
+            appearances: Number(player.appearances || 0),
+            notes: player.notes || ""
+        };
+    },
+
+    getPlayerDetailModalElements() {
+        return {
+            modal: document.getElementById("playerDetailModal"),
+            closeButton: document.getElementById("playerDetailModalClose"),
+            title: document.getElementById("playerDetailTitle"),
+            image: document.getElementById("playerDetailImage"),
+            position: document.getElementById("playerDetailPosition"),
+            number: document.getElementById("playerDetailNumber"),
+            appearances: document.getElementById("playerDetailAppearances"),
+            goals: document.getElementById("playerDetailGoals"),
+            assists: document.getElementById("playerDetailAssists"),
+            yellow: document.getElementById("playerDetailYellow"),
+            red: document.getElementById("playerDetailRed"),
+            injury: document.getElementById("playerDetailInjury"),
+            notesContainer: document.getElementById("playerDetailNotesContainer"),
+            notes: document.getElementById("playerDetailNotes")
+        };
+    },
+
+    openPlayerDetailModal(playerData) {
+        const elements = this.getPlayerDetailModalElements();
+        if (!elements.modal) {
+            return;
+        }
+
+        const normalized = this.normalizePlayerData(playerData);
+
+        // Populate modal content
+        elements.title.textContent = normalized.name;
+        elements.position.textContent = normalized.position.toUpperCase();
+        elements.number.textContent = `#${normalized.number || "-"}`;
+        elements.appearances.textContent = normalized.appearances;
+        elements.goals.textContent = normalized.goals;
+        elements.assists.textContent = normalized.assists;
+        elements.yellow.textContent = normalized.yellow;
+        elements.red.textContent = normalized.red;
+        elements.injury.textContent = normalized.injury;
+
+        if (normalized.imageUrl) {
+            elements.image.src = `${siteConfig.appBasePath}data/${normalized.imageUrl}`;
+            elements.image.alt = normalized.name;
+        } else {
+            elements.image.src = "";
+            elements.image.alt = "";
+        }
+
+        // Handle notes
+        if (normalized.notes && normalized.notes.trim()) {
+            elements.notes.textContent = normalized.notes;
+            elements.notesContainer.style.display = "block";
+        } else {
+            elements.notesContainer.style.display = "none";
+        }
+
+        // Show modal
+        elements.modal.classList.add("is-open");
+        elements.modal.setAttribute("aria-hidden", "false");
+        this.syncBodyModalOpenState();
+    },
+
+    closePlayerDetailModal() {
+        const { modal } = this.getPlayerDetailModalElements();
+        if (!modal) {
+            return;
+        }
+
+        modal.classList.remove("is-open");
+        modal.setAttribute("aria-hidden", "true");
+        this.syncBodyModalOpenState();
     },
 
     getUpcomingGames() {

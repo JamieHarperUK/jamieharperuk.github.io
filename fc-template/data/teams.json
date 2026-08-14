@@ -1,8 +1,8 @@
 {
   "metadata": {
     "lastUpdated": "2026-07-21T21:00:00Z",
-    "version": "1.1.0",
-    "//": "Players are stored as an array of arrays. Extended format includes: [position, name, yellow, red, injury, number, imageUrl]. Backwards-compatible arrays without number/image are still supported.",
+    "version": "1.2.0",
+    "//": "Players can be stored as objects with player stats. Format: {position, name, number, imageUrl, yellow, red, injury, goals, assists, appearances, notes}. Legacy array format still supported for backwards compatibility.",
     "fields": {
       "team": {
         "team_name": "string",
@@ -10,7 +10,20 @@
         "competition": "string",
         "country": "string",
         "home_venue": "string",
-        "players": "array[array[string]]"
+        "players": "array[object]"
+      },
+      "player": {
+        "position": "string",
+        "name": "string",
+        "number": "string",
+        "imageUrl": "string",
+        "yellow": "number",
+        "red": "number",
+        "injury": "number",
+        "goals": "number",
+        "assists": "number",
+        "appearances": "number",
+        "notes": "string"
       }
     }
   },
@@ -22,42 +35,58 @@
       "country": "England",
       "home_venue": "Stadium Name",
       "players": [
-        [
-          "GK",
-          "Alex Goalkeeper",
-          "0",
-          "0",
-          "0",
-          "1",
-          "profile_placeholder.png"
-        ],
-        [
-          "DL",
-          "Ben Defender",
-          "0",
-          "0",
-          "0",
-          "3",
-          "profile_placeholder.png"
-        ],
-        [
-          "MC",
-          "Chris Midfield",
-          "0",
-          "0",
-          "0",
-          "6",
-          "profile_placeholder.png"
-        ],
-        [
-          "ST",
-          "Dan Striker",
-          "0",
-          "0",
-          "0",
-          "9",
-          "profile_placeholder.png"
-        ]
+        {
+          "position": "GK",
+          "name": "Alex Goalkeeper",
+          "number": "1",
+          "imageUrl": "profile_placeholder.png",
+          "yellow": 0,
+          "red": 0,
+          "injury": 0,
+          "goals": 0,
+          "assists": 0,
+          "appearances": 24,
+          "notes": ""
+        },
+        {
+          "position": "DL",
+          "name": "Ben Defender",
+          "number": "3",
+          "imageUrl": "profile_placeholder.png",
+          "yellow": 1,
+          "red": 0,
+          "injury": 0,
+          "goals": 0,
+          "assists": 2,
+          "appearances": 22,
+          "notes": ""
+        },
+        {
+          "position": "MC",
+          "name": "Chris Midfield",
+          "number": "6",
+          "imageUrl": "profile_placeholder.png",
+          "yellow": 2,
+          "red": 0,
+          "injury": 0,
+          "goals": 3,
+          "assists": 5,
+          "appearances": 18,
+          "notes": ""
+        },
+        {
+          "position": "ST",
+          "name": "Dan Striker",
+          "number": "9",
+          "imageUrl": "profile_placeholder.png",
+          "yellow": 1,
+          "red": 0,
+          "injury": 5,
+          "goals": 12,
+          "assists": 3,
+          "appearances": 20,
+          "notes": "Recovering from injury"
+        }
       ]
     }
   ]

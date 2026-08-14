@@ -385,7 +385,8 @@
             }
 
             .player-row.fc {
-                --player-row-cols: 80px 70px 1fr 60px 60px 60px 1fr auto; /* Pos, Num, Name, Y, R, Inj, Image, actions */
+                --player-row-cols: 80px 70px 1fr 60px 60px 60px 50px 50px 50px 1fr 2fr auto;
+                /* Pos, Num, Name, Y, R, Inj, Goals, Assists, Apps, Image, Notes, actions */
             }
 
             .player-row .player-name-field {
@@ -394,6 +395,12 @@
 
             .player-row input[type="number"] {
                 max-width: 58px;
+            }
+
+            .player-row textarea {
+                font-family: monospace;
+                font-size: 0.85rem;
+                resize: none;
             }
 
             .player-row .player-action {
@@ -2859,38 +2866,76 @@
             function buildDefaultPlayerRow() {
                 const isFc = isFcTemplateFile();
                 if (isFc) {
-                    return ["", "", "0", "0", "0", "", ""];
+                    // Return object format for fc-template
+                    return {
+                        position: "",
+                        name: "",
+                        number: "",
+                        imageUrl: "",
+                        yellow: 0,
+                        red: 0,
+                        injury: 0,
+                        goals: 0,
+                        assists: 0,
+                        appearances: 0,
+                        notes: ""
+                    };
                 }
                 return ["", "", "0", "0", "0"];
             }
 
             function normalizePlayerRow(row) {
-                // Support both legacy arrays and extended arrays (with number + image)
+                const isFc = isFcTemplateFile();
+                
+                // Handle object format (new fc-template format)
+                if (typeof row === "object" && row !== null && !Array.isArray(row)) {
+                    if (isFc) {
+                        return {
+                            position: String(row.position ?? ""),
+                            name: String(row.name ?? ""),
+                            yellow: Number(row.yellow ?? 0),
+                            red: Number(row.red ?? 0),
+                            injury: Number(row.injury ?? 0),
+                            number: String(row.number ?? ""),
+                            imageUrl: String(row.imageUrl ?? ""),
+                            goals: Number(row.goals ?? 0),
+                            assists: Number(row.assists ?? 0),
+                            appearances: Number(row.appearances ?? 0),
+                            notes: String(row.notes ?? "")
+                        };
+                    }
+                    return buildDefaultPlayerRow();
+                }
+
+                // Support legacy array format for backwards compatibility
                 if (!Array.isArray(row)) {
                     return buildDefaultPlayerRow();
                 }
 
-                const values = row.slice(0, 7);
-                const isFc = isFcTemplateFile();
                 if (isFc) {
-                    return [
-                        String(values[0] ?? ""), // position
-                        String(values[1] ?? ""), // name
-                        String(values[2] ?? "0"), // yellow
-                        String(values[3] ?? "0"), // red
-                        String(values[4] ?? "0"), // injury
-                        String(values[5] ?? ""), // number
-                        String(values[6] ?? "")  // image URL
-                    ];
+                    // Convert array to object for fc-template
+                    return {
+                        position: String(row[0] ?? ""),
+                        name: String(row[1] ?? ""),
+                        yellow: Number(row[2] ?? 0),
+                        red: Number(row[3] ?? 0),
+                        injury: Number(row[4] ?? 0),
+                        number: String(row[5] ?? ""),
+                        imageUrl: String(row[6] ?? ""),
+                        goals: 0,
+                        assists: 0,
+                        appearances: 0,
+                        notes: ""
+                    };
                 }
 
-                // Legacy FM format: keep 5 elements only
+                // Legacy FM format: keep array format
                 return [
-                    String(values[0] ?? ""), // position
-                    String(values[1] ?? ""), // name
-                    String(values[2] ?? "0"), // yellow
-                    String(values[3] ?? "0"), // red
-                    String(values[4] ?? "0")  // injury
+                    String(row[0] ?? ""), // position
+                    String(row[1] ?? ""), // name
+                    String(row[2] ?? "0"), // yellow
+                    String(row[3] ?? "0"), // red
+                    String(row[4] ?? "0")  // injury
                 ];
             }
 
@@ -4473,8 +4518,23 @@
                 const isFc = isFcTemplateFile();
                 players.forEach(function(playerRow, playerIndex) {
                     const row = document.createElement("div");
+                    const isObjectFormat = typeof playerRow === "object" && !Array.isArray(playerRow);
 
-                    const columns = isFc
+                    const columns = isFc && isObjectFormat
+                        ? [
+                            { key: "position", label: "Position" },
+                            { key: "number", label: "Number" },
+                            { key: "name", label: "Name" },
+                            { key: "yellow", label: "Yellow", type: "number" },
+                            { key: "red", label: "Red", type: "number" },
+                            { key: "injury", label: "Injury", type: "number" },
+                            { key: "goals", label: "Goals", type: "number" },
+                            { key: "assists", label: "Assists", type: "number" },
+                            { key: "appearances", label: "Apps", type: "number" },
+                            { key: "imageUrl", label: "Image URL" },
+                            { key: "notes", label: "Notes", type: "textarea" }
+                        ]
+                        : isFc
                         ? [
                             { key: 0, label: "Position" },
                             { key: 5, label: "Number" },
@@ -4497,26 +4557,44 @@
 
                     columns.forEach(function(column) {
                         const fieldWrap = document.createElement("div");
-                        if (column.key === 1) {
-                            fieldWrap.className = "player-name-field";
-                        }
                         const fieldLabel = document.createElement("label");
                         fieldLabel.textContent = column.label;
-                        const input = document.createElement("input");
-                        // number fields and counts should be numeric where appropriate
-                        input.type = (column.key === 2 || column.key === 3 || column.key === 4 || column.key === 5) ? "number" : "text";
-                        if (column.key >= 2 && column.key <= 5) {
-                            input.className = "player-number-input";
-                        } else if (column.key === 1) {
-                            input.className = "player-name-input";
-                        } else if (column.key === 6) {
-                            input.className = "player-image-input";
+                        
+                        const isObject = typeof column.key === "string";
+                        const fieldType = column.type || "text";
+                        let input;
+                        
+                        if (fieldType === "textarea") {
+                            input = document.createElement("textarea");
+                            input.value = isObject ? String(playerRow[column.key] ?? "") : String(playerRow[column.key] ?? "");
+                            input.rows = 2;
+                        } else {
+                            input = document.createElement("input");
+                            input.type = fieldType === "number" ? "number" : "text";
+                            input.value = isObject ? String(playerRow[column.key] ?? "") : String(playerRow[column.key] ?? "");
                         }
-                        input.value = String(playerRow[column.key] ?? "");
+                        
+                        if (isObject && (column.key === "name")) {
+                            input.className = "player-name-input";
+                            fieldWrap.className = "player-name-field";
+                        } else if (isObject && ["yellow", "red", "injury", "goals", "assists", "appearances"].includes(column.key)) {
+                            input.className = "player-number-input";
+                        } else if (isObject && column.key === "imageUrl") {
+                            input.className = "player-image-input";
+                        } else if (isObject && column.key === "notes") {
+                            input.className = "player-notes-input";
+                        }
+                        
                         input.addEventListener("input", function(event) {
-                            const nextRow = normalizePlayerRow(record.players[playerIndex]);
-                            nextRow[column.key] = event.target.value;
-                            record.players[playerIndex] = nextRow;
+                            if (isObject) {
+                                record.players[playerIndex][column.key] = fieldType === "number" ? Number(event.target.value) : event.target.value;
+                            } else {
+                                const nextRow = normalizePlayerRow(record.players[playerIndex]);
+                                if (Array.isArray(nextRow)) {
+                                    nextRow[column.key] = event.target.value;
+                                    record.players[playerIndex] = nextRow;
+                                }
+                            }
                             syncCrmToJsonText();
                         });
                         fieldWrap.appendChild(fieldLabel);
