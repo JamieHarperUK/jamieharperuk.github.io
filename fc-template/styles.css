@@ -974,18 +974,22 @@ main {
 }
 
 .player-card.goalkeeper:hover {
+    border-color: #fff34d;
     box-shadow: 0 6px 16px rgba(255, 243, 77, 0.35);
 }
 
 .player-card.defender:hover {
+    border-color: #187bcd;
     box-shadow: 0 6px 16px rgba(24, 123, 205, 0.35);
 }
 
 .player-card.midfielder:hover {
+    border-color: #51c440;
     box-shadow: 0 6px 16px rgba(81, 196, 64, 0.35);
 }
 
 .player-card.forward:hover {
+    border-color: #bd2b39;
     box-shadow: 0 6px 16px rgba(189, 43, 57, 0.35);
 }
 

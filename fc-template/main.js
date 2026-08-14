@@ -2151,10 +2151,14 @@ const app = {
 
         const normalized = this.normalizePlayerData(playerData);
 
-        // Get position group class and apply to modal
+        // Get position group class and apply to modal-dialog (player-modal)
         const positionGroupClass = this.getPositionGroupClass(normalized.position);
-        elements.modal.classList.remove("goalkeeper", "defender", "midfielder", "forward", "other");
-        elements.modal.classList.add(positionGroupClass);
+        const playerModalDialog = elements.modal.querySelector(".player-modal");
+        
+        if (playerModalDialog) {
+            playerModalDialog.classList.remove("goalkeeper", "defender", "midfielder", "forward", "other");
+            playerModalDialog.classList.add(positionGroupClass);
+        }
 
         // Populate modal content
         elements.title.textContent = normalized.name;
