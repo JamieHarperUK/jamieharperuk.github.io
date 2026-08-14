@@ -38,54 +38,54 @@
         {
           "position": "GK",
           "name": "Alex Goalkeeper",
-          "number": "1",
-          "imageUrl": "profile_placeholder.png",
           "yellow": 0,
           "red": 0,
-          "injury": 0,
+          "injury": "0",
+          "number": "1",
+          "imageUrl": "profile_placeholder.png",
           "goals": 0,
           "assists": 0,
-          "appearances": 24,
-          "notes": ""
+          "appearances": 0,
+          "notes": "Extra notes on the player."
         },
         {
           "position": "DL",
           "name": "Ben Defender",
-          "number": "3",
-          "imageUrl": "profile_placeholder.png",
-          "yellow": 1,
+          "yellow": 0,
           "red": 0,
           "injury": 0,
+          "number": "3",
+          "imageUrl": "profile_placeholder.png",
           "goals": 0,
-          "assists": 2,
-          "appearances": 22,
-          "notes": ""
+          "assists": 0,
+          "appearances": 0,
+          "notes": "Extra notes on the player."
         },
         {
           "position": "MC",
           "name": "Chris Midfield",
-          "number": "6",
-          "imageUrl": "profile_placeholder.png",
-          "yellow": 2,
+          "yellow": 0,
           "red": 0,
           "injury": 0,
-          "goals": 3,
-          "assists": 5,
-          "appearances": 18,
-          "notes": ""
+          "number": "6",
+          "imageUrl": "profile_placeholder.png",
+          "goals": 0,
+          "assists": 0,
+          "appearances": 0,
+          "notes": "Extra notes on the player."
         },
         {
           "position": "ST",
           "name": "Dan Striker",
+          "yellow": 0,
+          "red": 0,
+          "injury": 0,
           "number": "9",
           "imageUrl": "profile_placeholder.png",
-          "yellow": 1,
-          "red": 0,
-          "injury": 5,
-          "goals": 12,
-          "assists": 3,
-          "appearances": 20,
-          "notes": "Recovering from injury"
+          "goals": 0,
+          "assists": 0,
+          "appearances": 0,
+          "notes": "Extra notes on the player."
         }
       ]
     }
