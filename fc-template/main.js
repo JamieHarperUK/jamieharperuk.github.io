@@ -2086,6 +2086,11 @@ const app = {
         return "Other";
     },
 
+    getPositionGroupClass(position) {
+        const group = this.getPositionGroup(position);
+        return group.toLowerCase().replace(/s$/, "");
+    },
+
     normalizePlayerData(player) {
         // Handle both array and object formats for backwards compatibility
         if (Array.isArray(player)) {
@@ -2145,6 +2150,11 @@ const app = {
         }
 
         const normalized = this.normalizePlayerData(playerData);
+
+        // Get position group class and apply to modal
+        const positionGroupClass = this.getPositionGroupClass(normalized.position);
+        elements.modal.classList.remove("goalkeeper", "defender", "midfielder", "forward", "other");
+        elements.modal.classList.add(positionGroupClass);
 
         // Populate modal content
         elements.title.textContent = normalized.name;

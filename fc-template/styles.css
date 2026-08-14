@@ -407,12 +407,14 @@ main {
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    text-align: center;
 }
 
 .stat-value {
     color: var(--primary-color);
     font-weight: 700;
     font-size: 1.3rem;
+    text-align: center;
 }
 
 .player-modal-notes {
@@ -434,6 +436,72 @@ main {
     color: var(--text-secondary);
     font-size: 0.9rem;
     line-height: 1.5;
+}
+
+/* Position-specific modal styling */
+.player-modal.goalkeeper {
+    border-left: 4px solid #fff34d;
+}
+
+.player-modal.goalkeeper .player-modal-img {
+    border-color: #fff34d;
+}
+
+.player-modal.goalkeeper .player-modal-info h2,
+.player-modal.goalkeeper .stat-value {
+    color: #fff34d;
+}
+
+.player-modal.defender {
+    border-left: 4px solid #187bcd;
+}
+
+.player-modal.defender .player-modal-img {
+    border-color: #187bcd;
+}
+
+.player-modal.defender .player-modal-info h2,
+.player-modal.defender .stat-value {
+    color: #187bcd;
+}
+
+.player-modal.midfielder {
+    border-left: 4px solid #51c440;
+}
+
+.player-modal.midfielder .player-modal-img {
+    border-color: #51c440;
+}
+
+.player-modal.midfielder .player-modal-info h2,
+.player-modal.midfielder .stat-value {
+    color: #51c440;
+}
+
+.player-modal.forward {
+    border-left: 4px solid #bd2b39;
+}
+
+.player-modal.forward .player-modal-img {
+    border-color: #bd2b39;
+}
+
+.player-modal.forward .player-modal-info h2,
+.player-modal.forward .stat-value {
+    color: #bd2b39;
+}
+
+.player-modal.other {
+    border-left: 4px solid rgba(255,255,255,0.2);
+}
+
+.player-modal.other .player-modal-img {
+    border-color: rgba(255,255,255,0.3);
+}
+
+.player-modal.other .player-modal-info h2,
+.player-modal.other .stat-value {
+    color: rgba(255,255,255,0.6);
 }
 
 .modal-dialog h2 {
@@ -902,6 +970,26 @@ main {
     background: linear-gradient(180deg, rgba(21,29,45,1), rgba(10,15,30,0.98));
     border-color: var(--primary-color);
     transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(200, 16, 46, 0.25);
+}
+
+.player-card.goalkeeper:hover {
+    box-shadow: 0 6px 16px rgba(255, 243, 77, 0.35);
+}
+
+.player-card.defender:hover {
+    box-shadow: 0 6px 16px rgba(24, 123, 205, 0.35);
+}
+
+.player-card.midfielder:hover {
+    box-shadow: 0 6px 16px rgba(81, 196, 64, 0.35);
+}
+
+.player-card.forward:hover {
+    box-shadow: 0 6px 16px rgba(189, 43, 57, 0.35);
+}
+
+.player-card.other:hover {
     box-shadow: 0 6px 16px rgba(200, 16, 46, 0.25);
 }
 
