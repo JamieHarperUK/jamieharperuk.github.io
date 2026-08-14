@@ -74,6 +74,19 @@
     },
     {
       "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "pompi67 FC",
+      "date": "15-08-2026",
+      "time": "17:26",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Cup (Round of 16)",
+      "venue": "The Concourse",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
       "home_team": "Cheshire Harriers FC",
       "away_team": "Devon Athletic FC",
       "date": "16-08-2026",
