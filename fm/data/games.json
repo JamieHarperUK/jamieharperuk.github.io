@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Away",
-      "home_team": "asrof FC",
-      "away_team": "Harper FC",
-      "date": "14-08-2026",
-      "time": "18:54",
-      "osm_or_top_eleven": "OSM",
-      "competition": "League Level 2",
-      "venue": "Stadion asrof FC",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "Wealdstone FC",
       "away_team": "Altrincham FC",
       "date": "14-08-2026",
@@ -67,6 +54,19 @@
       "time": "17:26",
       "osm_or_top_eleven": "Top Eleven",
       "competition": "Cup (Round of 16)",
+      "venue": "The Concourse",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "Adana demirspor",
+      "date": "15-08-2026",
+      "time": "20:46",
+      "osm_or_top_eleven": "OSM",
+      "competition": "League Level 2",
       "venue": "The Concourse",
       "home_score": "",
       "away_score": "",
@@ -110,6 +110,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "asrof FC",
+      "away_team": "Harper FC",
+      "date": "14-08-2026",
+      "time": "18:54",
+      "osm_or_top_eleven": "OSM",
+      "competition": "League Level 2",
+      "venue": "Stadion asrof FC",
+      "home_score": "0",
+      "away_score": "10",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Home",
