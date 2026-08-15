@@ -63,6 +63,7 @@ const app = {
         image: buildFmUrl("data/fm_bg.png", true)
     },
     data: {
+        club: {},
         games: [],
         teams: [],
         posts: [],
@@ -368,40 +369,34 @@ const app = {
     },
 
     async loadData() {
-        const [gamesResponse, teamsResponse, postsResponse, ticketsResponse, tablesResponse, clubResponse] = await Promise.all([
-            fetch(dataSources.games).catch(() => ({ ok: false })),
-            fetch(dataSources.teams).catch(() => ({ ok: false })),
-            fetch(dataSources.posts).catch(() => ({ ok: false })),
-            fetch(dataSources.tickets).catch(() => ({ ok: false })),
-            fetch(dataSources.tables).catch(() => ({ ok: false })),
-            fetch(dataSources.club).catch(() => ({ ok: false }))
+        const [clubResponse, gamesResponse, teamsResponse, postsResponse, ticketsResponse, tablesResponse] = await Promise.all([
+            fetch(dataSources.club).catch(() => ({ ok: false, status: 404 })),
+            fetch(dataSources.games),
+            fetch(dataSources.teams),
+            fetch(dataSources.posts),
+            fetch(dataSources.tickets),
+            fetch(dataSources.tables)
         ]);
 
-        if (!gamesResponse.ok || !teamsResponse.ok || !ticketsResponse.ok || !tablesResponse.ok) {
-            throw new Error("Unable to load one or more FC JSON data sources.");
+        if (!gamesResponse.ok || !teamsResponse.ok || !postsResponse.ok || !ticketsResponse.ok || !tablesResponse.ok) {
+            throw new Error("Unable to load one or more JSON data sources.");
         }
 
-        const [gamesJson, teamsJson, postsJson, ticketsJson, tablesJson, clubJson] = await Promise.all([
-            gamesResponse.ok ? gamesResponse.json() : { games: [] },
-            teamsResponse.ok ? teamsResponse.json() : { teams: [] },
-            postsResponse.ok ? postsResponse.json() : { posts: [] },
-            ticketsResponse.ok ? ticketsResponse.json() : { tickets: [] },
-            tablesResponse.ok ? tablesResponse.json() : { tables: [] },
-            clubResponse.ok ? clubResponse.json() : { club: null }
+        const [clubJson, gamesJson, teamsJson, postsJson, ticketsJson, tablesJson] = await Promise.all([
+            clubResponse.ok ? clubResponse.json() : {},
+            gamesResponse.json(),
+            teamsResponse.json(),
+            postsResponse.json(),
+            ticketsResponse.json(),
+            tablesResponse.json()
         ]);
 
+        this.data.club = clubJson && typeof clubJson === "object" ? clubJson : {};
         this.data.games = Array.isArray(gamesJson.games) ? gamesJson.games : [];
         this.data.teams = Array.isArray(teamsJson.teams) ? teamsJson.teams : [];
         this.data.posts = Array.isArray(postsJson.posts) ? postsJson.posts : [];
         this.data.tickets = Array.isArray(ticketsJson.tickets) ? ticketsJson.tickets : [];
         this.data.tables = Array.isArray(tablesJson.tables) ? tablesJson.tables : [];
-
-        if (clubJson && clubJson.club) {
-            this.siteMeta = {
-                ...this.siteMeta,
-                club: clubJson.club
-            };
-        }
     },
 
     syncBodyModalOpenState() {
