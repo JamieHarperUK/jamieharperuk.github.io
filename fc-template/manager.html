@@ -603,6 +603,61 @@
         font-size: 0.85rem;
       }
 
+      .reorder-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .reorder-item {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: rgba(11, 19, 29, 0.9);
+        cursor: grab;
+      }
+
+      .reorder-item.dragging {
+        opacity: 0.55;
+      }
+
+      .reorder-item.drop-target {
+        border-color: rgba(116, 208, 255, 0.5);
+        box-shadow: inset 0 0 0 1px rgba(116, 208, 255, 0.4);
+      }
+
+      .reorder-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .reorder-title {
+        margin: 0;
+        font-weight: 700;
+      }
+
+      .reorder-meta {
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .reorder-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        align-items: center;
+      }
+
+      .reorder-actions button {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+      }
+
       @media (max-width: 980px) {
         body {
           padding: 16px;
@@ -751,6 +806,68 @@
               <div style="padding: 20px 24px; border-top: 1px solid var(--line); display: flex; gap: 10px;">
                 <button id="teamEditModalSaveBtn" type="button" class="primary">Save</button>
                 <button id="teamEditModalCancelBtn" type="button" class="secondary">Cancel</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="tablesModal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+            <div class="modal-card">
+              <div class="modal-head">
+                <h3 id="tablesModalTitle">Edit League Tables</h3>
+                <button id="tablesModalCloseBtn" type="button" class="secondary">Close</button>
+              </div>
+              <div class="modal-body-scroll">
+                <div id="tablesModalBody" class="reorder-list"></div>
+              </div>
+              <div style="padding: 20px 24px; border-top: 1px solid var(--line); display: flex; gap: 10px;">
+                <button id="tablesModalAddBtn" type="button" class="primary">Add Table</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="ticketsModal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+            <div class="modal-card">
+              <div class="modal-head">
+                <h3 id="ticketsModalTitle">Edit Tickets</h3>
+                <button id="ticketsModalCloseBtn" type="button" class="secondary">Close</button>
+              </div>
+              <div class="modal-body-scroll">
+                <div id="ticketsModalBody" class="reorder-list"></div>
+              </div>
+              <div style="padding: 20px 24px; border-top: 1px solid var(--line); display: flex; gap: 10px;">
+                <button id="ticketsModalAddBtn" type="button" class="primary">Add Ticket</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="tableEditModal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+            <div class="modal-card" style="max-width: 650px;">
+              <div class="modal-head">
+                <h3 id="tableEditModalTitle">Edit Table</h3>
+                <button id="tableEditModalCloseBtn" type="button" class="secondary">Close</button>
+              </div>
+              <div class="modal-body-scroll">
+                <div id="tableEditModalFields" class="crm-field-grid"></div>
+              </div>
+              <div style="padding: 20px 24px; border-top: 1px solid var(--line); display: flex; gap: 10px;">
+                <button id="tableEditModalSaveBtn" type="button" class="primary">Save</button>
+                <button id="tableEditModalCancelBtn" type="button" class="secondary">Cancel</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="ticketEditModal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+            <div class="modal-card" style="max-width: 650px;">
+              <div class="modal-head">
+                <h3 id="ticketEditModalTitle">Edit Ticket</h3>
+                <button id="ticketEditModalCloseBtn" type="button" class="secondary">Close</button>
+              </div>
+              <div class="modal-body-scroll">
+                <div id="ticketEditModalFields" class="crm-field-grid"></div>
+              </div>
+              <div style="padding: 20px 24px; border-top: 1px solid var(--line); display: flex; gap: 10px;">
+                <button id="ticketEditModalSaveBtn" type="button" class="primary">Save</button>
+                <button id="ticketEditModalCancelBtn" type="button" class="secondary">Cancel</button>
               </div>
             </div>
           </div>
@@ -1330,6 +1447,46 @@
                 empty.textContent = "No records yet for this section.";
                 records.appendChild(empty);
               } else {
+                if (sectionKey === "tables" && Array.isArray(sectionValue)) {
+                  const actionRow = document.createElement("div");
+                  actionRow.style.display = "flex";
+                  actionRow.style.justifyContent = "space-between";
+                  actionRow.style.alignItems = "center";
+                  actionRow.style.marginBottom = "12px";
+
+                  const count = document.createElement("span");
+                  count.className = "summary-text";
+                  count.textContent = `${sectionValue.length} table(s)`;
+                  actionRow.appendChild(count);
+
+                  const openBtn = document.createElement("button");
+                  openBtn.type = "button";
+                  openBtn.className = "primary";
+                  openBtn.textContent = "Edit Tables";
+                  openBtn.addEventListener("click", openTablesModal);
+                  actionRow.appendChild(openBtn);
+                  records.appendChild(actionRow);
+                } else if (sectionKey === "tickets" && Array.isArray(sectionValue)) {
+                  const actionRow = document.createElement("div");
+                  actionRow.style.display = "flex";
+                  actionRow.style.justifyContent = "space-between";
+                  actionRow.style.alignItems = "center";
+                  actionRow.style.marginBottom = "12px";
+
+                  const count = document.createElement("span");
+                  count.className = "summary-text";
+                  count.textContent = `${sectionValue.length} ticket(s)`;
+                  actionRow.appendChild(count);
+
+                  const openBtn = document.createElement("button");
+                  openBtn.type = "button";
+                  openBtn.className = "primary";
+                  openBtn.textContent = "Edit Tickets";
+                  openBtn.addEventListener("click", openTicketsModal);
+                  actionRow.appendChild(openBtn);
+                  records.appendChild(actionRow);
+                }
+
                 sectionValue.forEach((entry, recordIndex) => {
                   if (isPlainObject(entry)) {
                     const card = document.createElement("div");
@@ -1595,8 +1752,523 @@
           teamsRecordIndex: -1,
           playersTeamIndex: -1,
           playerEditIndex: -1,
-          teamEditIndex: -1
+          teamEditIndex: -1,
+          tablesTableIndex: -1,
+          tableRowIndex: -1,
+          ticketIndex: -1
         };
+
+        function moveArrayItem(array, fromIndex, toIndex) {
+          if (!Array.isArray(array) || fromIndex === toIndex || fromIndex < 0 || toIndex < 0 || fromIndex >= array.length || toIndex >= array.length) {
+            return false;
+          }
+
+          const [item] = array.splice(fromIndex, 1);
+          array.splice(toIndex, 0, item);
+          return true;
+        }
+
+        function createReorderItemCard({
+          title,
+          meta,
+          onEdit,
+          onMoveUp,
+          onMoveDown,
+          onRemove,
+          draggable = true
+        }) {
+          const item = document.createElement("div");
+          item.className = "reorder-item";
+          item.draggable = draggable;
+
+          const header = document.createElement("div");
+          header.className = "reorder-header";
+
+          const titleEl = document.createElement("p");
+          titleEl.className = "reorder-title";
+          titleEl.textContent = title;
+
+          const metaEl = document.createElement("div");
+          metaEl.className = "reorder-meta";
+          metaEl.textContent = meta;
+
+          const actions = document.createElement("div");
+          actions.className = "reorder-actions";
+
+          if (typeof onEdit === "function") {
+            const editBtn = document.createElement("button");
+            editBtn.type = "button";
+            editBtn.className = "primary";
+            editBtn.textContent = "Edit";
+            editBtn.addEventListener("click", onEdit);
+            actions.appendChild(editBtn);
+          }
+
+          if (typeof onMoveUp === "function") {
+            const upBtn = document.createElement("button");
+            upBtn.type = "button";
+            upBtn.textContent = "↑";
+            upBtn.title = "Move up";
+            upBtn.addEventListener("click", onMoveUp);
+            actions.appendChild(upBtn);
+          }
+
+          if (typeof onMoveDown === "function") {
+            const downBtn = document.createElement("button");
+            downBtn.type = "button";
+            downBtn.textContent = "↓";
+            downBtn.title = "Move down";
+            downBtn.addEventListener("click", onMoveDown);
+            actions.appendChild(downBtn);
+          }
+
+          if (typeof onRemove === "function") {
+            const removeBtn = document.createElement("button");
+            removeBtn.type = "button";
+            removeBtn.textContent = "Remove";
+            removeBtn.addEventListener("click", onRemove);
+            actions.appendChild(removeBtn);
+          }
+
+          header.appendChild(titleEl);
+          header.appendChild(actions);
+          item.appendChild(header);
+          item.appendChild(metaEl);
+
+          let dragIndex = -1;
+          item.addEventListener("dragstart", (event) => {
+            dragIndex = Number(item.dataset.index || -1);
+            item.classList.add("dragging");
+            event.dataTransfer?.setData("text/plain", String(dragIndex));
+            event.dataTransfer.effectAllowed = "move";
+          });
+
+          item.addEventListener("dragend", () => {
+            item.classList.remove("dragging");
+            item.classList.remove("drop-target");
+            dragIndex = -1;
+          });
+
+          item.addEventListener("dragover", (event) => {
+            event.preventDefault();
+            item.classList.add("drop-target");
+            event.dataTransfer.dropEffect = "move";
+          });
+
+          item.addEventListener("dragleave", () => {
+            item.classList.remove("drop-target");
+          });
+
+          item.addEventListener("drop", (event) => {
+            event.preventDefault();
+            item.classList.remove("drop-target");
+            const sourceIndex = Number(event.dataTransfer?.getData("text/plain") || item.dataset.index || -1);
+            const targetIndex = Number(item.dataset.index || -1);
+            if (sourceIndex >= 0 && targetIndex >= 0 && sourceIndex !== targetIndex) {
+              const array = item.dataset.array ? JSON.parse(item.dataset.array) : [];
+              if (array && typeof array.length === "number") {
+                const source = array[sourceIndex];
+                array.splice(sourceIndex, 1);
+                array.splice(targetIndex, 0, source);
+              }
+            }
+          });
+
+          return item;
+        }
+
+        function renderLeagueTableEditor() {
+          const file = currentFile();
+          if (!file || !file.data || !Array.isArray(file.data.tables)) {
+            return;
+          }
+
+          const container = document.getElementById("tablesModalBody");
+          container.innerHTML = "";
+          const tables = file.data.tables;
+
+          if (!tables.length) {
+            container.innerHTML = '<div class="crm-empty">No league tables yet.</div>';
+            return;
+          }
+
+          tables.forEach((table, index) => {
+            const item = document.createElement("div");
+            item.className = "reorder-item";
+            item.draggable = true;
+            item.dataset.index = String(index);
+
+            const header = document.createElement("div");
+            header.className = "reorder-header";
+
+            const title = document.createElement("p");
+            title.className = "reorder-title";
+            title.textContent = table.title || `Table ${index + 1}`;
+
+            const actions = document.createElement("div");
+            actions.className = "reorder-actions";
+
+            const editBtn = document.createElement("button");
+            editBtn.type = "button";
+            editBtn.className = "primary";
+            editBtn.textContent = "Edit";
+            editBtn.addEventListener("click", () => {
+              modalState.tablesTableIndex = index;
+              renderTableEditModal();
+              document.getElementById("tableEditModal").classList.remove("hidden");
+            });
+            actions.appendChild(editBtn);
+
+            if (index > 0) {
+              const upBtn = document.createElement("button");
+              upBtn.type = "button";
+              upBtn.textContent = "↑";
+              upBtn.title = "Move up";
+              upBtn.addEventListener("click", () => {
+                if (moveArrayItem(tables, index, index - 1)) {
+                  updateStructuredValuesFromDom();
+                  renderLeagueTableEditor();
+                }
+              });
+              actions.appendChild(upBtn);
+            }
+
+            if (index < tables.length - 1) {
+              const downBtn = document.createElement("button");
+              downBtn.type = "button";
+              downBtn.textContent = "↓";
+              downBtn.title = "Move down";
+              downBtn.addEventListener("click", () => {
+                if (moveArrayItem(tables, index, index + 1)) {
+                  updateStructuredValuesFromDom();
+                  renderLeagueTableEditor();
+                }
+              });
+              actions.appendChild(downBtn);
+            }
+
+            const removeBtn = document.createElement("button");
+            removeBtn.type = "button";
+            removeBtn.textContent = "Remove";
+            removeBtn.addEventListener("click", () => {
+              tables.splice(index, 1);
+              updateStructuredValuesFromDom();
+              renderLeagueTableEditor();
+            });
+            actions.appendChild(removeBtn);
+
+            header.appendChild(title);
+            header.appendChild(actions);
+            item.appendChild(header);
+
+            const meta = document.createElement("div");
+            meta.className = "reorder-meta";
+            meta.textContent = `${table.season || "Season unknown"} · ${Array.isArray(table.rows) ? table.rows.length : 0} rows`;
+            item.appendChild(meta);
+
+            item.addEventListener("dragstart", (event) => {
+              item.classList.add("dragging");
+              event.dataTransfer?.setData("text/plain", String(index));
+              event.dataTransfer.effectAllowed = "move";
+            });
+
+            item.addEventListener("dragover", (event) => {
+              event.preventDefault();
+              item.classList.add("drop-target");
+              event.dataTransfer.dropEffect = "move";
+            });
+
+            item.addEventListener("dragleave", () => {
+              item.classList.remove("drop-target");
+            });
+
+            item.addEventListener("drop", (event) => {
+              event.preventDefault();
+              item.classList.remove("drop-target");
+              const fromIndex = Number(event.dataTransfer?.getData("text/plain") || -1);
+              if (fromIndex >= 0 && fromIndex !== index) {
+                moveArrayItem(tables, fromIndex, index);
+                updateStructuredValuesFromDom();
+                renderLeagueTableEditor();
+              }
+            });
+
+            item.addEventListener("dragend", () => {
+              item.classList.remove("dragging");
+              item.classList.remove("drop-target");
+            });
+
+            container.appendChild(item);
+          });
+        }
+
+        function renderTicketEditor() {
+          const file = currentFile();
+          if (!file || !file.data || !Array.isArray(file.data.tickets)) {
+            return;
+          }
+
+          const container = document.getElementById("ticketsModalBody");
+          container.innerHTML = "";
+          const tickets = file.data.tickets;
+
+          if (!tickets.length) {
+            container.innerHTML = '<div class="crm-empty">No tickets yet.</div>';
+            return;
+          }
+
+          tickets.forEach((ticket, index) => {
+            const item = document.createElement("div");
+            item.className = "reorder-item";
+            item.draggable = true;
+            item.dataset.index = String(index);
+
+            const header = document.createElement("div");
+            header.className = "reorder-header";
+
+            const title = document.createElement("p");
+            title.className = "reorder-title";
+            title.textContent = ticket.title || `Ticket ${index + 1}`;
+
+            const actions = document.createElement("div");
+            actions.className = "reorder-actions";
+
+            const editBtn = document.createElement("button");
+            editBtn.type = "button";
+            editBtn.className = "primary";
+            editBtn.textContent = "Edit";
+            editBtn.addEventListener("click", () => {
+              modalState.ticketIndex = index;
+              renderTicketEditModal();
+              document.getElementById("ticketEditModal").classList.remove("hidden");
+            });
+            actions.appendChild(editBtn);
+
+            if (index > 0) {
+              const upBtn = document.createElement("button");
+              upBtn.type = "button";
+              upBtn.textContent = "↑";
+              upBtn.title = "Move up";
+              upBtn.addEventListener("click", () => {
+                if (moveArrayItem(tickets, index, index - 1)) {
+                  updateStructuredValuesFromDom();
+                  renderTicketEditor();
+                }
+              });
+              actions.appendChild(upBtn);
+            }
+
+            if (index < tickets.length - 1) {
+              const downBtn = document.createElement("button");
+              downBtn.type = "button";
+              downBtn.textContent = "↓";
+              downBtn.title = "Move down";
+              downBtn.addEventListener("click", () => {
+                if (moveArrayItem(tickets, index, index + 1)) {
+                  updateStructuredValuesFromDom();
+                  renderTicketEditor();
+                }
+              });
+              actions.appendChild(downBtn);
+            }
+
+            const removeBtn = document.createElement("button");
+            removeBtn.type = "button";
+            removeBtn.textContent = "Remove";
+            removeBtn.addEventListener("click", () => {
+              tickets.splice(index, 1);
+              updateStructuredValuesFromDom();
+              renderTicketEditor();
+            });
+            actions.appendChild(removeBtn);
+
+            header.appendChild(title);
+            header.appendChild(actions);
+            item.appendChild(header);
+
+            const meta = document.createElement("div");
+            meta.className = "reorder-meta";
+            meta.textContent = `${ticket.date || "Date unknown"} · ${ticket.status || "Status unknown"}`;
+            item.appendChild(meta);
+
+            item.addEventListener("dragstart", (event) => {
+              item.classList.add("dragging");
+              event.dataTransfer?.setData("text/plain", String(index));
+              event.dataTransfer.effectAllowed = "move";
+            });
+
+            item.addEventListener("dragover", (event) => {
+              event.preventDefault();
+              item.classList.add("drop-target");
+              event.dataTransfer.dropEffect = "move";
+            });
+
+            item.addEventListener("dragleave", () => {
+              item.classList.remove("drop-target");
+            });
+
+            item.addEventListener("drop", (event) => {
+              event.preventDefault();
+              item.classList.remove("drop-target");
+              const fromIndex = Number(event.dataTransfer?.getData("text/plain") || -1);
+              if (fromIndex >= 0 && fromIndex !== index) {
+                moveArrayItem(tickets, fromIndex, index);
+                updateStructuredValuesFromDom();
+                renderTicketEditor();
+              }
+            });
+
+            item.addEventListener("dragend", () => {
+              item.classList.remove("dragging");
+              item.classList.remove("drop-target");
+            });
+
+            container.appendChild(item);
+          });
+        }
+
+        function renderTableEditModal() {
+          const file = currentFile();
+          if (!file || !file.data || !Array.isArray(file.data.tables)) {
+            return;
+          }
+
+          const index = modalState.tablesTableIndex;
+          const table = file.data.tables[index];
+          if (!table) {
+            return;
+          }
+
+          document.getElementById("tableEditModalTitle").textContent = `Edit Table · ${table.title || `Table ${index + 1}`}`;
+
+          const container = document.getElementById("tableEditModalFields");
+          container.innerHTML = "";
+
+          const fields = [
+            { key: "title", label: "Title" },
+            { key: "season", label: "Season" }
+          ];
+
+          fields.forEach((field) => {
+            const wrapper = document.createElement("div");
+            wrapper.className = "crm-field";
+
+            const label = document.createElement("label");
+            label.textContent = field.label;
+
+            const input = document.createElement("input");
+            input.type = "text";
+            input.value = table[field.key] ?? "";
+            input.addEventListener("input", () => {
+              table[field.key] = input.value;
+            });
+
+            wrapper.appendChild(label);
+            wrapper.appendChild(input);
+            container.appendChild(wrapper);
+          });
+        }
+
+        function renderTicketEditModal() {
+          const file = currentFile();
+          if (!file || !file.data || !Array.isArray(file.data.tickets)) {
+            return;
+          }
+
+          const index = modalState.ticketIndex;
+          const ticket = file.data.tickets[index];
+          if (!ticket) {
+            return;
+          }
+
+          document.getElementById("ticketEditModalTitle").textContent = `Edit Ticket · ${ticket.title || `Ticket ${index + 1}`}`;
+
+          const container = document.getElementById("ticketEditModalFields");
+          container.innerHTML = "";
+
+          const fields = [
+            { key: "title", label: "Title" },
+            { key: "match", label: "Match" },
+            { key: "date", label: "Date" },
+            { key: "venue", label: "Venue" },
+            { key: "status", label: "Status" },
+            { key: "link", label: "Link" },
+            { key: "notes", label: "Notes", textarea: true }
+          ];
+
+          fields.forEach((field) => {
+            const wrapper = document.createElement("div");
+            wrapper.className = "crm-field";
+
+            const label = document.createElement("label");
+            label.textContent = field.label;
+
+            const input = field.textarea ? document.createElement("textarea") : document.createElement("input");
+            if (!field.textarea) {
+              input.type = "text";
+            }
+            input.value = ticket[field.key] ?? "";
+            input.addEventListener("input", () => {
+              ticket[field.key] = input.value;
+            });
+
+            wrapper.appendChild(label);
+            wrapper.appendChild(input);
+            container.appendChild(wrapper);
+          });
+        }
+
+        function openTablesModal() {
+          const file = currentFile();
+          if (!file || !file.data || !Array.isArray(file.data.tables)) {
+            return;
+          }
+          renderLeagueTableEditor();
+          document.getElementById("tablesModal").classList.remove("hidden");
+        }
+
+        function openTicketsModal() {
+          const file = currentFile();
+          if (!file || !file.data || !Array.isArray(file.data.tickets)) {
+            return;
+          }
+          renderTicketEditor();
+          document.getElementById("ticketsModal").classList.remove("hidden");
+        }
+
+        function addTableEntry() {
+          const file = currentFile();
+          if (!file || !file.data || !Array.isArray(file.data.tables)) {
+            return;
+          }
+
+          file.data.tables.push({
+            title: "New Table",
+            season: "2026/27",
+            rows: []
+          });
+          updateStructuredValuesFromDom();
+          renderLeagueTableEditor();
+        }
+
+        function addTicketEntry() {
+          const file = currentFile();
+          if (!file || !file.data || !Array.isArray(file.data.tickets)) {
+            return;
+          }
+
+          file.data.tickets.push({
+            title: "New Ticket",
+            match: "The Club vs Opponents",
+            date: "2026-09-01",
+            venue: "Home Stadium",
+            status: "On sale",
+            notes: "",
+            link: "#"
+          });
+          updateStructuredValuesFromDom();
+          renderTicketEditor();
+        }
 
         function isTeamsFile() {
           const file = currentFile();
@@ -1901,6 +2573,38 @@
           updateStructuredValuesFromDom();
           renderTeamsModal();
         });
+        document.getElementById("tablesModalCloseBtn").addEventListener("click", () => {
+          document.getElementById("tablesModal").classList.add("hidden");
+          updateStructuredValuesFromDom();
+        });
+        document.getElementById("ticketsModalCloseBtn").addEventListener("click", () => {
+          document.getElementById("ticketsModal").classList.add("hidden");
+          updateStructuredValuesFromDom();
+        });
+        document.getElementById("tableEditModalCloseBtn").addEventListener("click", () => {
+          document.getElementById("tableEditModal").classList.add("hidden");
+        });
+        document.getElementById("tableEditModalCancelBtn").addEventListener("click", () => {
+          document.getElementById("tableEditModal").classList.add("hidden");
+        });
+        document.getElementById("tableEditModalSaveBtn").addEventListener("click", () => {
+          updateStructuredValuesFromDom();
+          document.getElementById("tableEditModal").classList.add("hidden");
+          renderLeagueTableEditor();
+        });
+        document.getElementById("ticketEditModalCloseBtn").addEventListener("click", () => {
+          document.getElementById("ticketEditModal").classList.add("hidden");
+        });
+        document.getElementById("ticketEditModalCancelBtn").addEventListener("click", () => {
+          document.getElementById("ticketEditModal").classList.add("hidden");
+        });
+        document.getElementById("ticketEditModalSaveBtn").addEventListener("click", () => {
+          updateStructuredValuesFromDom();
+          document.getElementById("ticketEditModal").classList.add("hidden");
+          renderTicketEditor();
+        });
+        document.getElementById("tablesModalAddBtn").addEventListener("click", addTableEntry);
+        document.getElementById("ticketsModalAddBtn").addEventListener("click", addTicketEntry);
         document.getElementById("playersModalDoneBtn").addEventListener("click", () => {
           document.getElementById("playersModal").classList.add("hidden");
           updateStructuredValuesFromDom();
