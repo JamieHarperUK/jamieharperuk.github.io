@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Home",
-      "home_team": "Harper FC",
-      "away_team": "pompi67 FC",
-      "date": "15-08-2026",
-      "time": "17:26",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "Cup (Round of 16)",
-      "venue": "The Concourse",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Home",
       "home_team": "Altrincham FC",
       "away_team": "Hartlepool",
       "date": "15-08-2026",
@@ -97,6 +84,32 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "pompi67 FC",
+      "away_team": "Harper FC",
+      "date": "17-08-2026",
+      "time": "21:15",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Cup (Round of 16)",
+      "venue": "Estadio pompi67 FC",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "pompi67 FC",
+      "date": "15-08-2026",
+      "time": "17:26",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Cup (Round of 16)",
+      "venue": "The Concourse",
+      "home_score": "7",
+      "away_score": "0",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Away",
