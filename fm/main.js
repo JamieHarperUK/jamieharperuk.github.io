@@ -300,7 +300,7 @@ const app = {
 
         if (path.startsWith("team/")) {
             const teamId = path.split("/")[1];
-            const team = this.data.teams.find((item) => this.toTeamId(item.team_name) === teamId);
+            const team = this.data.teams.find((item) => this.toTeamId(item) === teamId);
             return team?.team_name ? `Team: ${team.team_name}` : "Team Page";
         }
 
@@ -573,7 +573,7 @@ const app = {
         this.data.teams
             .filter((team) => !team.end_state || typeof team.end_state !== "object")
             .forEach((team) => {
-                const teamId = this.toTeamId(team.team_name);
+                const teamId = this.toTeamId(team);
                 const link = document.createElement("a");
                 link.href = `#team/${teamId}`;
                 link.textContent = team.team_name;
@@ -742,7 +742,7 @@ const app = {
                 this.renderTeamPage(teamId);
                 page.classList.add("active");
 
-                const team = this.data.teams.find((item) => this.toTeamId(item.team_name) === teamId);
+                const team = this.data.teams.find((item) => this.toTeamId(item) === teamId);
                 if (team) {
                     this.updatePageMetadata({
                         title: `${team.team_name} | ${this.siteMeta.title}`,
@@ -800,7 +800,7 @@ const app = {
         container.innerHTML = "";
 
         this.data.teams.forEach((team) => {
-            const teamId = this.toTeamId(team.team_name);
+            const teamId = this.toTeamId(team);
             const page = document.createElement("section");
             page.id = `team-${teamId}`;
             page.className = "page";
@@ -850,7 +850,7 @@ const app = {
                 }
 
                 const cardsMarkup = teams.map((team) => {
-                    const teamId = this.toTeamId(team.team_name);
+                    const teamId = this.toTeamId(team);
                     const finalPlace = team.end_state?.final_place || "Finished";
                     const finalEndDate = team.end_state?.end_date || "Unknown date";
                     const placeClass = this.getHallOfFamePlaceClass(finalPlace);
@@ -1719,7 +1719,7 @@ const app = {
     },
 
     renderTeamPage(teamId) {
-        const team = this.data.teams.find((item) => this.toTeamId(item.team_name) === teamId);
+        const team = this.data.teams.find((item) => this.toTeamId(item) === teamId);
         const content = document.getElementById(`content-${teamId}`);
 
         if (!team || !content) {
@@ -2201,11 +2201,33 @@ const app = {
         return new Date(year, month - 1, day, hour, minute, 0, 0);
     },
 
-    toTeamId(name) {
-        return String(name || "team")
+    toTeamId(teamOrName) {
+        const team = typeof teamOrName === "string" ? null : teamOrName;
+        const name = team?.team_name || String(teamOrName || "team");
+        const baseId = String(name)
+            .trim()
             .toLowerCase()
             .replace(/[^a-z0-9]+/g, "-")
-            .replace(/^-|-$/g, "");
+            .replace(/^-|-$/g, "") || "team";
+
+        if (!team) {
+            return baseId;
+        }
+
+        const uniqueParts = [team.competition, team.start_date, team.end_state?.end_date]
+            .filter(Boolean)
+            .map((value) => String(value)
+                .trim()
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, "-")
+                .replace(/^-|-$/g, ""))
+            .filter(Boolean);
+
+        if (!uniqueParts.length) {
+            return baseId;
+        }
+
+        return `${baseId}-${uniqueParts.join("-")}`;
     },
 
     escapeHtml(value) {
