@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Home",
-      "home_team": "Portsmouth",
-      "away_team": "Bolton Wanderers",
-      "date": "15-08-2026",
-      "time": "22:16",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 2nd Division",
-      "venue": "Fratton Park",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Away",
       "home_team": "GARUDA 1945 FC",
       "away_team": "Harper FC",
@@ -87,6 +74,19 @@
     },
     {
       "home_or_away": "Away",
+      "home_team": "Stoke City",
+      "away_team": "Portsmouth",
+      "date": "16-08-2026",
+      "time": "22:16",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "bet365 Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
       "home_team": "pompi67 FC",
       "away_team": "Harper FC",
       "date": "17-08-2026",
@@ -97,6 +97,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Portsmouth",
+      "away_team": "Bolton Wanderers",
+      "date": "15-08-2026",
+      "time": "22:16",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Fratton Park",
+      "home_score": "1",
+      "away_score": "0",
+      "winner": "Portsmouth"
     },
     {
       "home_or_away": "Home",
