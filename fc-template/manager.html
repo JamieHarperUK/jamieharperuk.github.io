@@ -738,6 +738,22 @@
               </div>
             </div>
           </div>
+
+          <div id="teamEditModal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+            <div class="modal-card" style="max-width: 600px;">
+              <div class="modal-head">
+                <h3 id="teamEditModalTitle">Edit Team</h3>
+                <button id="teamEditModalCloseBtn" type="button" class="secondary">Close</button>
+              </div>
+              <div class="modal-body-scroll">
+                <div id="teamEditModalFields" class="crm-field-grid"></div>
+              </div>
+              <div style="padding: 20px 24px; border-top: 1px solid var(--line); display: flex; gap: 10px;">
+                <button id="teamEditModalSaveBtn" type="button" class="primary">Save</button>
+                <button id="teamEditModalCancelBtn" type="button" class="secondary">Cancel</button>
+              </div>
+            </div>
+          </div>
         </main>
       </div>
     </div>
@@ -1578,7 +1594,8 @@
         const modalState = {
           teamsRecordIndex: -1,
           playersTeamIndex: -1,
-          playerEditIndex: -1
+          playerEditIndex: -1,
+          teamEditIndex: -1
         };
 
         function isTeamsFile() {
@@ -1636,16 +1653,27 @@
 
             const actions = document.createElement("div");
             actions.className = "player-actions";
-            const editBtn = document.createElement("button");
-            editBtn.type = "button";
-            editBtn.className = "primary";
-            editBtn.textContent = "Edit Players";
-            editBtn.addEventListener("click", () => {
+
+            const editTeamBtn = document.createElement("button");
+            editTeamBtn.type = "button";
+            editTeamBtn.textContent = "Edit Team";
+            editTeamBtn.addEventListener("click", () => {
+              modalState.teamEditIndex = index;
+              renderTeamEditModal();
+              document.getElementById("teamEditModal").classList.remove("hidden");
+            });
+            actions.appendChild(editTeamBtn);
+
+            const editPlayersBtn = document.createElement("button");
+            editPlayersBtn.type = "button";
+            editPlayersBtn.className = "primary";
+            editPlayersBtn.textContent = "Edit Players";
+            editPlayersBtn.addEventListener("click", () => {
               modalState.playersTeamIndex = index;
               renderPlayersModal();
               document.getElementById("playersModal").classList.remove("hidden");
             });
-            actions.appendChild(editBtn);
+            actions.appendChild(editPlayersBtn);
             row.appendChild(actions);
 
             container.appendChild(row);
@@ -1820,6 +1848,52 @@
           });
         }
 
+        function renderTeamEditModal() {
+          const file = currentFile();
+          if (!file || !file.data || !Array.isArray(file.data.teams)) {
+            return;
+          }
+
+          const teamIndex = modalState.teamEditIndex;
+          const team = file.data.teams[teamIndex];
+          if (!team) {
+            return;
+          }
+
+          document.getElementById("teamEditModalTitle").textContent = `Edit Team · ${team.team_name || "Team"}`;
+
+          const container = document.getElementById("teamEditModalFields");
+          container.innerHTML = "";
+
+          const teamFields = [
+            { key: "team_name", label: "Team Name" },
+            { key: "team_type", label: "Team Type" },
+            { key: "competition", label: "Competition" },
+            { key: "country", label: "Country" },
+            { key: "home_venue", label: "Home Venue" }
+          ];
+
+          teamFields.forEach((field) => {
+            const wrapper = document.createElement("div");
+            wrapper.className = "crm-field";
+
+            const label = document.createElement("label");
+            label.textContent = field.label;
+
+            const input = document.createElement("input");
+            input.type = "text";
+            input.value = team[field.key] ?? "";
+            input.dataset.teamField = field.key;
+            input.addEventListener("input", () => {
+              team[field.key] = input.value;
+            });
+
+            wrapper.appendChild(label);
+            wrapper.appendChild(input);
+            container.appendChild(wrapper);
+          });
+        }
+
         // Modal event listeners
         document.getElementById("teamsModalCloseBtn").addEventListener("click", closeTeamsModal);
         document.getElementById("playersModalCloseBtn").addEventListener("click", () => {
@@ -1842,6 +1916,18 @@
           updateStructuredValuesFromDom();
           document.getElementById("playerEditModal").classList.add("hidden");
           renderPlayersModal();
+        });
+
+        document.getElementById("teamEditModalCloseBtn").addEventListener("click", () => {
+          document.getElementById("teamEditModal").classList.add("hidden");
+        });
+        document.getElementById("teamEditModalCancelBtn").addEventListener("click", () => {
+          document.getElementById("teamEditModal").classList.add("hidden");
+        });
+        document.getElementById("teamEditModalSaveBtn").addEventListener("click", () => {
+          updateStructuredValuesFromDom();
+          document.getElementById("teamEditModal").classList.add("hidden");
+          renderTeamsModal();
         });
 
         document.getElementById("teamsModalAddBtn").addEventListener("click", () => {

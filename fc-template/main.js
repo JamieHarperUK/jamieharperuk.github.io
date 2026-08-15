@@ -24,7 +24,6 @@ const dataSources = {
     club: buildFmUrl("data/fc_club.json"),
     games: buildFmUrl("data/fc_games.json"),
     teams: buildFmUrl("data/fc_teams.json"),
-    posts: buildFmUrl("data/posts.json"),
     tickets: buildFmUrl("data/fc_tickets.json"),
     tables: buildFmUrl("data/fc_tables.json")
 };
@@ -63,6 +62,7 @@ const app = {
         image: buildFmUrl("data/fm_bg.png", true)
     },
     data: {
+        club: {},
         games: [],
         teams: [],
         posts: [],
@@ -83,6 +83,12 @@ const app = {
         try {
             this.captureDefaultSiteMetadata();
             await this.loadData();
+            this.updatePageMetadata({
+                title: this.siteMeta.title,
+                description: this.siteMeta.description,
+                image: this.siteMeta.image,
+                url: this.getCanonicalPageUrl("home")
+            });
             this.setupNavigation();
             this.generateTeamPages();
             this.setupHashRouting();
@@ -368,36 +374,36 @@ const app = {
     },
 
     async loadData() {
-        const [clubResponse, gamesResponse, teamsResponse, postsResponse, ticketsResponse, tablesResponse] = await Promise.all([
+        const [clubResponse, gamesResponse, teamsResponse, ticketsResponse, tablesResponse] = await Promise.all([
             fetch(dataSources.club),
             fetch(dataSources.games),
             fetch(dataSources.teams),
-            fetch(dataSources.posts),
             fetch(dataSources.tickets),
             fetch(dataSources.tables)
         ]);
 
-        if (!clubResponse.ok || !gamesResponse.ok || !teamsResponse.ok || !postsResponse.ok || !ticketsResponse.ok || !tablesResponse.ok) {
+        if (!clubResponse.ok || !gamesResponse.ok || !teamsResponse.ok || !ticketsResponse.ok || !tablesResponse.ok) {
             throw new Error("Unable to load one or more FC template JSON data sources.");
         }
 
-        const [clubJson, gamesJson, teamsJson, postsJson, ticketsJson, tablesJson] = await Promise.all([
+        const [clubJson, gamesJson, teamsJson, ticketsJson, tablesJson] = await Promise.all([
             clubResponse.json(),
             gamesResponse.json(),
             teamsResponse.json(),
-            postsResponse.json(),
             ticketsResponse.json(),
             tablesResponse.json()
         ]);
 
-        const clubData = clubJson?.club || {};
-        const clubName = clubData.club_name || "Football Club";
+        this.data.club = clubJson?.club || clubJson || {};
+        const clubName = this.data.club.club_name || "Football Club";
+        const clubDescription = this.data.club.description || `${clubName} fixtures, squads, tickets, and latest club updates.`;
+
         this.siteMeta.title = clubName;
-        this.siteMeta.description = `${clubName} fixtures, squads, tickets, and latest club updates.`;
+        this.siteMeta.description = clubDescription;
 
         this.data.games = Array.isArray(gamesJson.games) ? gamesJson.games : [];
         this.data.teams = Array.isArray(teamsJson.teams) ? teamsJson.teams : [];
-        this.data.posts = Array.isArray(postsJson.posts) ? postsJson.posts : [];
+        this.data.posts = [];
         this.data.tickets = Array.isArray(ticketsJson.tickets) ? ticketsJson.tickets : [];
         this.data.tables = Array.isArray(tablesJson.tables) ? tablesJson.tables : [];
     },
@@ -817,6 +823,22 @@ const app = {
     },
 
     renderHome() {
+        const club = this.data.club || {};
+        const clubName = this.escapeHtml(club.club_name || this.siteMeta.title || "Football Club");
+        const clubDescription = this.escapeHtml(club.description || this.siteMeta.description || "Track the club's fixtures, squads, and matchday activity.");
+        const clubLocation = this.escapeHtml([club.city, club.country].filter(Boolean).join(", ") || "Club location unavailable");
+        const clubVenue = this.escapeHtml(club.home_venue || "Home venue unavailable");
+        const notesContent = document.getElementById("notesContent");
+
+        if (notesContent) {
+            notesContent.innerHTML = `
+                <strong>${clubName}</strong><br>
+                <span>${clubDescription}</span><br><br>
+                <span><strong>Home venue:</strong> ${clubVenue}</span><br>
+                <span><strong>Based in:</strong> ${clubLocation}</span>
+            `;
+        }
+
         this.renderOverviewStats();
         this.renderUpcomingFixtures();
         this.renderLatestPostPreview();
