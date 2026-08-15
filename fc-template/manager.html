@@ -149,6 +149,7 @@
                         </label>
                         <div class="toolbar">
                             <button id="signInBtn" type="button" class="primary">Sign in with GitHub</button>
+                            <button id="signOutBtn" type="button" class="secondary hidden">Sign out</button>
                             <button id="loadRepoBtn" type="button" class="secondary">Load fc-template files</button>
                         </div>
                         <div id="repoStatus" class="status info">Authenticate and load the repository to start editing the club data.</div>
@@ -306,6 +307,20 @@
                 const repoBadge = document.getElementById("repoBadge");
                 const editorContainer = document.getElementById("editorContainer");
                 const commitMessageInput = document.getElementById("commitMessageInput");
+                const signInBtn = document.getElementById("signInBtn");
+                const signOutBtn = document.getElementById("signOutBtn");
+
+                function isSignedIn() {
+                    return Boolean(state.token || getStoredSession()?.accessToken);
+                }
+
+                function updateAuthUi() {
+                    const signedIn = isSignedIn();
+                    signInBtn.classList.toggle("hidden", signedIn);
+                    signOutBtn.classList.toggle("hidden", !signedIn);
+                    signInBtn.textContent = signedIn ? "Signed in" : "Sign in with GitHub";
+                    signInBtn.disabled = signedIn;
+                }
 
                 function setStatus(message, type = "info") {
                     repoStatus.className = `status ${type}`;
@@ -343,6 +358,9 @@
                 function clearStoredSession() {
                     state.token = "";
                     sessionStorage.removeItem(AUTH_STORAGE_KEY);
+                    repoBadge.textContent = "No repo connected";
+                    repoBadge.classList.remove("warn");
+                    updateAuthUi();
                 }
 
                 function getSiteBaseUrl() {
@@ -432,7 +450,14 @@
                     return btoa(unescape(encodeURIComponent(value)));
                 }
 
+                function ensurePageIsServed() {
+                    if (window.location.protocol === "file:") {
+                        throw new Error("Open this manager through a local web server or GitHub Pages. File:// pages cannot reliably complete GitHub fetches and OAuth flows.");
+                    }
+                }
+
                 async function ghFetch(path, options = {}) {
+                    ensurePageIsServed();
                     const method = options.method || "GET";
                     const headers = Object.assign({
                         Accept: "application/vnd.github+json",
@@ -448,7 +473,13 @@
                         requestInit.body = options.body;
                     }
 
-                    const response = await fetch(`${API_BASE}${path}`, requestInit);
+                    let response;
+                    try {
+                        response = await fetch(`${API_BASE}${path}`, requestInit);
+                    } catch (error) {
+                        throw new Error(`GitHub request failed: ${error.message || "Failed to fetch"}`);
+                    }
+
                     if (response.status === 204) {
                         return null;
                     }
@@ -469,15 +500,21 @@
                 }
 
                 async function brokerRequest(endpoint, payload) {
+                    ensurePageIsServed();
                     const base = (DEFAULT_CONFIG.oauth.brokerBaseUrl || "https://ghwe.oakshiftsoftware.workers.dev").replace(/\/$/, "");
-                    const response = await fetch(`${base}${endpoint}`, {
-                        method: "POST",
-                        headers: {
-                            Accept: "application/json",
-                            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
-                        },
-                        body: new URLSearchParams(payload).toString()
-                    });
+                    let response;
+                    try {
+                        response = await fetch(`${base}${endpoint}`, {
+                            method: "POST",
+                            headers: {
+                                Accept: "application/json",
+                                "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+                            },
+                            body: new URLSearchParams(payload).toString()
+                        });
+                    } catch (error) {
+                        throw new Error(`Authentication request failed: ${error.message || "Failed to fetch"}`);
+                    }
 
                     const text = await response.text();
                     if (!response.ok) {
@@ -1059,9 +1096,9 @@
                     setStatus("Local edits were reset to the currently loaded file contents.", "info");
                 }
 
-                document.getElementById("signInBtn").addEventListener("click", async () => {
+                signInBtn.addEventListener("click", async () => {
                     try {
-                        if (!state.token) {
+                        if (!isSignedIn()) {
                             await startDeviceFlow();
                         } else {
                             await loadRepository();
@@ -1069,6 +1106,15 @@
                     } catch (error) {
                         setStatus(error.message || "GitHub authentication failed.", "bad");
                     }
+                });
+
+                signOutBtn.addEventListener("click", () => {
+                    clearStoredSession();
+                    state.files = {};
+                    state.dirtyKeys.clear();
+                    state.activeKey = "club";
+                    renderEditor();
+                    setStatus("Signed out from GitHub. Sign in again to connect a repository.", "info");
                 });
 
                 document.getElementById("loadRepoBtn").addEventListener("click", async () => {
@@ -1092,6 +1138,7 @@
                     state.token = storedSession.accessToken;
                     setStatus("Stored GitHub session found. You can load the repository immediately.", "ok");
                 }
+                updateAuthUi();
 
                 const currentConfig = window.FC_MANAGER_CONFIG || {};
                 if (currentConfig.repoFullName) repoInput.value = currentConfig.repoFullName;
