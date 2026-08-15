@@ -25,7 +25,8 @@ const dataSources = {
     games: buildFmUrl("data/fc_games.json"),
     teams: buildFmUrl("data/fc_teams.json"),
     tickets: buildFmUrl("data/fc_tickets.json"),
-    tables: buildFmUrl("data/fc_tables.json")
+    tables: buildFmUrl("data/fc_tables.json"),
+    posts: buildFmUrl("data/fc_posts.json")
 };
 
 const pushConfig = {
