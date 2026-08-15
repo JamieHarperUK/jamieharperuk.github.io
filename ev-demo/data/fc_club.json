@@ -21,15 +21,15 @@
     }
   },
   "club": {
-    "club_name": "The Club",
-    "home_venue": "Home Ground",
-    "city": "City Name",
-    "country": "Country Name",
-    "established_year": "2026",
-    "description": "The Club is a placeholder football club, your team details should replace this information.",
+    "club_name": "Elton Vale FC",
+    "home_venue": "Elton Vale Sports Club",
+    "city": "Bury, Greater Manchester",
+    "country": "England",
+    "established_year": "1957",
+    "description": "The Club is a placeholder football club description section, your team details and club information should replace this information.",
     "socials": {
       "facebook": "#",
-      "twitter_x": "#",
+      "twitter_x": "@EltonValeFC",
       "instagram": "#",
       "youtube": "#",
       "tiktok": "#"

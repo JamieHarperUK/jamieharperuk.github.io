@@ -29,11 +29,11 @@
   },
   "teams": [
     {
-      "team_name": "Team A",
-      "team_type": "First Team",
+      "team_name": "Elton Vale FC Senior Team",
+      "team_type": "Senior Team",
       "competition": "League Name",
       "country": "England",
-      "home_venue": "Stadium Name",
+      "home_venue": "Elton Vale Sports Club",
       "players": [
         {
           "position": "GK",
