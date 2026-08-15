@@ -202,7 +202,8 @@
                     oauth: {
                         clientId: "Ov23liJxZCIXpxYWlATm",
                         scope: "repo read:user",
-                        brokerBaseUrl: "https://ghwe.oakshiftsoftware.workers.dev"
+                        brokerBaseUrl: "https://ghwe.oakshiftsoftware.workers.dev",
+                        apiProxyBaseUrl: "https://ghwe.oakshiftsoftware.workers.dev"
                     }
                 };
 
@@ -464,6 +465,11 @@
                     }
                 }
 
+                function getGitHubApiProxyBaseUrl() {
+                    const configured = (window.FC_MANAGER_CONFIG && window.FC_MANAGER_CONFIG.oauth && window.FC_MANAGER_CONFIG.oauth.apiProxyBaseUrl) || DEFAULT_CONFIG.oauth.apiProxyBaseUrl || "";
+                    return String(configured || "").trim().replace(/\/$/, "");
+                }
+
                 async function ghFetch(path, options = {}) {
                     ensurePageIsServed();
                     const method = options.method || "GET";
@@ -474,6 +480,47 @@
 
                     if (state.token) {
                         headers.Authorization = `Bearer ${state.token}`;
+                    }
+
+                    const proxyBase = getGitHubApiProxyBaseUrl();
+                    if (proxyBase) {
+                        try {
+                            const proxyResponse = await fetch(`${proxyBase}/github/proxy`, {
+                                method: "POST",
+                                headers: {
+                                    Accept: "application/json",
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify({
+                                    path,
+                                    method,
+                                    headers,
+                                    body: options.body || undefined
+                                }),
+                                cache: "no-store",
+                                mode: "cors"
+                            });
+
+                            const proxyText = await proxyResponse.text();
+                            if (!proxyResponse.ok) {
+                                let message = `GitHub request failed (${proxyResponse.status})`;
+                                try {
+                                    const payload = JSON.parse(proxyText);
+                                    message = payload?.message || payload?.error || message;
+                                } catch (_error) {
+                                    message = proxyText || message;
+                                }
+                                throw new Error(message);
+                            }
+
+                            return proxyText ? JSON.parse(proxyText) : null;
+                        } catch (error) {
+                            if (error?.message && error.message.includes("GitHub request failed")) {
+                                throw error;
+                            }
+                            const message = error?.message || "Failed to fetch";
+                            throw new Error(`GitHub request failed: ${message}. This usually means the GitHub API proxy is not running or the browser blocked the request.`);
+                        }
                     }
 
                     const requestInit = {
