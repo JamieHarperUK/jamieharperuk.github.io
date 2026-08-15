@@ -296,6 +296,126 @@
         color: var(--success);
       }
 
+      .crm-editor {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .crm-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: rgba(255,255,255,0.02);
+      }
+
+      .crm-record-list {
+        display: grid;
+        gap: 14px;
+      }
+
+      .crm-record-card {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: rgba(11, 19, 29, 0.9);
+      }
+
+      .crm-record-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .crm-record-title {
+        margin: 0;
+        font-size: 1rem;
+      }
+
+      .crm-field-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 12px;
+      }
+
+      .crm-field {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .crm-field label,
+      .crm-subfield label {
+        color: var(--muted);
+        font-size: 0.78rem;
+      }
+
+      .crm-field input,
+      .crm-field textarea,
+      .crm-subfield input,
+      .crm-subfield textarea {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: rgba(8, 17, 25, 0.96);
+        color: var(--text);
+        padding: 9px 10px;
+      }
+
+      .crm-field textarea,
+      .crm-subfield textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+
+      .crm-subsection {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: rgba(8, 17, 25, 0.45);
+      }
+
+      .crm-subsection-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .crm-subsection h4 {
+        margin: 0;
+        font-size: 0.9rem;
+      }
+
+      .crm-subfield-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 10px;
+      }
+
+      .crm-subfield {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .crm-empty {
+        color: var(--muted);
+        padding: 10px 12px;
+        border: 1px dashed var(--line);
+        border-radius: 12px;
+      }
+
       .summary-text {
         color: var(--muted);
         font-size: 0.82rem;
@@ -358,6 +478,131 @@
         display: none !important;
       }
 
+      .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.65);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+      }
+
+      .modal-card {
+        background: rgba(17, 27, 38, 0.98);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        box-shadow: 0 24px 64px rgba(4, 10, 18, 0.64);
+        display: flex;
+        flex-direction: column;
+        max-height: 90vh;
+        width: 90%;
+        max-width: 800px;
+      }
+
+      .modal-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 20px 24px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .modal-head h3 {
+        margin: 0;
+        font-size: 1.15rem;
+      }
+
+      .modal-body-scroll {
+        overflow-y: auto;
+        flex: 1;
+        padding: 20px 24px;
+      }
+
+      .player-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .player-row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 12px;
+        align-items: center;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: rgba(11, 19, 29, 0.9);
+      }
+
+      .player-info {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+
+      .player-position {
+        font-weight: 700;
+        min-width: 50px;
+        color: var(--accent);
+      }
+
+      .player-number {
+        color: var(--muted);
+        font-size: 0.9rem;
+        min-width: 50px;
+      }
+
+      .player-name {
+        flex: 1;
+        font-weight: 600;
+      }
+
+      .player-actions {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+      }
+
+      .player-actions button {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+      }
+
+      .team-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .team-row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 12px;
+        align-items: center;
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: rgba(11, 19, 29, 0.9);
+      }
+
+      .team-info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .team-name {
+        font-weight: 700;
+      }
+
+      .team-meta {
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+
       @media (max-width: 980px) {
         body {
           padding: 16px;
@@ -370,6 +615,10 @@
         .content-header {
           flex-direction: column;
           align-items: flex-start;
+        }
+
+        .modal-card {
+          width: 95%;
         }
       }
     </style>
@@ -428,6 +677,8 @@
               <p id="fileMeta">Choose a file to begin editing its JSON content.</p>
             </div>
             <div class="content-actions">
+              <button id="crmModeBtn" type="button" class="secondary active">Structured</button>
+              <button id="rawModeBtn" type="button" class="secondary">Raw JSON</button>
               <button id="saveFileBtn" type="button" class="secondary">Save current file</button>
               <button id="resetFileBtn" type="button" class="secondary">Reset current file</button>
             </div>
@@ -438,7 +689,55 @@
             <span id="summaryText" class="summary-text">0 commit-ready file(s)</span>
           </div>
 
-          <textarea id="jsonEditor" spellcheck="false" aria-label="JSON editor"></textarea>
+          <div id="structuredEditor" class="crm-editor"></div>
+          <textarea id="jsonEditor" spellcheck="false" aria-label="JSON editor" class="hidden"></textarea>
+
+          <div id="teamsModal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+            <div class="modal-card">
+              <div class="modal-head">
+                <h3 id="teamsModalTitle">Edit Teams</h3>
+                <button id="teamsModalCloseBtn" type="button" class="secondary">Close</button>
+              </div>
+              <div class="modal-body-scroll">
+                <div id="teamsModalBody" class="team-list"></div>
+              </div>
+              <div style="padding: 20px 24px; border-top: 1px solid var(--line); display: flex; gap: 10px;">
+                <button id="teamsModalAddBtn" type="button" class="primary">Add Team</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="playersModal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+            <div class="modal-card">
+              <div class="modal-head">
+                <h3 id="playersModalTitle">Edit Players</h3>
+                <button id="playersModalCloseBtn" type="button" class="secondary">Close</button>
+              </div>
+              <div class="modal-body-scroll">
+                <div id="playersModalBody" class="player-list"></div>
+              </div>
+              <div style="padding: 20px 24px; border-top: 1px solid var(--line); display: flex; gap: 10px;">
+                <button id="playersModalAddBtn" type="button" class="primary">Add Player</button>
+                <button id="playersModalDoneBtn" type="button" class="secondary">Done</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="playerEditModal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+            <div class="modal-card" style="max-width: 600px;">
+              <div class="modal-head">
+                <h3 id="playerEditModalTitle">Edit Player</h3>
+                <button id="playerEditModalCloseBtn" type="button" class="secondary">Close</button>
+              </div>
+              <div class="modal-body-scroll">
+                <div id="playerEditModalFields" class="crm-field-grid"></div>
+              </div>
+              <div style="padding: 20px 24px; border-top: 1px solid var(--line); display: flex; gap: 10px;">
+                <button id="playerEditModalSaveBtn" type="button" class="primary">Save</button>
+                <button id="playerEditModalCancelBtn" type="button" class="secondary">Cancel</button>
+              </div>
+            </div>
+          </div>
         </main>
       </div>
     </div>
@@ -475,6 +774,9 @@
         const summaryTextEl = document.getElementById("summaryText");
         const repoBadge = document.getElementById("repoBadge");
         const jsonEditorEl = document.getElementById("jsonEditor");
+        const structuredEditorEl = document.getElementById("structuredEditor");
+        const crmModeBtn = document.getElementById("crmModeBtn");
+        const rawModeBtn = document.getElementById("rawModeBtn");
         const signInBtn = document.getElementById("signInBtn");
         const signOutBtn = document.getElementById("signOutBtn");
         const commitMessageInput = document.getElementById("commitMessageInput");
@@ -484,7 +786,8 @@
           repoFullName: repoInput.value.trim() || DEFAULT_CONFIG.repoFullName,
           files: [],
           selectedPath: "",
-          dirtyPaths: new Set()
+          dirtyPaths: new Set(),
+          uiMode: "structured"
         };
 
         function setStatus(message, type = "info") {
@@ -724,16 +1027,6 @@
           return btoa(unescape(encodeURIComponent(value)));
         }
 
-        function escapeHtml(value) {
-          return String(value ?? "").replace(/[&<>\"']/g, (char) => ({
-            "&": "&amp;",
-            "<": "&lt;",
-            ">": "&gt;",
-            '"': "&quot;",
-            "'": "&#039;"
-          }[char]));
-        }
-
         function currentFile() {
           return state.files.find((file) => file.path === state.selectedPath) || null;
         }
@@ -741,6 +1034,351 @@
         function syncSummary() {
           const dirtyCount = state.dirtyPaths.size;
           summaryTextEl.textContent = `${dirtyCount} commit-ready file(s)`;
+        }
+
+        function isPlainObject(value) {
+          return value !== null && typeof value === "object" && !Array.isArray(value);
+        }
+
+        function titleCase(value) {
+          return String(value || "")
+            .replace(/[_-]+/g, " ")
+            .replace(/\s+/g, " ")
+            .replace(/\b\w/g, (letter) => letter.toUpperCase());
+        }
+
+        function setValueAtPath(target, parts, value) {
+          const segment = parts.shift();
+          if (segment === undefined) {
+            return;
+          }
+
+          const isArray = Array.isArray(target);
+          const numericIndex = Number(segment);
+          const nextTarget = isArray && Number.isInteger(numericIndex) ? target[numericIndex] : target[segment];
+
+          if (!parts.length) {
+            if (isArray && Number.isInteger(numericIndex)) {
+              target[numericIndex] = value;
+            } else {
+              target[segment] = value;
+            }
+            return;
+          }
+
+          if (nextTarget === undefined || nextTarget === null) {
+            const nextContainer = Number.isInteger(Number(parts[0])) ? [] : {};
+            if (isArray && Number.isInteger(numericIndex)) {
+              target[numericIndex] = nextContainer;
+            } else {
+              target[segment] = nextContainer;
+            }
+            setValueAtPath(isArray && Number.isInteger(numericIndex) ? target[numericIndex] : target[segment], parts, value);
+            return;
+          }
+
+          setValueAtPath(nextTarget, parts, value);
+        }
+
+        function updateCurrentFileBadge() {
+          const file = currentFile();
+          if (!file) {
+            return;
+          }
+          const isDirty = state.dirtyPaths.has(file.path);
+          fileStateBadgeEl.className = `file-badge ${isDirty ? "dirty" : "clean"}`;
+          fileStateBadgeEl.textContent = isDirty ? "dirty" : "clean";
+        }
+
+        function buildFieldControl(key, value, path) {
+          const wrapper = document.createElement("div");
+          wrapper.className = "crm-field";
+
+          const label = document.createElement("label");
+          label.textContent = titleCase(key);
+
+          if (isPlainObject(value)) {
+            const section = document.createElement("div");
+            section.className = "crm-subsection";
+            const header = document.createElement("div");
+            header.className = "crm-subsection-header";
+            const name = document.createElement("h4");
+            name.textContent = titleCase(key);
+            header.appendChild(name);
+            section.appendChild(header);
+
+            const grid = document.createElement("div");
+            grid.className = "crm-subfield-grid";
+            Object.entries(value).forEach(([subKey, subValue]) => {
+              const child = buildFieldControl(subKey, subValue, `${path}.${subKey}`);
+              if (child) {
+                grid.appendChild(child);
+              }
+            });
+            section.appendChild(grid);
+            wrapper.appendChild(label);
+            wrapper.appendChild(section);
+            return wrapper;
+          }
+
+          if (Array.isArray(value)) {
+            const section = document.createElement("div");
+            section.className = "crm-subsection";
+            const header = document.createElement("div");
+            header.className = "crm-subsection-header";
+            const name = document.createElement("h4");
+            name.textContent = titleCase(key);
+            header.appendChild(name);
+            section.appendChild(header);
+
+            const list = document.createElement("div");
+            list.className = "crm-record-list";
+
+            if (!value.length) {
+              const empty = document.createElement("div");
+              empty.className = "crm-empty";
+              empty.textContent = "No records yet.";
+              list.appendChild(empty);
+            } else {
+              value.forEach((entry, index) => {
+                if (isPlainObject(entry)) {
+                  const card = document.createElement("div");
+                  card.className = "crm-record-card";
+                  const cardHeader = document.createElement("div");
+                  cardHeader.className = "crm-record-header";
+                  const title = document.createElement("p");
+                  title.className = "crm-record-title";
+                  title.textContent = `${titleCase(key)} ${index + 1}`;
+                  cardHeader.appendChild(title);
+                  card.appendChild(cardHeader);
+
+                  const fieldGrid = document.createElement("div");
+                  fieldGrid.className = "crm-field-grid";
+                  Object.entries(entry).forEach(([childKey, childValue]) => {
+                    const childField = buildFieldControl(childKey, childValue, `${path}.${index}.${childKey}`);
+                    if (childField) {
+                      fieldGrid.appendChild(childField);
+                    }
+                  });
+                  card.appendChild(fieldGrid);
+                  list.appendChild(card);
+                } else {
+                  const raw = document.createElement("div");
+                  raw.className = "crm-field";
+                  const rawLabel = document.createElement("label");
+                  rawLabel.textContent = `${titleCase(key)} ${index + 1}`;
+                  const input = document.createElement("input");
+                  input.type = "text";
+                  input.value = String(entry ?? "");
+                  input.dataset.structuredPath = `${path}.${index}`;
+                  input.dataset.structuredType = "string";
+                  input.addEventListener("input", () => updateStructuredValuesFromDom());
+                  raw.appendChild(rawLabel);
+                  raw.appendChild(input);
+                  list.appendChild(raw);
+                }
+              });
+            }
+
+            section.appendChild(list);
+            wrapper.appendChild(label);
+            wrapper.appendChild(section);
+            return wrapper;
+          }
+
+          const input = document.createElement("input");
+          input.type = "text";
+          input.value = value === null || value === undefined ? "" : String(value);
+          input.dataset.structuredPath = path;
+          input.dataset.structuredType = typeof value === "number" ? "number" : (typeof value === "boolean" ? "boolean" : "string");
+          input.addEventListener("input", () => updateStructuredValuesFromDom());
+
+          wrapper.appendChild(label);
+          wrapper.appendChild(input);
+          return wrapper;
+        }
+
+        function updateStructuredValuesFromDom() {
+          const file = currentFile();
+          if (!file) {
+            return;
+          }
+
+          const working = JSON.parse(JSON.stringify(file.data));
+          structuredEditorEl.querySelectorAll("[data-structured-path]").forEach((inputEl) => {
+            const path = inputEl.dataset.structuredPath;
+            const type = inputEl.dataset.structuredType || "string";
+            let value = inputEl.value;
+            if (type === "number") {
+              value = value === "" ? "" : Number(value);
+            }
+            if (type === "boolean") {
+              value = inputEl.checked;
+            }
+            setValueAtPath(working, path.split("."), value);
+          });
+
+          file.data = working;
+          file.rawText = JSON.stringify(working, null, 2);
+          jsonEditorEl.value = file.rawText;
+          state.dirtyPaths.add(file.path);
+          renderFileList();
+          updateCurrentFileBadge();
+          syncSummary();
+        }
+
+        function renderStructuredEditor(file) {
+          const container = structuredEditorEl;
+          container.innerHTML = "";
+          if (!file || !file.data || typeof file.data !== "object") {
+            container.innerHTML = '<div class="crm-empty">This file is not structured as an object. Use raw JSON mode for direct editing.</div>';
+            return;
+          }
+
+          const entries = Object.entries(file.data).filter(([key]) => key !== "metadata");
+          if (!entries.length) {
+            container.innerHTML = '<div class="crm-empty">No editable records found in this JSON file.</div>';
+            return;
+          }
+
+          entries.forEach(([sectionKey, sectionValue]) => {
+            const sectionPanel = document.createElement("div");
+            sectionPanel.className = "crm-panel";
+
+            const title = document.createElement("h3");
+            title.style.margin = "0 0 10px 0";
+            title.textContent = titleCase(sectionKey);
+            sectionPanel.appendChild(title);
+
+            const records = document.createElement("div");
+            records.className = "crm-record-list";
+
+            // Special handling for teams array
+            if (isTeamsFile() && sectionKey === "teams" && Array.isArray(sectionValue)) {
+              const summaryRow = document.createElement("div");
+              summaryRow.style.display = "flex";
+              summaryRow.style.justifyContent = "space-between";
+              summaryRow.style.alignItems = "center";
+              summaryRow.style.padding = "12px";
+              summaryRow.style.marginBottom = "12px";
+              summaryRow.style.borderBottom = "1px solid var(--line)";
+
+              const countSpan = document.createElement("span");
+              countSpan.className = "summary-text";
+              countSpan.textContent = `${sectionValue.length} team(s)`;
+              summaryRow.appendChild(countSpan);
+
+              const editBtn = document.createElement("button");
+              editBtn.type = "button";
+              editBtn.className = "primary";
+              editBtn.textContent = "Edit Teams & Players";
+              editBtn.style.padding = "10px 14px";
+              editBtn.style.fontSize = "0.9rem";
+              editBtn.addEventListener("click", openTeamsModal);
+              summaryRow.appendChild(editBtn);
+
+              records.appendChild(summaryRow);
+
+              // Show compact team list
+              sectionValue.forEach((team, idx) => {
+                const card = document.createElement("div");
+                card.className = "crm-record-card";
+                card.style.cursor = "pointer";
+                card.addEventListener("click", () => {
+                  modalState.playersTeamIndex = idx;
+                  renderPlayersModal();
+                  document.getElementById("playersModal").classList.remove("hidden");
+                });
+
+                const header = document.createElement("div");
+                header.className = "crm-record-header";
+                const name = document.createElement("p");
+                name.className = "crm-record-title";
+                name.textContent = team.team_name || `Team ${idx + 1}`;
+                header.appendChild(name);
+                card.appendChild(header);
+
+                const details = document.createElement("div");
+                details.style.color = "var(--muted)";
+                details.style.fontSize = "0.85rem";
+                details.style.padding = "0 0 8px 0";
+                details.textContent = `${team.competition || "—"} · ${team.players?.length || 0} players`;
+                card.appendChild(details);
+
+                records.appendChild(card);
+              });
+            } else if (Array.isArray(sectionValue)) {
+              if (!sectionValue.length) {
+                const empty = document.createElement("div");
+                empty.className = "crm-empty";
+                empty.textContent = "No records yet for this section.";
+                records.appendChild(empty);
+              } else {
+                sectionValue.forEach((entry, recordIndex) => {
+                  if (isPlainObject(entry)) {
+                    const card = document.createElement("div");
+                    card.className = "crm-record-card";
+                    const header = document.createElement("div");
+                    header.className = "crm-record-header";
+                    const name = document.createElement("p");
+                    name.className = "crm-record-title";
+                    name.textContent = `${titleCase(sectionKey)} ${recordIndex + 1}`;
+                    header.appendChild(name);
+                    card.appendChild(header);
+
+                    const fieldGrid = document.createElement("div");
+                    fieldGrid.className = "crm-field-grid";
+                    Object.entries(entry).forEach(([fieldKey, fieldValue]) => {
+                      const field = buildFieldControl(fieldKey, fieldValue, `${sectionKey}.${recordIndex}.${fieldKey}`);
+                      if (field) {
+                        fieldGrid.appendChild(field);
+                      }
+                    });
+                    card.appendChild(fieldGrid);
+                    records.appendChild(card);
+                  }
+                });
+              }
+            } else if (isPlainObject(sectionValue)) {
+              const card = document.createElement("div");
+              card.className = "crm-record-card";
+              const fieldGrid = document.createElement("div");
+              fieldGrid.className = "crm-field-grid";
+              Object.entries(sectionValue).forEach(([fieldKey, fieldValue]) => {
+                const field = buildFieldControl(fieldKey, fieldValue, `${sectionKey}.${fieldKey}`);
+                if (field) {
+                  fieldGrid.appendChild(field);
+                }
+              });
+              card.appendChild(fieldGrid);
+              records.appendChild(card);
+            } else {
+              const rawField = buildFieldControl(sectionKey, sectionValue, sectionKey);
+              if (rawField) {
+                records.appendChild(rawField);
+              }
+            }
+
+            sectionPanel.appendChild(records);
+            container.appendChild(sectionPanel);
+          });
+        }
+
+        function setUiMode(mode) {
+          const nextMode = mode === "raw" ? "raw" : "structured";
+          state.uiMode = nextMode;
+          const showStructured = nextMode === "structured";
+          structuredEditorEl.classList.toggle("hidden", !showStructured);
+          jsonEditorEl.classList.toggle("hidden", showStructured);
+          crmModeBtn.classList.toggle("active", showStructured);
+          rawModeBtn.classList.toggle("active", !showStructured);
+
+          const file = currentFile();
+          if (showStructured && file) {
+            renderStructuredEditor(file);
+          } else if (file) {
+            jsonEditorEl.value = file.rawText;
+          }
         }
 
         async function loadLocalFiles() {
@@ -820,6 +1458,7 @@
             fileStateBadgeEl.className = "file-badge clean";
             fileStateBadgeEl.textContent = "clean";
             jsonEditorEl.value = "";
+            structuredEditorEl.innerHTML = '<div class="crm-empty">Choose a file to begin editing.</div>';
             return;
           }
 
@@ -829,7 +1468,9 @@
           fileStateBadgeEl.className = `file-badge ${isDirty ? "dirty" : "clean"}`;
           fileStateBadgeEl.textContent = isDirty ? "dirty" : "clean";
           jsonEditorEl.value = file.rawText;
+          renderStructuredEditor(file);
           syncSummary();
+          setUiMode(state.uiMode);
         }
 
         function validateJsonFromEditor() {
@@ -897,13 +1538,17 @@
           }
 
           try {
-            const parsed = JSON.parse(jsonEditorEl.value);
-            file.data = parsed;
-            file.rawText = JSON.stringify(parsed, null, 2);
-            jsonEditorEl.value = file.rawText;
-            state.dirtyPaths.add(file.path);
-            renderFileList();
-            renderEditor();
+            if (state.uiMode === "structured") {
+              updateStructuredValuesFromDom();
+            } else {
+              const parsed = JSON.parse(jsonEditorEl.value);
+              file.data = parsed;
+              file.rawText = JSON.stringify(parsed, null, 2);
+              jsonEditorEl.value = file.rawText;
+              state.dirtyPaths.add(file.path);
+              renderFileList();
+              renderEditor();
+            }
             setStatus(`${file.filename} was saved locally.`, "ok");
           } catch (_error) {
             setStatus("The JSON is invalid. Fix the syntax before saving the file.", "bad");
@@ -921,24 +1566,323 @@
 
           const raw = jsonEditorEl.value;
           file.rawText = raw;
-          if (raw.trim()) {
-            try {
-              JSON.parse(raw);
-              state.dirtyPaths.add(file.path);
-              renderFileList();
-              renderEditor();
-              return;
-            } catch (_error) {
-              state.dirtyPaths.add(file.path);
-              renderFileList();
-              renderEditor();
-              return;
-            }
-          }
-
           state.dirtyPaths.add(file.path);
           renderFileList();
           renderEditor();
+        });
+
+        crmModeBtn.addEventListener("click", () => setUiMode("structured"));
+        rawModeBtn.addEventListener("click", () => setUiMode("raw"));
+
+        // Team/Player modal state
+        const modalState = {
+          teamsRecordIndex: -1,
+          playersTeamIndex: -1,
+          playerEditIndex: -1
+        };
+
+        function isTeamsFile() {
+          const file = currentFile();
+          return file && file.filename === "fc_teams.json";
+        }
+
+        function openTeamsModal() {
+          if (!isTeamsFile()) {
+            return;
+          }
+          const file = currentFile();
+          if (!file || !file.data || !Array.isArray(file.data.teams)) {
+            return;
+          }
+          renderTeamsModal();
+          document.getElementById("teamsModal").classList.remove("hidden");
+        }
+
+        function closeTeamsModal() {
+          document.getElementById("teamsModal").classList.add("hidden");
+        }
+
+        function renderTeamsModal() {
+          const file = currentFile();
+          if (!file || !file.data || !Array.isArray(file.data.teams)) {
+            return;
+          }
+
+          const container = document.getElementById("teamsModalBody");
+          container.innerHTML = "";
+          const teams = file.data.teams;
+
+          if (teams.length === 0) {
+            container.innerHTML = '<div class="crm-empty">No teams yet.</div>';
+            return;
+          }
+
+          teams.forEach((team, index) => {
+            const row = document.createElement("div");
+            row.className = "team-row";
+
+            const info = document.createElement("div");
+            info.className = "team-info";
+            const nameEl = document.createElement("div");
+            nameEl.className = "team-name";
+            nameEl.textContent = team.team_name || "Team " + (index + 1);
+            info.appendChild(nameEl);
+
+            const metaEl = document.createElement("div");
+            metaEl.className = "team-meta";
+            metaEl.textContent = `${team.competition || "No competition"} · ${team.players?.length || 0} players`;
+            info.appendChild(metaEl);
+            row.appendChild(info);
+
+            const actions = document.createElement("div");
+            actions.className = "player-actions";
+            const editBtn = document.createElement("button");
+            editBtn.type = "button";
+            editBtn.className = "primary";
+            editBtn.textContent = "Edit Players";
+            editBtn.addEventListener("click", () => {
+              modalState.playersTeamIndex = index;
+              renderPlayersModal();
+              document.getElementById("playersModal").classList.remove("hidden");
+            });
+            actions.appendChild(editBtn);
+            row.appendChild(actions);
+
+            container.appendChild(row);
+          });
+        }
+
+        function renderPlayersModal() {
+          const file = currentFile();
+          if (!file || !file.data || !Array.isArray(file.data.teams)) {
+            return;
+          }
+
+          const teamIndex = modalState.playersTeamIndex;
+          if (teamIndex < 0 || teamIndex >= file.data.teams.length) {
+            return;
+          }
+
+          const team = file.data.teams[teamIndex];
+          const players = team.players || [];
+
+          document.getElementById("playersModalTitle").textContent = `Edit Players · ${team.team_name || "Team " + (teamIndex + 1)}`;
+
+          const container = document.getElementById("playersModalBody");
+          container.innerHTML = "";
+
+          if (players.length === 0) {
+            container.innerHTML = '<div class="crm-empty">No players yet. Click "Add Player" to get started.</div>';
+            return;
+          }
+
+          players.forEach((player, playerIndex) => {
+            const row = document.createElement("div");
+            row.className = "player-row";
+
+            const info = document.createElement("div");
+            info.className = "player-info";
+
+            const posEl = document.createElement("div");
+            posEl.className = "player-position";
+            posEl.textContent = player.position || "-";
+            info.appendChild(posEl);
+
+            const numEl = document.createElement("div");
+            numEl.className = "player-number";
+            numEl.textContent = "#" + (player.number || "");
+            info.appendChild(numEl);
+
+            const nameEl = document.createElement("div");
+            nameEl.className = "player-name";
+            nameEl.textContent = player.name || "Unknown";
+            info.appendChild(nameEl);
+            row.appendChild(info);
+
+            const actions = document.createElement("div");
+            actions.className = "player-actions";
+
+            const editBtn = document.createElement("button");
+            editBtn.type = "button";
+            editBtn.className = "primary";
+            editBtn.textContent = "Edit";
+            editBtn.addEventListener("click", () => {
+              modalState.playerEditIndex = playerIndex;
+              renderPlayerEditModal();
+              document.getElementById("playerEditModal").classList.remove("hidden");
+            });
+            actions.appendChild(editBtn);
+
+            if (playerIndex > 0) {
+              const upBtn = document.createElement("button");
+              upBtn.type = "button";
+              upBtn.textContent = "↑";
+              upBtn.title = "Move up";
+              upBtn.style.padding = "6px 8px";
+              upBtn.addEventListener("click", () => {
+                const temp = players[playerIndex];
+                players[playerIndex] = players[playerIndex - 1];
+                players[playerIndex - 1] = temp;
+                updateStructuredValuesFromDom();
+                renderPlayersModal();
+              });
+              actions.appendChild(upBtn);
+            }
+
+            if (playerIndex < players.length - 1) {
+              const downBtn = document.createElement("button");
+              downBtn.type = "button";
+              downBtn.textContent = "↓";
+              downBtn.title = "Move down";
+              downBtn.style.padding = "6px 8px";
+              downBtn.addEventListener("click", () => {
+                const temp = players[playerIndex];
+                players[playerIndex] = players[playerIndex + 1];
+                players[playerIndex + 1] = temp;
+                updateStructuredValuesFromDom();
+                renderPlayersModal();
+              });
+              actions.appendChild(downBtn);
+            }
+
+            const removeBtn = document.createElement("button");
+            removeBtn.type = "button";
+            removeBtn.textContent = "Remove";
+            removeBtn.addEventListener("click", () => {
+              players.splice(playerIndex, 1);
+              updateStructuredValuesFromDom();
+              renderPlayersModal();
+            });
+            actions.appendChild(removeBtn);
+
+            row.appendChild(actions);
+            container.appendChild(row);
+          });
+        }
+
+        function renderPlayerEditModal() {
+          const file = currentFile();
+          if (!file || !file.data || !Array.isArray(file.data.teams)) {
+            return;
+          }
+
+          const teamIndex = modalState.playersTeamIndex;
+          const playerIndex = modalState.playerEditIndex;
+          const team = file.data.teams[teamIndex];
+          const player = team.players[playerIndex];
+
+          document.getElementById("playerEditModalTitle").textContent = `Edit Player · ${player.name || "Player"} · ${team.team_name || "Team"}`;
+
+          const container = document.getElementById("playerEditModalFields");
+          container.innerHTML = "";
+
+          const playerFields = [
+            { key: "position", label: "Position" },
+            { key: "name", label: "Name" },
+            { key: "number", label: "Number" },
+            { key: "imageUrl", label: "Image URL" },
+            { key: "yellow", label: "Yellow Cards", type: "number" },
+            { key: "red", label: "Red Cards", type: "number" },
+            { key: "injury", label: "Injury Status" },
+            { key: "goals", label: "Goals", type: "number" },
+            { key: "assists", label: "Assists", type: "number" },
+            { key: "appearances", label: "Appearances", type: "number" },
+            { key: "notes", label: "Notes", type: "textarea" }
+          ];
+
+          playerFields.forEach((field) => {
+            const wrapper = document.createElement("div");
+            wrapper.className = "crm-field";
+
+            const label = document.createElement("label");
+            label.textContent = field.label;
+
+            let input;
+            if (field.type === "textarea") {
+              input = document.createElement("textarea");
+              input.style.minHeight = "80px";
+              input.value = player[field.key] || "";
+            } else {
+              input = document.createElement("input");
+              input.type = field.type || "text";
+              input.value = player[field.key] ?? "";
+            }
+
+            input.dataset.playerField = field.key;
+            input.addEventListener("input", () => {
+              const val = input.value;
+              player[field.key] = field.type === "number" && val ? Number(val) : (val || (field.type === "number" ? 0 : ""));
+            });
+
+            wrapper.appendChild(label);
+            wrapper.appendChild(input);
+            container.appendChild(wrapper);
+          });
+        }
+
+        // Modal event listeners
+        document.getElementById("teamsModalCloseBtn").addEventListener("click", closeTeamsModal);
+        document.getElementById("playersModalCloseBtn").addEventListener("click", () => {
+          document.getElementById("playersModal").classList.add("hidden");
+          updateStructuredValuesFromDom();
+          renderTeamsModal();
+        });
+        document.getElementById("playersModalDoneBtn").addEventListener("click", () => {
+          document.getElementById("playersModal").classList.add("hidden");
+          updateStructuredValuesFromDom();
+          renderTeamsModal();
+        });
+        document.getElementById("playerEditModalCloseBtn").addEventListener("click", () => {
+          document.getElementById("playerEditModal").classList.add("hidden");
+        });
+        document.getElementById("playerEditModalCancelBtn").addEventListener("click", () => {
+          document.getElementById("playerEditModal").classList.add("hidden");
+        });
+        document.getElementById("playerEditModalSaveBtn").addEventListener("click", () => {
+          updateStructuredValuesFromDom();
+          document.getElementById("playerEditModal").classList.add("hidden");
+          renderPlayersModal();
+        });
+
+        document.getElementById("teamsModalAddBtn").addEventListener("click", () => {
+          const file = currentFile();
+          if (file && file.data && Array.isArray(file.data.teams)) {
+            file.data.teams.push({
+              team_name: "New Team",
+              team_type: "First Team",
+              competition: "Competition",
+              country: "Country",
+              home_venue: "Venue",
+              players: []
+            });
+            updateStructuredValuesFromDom();
+            renderTeamsModal();
+          }
+        });
+
+        document.getElementById("playersModalAddBtn").addEventListener("click", () => {
+          const file = currentFile();
+          if (file && file.data && Array.isArray(file.data.teams)) {
+            const teamIndex = modalState.playersTeamIndex;
+            const team = file.data.teams[teamIndex];
+            if (team && Array.isArray(team.players)) {
+              team.players.push({
+                position: "Position",
+                name: "New Player",
+                number: "0",
+                imageUrl: "profile_placeholder.png",
+                yellow: 0,
+                red: 0,
+                injury: "0",
+                goals: 0,
+                assists: 0,
+                appearances: 0,
+                notes: ""
+              });
+              updateStructuredValuesFromDom();
+              renderPlayersModal();
+            }
+          }
         });
 
         async function commitChangedFiles() {
@@ -1043,6 +1987,7 @@
         renderFileList();
         renderEditor();
         syncSummary();
+        setUiMode("structured");
 
         window.FC_MANAGER_CONFIG = {
           ...DEFAULT_CONFIG,
@@ -1053,5 +1998,6 @@
         };
       })();
     </script>
+
   </body>
 </html>
