@@ -1,1258 +1,1057 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>FC Template Manager</title>
-        <style>
-            :root {
-                --bg: #0a1220;
-                --panel: #101b2d;
-                --panel-strong: #14233d;
-                --line: #2b3f5f;
-                --text: #edf4ff;
-                --muted: #aabbd9;
-                --accent: #76d7ff;
-                --accent-strong: #2d8cff;
-                --success: #5fe0a8;
-                --warning: #ffbd71;
-                --danger: #ff7684;
-                --shadow: rgba(8, 15, 28, 0.5);
-            }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FC Template Manager</title>
+    <style>
+      :root {
+        --bg: #07141d;
+        --bg-2: #0d1c2b;
+        --panel: rgba(17, 27, 38, 0.96);
+        --panel-alt: rgba(12, 19, 30, 0.96);
+        --panel-soft: rgba(21, 33, 49, 0.85);
+        --line: rgba(133, 173, 214, 0.2);
+        --text: #edf6ff;
+        --muted: #a9c0d9;
+        --accent: #74d0ff;
+        --accent-strong: #2f7ef7;
+        --success: #6ee7b7;
+        --warning: #fbbf24;
+        --danger: #f87171;
+        --shadow: rgba(4, 10, 18, 0.42);
+      }
 
-            * { box-sizing: border-box; }
-            html, body {
-                margin: 0;
-                min-height: 100%;
-                font-family: Inter, "Segoe UI", sans-serif;
-                background: linear-gradient(180deg, #09121d 0%, #0d1525 100%);
-                color: var(--text);
-            }
-            body { padding: 24px; }
-            .shell { max-width: 1300px; margin: 0 auto; }
-            header {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 16px;
-                padding: 18px 20px;
-                margin-bottom: 24px;
-                background: linear-gradient(140deg, rgba(18, 29, 48, 0.96), rgba(12, 21, 35, 0.96));
-                border: 1px solid var(--line);
-                border-radius: 18px;
-                box-shadow: 0 18px 44px var(--shadow);
-            }
-            .brand { display: flex; flex-direction: column; gap: 4px; }
-            .eyebrow {
-                font-size: 11px;
-                letter-spacing: 0.18em;
-                text-transform: uppercase;
-                color: var(--accent);
-                font-weight: 700;
-            }
-            h1 { font-size: clamp(1.35rem, 2vw, 2rem); margin: 0; }
-            .tagline { color: var(--muted); margin: 0; }
-            .repo-meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-            .status-pill { padding: 8px 12px; border: 1px solid var(--line); border-radius: 999px; background: rgba(118, 215, 255, 0.08); color: var(--accent); font-weight: 600; }
-            .status-pill.warn { color: var(--warning); border-color: rgba(255, 189, 113, 0.4); }
-            .layout { display: grid; grid-template-columns: 360px minmax(0, 1fr); gap: 24px; }
-            .panel { background: rgba(16, 27, 45, 0.96); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 20px 38px rgba(7, 14, 25, 0.38); }
-            .sidebar { padding: 18px; }
-            .sidebar .section { margin-bottom: 18px; }
-            .sidebar .section:last-child { margin-bottom: 0; }
-            label {
-                display: flex;
-                flex-direction: column;
-                gap: 8px;
-                font-size: 0.82rem;
-                color: var(--muted);
-                margin-bottom: 12px;
-            }
-            input, textarea, button, select {
-                width: 100%;
-                border: 1px solid var(--line);
-                background: #0d182b;
-                color: var(--text);
-                border-radius: 10px;
-                padding: 10px 12px;
-                font: inherit;
-            }
-            textarea { min-height: 92px; resize: vertical; }
-            button {
-                cursor: pointer;
-                border: 1px solid transparent;
-                transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
-            }
-            button:hover { transform: translateY(-1px); }
-            .primary { background: linear-gradient(180deg, var(--accent-strong), #2d5be2); color: #041623; font-weight: 700; }
-            .secondary { background: rgba(118, 215, 255, 0.09); border-color: rgba(118, 215, 255, 0.3); color: var(--text); }
-            .danger { background: rgba(255, 118, 132, 0.08); border-color: rgba(255, 118, 132, 0.32); color: var(--text); }
-            .toolbar { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
-            .status {
-                padding: 12px;
-                border-radius: 12px;
-                background: rgba(17, 27, 42, 0.9);
-                border: 1px solid var(--line);
-                color: var(--muted);
-                margin-top: 12px;
-                min-height: 50px;
-            }
-            .status.ok { color: #d9ffef; border-color: rgba(95, 224, 168, 0.32); background: rgba(95, 224, 168, 0.09); }
-            .status.bad { color: #ffdfe3; border-color: rgba(255, 118, 132, 0.32); background: rgba(255, 118, 132, 0.08); }
-            .status.info { color: #e8f3ff; border-color: rgba(118, 215, 255, 0.18); background: rgba(118, 215, 255, 0.08); }
-            .content { padding: 18px; }
-            .tab-list { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
-            .tab-button { width: auto; min-width: 116px; }
-            .tab-button.active { border-color: rgba(118, 215, 255, 0.42); background: rgba(118, 215, 255, 0.12); }
-            .file-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
-            .file-header h2 { margin: 0; font-size: 1.2rem; }
-            .meta-chip { padding: 6px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); background: rgba(255, 255, 255, 0.02); font-size: 0.78rem; }
-            .record-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
-            .record-card { display: flex; flex-direction: column; gap: 12px; background: rgba(12, 19, 31, 0.8); border: 1px solid var(--line); border-radius: 14px; padding: 14px; }
-            .record-card h3 { margin: 0; font-size: 1rem; }
-            .mini-list { display: grid; gap: 12px; }
-            .sub-card { padding: 12px; border-radius: 12px; border: 1px solid var(--line); background: rgba(18, 29, 47, 0.9); }
-            .sub-card h4 { margin: 0 0 10px; }
-            .btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
-            .hidden { display: none !important; }
-            .empty-state { padding: 22px; border: 1px dashed var(--line); border-radius: 14px; color: var(--muted); background: rgba(255, 255, 255, 0.01); }
-            @media (max-width: 980px) {
-                body { padding: 16px; }
-                .layout { grid-template-columns: 1fr; }
-            }
-        </style>
-    </head>
-    <body>
-        <div class="shell">
-            <header>
-                <div class="brand">
-                    <span class="eyebrow">Oakshift FC</span>
-                    <h1>FC Template Manager</h1>
-                    <p class="tagline">GitHub OAuth editor for the fc-template data files in this site.</p>
-                </div>
-                <div class="repo-meta">
-                    <span id="repoBadge" class="status-pill">No repo connected</span>
-                </div>
-            </header>
+      * { box-sizing: border-box; }
 
-            <div class="layout">
-                <aside class="panel sidebar">
-                    <div class="section">
-                        <h2>Repository</h2>
-                        <label>
-                            GitHub repo
-                            <input id="repoInput" type="text" value="jamieharperuk/jamieharperuk.github.io" placeholder="owner/repo">
-                        </label>
-                        <label>
-                            Site base URL
-                            <input id="siteUrlInput" type="url" value="https://jamieharperuk.github.io/fc-template/" placeholder="https://your-site.github.io/fc-template/">
-                        </label>
-                        <div class="toolbar">
-                            <button id="signInBtn" type="button" class="primary">Sign in with GitHub</button>
-                            <button id="signOutBtn" type="button" class="secondary hidden">Sign out</button>
-                            <button id="loadRepoBtn" type="button" class="secondary">Load fc-template files</button>
-                        </div>
-                        <div id="repoStatus" class="status info">Authenticate and load the repository to start editing the club data.</div>
-                    </div>
+      html, body {
+        margin: 0;
+        min-height: 100%;
+        font-family: "Segoe UI", Inter, sans-serif;
+        background: linear-gradient(180deg, #07141d 0%, #0d1c2b 100%);
+        color: var(--text);
+      }
 
-                    <div class="section">
-                        <h2>Commit</h2>
-                        <label>
-                            Commit message
-                            <input id="commitMessageInput" type="text" value="Update fc-template data" placeholder="Update fc-template data">
-                        </label>
-                        <div class="toolbar">
-                            <button id="commitBtn" type="button" class="primary">Commit changed files</button>
-                            <button id="resetBtn" type="button" class="secondary">Reset edits</button>
-                        </div>
-                    </div>
-                </aside>
+      body {
+        padding: 24px;
+      }
 
-                <main class="panel content">
-                    <div id="editorContainer">
-                        <div class="empty-state">Connect a repository, then select a file to edit.</div>
-                    </div>
-                </main>
-            </div>
+      button, input, textarea {
+        font: inherit;
+      }
+
+      .shell {
+        max-width: 1360px;
+        margin: 0 auto;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 18px 20px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: linear-gradient(145deg, rgba(17, 29, 43, 0.96), rgba(11, 20, 30, 0.98));
+        box-shadow: 0 18px 48px var(--shadow);
+      }
+
+      .brand {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .eyebrow {
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        font-weight: 800;
+        color: var(--accent);
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(1.5rem, 2vw, 2.4rem);
+      }
+
+      .tagline {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .status-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 9px 12px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: rgba(116, 208, 255, 0.08);
+        color: var(--accent);
+        font-weight: 700;
+      }
+
+      .status-pill.warn {
+        border-color: rgba(251, 191, 36, 0.4);
+        background: rgba(251, 191, 36, 0.08);
+        color: var(--warning);
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 360px minmax(0, 1fr);
+        gap: 24px;
+        margin-top: 24px;
+      }
+
+      .panel {
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: rgba(17, 27, 38, 0.96);
+        box-shadow: 0 18px 40px rgba(5, 12, 21, 0.5);
+      }
+
+      .sidebar {
+        padding: 18px;
+      }
+
+      .section {
+        margin-bottom: 20px;
+      }
+
+      .section:last-child {
+        margin-bottom: 0;
+      }
+
+      .section h2 {
+        margin: 0 0 12px;
+        font-size: 1.05rem;
+      }
+
+      label {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 12px;
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      input, textarea, button {
+        border-radius: 10px;
+        border: 1px solid var(--line);
+        background: #091c2b;
+        color: var(--text);
+      }
+
+      input {
+        width: 100%;
+        padding: 11px 12px;
+      }
+
+      textarea {
+        width: 100%;
+        min-height: 580px;
+        padding: 14px 16px;
+        resize: vertical;
+        line-height: 1.5;
+        font-family: "IBM Plex Mono", Consolas, monospace;
+        background: rgba(8, 17, 25, 0.96);
+      }
+
+      button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        cursor: pointer;
+        padding: 10px 14px;
+        transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+      }
+
+      button:hover {
+        transform: translateY(-1px);
+      }
+
+      button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .primary {
+        background: linear-gradient(180deg, var(--accent-strong), #225fe1);
+        border-color: transparent;
+        color: #ebf7ff;
+        font-weight: 700;
+      }
+
+      .secondary {
+        background: rgba(116, 208, 255, 0.08);
+        border-color: rgba(116, 208, 255, 0.32);
+        color: var(--text);
+      }
+
+      .danger {
+        background: rgba(248, 113, 113, 0.08);
+        border-color: rgba(248, 113, 113, 0.3);
+        color: var(--text);
+      }
+
+      .toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .status {
+        min-height: 60px;
+        padding: 12px 14px;
+        border-radius: 12px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.02);
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .status.ok {
+        color: #dffef1;
+        border-color: rgba(110, 231, 183, 0.35);
+        background: rgba(110, 231, 183, 0.08);
+      }
+
+      .status.bad {
+        color: #ffe5e8;
+        border-color: rgba(248, 113, 113, 0.3);
+        background: rgba(248, 113, 113, 0.08);
+      }
+
+      .status.info {
+        color: #ebf7ff;
+        border-color: rgba(116, 208, 255, 0.28);
+        background: rgba(116, 208, 255, 0.08);
+      }
+
+      .content {
+        padding: 18px;
+      }
+
+      .content-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+
+      .editor-heading h2 {
+        margin: 0;
+        font-size: 1.2rem;
+      }
+
+      .editor-heading p {
+        margin: 4px 0 0;
+        color: var(--muted);
+        font-size: 0.8rem;
+      }
+
+      .content-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .editor-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin: 12px 0 14px;
+      }
+
+      .file-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 5px 10px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+      }
+
+      .file-badge.dirty {
+        border-color: rgba(251, 191, 36, 0.4);
+        background: rgba(251, 191, 36, 0.08);
+        color: var(--warning);
+      }
+
+      .file-badge.clean {
+        border-color: rgba(110, 231, 183, 0.28);
+        background: rgba(110, 231, 183, 0.08);
+        color: var(--success);
+      }
+
+      .summary-text {
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .file-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .file-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        width: 100%;
+        padding: 12px 12px;
+        text-align: left;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.02);
+        color: var(--text);
+      }
+
+      .file-item.active {
+        border-color: rgba(116, 208, 255, 0.42);
+        background: rgba(116, 208, 255, 0.08);
+      }
+
+      .file-item-main {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        min-width: 0;
+      }
+
+      .file-item-name {
+        font-weight: 700;
+      }
+
+      .file-item-path {
+        color: var(--muted);
+        font-size: 0.72rem;
+        word-break: break-word;
+      }
+
+      .file-item-status {
+        flex-shrink: 0;
+      }
+
+      .empty-state {
+        border: 1px dashed var(--line);
+        border-radius: 14px;
+        padding: 20px 18px;
+        color: var(--muted);
+        background: rgba(255, 255, 255, 0.01);
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      @media (max-width: 980px) {
+        body {
+          padding: 16px;
+        }
+
+        .layout {
+          grid-template-columns: 1fr;
+        }
+
+        .content-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <header>
+        <div class="brand">
+          <span class="eyebrow">Oakshift FC</span>
+          <h1>FC Template Manager</h1>
+          <p class="tagline">Manage the club JSON source files used by the football club template.</p>
         </div>
-
-        <script>
-            (() => {
-                const API_BASE = "https://api.github.com";
-                const AUTH_STORAGE_KEY = "fc_manager_auth_session";
-
-                function resolveDefaultSiteBaseUrl() {
-                    if (typeof window === "undefined") {
-                        return "https://jamieharperuk.github.io/fc-template/";
-                    }
-
-                    const origin = window.location.origin || "https://jamieharperuk.github.io";
-                    const pathname = window.location.pathname || "/";
-                    if (pathname.includes("/fc-template")) {
-                        const base = pathname.replace(/\/manager(?:3)?\.html?$/i, "").replace(/\/+$/, "");
-                        return `${origin}${base}/`;
-                    }
-                    return "https://jamieharperuk.github.io/fc-template/";
-                }
-
-                const DEFAULT_CONFIG = {
-                    repoFullName: "jamieharperuk/jamieharperuk.github.io",
-                    siteBaseUrl: resolveDefaultSiteBaseUrl(),
-                    commitMessage: "Update fc-template data",
-                    session: {
-                        ttlSeconds: 8 * 60 * 60
-                    },
-                    repository: {
-                        targetRepoFullName: "jamieharperuk/jamieharperuk.github.io",
-                        files: {
-                            club: "fc-template/data/fc_club.json",
-                            games: "fc-template/data/fc_games.json",
-                            teams: "fc-template/data/fc_teams.json",
-                            tables: "fc-template/data/fc_tables.json",
-                            tickets: "fc-template/data/fc_tickets.json"
-                        },
-                        defaultFileKey: "club"
-                    },
-                    oauth: {
-                        clientId: "Ov23liJxZCIXpxYWlATm",
-                        scope: "repo read:user",
-                        brokerBaseUrl: "https://ghwe.oakshiftsoftware.workers.dev"
-                    }
-                };
-
-                const FILE_DEFS = Object.freeze({
-                    club: {
-                        label: "Club",
-                        path: "fc-template/data/fc_club.json",
-                        arrayKey: "club",
-                        kind: "club",
-                        fileKind: "object",
-                        fields: [
-                            ["club_name", "Club name"],
-                            ["home_venue", "Home venue"],
-                            ["city", "City"],
-                            ["country", "Country"],
-                            ["established_year", "Established year"],
-                            ["description", "Description"]
-                        ],
-                        nestedFields: [
-                            ["facebook", "Facebook"],
-                            ["twitter_x", "Twitter / X"],
-                            ["instagram", "Instagram"],
-                            ["youtube", "YouTube"],
-                            ["tiktok", "TikTok"]
-                        ]
-                    },
-                    games: {
-                        label: "Games",
-                        path: "fc-template/data/fc_games.json",
-                        arrayKey: "games",
-                        kind: "array",
-                        fileKind: "array",
-                        fields: [
-                            ["home_or_away", "Home / away"],
-                            ["home_team", "Home team"],
-                            ["away_team", "Away team"],
-                            ["date", "Date"],
-                            ["time", "Time"],
-                            ["competition", "Competition"],
-                            ["venue", "Venue"],
-                            ["home_score", "Home score"],
-                            ["away_score", "Away score"],
-                            ["winner", "Winner"]
-                        ]
-                    },
-                    teams: {
-                        label: "Teams",
-                        path: "fc-template/data/fc_teams.json",
-                        arrayKey: "teams",
-                        kind: "array",
-                        fileKind: "array",
-                        fields: [
-                            ["team_name", "Team name"],
-                            ["team_type", "Team type"],
-                            ["competition", "Competition"],
-                            ["country", "Country"],
-                            ["home_venue", "Home venue"]
-                        ]
-                    },
-                    tables: {
-                        label: "Tables",
-                        path: "fc-template/data/fc_tables.json",
-                        arrayKey: "tables",
-                        kind: "array",
-                        fileKind: "array",
-                        fields: [
-                            ["title", "Title"],
-                            ["season", "Season"]
-                        ]
-                    },
-                    tickets: {
-                        label: "Tickets",
-                        path: "fc-template/data/fc_tickets.json",
-                        arrayKey: "tickets",
-                        kind: "array",
-                        fileKind: "array",
-                        fields: [
-                            ["title", "Title"],
-                            ["match", "Match"],
-                            ["date", "Date"],
-                            ["venue", "Venue"],
-                            ["status", "Status"],
-                            ["notes", "Notes"],
-                            ["link", "Link"]
-                        ]
-                    }
-                });
-
-                const state = {
-                    token: "",
-                    repoFullName: DEFAULT_CONFIG.repoFullName,
-                    siteBaseUrl: DEFAULT_CONFIG.siteBaseUrl,
-                    files: {},
-                    activeKey: "club",
-                    dirtyKeys: new Set(),
-                    commitMessage: DEFAULT_CONFIG.commitMessage
-                };
-
-                const repoInput = document.getElementById("repoInput");
-                const siteUrlInput = document.getElementById("siteUrlInput");
-                const repoStatus = document.getElementById("repoStatus");
-                const repoBadge = document.getElementById("repoBadge");
-                const editorContainer = document.getElementById("editorContainer");
-                const commitMessageInput = document.getElementById("commitMessageInput");
-                const signInBtn = document.getElementById("signInBtn");
-                const signOutBtn = document.getElementById("signOutBtn");
-
-                function isSignedIn() {
-                    return Boolean(state.token || getStoredSession()?.accessToken);
-                }
-
-                function updateAuthUi() {
-                    const signedIn = isSignedIn();
-                    signInBtn.classList.toggle("hidden", signedIn);
-                    signOutBtn.classList.toggle("hidden", !signedIn);
-                    signInBtn.textContent = signedIn ? "Signed in" : "Sign in with GitHub";
-                    signInBtn.disabled = signedIn;
-                }
-
-                function setStatus(message, type = "info") {
-                    repoStatus.className = `status ${type}`;
-                    repoStatus.textContent = message;
-                }
-
-                function escapeHtml(value) {
-                    return String(value ?? "").replace(/[&<>\"']/g, (char) => ({
-                        "&": "&amp;",
-                        "<": "&lt;",
-                        ">": "&gt;",
-                        '"': "&quot;",
-                        "'": "&#039;"
-                    }[char]));
-                }
-
-                function getStoredSession() {
-                    const raw = sessionStorage.getItem(AUTH_STORAGE_KEY);
-                    if (!raw) {
-                        return null;
-                    }
-
-                    try {
-                        const parsed = JSON.parse(raw);
-                        if (!parsed || typeof parsed !== "object" || !parsed.accessToken) {
-                            return null;
-                        }
-
-                        if (parsed.expiresAt && Date.now() >= Number(parsed.expiresAt)) {
-                            sessionStorage.removeItem(AUTH_STORAGE_KEY);
-                            return null;
-                        }
-
-                        return parsed;
-                    } catch (_error) {
-                        sessionStorage.removeItem(AUTH_STORAGE_KEY);
-                        return null;
-                    }
-                }
-
-                function saveStoredSession(accessToken, tokenPayload = {}) {
-                    const expiresIn = Number(tokenPayload.expires_in) || DEFAULT_CONFIG.session.ttlSeconds;
-                    const authSession = {
-                        accessToken,
-                        createdAt: Date.now(),
-                        expiresAt: Date.now() + (expiresIn * 1000)
-                    };
-                    state.token = accessToken;
-                    sessionStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(authSession));
-                    updateAuthUi();
-                    return authSession;
-                }
-
-                function clearStoredSession() {
-                    state.token = "";
-                    sessionStorage.removeItem(AUTH_STORAGE_KEY);
-                    repoBadge.textContent = "No repo connected";
-                    repoBadge.classList.remove("warn");
-                    updateAuthUi();
-                }
-
-                function getSiteBaseUrl() {
-                    const rawValue = siteUrlInput.value.trim();
-                    if (rawValue) {
-                        state.siteBaseUrl = rawValue;
-                        return rawValue;
-                    }
-                    return DEFAULT_CONFIG.siteBaseUrl;
-                }
-
-                function getRepoFullName() {
-                    const rawValue = repoInput.value.trim();
-                    state.repoFullName = rawValue;
-                    return rawValue;
-                }
-
-                function getFilePayload(key) {
-                    return state.files[key]?.data ?? null;
-                }
-
-                function isDirty(key) {
-                    return state.dirtyKeys.has(key);
-                }
-
-                function markDirty(key, isDirtyValue = true) {
-                    if (isDirtyValue) state.dirtyKeys.add(key);
-                    else state.dirtyKeys.delete(key);
-                }
-
-                function buildFileTemplate(key) {
-                    const def = FILE_DEFS[key];
-                    switch (key) {
-                        case "club":
-                            return {
-                                metadata: { lastUpdated: new Date().toISOString(), version: "1.0.0" },
-                                club: {
-                                    club_name: "The Club",
-                                    home_venue: "Home Ground",
-                                    city: "City Name",
-                                    country: "Country Name",
-                                    established_year: "2026",
-                                    description: "Your club description here.",
-                                    socials: {
-                                        facebook: "#",
-                                        twitter_x: "#",
-                                        instagram: "#",
-                                        youtube: "#",
-                                        tiktok: "#"
-                                    }
-                                }
-                            };
-                        case "games":
-                            return { metadata: { lastUpdated: new Date().toISOString(), version: "1.0.0" }, games: [] };
-                        case "teams":
-                            return { metadata: { lastUpdated: new Date().toISOString(), version: "1.0.0" }, teams: [] };
-                        case "tables":
-                            return { metadata: { lastUpdated: new Date().toISOString(), version: "1.0.0" }, tables: [] };
-                        case "tickets":
-                            return { metadata: { lastUpdated: new Date().toISOString(), version: "1.0.0" }, tickets: [] };
-                        default:
-                            return {};
-                    }
-                }
-
-                function updateFileData(key, nextValue) {
-                    if (!state.files[key]) return;
-                    state.files[key].data = nextValue;
-                    markDirty(key, true);
-                    renderEditor();
-                }
-
-                function setValueAtPath(obj, path, value) {
-                    const segments = path.split(".");
-                    let cursor = obj;
-                    for (let i = 0; i < segments.length - 1; i += 1) {
-                        const segment = segments[i];
-                        if (!(segment in cursor) || typeof cursor[segment] !== "object" || Array.isArray(cursor[segment])) {
-                            cursor[segment] = {};
-                        }
-                        cursor = cursor[segment];
-                    }
-                    cursor[segments[segments.length - 1]] = value;
-                }
-
-                function encodeBase64Utf8(value) {
-                    return btoa(unescape(encodeURIComponent(value)));
-                }
-
-                function ensurePageIsServed() {
-                    const protocol = window.location.protocol;
-                    const hostname = window.location.hostname || "";
-                    if (protocol === "file:") {
-                        const message = "This manager must be served over http://localhost or https://... before GitHub sign-in will work. Open it via a local web server or GitHub Pages.";
-                        setStatus(message, "bad");
-                        throw new Error(message);
-                    }
-                    if (protocol === "http:" && !(hostname === "localhost" || hostname === "127.0.0.1")) {
-                        return;
-                    }
-                }
-
-                function getGitHubApiProxyBaseUrl() {
-                    const configured = (window.FC_MANAGER_CONFIG && window.FC_MANAGER_CONFIG.oauth && window.FC_MANAGER_CONFIG.oauth.apiProxyBaseUrl) || DEFAULT_CONFIG.oauth.apiProxyBaseUrl || "";
-                    return String(configured || "").trim().replace(/\/$/, "");
-                }
-
-                async function ghFetch(path, options = {}) {
-                    ensurePageIsServed();
-                    const method = options.method || "GET";
-                    const headers = Object.assign({
-                        Accept: "application/vnd.github+json",
-                        "X-GitHub-Api-Version": "2022-11-28"
-                    }, options.headers || {});
-
-                    if (state.token) {
-                        headers.Authorization = `Bearer ${state.token}`;
-                    }
-
-                    const proxyBase = getGitHubApiProxyBaseUrl();
-                    if (proxyBase) {
-                        try {
-                            const proxyResponse = await fetch(`${proxyBase}/github/proxy`, {
-                                method: "POST",
-                                headers: {
-                                    Accept: "application/json",
-                                    "Content-Type": "application/json"
-                                },
-                                body: JSON.stringify({
-                                    path,
-                                    method,
-                                    headers,
-                                    body: options.body || undefined
-                                }),
-                                cache: "no-store",
-                                mode: "cors"
-                            });
-
-                            const proxyText = await proxyResponse.text();
-                            if (!proxyResponse.ok) {
-                                let message = `GitHub request failed (${proxyResponse.status})`;
-                                try {
-                                    const payload = JSON.parse(proxyText);
-                                    message = payload?.message || payload?.error || message;
-                                } catch (_error) {
-                                    message = proxyText || message;
-                                }
-                                throw new Error(message);
-                            }
-
-                            return proxyText ? JSON.parse(proxyText) : null;
-                        } catch (error) {
-                            if (error?.message && error.message.includes("GitHub request failed")) {
-                                throw error;
-                            }
-                            const message = error?.message || "Failed to fetch";
-                            throw new Error(`GitHub request failed: ${message}. This usually means the GitHub API proxy is not running or the browser blocked the request.`);
-                        }
-                    }
-
-                    const requestInit = {
-                        method,
-                        headers,
-                        cache: "no-store",
-                        mode: "cors"
-                    };
-                    if (options.body) {
-                        requestInit.body = options.body;
-                    }
-
-                    let response;
-                    try {
-                        response = await fetch(`${API_BASE}${path}`, requestInit);
-                    } catch (error) {
-                        const message = error?.message || "Failed to fetch";
-                        throw new Error(`GitHub request failed: ${message}. This usually means the page is not being served over HTTP(S), or the GitHub API request was blocked by the browser.`);
-                    }
-
-                    if (response.status === 204) {
-                        return null;
-                    }
-
-                    const text = await response.text();
-                    if (!response.ok) {
-                        let message = `GitHub request failed (${response.status})`;
-                        try {
-                            const payload = JSON.parse(text);
-                            message = payload?.message || message;
-                        } catch (_error) {
-                            message = text || message;
-                        }
-                        throw new Error(message);
-                    }
-
-                    return text ? JSON.parse(text) : null;
-                }
-
-                async function brokerRequest(endpoint, payload) {
-                    ensurePageIsServed();
-                    const base = (DEFAULT_CONFIG.oauth.brokerBaseUrl || "https://ghwe.oakshiftsoftware.workers.dev").replace(/\/$/, "");
-                    let response;
-                    try {
-                        response = await fetch(`${base}${endpoint}`, {
-                            method: "POST",
-                            headers: {
-                                Accept: "application/json",
-                                "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
-                            },
-                            body: new URLSearchParams(payload).toString(),
-                            mode: "cors",
-                            cache: "no-store"
-                        });
-                    } catch (error) {
-                        const message = error?.message || "Failed to fetch";
-                        throw new Error(`Authentication request failed: ${message}. This usually means the app is being opened from a file:// page or the network request was blocked by the browser.`);
-                    }
-
-                    const text = await response.text();
-                    if (!response.ok) {
-                        throw new Error(text || "Authentication request failed.");
-                    }
-
-                    try {
-                        return JSON.parse(text);
-                    } catch (_error) {
-                        return { raw: text };
-                    }
-                }
-
-                async function startDeviceFlow() {
-                    const clientId = DEFAULT_CONFIG.oauth.clientId;
-                    if (!clientId) {
-                        throw new Error("No OAuth client ID configured for the manager.");
-                    }
-
-                    const deviceCodeResponse = await brokerRequest("/github/device/code", {
-                        client_id: clientId,
-                        scope: DEFAULT_CONFIG.oauth.scope
-                    });
-
-                    if (!deviceCodeResponse?.device_code) {
-                        throw new Error("GitHub device flow did not return a device code.");
-                    }
-
-                    const userCode = String(deviceCodeResponse.user_code || "");
-                    const verificationUri = String(deviceCodeResponse.verification_uri || "https://github.com/login/device");
-                    const intervalSeconds = Number(deviceCodeResponse.interval || 5);
-                    const expiresInSeconds = Number(deviceCodeResponse.expires_in || 900);
-
-                    setStatus(`Open ${verificationUri} and enter code: ${userCode}. This window will keep polling for approval for up to ${expiresInSeconds} seconds.`, "info");
-
-                    const startedAt = Date.now();
-                    while (Date.now() - startedAt < expiresInSeconds * 1000) {
-                        await new Promise((resolve) => setTimeout(resolve, intervalSeconds * 1000));
-                        const sessionResponse = await brokerRequest("/github/oauth/access_token", {
-                            client_id: clientId,
-                            device_code: deviceCodeResponse.device_code,
-                            grant_type: "urn:ietf:params:oauth:grant-type:device_code"
-                        });
-
-                        if (sessionResponse?.access_token) {
-                            saveStoredSession(sessionResponse.access_token, sessionResponse);
-                            setStatus("GitHub access granted. You can now load and edit the fc-template JSON files.", "ok");
-                            await loadRepository();
-                            return;
-                        }
-
-                        if (sessionResponse?.error && !["authorization_pending", "slow_down"].includes(String(sessionResponse.error))) {
-                            throw new Error(String(sessionResponse.error_description || sessionResponse.error || "Device flow failed."));
-                        }
-                    }
-
-                    throw new Error("GitHub authentication timed out. Please try again.");
-                }
-
-                async function loadRepository() {
-                    const repoFullName = getRepoFullName();
-                    const siteUrl = getSiteBaseUrl();
-
-                    if (!repoFullName || !repoFullName.includes("/")) {
-                        setStatus("Enter a GitHub repository in owner/repo format before loading the fc-template files.", "bad");
-                        return;
-                    }
-
-                    if (!state.token) {
-                        setStatus("You must authenticate with GitHub before loading repository data.", "bad");
-                        return;
-                    }
-
-                    try {
-                        const repo = await ghFetch(`/repos/${encodeURIComponent(repoFullName)}`);
-                        repoBadge.textContent = `${repo.owner.login}/${repo.name}`;
-                        repoBadge.classList.remove("warn");
-                        state.repoFullName = repoFullName;
-                        state.siteBaseUrl = siteUrl;
-                        state.files = {};
-                        state.dirtyKeys.clear();
-
-                        const fcFiles = Object.entries(DEFAULT_CONFIG.repository.files || FILE_DEFS);
-                        for (const [key, filePath] of fcFiles) {
-                            const def = FILE_DEFS[key] || { label: key.charAt(0).toUpperCase() + key.slice(1), path: filePath, kind: "object" };
-                            try {
-                                const payload = await ghFetch(`/repos/${encodeURIComponent(repoFullName)}/contents/${encodeURIComponent(filePath)}`);
-                                const rawText = decodeURIComponent(escape(atob(payload.content.replace(/\s/g, ""))));
-                                const parsed = JSON.parse(rawText);
-                                state.files[key] = { def, data: parsed, sha: payload.sha, path: filePath, exists: true };
-                            } catch (error) {
-                                state.files[key] = { def, data: buildFileTemplate(key), sha: null, path: filePath, exists: false, error: String(error.message || error) };
-                            }
-                        }
-
-                        renderTabs();
-                        renderEditor();
-                        setStatus(`Repository loaded successfully: ${repoFullName}. ${Object.keys(state.files).length} fc-template files are ready to edit.`, "ok");
-                    } catch (error) {
-                        repoBadge.textContent = "Load failed";
-                        repoBadge.classList.add("warn");
-                        setStatus(error.message || "Could not load the repository.", "bad");
-                    }
-                }
-
-                function renderTabs() {
-                    const tabs = Object.entries(FILE_DEFS).map(([key, def]) => {
-                        const isActive = key === state.activeKey;
-                        const isDirty = isDirty(key);
-                        return `<button type="button" data-key="${key}" class="tab-button ${isActive ? "active" : ""}">${def.label}${isDirty ? " *" : ""}</button>`;
-                    }).join("");
-
-                    editorContainer.innerHTML = `<div class="tab-list">${tabs}</div>`;
-                    editorContainer.querySelectorAll(".tab-button").forEach((button) => {
-                        button.addEventListener("click", () => {
-                            state.activeKey = button.dataset.key;
-                            renderEditor();
-                        });
-                    });
-                }
-
-                function renderInputField(label, value, path, type = "text") {
-                    const safeValue = typeof value === "string" ? value : value == null ? "" : String(value);
-                    return `
-                        <label>
-                            <span>${escapeHtml(label)}</span>
-                            <input data-path="${escapeHtml(path)}" type="${type}" value="${escapeHtml(safeValue)}">
-                        </label>
-                    `;
-                }
-
-                function renderTextareaField(label, value, path) {
-                    const safeValue = typeof value === "string" ? value : value == null ? "" : String(value);
-                    return `
-                        <label>
-                            <span>${escapeHtml(label)}</span>
-                            <textarea data-path="${escapeHtml(path)}">${escapeHtml(safeValue)}</textarea>
-                        </label>
-                    `;
-                }
-
-                function renderClubEditor(data) {
-                    const club = data.club || {};
-                    const socials = club.socials || {};
-                    const mainFields = FILE_DEFS.club.fields.map(([key, label]) => renderInputField(label, club[key], `club.${key}`));
-                    const socialFields = FILE_DEFS.club.nestedFields.map(([key, label]) => renderInputField(label, socials[key], `club.socials.${key}`));
-                    return `
-                        <div class="file-header">
-                            <h2>Club overview</h2>
-                            <span class="meta-chip">${state.files.club?.exists ? "Tracked file" : "New file"}</span>
-                        </div>
-                        <div class="record-grid">${mainFields.join("")}</div>
-                        <div class="record-card" style="margin-top: 16px;">
-                            <h3>Social links</h3>
-                            <div class="record-grid">${socialFields.join("")}</div>
-                        </div>
-                    `;
-                }
-
-                function renderArrayEditor(key, arrayKey, itemFactoryFn) {
-                    const payload = getFilePayload(key);
-                    const entries = Array.isArray(payload?.[arrayKey]) ? payload[arrayKey] : [];
-                    if (!entries.length) {
-                        return `
-                            <div class="file-header">
-                                <h2>${FILE_DEFS[key].label}</h2>
-                                <button type="button" data-action="add-${key}" class="secondary">Add item</button>
-                            </div>
-                            <div class="empty-state">No entries in this data file yet.</div>
-                        `;
-                    }
-
-                    const cards = entries.map((entry, index) => itemFactoryFn(entry, index)).join("");
-                    return `
-                        <div class="file-header">
-                            <h2>${FILE_DEFS[key].label}</h2>
-                            <button type="button" data-action="add-${key}" class="secondary">Add item</button>
-                        </div>
-                        <div class="mini-list">${cards}</div>
-                    `;
-                }
-
-                function renderGamesEditor() {
-                    return renderArrayEditor("games", "games", (entry, index) => {
-                        const fields = FILE_DEFS.games.fields.map(([fieldKey, label]) => renderInputField(label, entry[fieldKey], `games.${index}.${fieldKey}`));
-                        return `
-                            <div class="record-card">
-                                <div class="file-header" style="margin-bottom: 0;">
-                                    <h3>Game ${index + 1}</h3>
-                                    <button type="button" class="danger" data-action="remove-game" data-index="${index}">Remove</button>
-                                </div>
-                                <div class="record-grid">${fields.join("")}</div>
-                            </div>
-                        `;
-                    });
-                }
-
-                function renderTeamsEditor() {
-                    const payload = getFilePayload("teams");
-                    const entries = Array.isArray(payload?.teams) ? payload.teams : [];
-                    if (!entries.length) {
-                        return `
-                            <div class="file-header">
-                                <h2>Teams</h2>
-                                <button type="button" data-action="add-teams" class="secondary">Add team</button>
-                            </div>
-                            <div class="empty-state">No team records exist yet.</div>
-                        `;
-                    }
-
-                    const cards = entries.map((entry, teamIndex) => {
-                        const teamFields = FILE_DEFS.teams.fields.map(([fieldKey, label]) => renderInputField(label, entry[fieldKey], `teams.${teamIndex}.${fieldKey}`));
-                        const players = Array.isArray(entry.players) ? entry.players : [];
-                        const playerCards = players.map((player, playerIndex) => {
-                            const playerFields = [
-                                ["position", "Position"],
-                                ["name", "Name"],
-                                ["number", "Number"],
-                                ["imageUrl", "Image URL"],
-                                ["yellow", "Yellow"],
-                                ["red", "Red"],
-                                ["injury", "Injury"],
-                                ["goals", "Goals"],
-                                ["assists", "Assists"],
-                                ["appearances", "Appearances"]
-                            ].map(([fieldKey, label]) => renderInputField(label, player[fieldKey], `teams.${teamIndex}.players.${playerIndex}.${fieldKey}`));
-                            const notes = renderTextareaField("Notes", player.notes, `teams.${teamIndex}.players.${playerIndex}.notes`);
-                            return `
-                                <div class="sub-card">
-                                    <h4>Player ${playerIndex + 1}</h4>
-                                    <div class="record-grid">${playerFields.join("")}</div>
-                                    ${notes}
-                                </div>
-                            `;
-                        }).join("");
-
-                        return `
-                            <div class="record-card">
-                                <div class="file-header" style="margin-bottom: 0;">
-                                    <h3>Team ${teamIndex + 1}</h3>
-                                    <button type="button" class="danger" data-action="remove-team" data-index="${teamIndex}">Remove</button>
-                                </div>
-                                <div class="record-grid">${teamFields.join("")}</div>
-                                <div class="sub-card" style="margin-top: 12px;">
-                                    <h4>Players</h4>
-                                    <div class="btn-row"><button type="button" class="secondary" data-action="add-player" data-team-index="${teamIndex}">Add player</button></div>
-                                    ${players.length ? playerCards : "<div class='empty-state'>No players assigned to this team yet.</div>"}
-                                </div>
-                            </div>
-                        `;
-                    }).join("");
-
-                    return `
-                        <div class="file-header">
-                            <h2>Teams</h2>
-                            <button type="button" data-action="add-teams" class="secondary">Add team</button>
-                        </div>
-                        <div class="mini-list">${cards}</div>
-                    `;
-                }
-
-                function renderTablesEditor() {
-                    const payload = getFilePayload("tables");
-                    const entries = Array.isArray(payload?.tables) ? payload.tables : [];
-                    if (!entries.length) {
-                        return `
-                            <div class="file-header">
-                                <h2>Tables</h2>
-                                <button type="button" data-action="add-tables" class="secondary">Add table</button>
-                            </div>
-                            <div class="empty-state">No competition tables exist yet.</div>
-                        `;
-                    }
-
-                    const cards = entries.map((entry, tableIndex) => {
-                        const tableFields = FILE_DEFS.tables.fields.map(([fieldKey, label]) => renderInputField(label, entry[fieldKey], `tables.${tableIndex}.${fieldKey}`));
-                        const rows = Array.isArray(entry.rows) ? entry.rows : [];
-                        const rowCards = rows.map((row, rowIndex) => {
-                            const rowFields = [
-                                ["position", "Position"],
-                                ["team", "Team"],
-                                ["played", "Played"],
-                                ["won", "Won"],
-                                ["drawn", "Drawn"],
-                                ["lost", "Lost"],
-                                ["goal_difference", "Goal difference"],
-                                ["points", "Points"]
-                            ].map(([fieldKey, label]) => renderInputField(label, row[fieldKey], `tables.${tableIndex}.rows.${rowIndex}.${fieldKey}`));
-                            return `
-                                <div class="sub-card">
-                                    <h4>Row ${rowIndex + 1}</h4>
-                                    <div class="record-grid">${rowFields.join("")}</div>
-                                </div>
-                            `;
-                        }).join("");
-
-                        return `
-                            <div class="record-card">
-                                <div class="file-header" style="margin-bottom: 0;">
-                                    <h3>Table ${tableIndex + 1}</h3>
-                                    <button type="button" class="danger" data-action="remove-table" data-index="${tableIndex}">Remove</button>
-                                </div>
-                                <div class="record-grid">${tableFields.join("")}</div>
-                                <div class="sub-card" style="margin-top: 12px;">
-                                    <h4>Table rows</h4>
-                                    <div class="btn-row"><button type="button" class="secondary" data-action="add-table-row" data-table-index="${tableIndex}">Add row</button></div>
-                                    ${rows.length ? rowCards : "<div class='empty-state'>No rows in this table.</div>"}
-                                </div>
-                            </div>
-                        `;
-                    }).join("");
-
-                    return `
-                        <div class="file-header">
-                            <h2>Tables</h2>
-                            <button type="button" data-action="add-tables" class="secondary">Add table</button>
-                        </div>
-                        <div class="mini-list">${cards}</div>
-                    `;
-                }
-
-                function renderTicketsEditor() {
-                    return renderArrayEditor("tickets", "tickets", (entry, index) => {
-                        const fields = FILE_DEFS.tickets.fields.map(([fieldKey, label]) => renderInputField(label, entry[fieldKey], `tickets.${index}.${fieldKey}`));
-                        return `
-                            <div class="record-card">
-                                <div class="file-header" style="margin-bottom: 0;">
-                                    <h3>Ticket ${index + 1}</h3>
-                                    <button type="button" class="danger" data-action="remove-ticket" data-index="${index}">Remove</button>
-                                </div>
-                                <div class="record-grid">${fields.join("")}</div>
-                            </div>
-                        `;
-                    });
-                }
-
-                function renderEditor() {
-                    const key = state.activeKey;
-                    const file = state.files[key];
-                    if (!file) {
-                        editorContainer.innerHTML = '<div class="empty-state">No file is ready to edit.</div>';
-                        return;
-                    }
-
-                    const tabHtml = Object.entries(FILE_DEFS).map(([entryKey, def]) => {
-                        const isActive = entryKey === key;
-                        const isDirty = isDirty(entryKey);
-                        return `<button type="button" data-key="${entryKey}" class="tab-button ${isActive ? "active" : ""}">${def.label}${isDirty ? " *" : ""}</button>`;
-                    }).join("");
-
-                    let bodyMarkup = "";
-                    if (key === "club") bodyMarkup = renderClubEditor(file.data || {});
-                    else if (key === "games") bodyMarkup = renderGamesEditor();
-                    else if (key === "teams") bodyMarkup = renderTeamsEditor();
-                    else if (key === "tables") bodyMarkup = renderTablesEditor();
-                    else if (key === "tickets") bodyMarkup = renderTicketsEditor();
-
-                    editorContainer.innerHTML = `
-                        <div class="tab-list">${tabHtml}</div>
-                        ${bodyMarkup}
-                    `;
-
-                    editorContainer.querySelectorAll(".tab-button").forEach((button) => {
-                        button.addEventListener("click", () => {
-                            state.activeKey = button.dataset.key;
-                            renderEditor();
-                        });
-                    });
-
-                    editorContainer.querySelectorAll("input, textarea").forEach((control) => {
-                        control.addEventListener("input", (event) => {
-                            const path = event.target.dataset.path;
-                            if (!path) return;
-                            const payload = getFilePayload(key);
-                            if (!payload) return;
-                            const nextValue = event.target.value;
-                            setValueAtPath(payload, path, nextValue);
-                            if (payload.metadata) payload.metadata.lastUpdated = new Date().toISOString();
-                            markDirty(key, true);
-                            renderEditor();
-                        });
-                    });
-
-                    editorContainer.querySelectorAll("[data-action]").forEach((button) => {
-                        button.addEventListener("click", () => handleAction(button.dataset.action, button.dataset.index, button.dataset.teamIndex, button.dataset.tableIndex));
-                    });
-                }
-
-                function ensureContainerArray(key, arrayKey) {
-                    const payload = getFilePayload(key);
-                    if (!payload) return;
-                    if (!Array.isArray(payload[arrayKey])) {
-                        payload[arrayKey] = [];
-                    }
-                }
-
-                function addItemForKey(key) {
-                    const payload = getFilePayload(key);
-                    if (!payload) return;
-
-                    if (key === "games") {
-                        ensureContainerArray("games", "games");
-                        payload.games.push({
-                            home_or_away: "Home",
-                            home_team: "The Club",
-                            away_team: "Opponent",
-                            date: "12-08-2026",
-                            time: "19:45",
-                            competition: "League",
-                            venue: "Home Ground",
-                            home_score: "",
-                            away_score: "",
-                            winner: ""
-                        });
-                    }
-
-                    if (key === "teams") {
-                        ensureContainerArray("teams", "teams");
-                        payload.teams.push({
-                            team_name: "New Team",
-                            team_type: "First Team",
-                            competition: "League",
-                            country: "Country",
-                            home_venue: "Stadium",
-                            players: []
-                        });
-                    }
-
-                    if (key === "tables") {
-                        ensureContainerArray("tables", "tables");
-                        payload.tables.push({
-                            title: "League Table",
-                            season: "2026/27",
-                            rows: []
-                        });
-                    }
-
-                    if (key === "tickets") {
-                        ensureContainerArray("tickets", "tickets");
-                        payload.tickets.push({
-                            title: "New Ticket Offer",
-                            match: "The Club vs Opponent",
-                            date: "2026-09-01",
-                            venue: "Home Ground",
-                            status: "On sale",
-                            notes: "",
-                            link: "https://example.com"
-                        });
-                    }
-
-                    if (payload.metadata) payload.metadata.lastUpdated = new Date().toISOString();
-                    markDirty(key, true);
-                    renderEditor();
-                }
-
-                function handleAction(action, indexRaw, teamIndexRaw, tableIndexRaw) {
-                    const key = state.activeKey;
-                    const payload = getFilePayload(key);
-                    const index = Number(indexRaw ?? 0);
-                    const teamIndex = Number(teamIndexRaw ?? 0);
-                    const tableIndex = Number(tableIndexRaw ?? 0);
-
-                    if (action === `add-${key}`) {
-                        addItemForKey(key);
-                        return;
-                    }
-
-                    if (action === "remove-game" && payload?.games) {
-                        payload.games.splice(index, 1);
-                        markDirty("games", true);
-                        renderEditor();
-                        return;
-                    }
-
-                    if (action === "remove-team" && payload?.teams) {
-                        payload.teams.splice(index, 1);
-                        markDirty("teams", true);
-                        renderEditor();
-                        return;
-                    }
-
-                    if (action === "remove-table" && payload?.tables) {
-                        payload.tables.splice(index, 1);
-                        markDirty("tables", true);
-                        renderEditor();
-                        return;
-                    }
-
-                    if (action === "remove-ticket" && payload?.tickets) {
-                        payload.tickets.splice(index, 1);
-                        markDirty("tickets", true);
-                        renderEditor();
-                        return;
-                    }
-
-                    if (action === "add-player" && payload?.teams?.[teamIndex]) {
-                        if (!Array.isArray(payload.teams[teamIndex].players)) payload.teams[teamIndex].players = [];
-                        payload.teams[teamIndex].players.push({
-                            position: "ST",
-                            name: "New Player",
-                            number: "0",
-                            imageUrl: "profile_placeholder.png",
-                            yellow: 0,
-                            red: 0,
-                            injury: 0,
-                            goals: 0,
-                            assists: 0,
-                            appearances: 0,
-                            notes: ""
-                        });
-                        markDirty("teams", true);
-                        renderEditor();
-                        return;
-                    }
-
-                    if (action === "add-table-row" && payload?.tables?.[tableIndex]) {
-                        if (!Array.isArray(payload.tables[tableIndex].rows)) payload.tables[tableIndex].rows = [];
-                        payload.tables[tableIndex].rows.push({
-                            position: String(payload.tables[tableIndex].rows.length + 1),
-                            team: "Team",
-                            played: "0",
-                            won: "0",
-                            drawn: "0",
-                            lost: "0",
-                            goal_difference: "0",
-                            points: "0"
-                        });
-                        markDirty("tables", true);
-                        renderEditor();
-                    }
-                }
-
-                async function updateRemoteFiles() {
-                    const dirtyKeys = Array.from(state.dirtyKeys);
-                    if (!dirtyKeys.length) {
-                        setStatus("No changes are waiting to be committed.", "info");
-                        return;
-                    }
-
-                    const repoFullName = getRepoFullName();
-                    if (!repoFullName || !state.token) {
-                        setStatus("Authenticate and load a repository before committing changes.", "bad");
-                        return;
-                    }
-
-                    const message = (commitMessageInput.value || state.commitMessage || "Update fc-template data").trim();
-                    if (!message) {
-                        setStatus("Add a commit message before submitting the batch.", "bad");
-                        return;
-                    }
-
-                    setStatus(`Committing ${dirtyKeys.length} file(s) to ${repoFullName}...`, "info");
-
-                    for (const key of dirtyKeys) {
-                        const file = state.files[key];
-                        if (!file || !file.path) continue;
-                        const body = JSON.stringify(file.data, null, 2);
-                        const current = await ghFetch(`/repos/${encodeURIComponent(repoFullName)}/contents/${encodeURIComponent(file.path)}`);
-                        const content = encodeBase64Utf8(body);
-                        await ghFetch(`/repos/${encodeURIComponent(repoFullName)}/contents/${encodeURIComponent(file.path)}`, {
-                            method: "PUT",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({
-                                message,
-                                content,
-                                sha: current?.sha || undefined
-                            })
-                        });
-                        file.sha = current?.sha || file.sha;
-                        file.exists = true;
-                    }
-
-                    state.dirtyKeys.clear();
-                    renderEditor();
-                    setStatus(`Committed ${dirtyKeys.length} file(s) successfully.`, "ok");
-                }
-
-                function resetEdits() {
-                    state.dirtyKeys.clear();
-                    renderEditor();
-                    setStatus("Local edits were reset to the currently loaded file contents.", "info");
-                }
-
-                signInBtn.addEventListener("click", async () => {
-                    try {
-                        ensurePageIsServed();
-                        if (!isSignedIn()) {
-                            await startDeviceFlow();
-                        } else {
-                            await loadRepository();
-                        }
-                    } catch (error) {
-                        setStatus(error.message || "GitHub authentication failed.", "bad");
-                    }
-                });
-
-                signOutBtn.addEventListener("click", () => {
-                    clearStoredSession();
-                    state.files = {};
-                    state.dirtyKeys.clear();
-                    state.activeKey = "club";
-                    renderEditor();
-                    setStatus("Signed out from GitHub. Sign in again to connect a repository.", "info");
-                });
-
-                document.getElementById("loadRepoBtn").addEventListener("click", async () => {
-                    try {
-                        ensurePageIsServed();
-                        await loadRepository();
-                    } catch (error) {
-                        setStatus(error.message || "The repository could not be loaded.", "bad");
-                    }
-                });
-
-                document.getElementById("commitBtn").addEventListener("click", async () => {
-                    await updateRemoteFiles();
-                });
-
-                document.getElementById("resetBtn").addEventListener("click", () => {
-                    resetEdits();
-                });
-
-                const storedSession = getStoredSession();
-                if (storedSession?.accessToken) {
-                    state.token = storedSession.accessToken;
-                    setStatus("Stored GitHub session found. You can load the repository immediately.", "ok");
-                }
-                updateAuthUi();
-
-                const currentConfig = window.FC_MANAGER_CONFIG || {};
-                if (currentConfig.repoFullName) repoInput.value = currentConfig.repoFullName;
-                if (currentConfig.siteBaseUrl) siteUrlInput.value = currentConfig.siteBaseUrl;
-                if (currentConfig.commitMessage) commitMessageInput.value = currentConfig.commitMessage;
-
-                window.FC_MANAGER_CONFIG = {
-                    ...DEFAULT_CONFIG,
-                    repoFullName: repoInput.value.trim() || DEFAULT_CONFIG.repoFullName,
-                    siteBaseUrl: siteUrlInput.value.trim() || DEFAULT_CONFIG.siteBaseUrl,
-                    commitMessage: commitMessageInput.value.trim() || DEFAULT_CONFIG.commitMessage,
-                    oauth: DEFAULT_CONFIG.oauth
-                };
-            })();
-        </script>
-    </body>
+        <span id="repoBadge" class="status-pill">No repo connected</span>
+      </header>
+
+      <div class="layout">
+        <aside class="panel sidebar">
+          <div class="section">
+            <h2>Repository</h2>
+            <label>
+              GitHub repo
+              <input id="repoInput" type="text" value="jamieharperuk/jamieharperuk.github.io" />
+            </label>
+            <div class="toolbar">
+              <button id="signInBtn" type="button" class="primary">Sign in with GitHub</button>
+              <button id="signOutBtn" type="button" class="secondary hidden">Sign out</button>
+              <button id="loadFilesBtn" type="button" class="secondary">Reload local files</button>
+            </div>
+            <div id="status" class="status info">Connect GitHub to commit changes to the FC template data files.</div>
+          </div>
+
+          <div class="section">
+            <h2>FC data files</h2>
+            <div id="fileList" class="file-list">
+              <div class="empty-state">No FC template JSON files loaded yet.</div>
+            </div>
+          </div>
+
+          <div class="section">
+            <h2>Commit</h2>
+            <label>
+              Commit message
+              <input id="commitMessageInput" type="text" value="Update fc-template data" />
+            </label>
+            <div class="toolbar">
+              <button id="commitBtn" type="button" class="primary">Commit selected files</button>
+              <button id="resetAllBtn" type="button" class="secondary">Reset all edits</button>
+            </div>
+          </div>
+        </aside>
+
+        <main class="panel content">
+          <div class="content-header">
+            <div class="editor-heading">
+              <h2 id="fileTitle">Select a file</h2>
+              <p id="fileMeta">Choose a file to begin editing its JSON content.</p>
+            </div>
+            <div class="content-actions">
+              <button id="saveFileBtn" type="button" class="secondary">Save current file</button>
+              <button id="resetFileBtn" type="button" class="secondary">Reset current file</button>
+            </div>
+          </div>
+
+          <div class="editor-meta">
+            <span id="fileStateBadge" class="file-badge clean">clean</span>
+            <span id="summaryText" class="summary-text">0 commit-ready file(s)</span>
+          </div>
+
+          <textarea id="jsonEditor" spellcheck="false" aria-label="JSON editor"></textarea>
+        </main>
+      </div>
+    </div>
+
+    <script>
+      (() => {
+        const API_BASE = "https://api.github.com";
+        const AUTH_STORAGE_KEY = "fc_template_manager_auth_session";
+        const DEFAULT_CONFIG = {
+          repoFullName: "jamieharperuk/jamieharperuk.github.io",
+          siteBasePath: "/fc-template/",
+          sitePublicUrl: "https://jamieharperuk.github.io/fc-template/",
+          oauth: {
+            clientId: "Ov23liJxZCIXpxYWlATm",
+            scope: "repo read:user",
+            brokerUrl: "https://ghwe.oakshiftsoftware.workers.dev"
+          }
+        };
+
+        const FILE_SPECS = [
+          { key: "club", filename: "fc_club.json", label: "Club details" },
+          { key: "games", filename: "fc_games.json", label: "Fixtures & results" },
+          { key: "tables", filename: "fc_tables.json", label: "League tables" },
+          { key: "teams", filename: "fc_teams.json", label: "Teams & squads" },
+          { key: "tickets", filename: "fc_tickets.json", label: "Tickets" }
+        ];
+
+        const repoInput = document.getElementById("repoInput");
+        const statusEl = document.getElementById("status");
+        const fileListEl = document.getElementById("fileList");
+        const fileTitleEl = document.getElementById("fileTitle");
+        const fileMetaEl = document.getElementById("fileMeta");
+        const fileStateBadgeEl = document.getElementById("fileStateBadge");
+        const summaryTextEl = document.getElementById("summaryText");
+        const repoBadge = document.getElementById("repoBadge");
+        const jsonEditorEl = document.getElementById("jsonEditor");
+        const signInBtn = document.getElementById("signInBtn");
+        const signOutBtn = document.getElementById("signOutBtn");
+        const commitMessageInput = document.getElementById("commitMessageInput");
+
+        const state = {
+          token: "",
+          repoFullName: repoInput.value.trim() || DEFAULT_CONFIG.repoFullName,
+          files: [],
+          selectedPath: "",
+          dirtyPaths: new Set()
+        };
+
+        function setStatus(message, type = "info") {
+          statusEl.className = `status ${type}`;
+          statusEl.textContent = message;
+        }
+
+        function trimSlashes(value) {
+          return String(value || "").replace(/^\/+|\/+$/g, "");
+        }
+
+        function getCurrentSiteBasePath() {
+          return String(window.FC_MANAGER_CONFIG?.siteBasePath || DEFAULT_CONFIG.siteBasePath || "/fc-template/").trim() || "/fc-template/";
+        }
+
+        function getRepoRelativeDirectory() {
+          const sitePath = trimSlashes(getCurrentSiteBasePath());
+          return sitePath ? sitePath : "";
+        }
+
+        function getLocalAssetUrl(filename) {
+          const base = new URL("./", window.location.href);
+          return new URL(`data/${filename}`, base).toString();
+        }
+
+        function getRepoRelativeFilePath(filename) {
+          const dir = getRepoRelativeDirectory();
+          return dir ? `${dir}/data/${filename}` : `data/${filename}`;
+        }
+
+        function getSitePublicUrl() {
+          const configured = window.FC_MANAGER_CONFIG?.sitePublicUrl || DEFAULT_CONFIG.sitePublicUrl || "";
+          return (configured || window.location.origin + getCurrentSiteBasePath()).replace(/\/$/, "") + "/";
+        }
+
+        function isSignedIn() {
+          return Boolean(state.token || getStoredSession()?.accessToken);
+        }
+
+        function updateAuthUi() {
+          const signedIn = isSignedIn();
+          signInBtn.classList.toggle("hidden", signedIn);
+          signOutBtn.classList.toggle("hidden", !signedIn);
+          signInBtn.disabled = signedIn;
+          signInBtn.textContent = signedIn ? "Signed in" : "Sign in with GitHub";
+        }
+
+        function getStoredSession() {
+          const raw = sessionStorage.getItem(AUTH_STORAGE_KEY);
+          if (!raw) return null;
+
+          try {
+            const parsed = JSON.parse(raw);
+            if (!parsed || typeof parsed !== "object" || !parsed.accessToken) return null;
+            if (parsed.expiresAt && Date.now() >= Number(parsed.expiresAt)) {
+              sessionStorage.removeItem(AUTH_STORAGE_KEY);
+              return null;
+            }
+            return parsed;
+          } catch (_error) {
+            sessionStorage.removeItem(AUTH_STORAGE_KEY);
+            return null;
+          }
+        }
+
+        function saveStoredSession(accessToken, tokenPayload = {}) {
+          const expiresIn = Number(tokenPayload.expires_in) || 8 * 60 * 60;
+          const session = {
+            accessToken,
+            createdAt: Date.now(),
+            expiresAt: Date.now() + expiresIn * 1000
+          };
+          state.token = accessToken;
+          sessionStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(session));
+          updateAuthUi();
+          return session;
+        }
+
+        function clearStoredSession() {
+          state.token = "";
+          sessionStorage.removeItem(AUTH_STORAGE_KEY);
+          repoBadge.textContent = "No repo connected";
+          repoBadge.classList.remove("warn");
+          updateAuthUi();
+        }
+
+        function ensurePageServed() {
+          if (window.location.protocol === "file:") {
+            const message = "This manager must be served over http://localhost or https://... before GitHub sign-in will work.";
+            setStatus(message, "bad");
+            throw new Error(message);
+          }
+        }
+
+        function getBrokerBaseUrl() {
+          const configured = (window.FC_MANAGER_CONFIG && window.FC_MANAGER_CONFIG.oauth && window.FC_MANAGER_CONFIG.oauth.brokerUrl) || DEFAULT_CONFIG.oauth.brokerUrl || "";
+          return String(configured || "").trim().replace(/\/$/, "");
+        }
+
+        function requireBrokerBaseUrl() {
+          const base = getBrokerBaseUrl();
+          if (!base) {
+            throw new Error("The OAuth broker URL is not configured.");
+          }
+          return base;
+        }
+
+        async function brokerRequest(endpoint, payload) {
+          ensurePageServed();
+          const brokerBaseUrl = requireBrokerBaseUrl();
+
+          let response;
+          try {
+            response = await fetch(`${brokerBaseUrl}${endpoint}`, {
+              method: "POST",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+              },
+              body: new URLSearchParams(payload).toString(),
+              mode: "cors",
+              cache: "no-store"
+            });
+          } catch (error) {
+            throw new Error(`Authentication request failed: ${error?.message || "Failed to fetch"}. Please ensure the page is being served over HTTP(S) and the OAuth broker is live.`);
+          }
+
+          const text = await response.text();
+          if (!response.ok) {
+            throw new Error(text || "Authentication request failed.");
+          }
+
+          try {
+            return JSON.parse(text);
+          } catch (_error) {
+            return { raw: text };
+          }
+        }
+
+        async function startDeviceFlow() {
+          const clientId = DEFAULT_CONFIG.oauth.clientId;
+          if (!clientId) {
+            throw new Error("No OAuth client ID is configured.");
+          }
+
+          const deviceResponse = await brokerRequest("/github/device/code", {
+            client_id: clientId,
+            scope: DEFAULT_CONFIG.oauth.scope
+          });
+
+          if (!deviceResponse?.device_code) {
+            throw new Error("GitHub device flow did not return a device code.");
+          }
+
+          const userCode = String(deviceResponse.user_code || "");
+          const verificationUri = String(deviceResponse.verification_uri || "https://github.com/login/device");
+          const interval = Number(deviceResponse.interval || 5);
+          const expiresIn = Number(deviceResponse.expires_in || 900);
+
+          setStatus(`Open ${verificationUri} and enter code: ${userCode}. The app is polling for approval...`, "info");
+
+          const startedAt = Date.now();
+          while (Date.now() - startedAt < expiresIn * 1000) {
+            await new Promise((resolve) => setTimeout(resolve, interval * 1000));
+            const tokenResponse = await brokerRequest("/github/oauth/access_token", {
+              client_id: clientId,
+              device_code: deviceResponse.device_code,
+              grant_type: "urn:ietf:params:oauth:grant-type:device_code"
+            });
+
+            if (tokenResponse?.access_token) {
+              saveStoredSession(tokenResponse.access_token, tokenResponse);
+              setStatus("GitHub access granted. Loading the FC template data files...", "ok");
+              await loadLocalFiles();
+              return;
+            }
+
+            if (tokenResponse?.error && !["authorization_pending", "slow_down"].includes(String(tokenResponse.error))) {
+              throw new Error(String(tokenResponse.error_description || tokenResponse.error || "GitHub authentication failed."));
+            }
+          }
+
+          throw new Error("GitHub authentication timed out. Please try again.");
+        }
+
+        async function ghFetch(path, options = {}) {
+          ensurePageServed();
+          const method = String(options.method || "GET").toUpperCase();
+          const headers = Object.assign({
+            Accept: "application/vnd.github+json",
+            "X-GitHub-Api-Version": "2022-11-28"
+          }, options.headers || {});
+
+          if (state.token) {
+            headers.Authorization = `Bearer ${state.token}`;
+          }
+
+          const requestInit = {
+            method,
+            headers,
+            cache: "no-store",
+            mode: "cors"
+          };
+
+          if (Object.prototype.hasOwnProperty.call(options, "body")) {
+            requestInit.body = options.body;
+          }
+
+          let response;
+          try {
+            response = await fetch(`${API_BASE}${path}`, requestInit);
+          } catch (error) {
+            throw new Error(`GitHub request failed: ${error?.message || "Failed to fetch"}. This usually means the browser blocked the request or the page was not served over HTTP(S).`);
+          }
+
+          if (response.status === 204) return null;
+
+          const text = await response.text();
+          if (!response.ok) {
+            let message = `GitHub request failed (${response.status})`;
+            try {
+              const payload = JSON.parse(text);
+              message = payload?.message || message;
+            } catch (_error) {
+              message = text || message;
+            }
+            if (response.status === 401 || response.status === 403) {
+              clearStoredSession();
+            }
+            throw new Error(message);
+          }
+
+          return text ? JSON.parse(text) : null;
+        }
+
+        function encodeBase64Utf8(value) {
+          return btoa(unescape(encodeURIComponent(value)));
+        }
+
+        function escapeHtml(value) {
+          return String(value ?? "").replace(/[&<>\"']/g, (char) => ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#039;"
+          }[char]));
+        }
+
+        function currentFile() {
+          return state.files.find((file) => file.path === state.selectedPath) || null;
+        }
+
+        function syncSummary() {
+          const dirtyCount = state.dirtyPaths.size;
+          summaryTextEl.textContent = `${dirtyCount} commit-ready file(s)`;
+        }
+
+        async function loadLocalFiles() {
+          try {
+            const loaded = [];
+            for (const spec of FILE_SPECS) {
+              const localUrl = getLocalAssetUrl(spec.filename);
+              const response = await fetch(localUrl, { cache: "no-store" });
+              if (!response.ok) {
+                throw new Error(`Could not fetch ${spec.filename} from ${localUrl}.`);
+              }
+
+              const json = await response.json();
+              loaded.push({
+                key: spec.key,
+                filename: spec.filename,
+                label: spec.label,
+                path: getRepoRelativeFilePath(spec.filename),
+                localUrl,
+                data: json,
+                rawText: JSON.stringify(json, null, 2)
+              });
+            }
+
+            state.files = loaded;
+            state.selectedPath = state.files[0]?.path || "";
+            state.dirtyPaths.clear();
+            renderFileList();
+            renderEditor();
+            syncSummary();
+            repoBadge.textContent = `${repoInput.value.trim() || DEFAULT_CONFIG.repoFullName}`;
+            repoBadge.classList.remove("warn");
+            setStatus(`Loaded ${state.files.length} FC template file(s).`, "ok");
+          } catch (error) {
+            repoBadge.textContent = "Load failed";
+            repoBadge.classList.add("warn");
+            setStatus(error.message || "Could not load the FC template files.", "bad");
+          }
+        }
+
+        function renderFileList() {
+          if (!state.files.length) {
+            fileListEl.innerHTML = '<div class="empty-state">No FC template JSON files loaded yet.</div>';
+            return;
+          }
+
+          fileListEl.innerHTML = state.files.map((file) => {
+            const activeClass = file.path === state.selectedPath ? "active" : "";
+            const isDirty = state.dirtyPaths.has(file.path);
+            const badgeClass = isDirty ? "dirty" : "clean";
+            const badgeLabel = isDirty ? "dirty" : "clean";
+            return `
+              <button type="button" class="file-item ${activeClass}" data-path="${file.path}">
+                <span class="file-item-main">
+                  <span class="file-item-name">${file.filename}</span>
+                  <span class="file-item-path">${file.path}</span>
+                </span>
+                <span class="file-item-status file-badge ${badgeClass}">${badgeLabel}</span>
+              </button>
+            `;
+          }).join("");
+
+          fileListEl.querySelectorAll(".file-item").forEach((button) => {
+            button.addEventListener("click", () => {
+              state.selectedPath = button.dataset.path;
+              renderFileList();
+              renderEditor();
+            });
+          });
+        }
+
+        function renderEditor() {
+          const file = currentFile();
+          if (!file) {
+            fileTitleEl.textContent = "Select a file";
+            fileMetaEl.textContent = "Choose a file to begin editing its JSON content.";
+            fileStateBadgeEl.className = "file-badge clean";
+            fileStateBadgeEl.textContent = "clean";
+            jsonEditorEl.value = "";
+            return;
+          }
+
+          const isDirty = state.dirtyPaths.has(file.path);
+          fileTitleEl.textContent = file.filename;
+          fileMetaEl.textContent = `${file.label} · ${file.path}`;
+          fileStateBadgeEl.className = `file-badge ${isDirty ? "dirty" : "clean"}`;
+          fileStateBadgeEl.textContent = isDirty ? "dirty" : "clean";
+          jsonEditorEl.value = file.rawText;
+          syncSummary();
+        }
+
+        function validateJsonFromEditor() {
+          const file = currentFile();
+          if (!file) {
+            return null;
+          }
+
+          const raw = jsonEditorEl.value;
+          try {
+            const parsed = JSON.parse(raw);
+            file.data = parsed;
+            file.rawText = raw;
+            state.dirtyPaths.add(file.path);
+            renderFileList();
+            renderEditor();
+            return parsed;
+          } catch (_error) {
+            file.rawText = raw;
+            state.dirtyPaths.add(file.path);
+            renderFileList();
+            renderEditor();
+            return null;
+          }
+        }
+
+        function resetCurrentFile() {
+          const file = currentFile();
+          if (!file) {
+            return;
+          }
+          file.rawText = JSON.stringify(file.data, null, 2);
+          jsonEditorEl.value = file.rawText;
+          state.dirtyPaths.delete(file.path);
+          renderFileList();
+          renderEditor();
+          setStatus(`${file.filename} was reset to the last loaded data.`, "info");
+        }
+
+        function resetAllEdits() {
+          state.files.forEach((file) => {
+            if (file.data && typeof file.data === "object") {
+              file.rawText = JSON.stringify(file.data, null, 2);
+            }
+          });
+          state.dirtyPaths.clear();
+          renderFileList();
+          renderEditor();
+          setStatus("All local edits were reset to the last loaded FC template data.", "info");
+        }
+
+        document.getElementById("loadFilesBtn").addEventListener("click", async () => {
+          try {
+            ensurePageServed();
+            await loadLocalFiles();
+          } catch (error) {
+            setStatus(error.message || "The FC template files could not be reloaded.", "bad");
+          }
+        });
+
+        document.getElementById("saveFileBtn").addEventListener("click", () => {
+          const file = currentFile();
+          if (!file) {
+            return;
+          }
+
+          try {
+            const parsed = JSON.parse(jsonEditorEl.value);
+            file.data = parsed;
+            file.rawText = JSON.stringify(parsed, null, 2);
+            jsonEditorEl.value = file.rawText;
+            state.dirtyPaths.add(file.path);
+            renderFileList();
+            renderEditor();
+            setStatus(`${file.filename} was saved locally.`, "ok");
+          } catch (_error) {
+            setStatus("The JSON is invalid. Fix the syntax before saving the file.", "bad");
+          }
+        });
+
+        document.getElementById("resetFileBtn").addEventListener("click", resetCurrentFile);
+        document.getElementById("resetAllBtn").addEventListener("click", resetAllEdits);
+
+        jsonEditorEl.addEventListener("input", () => {
+          const file = currentFile();
+          if (!file) {
+            return;
+          }
+
+          const raw = jsonEditorEl.value;
+          file.rawText = raw;
+          if (raw.trim()) {
+            try {
+              JSON.parse(raw);
+              state.dirtyPaths.add(file.path);
+              renderFileList();
+              renderEditor();
+              return;
+            } catch (_error) {
+              state.dirtyPaths.add(file.path);
+              renderFileList();
+              renderEditor();
+              return;
+            }
+          }
+
+          state.dirtyPaths.add(file.path);
+          renderFileList();
+          renderEditor();
+        });
+
+        async function commitChangedFiles() {
+          const dirtyPaths = Array.from(state.dirtyPaths);
+          if (!dirtyPaths.length) {
+            setStatus("No FC template files are currently marked as changed.", "info");
+            return;
+          }
+
+          const repoFullName = repoInput.value.trim() || state.repoFullName;
+          if (!repoFullName || !repoFullName.includes("/")) {
+            setStatus("Enter a GitHub repository in owner/repo format before committing.", "bad");
+            return;
+          }
+
+          if (!state.token) {
+            setStatus("Sign in with GitHub before committing FC data changes.", "bad");
+            return;
+          }
+
+          const message = (commitMessageInput.value || "Update fc-template data").trim();
+          if (!message) {
+            setStatus("Add a commit message before submitting the changes.", "bad");
+            return;
+          }
+
+          setStatus(`Committing ${dirtyPaths.length} FC file(s) to ${repoFullName}...`, "info");
+
+          for (const dirtyPath of dirtyPaths) {
+            const file = state.files.find((candidate) => candidate.path === dirtyPath);
+            if (!file) {
+              continue;
+            }
+
+            let parsed;
+            try {
+              parsed = JSON.parse(file.rawText);
+            } catch (_error) {
+              throw new Error(`Could not parse JSON in ${file.filename}. Fix the syntax before committing.`);
+            }
+
+            const jsonText = JSON.stringify(parsed, null, 2);
+            const contentPath = encodeURIComponent(dirtyPath);
+            const current = await ghFetch(`/repos/${encodeURIComponent(repoFullName)}/contents/${contentPath}`);
+            await ghFetch(`/repos/${encodeURIComponent(repoFullName)}/contents/${contentPath}`, {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                message,
+                content: encodeBase64Utf8(jsonText),
+                sha: current?.sha || undefined
+              })
+            });
+
+            file.data = parsed;
+            file.rawText = jsonText;
+            state.dirtyPaths.delete(dirtyPath);
+          }
+
+          renderFileList();
+          renderEditor();
+          syncSummary();
+          setStatus(`Committed ${dirtyPaths.length} FC file(s) successfully.`, "ok");
+        }
+
+        document.getElementById("commitBtn").addEventListener("click", async () => {
+          try {
+            await commitChangedFiles();
+          } catch (error) {
+            setStatus(error.message || "The commit failed.", "bad");
+          }
+        });
+
+        signInBtn.addEventListener("click", async () => {
+          try {
+            ensurePageServed();
+            if (!isSignedIn()) {
+              await startDeviceFlow();
+            }
+          } catch (error) {
+            setStatus(error.message || "GitHub authentication failed.", "bad");
+          }
+        });
+
+        signOutBtn.addEventListener("click", () => {
+          clearStoredSession();
+          state.files = [];
+          state.selectedPath = "";
+          state.dirtyPaths.clear();
+          renderFileList();
+          renderEditor();
+          setStatus("Signed out. Sign in again to connect the editor to GitHub.", "info");
+        });
+
+        const storedSession = getStoredSession();
+        if (storedSession?.accessToken) {
+          state.token = storedSession.accessToken;
+          setStatus("Stored GitHub session found. You can commit FC template updates immediately.", "ok");
+        }
+
+        updateAuthUi();
+        renderFileList();
+        renderEditor();
+        syncSummary();
+
+        window.FC_MANAGER_CONFIG = {
+          ...DEFAULT_CONFIG,
+          repoFullName: repoInput.value.trim() || DEFAULT_CONFIG.repoFullName,
+          siteBasePath: getCurrentSiteBasePath(),
+          sitePublicUrl: getSitePublicUrl(),
+          oauth: DEFAULT_CONFIG.oauth
+        };
+      })();
+    </script>
+  </body>
 </html>
-
