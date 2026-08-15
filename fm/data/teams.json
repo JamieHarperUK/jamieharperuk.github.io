@@ -336,6 +336,211 @@
       ]
     },
     {
+      "team_name": "Manchester United",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 1st Division",
+      "country": "England",
+      "home_venue": "Old Trafford",
+      "players": [
+        [
+          "GK",
+          "Senne Lammens",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "GK",
+          "Altay Bayindir",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "GK",
+          "Radek Vitek",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "GK",
+          "Karl Darlow",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Lisandro Martinez",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "RB",
+          "Diogo Dalot",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Matthijs de Ligt",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Leny Yoro",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Harry Maguire",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "LB",
+          "Luke Shaw",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "LB",
+          "Patrick Dorgu",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "RB",
+          "Noussair Mazraoui",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Ayden Heaven",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CAM",
+          "Bruno Fernandes",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Kobbie Mainoo",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Youri Tielemans",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CDM",
+          "Andrey Santos",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CDM",
+          "Manuel Ugarte",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CAM",
+          "Mason Mount",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CDM",
+          "Toby Collyer",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CAM",
+          "Jack Fletcher",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "RW",
+          "Bryan Mbeumo",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ST",
+          "Matheus Santos Carneiro Da Cunha",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ST",
+          "Benjamin Sesko",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "LW",
+          "Marcus Rashford",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ST",
+          "Joshua Orobosa Zirkzee",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "RW",
+          "Amad Diallo",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "RW",
+          "Shea Lacey",
+          "0",
+          "0",
+          "0"
+        ]
+      ]
+    },
+    {
       "team_name": "Altrincham FC",
       "osm_or_top_eleven": "OSM",
       "competition": "England 5th Division",
