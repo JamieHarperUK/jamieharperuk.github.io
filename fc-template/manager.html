@@ -658,6 +658,58 @@
         font-size: 0.8rem;
       }
 
+      .table-row-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .table-row-item {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: rgba(8, 17, 25, 0.82);
+        cursor: grab;
+      }
+
+      .table-row-item.dragging {
+        opacity: 0.55;
+      }
+
+      .table-row-item.drop-target {
+        border-color: rgba(116, 208, 255, 0.5);
+        box-shadow: inset 0 0 0 1px rgba(116, 208, 255, 0.4);
+      }
+
+      .table-row-fields {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+        gap: 8px;
+      }
+
+      .table-row-field {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .table-row-field label {
+        color: var(--muted);
+        font-size: 0.7rem;
+      }
+
+      .table-row-field input {
+        width: 100%;
+        padding: 8px 10px;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        background: rgba(12, 19, 30, 0.9);
+        color: var(--text);
+      }
+
       @media (max-width: 980px) {
         body {
           padding: 16px;
@@ -1965,6 +2017,169 @@
             meta.className = "reorder-meta";
             meta.textContent = `${table.season || "Season unknown"} · ${Array.isArray(table.rows) ? table.rows.length : 0} rows`;
             item.appendChild(meta);
+
+            const rowsList = document.createElement("div");
+            rowsList.className = "table-row-list";
+
+            if (!Array.isArray(table.rows) || !table.rows.length) {
+              const empty = document.createElement("div");
+              empty.className = "crm-empty";
+              empty.textContent = "No rows yet for this table.";
+              rowsList.appendChild(empty);
+            } else {
+              table.rows.forEach((row, rowIndex) => {
+                const rowItem = document.createElement("div");
+                rowItem.className = "table-row-item";
+                rowItem.draggable = true;
+                rowItem.dataset.rowIndex = String(rowIndex);
+
+                const rowHeader = document.createElement("div");
+                rowHeader.className = "reorder-header";
+
+                const rowTitle = document.createElement("div");
+                rowTitle.className = "reorder-meta";
+                rowTitle.textContent = `Row ${rowIndex + 1}`;
+
+                const rowActions = document.createElement("div");
+                rowActions.className = "reorder-actions";
+
+                if (rowIndex > 0) {
+                  const upBtn = document.createElement("button");
+                  upBtn.type = "button";
+                  upBtn.textContent = "↑";
+                  upBtn.title = "Move row up";
+                  upBtn.addEventListener("click", () => {
+                    if (moveArrayItem(table.rows, rowIndex, rowIndex - 1)) {
+                      updateStructuredValuesFromDom();
+                      renderLeagueTableEditor();
+                    }
+                  });
+                  rowActions.appendChild(upBtn);
+                }
+
+                if (rowIndex < table.rows.length - 1) {
+                  const downBtn = document.createElement("button");
+                  downBtn.type = "button";
+                  downBtn.textContent = "↓";
+                  downBtn.title = "Move row down";
+                  downBtn.addEventListener("click", () => {
+                    if (moveArrayItem(table.rows, rowIndex, rowIndex + 1)) {
+                      updateStructuredValuesFromDom();
+                      renderLeagueTableEditor();
+                    }
+                  });
+                  rowActions.appendChild(downBtn);
+                }
+
+                const removeBtn = document.createElement("button");
+                removeBtn.type = "button";
+                removeBtn.textContent = "Remove";
+                removeBtn.addEventListener("click", () => {
+                  table.rows.splice(rowIndex, 1);
+                  updateStructuredValuesFromDom();
+                  renderLeagueTableEditor();
+                });
+                rowActions.appendChild(removeBtn);
+
+                rowHeader.appendChild(rowTitle);
+                rowHeader.appendChild(rowActions);
+                rowItem.appendChild(rowHeader);
+
+                const rowFields = document.createElement("div");
+                rowFields.className = "table-row-fields";
+                const fieldDefinitions = [
+                  ["position", "Pos"],
+                  ["team", "Team"],
+                  ["played", "P"],
+                  ["won", "W"],
+                  ["drawn", "D"],
+                  ["lost", "L"],
+                  ["goal_difference", "GD"],
+                  ["points", "Pts"]
+                ];
+
+                fieldDefinitions.forEach(([key, label]) => {
+                  const field = document.createElement("div");
+                  field.className = "table-row-field";
+
+                  const fieldLabel = document.createElement("label");
+                  fieldLabel.textContent = label;
+
+                  const input = document.createElement("input");
+                  input.type = "text";
+                  input.value = row[key] ?? "";
+                  input.addEventListener("input", () => {
+                    row[key] = input.value;
+                    updateStructuredValuesFromDom();
+                  });
+
+                  field.appendChild(fieldLabel);
+                  field.appendChild(input);
+                  rowFields.appendChild(field);
+                });
+
+                rowItem.appendChild(rowFields);
+
+                rowItem.addEventListener("dragstart", (event) => {
+                  rowItem.classList.add("dragging");
+                  event.dataTransfer?.setData("text/plain", String(rowIndex));
+                  event.dataTransfer.effectAllowed = "move";
+                });
+
+                rowItem.addEventListener("dragover", (event) => {
+                  event.preventDefault();
+                  rowItem.classList.add("drop-target");
+                  event.dataTransfer.dropEffect = "move";
+                });
+
+                rowItem.addEventListener("dragleave", () => {
+                  rowItem.classList.remove("drop-target");
+                });
+
+                rowItem.addEventListener("drop", (event) => {
+                  event.preventDefault();
+                  rowItem.classList.remove("drop-target");
+                  const fromIndex = Number(event.dataTransfer?.getData("text/plain") || -1);
+                  if (fromIndex >= 0 && fromIndex !== rowIndex) {
+                    moveArrayItem(table.rows, fromIndex, rowIndex);
+                    updateStructuredValuesFromDom();
+                    renderLeagueTableEditor();
+                  }
+                });
+
+                rowItem.addEventListener("dragend", () => {
+                  rowItem.classList.remove("dragging");
+                  rowItem.classList.remove("drop-target");
+                });
+
+                rowsList.appendChild(rowItem);
+              });
+            }
+
+            const addRowBtn = document.createElement("button");
+            addRowBtn.type = "button";
+            addRowBtn.className = "secondary";
+            addRowBtn.textContent = "Add Row";
+            addRowBtn.addEventListener("click", () => {
+              if (!Array.isArray(table.rows)) {
+                table.rows = [];
+              }
+              table.rows.push({
+                position: String(table.rows.length + 1),
+                team: "New Team",
+                played: "0",
+                won: "0",
+                drawn: "0",
+                lost: "0",
+                goal_difference: "0",
+                points: "0"
+              });
+              updateStructuredValuesFromDom();
+              renderLeagueTableEditor();
+            });
+
+            item.appendChild(rowsList);
+            item.appendChild(addRowBtn);
 
             item.addEventListener("dragstart", (event) => {
               item.classList.add("dragging");
