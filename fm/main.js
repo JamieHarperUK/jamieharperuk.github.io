@@ -1726,7 +1726,7 @@ const app = {
             return;
         }
 
-        const teamGames = this.getTeamGames(team.team_name);
+        const teamGames = this.getTeamGames(team);
         const upcoming = teamGames.filter((game) => !this.isPlayed(game)).sort((a, b) => this.compareGameDateAsc(a, b));
         const played = teamGames.filter((game) => this.isPlayed(game)).sort((a, b) => this.compareGameDateDesc(a, b));
         const pastFixturesState = this.getPastFixturesState(teamId);
@@ -2053,8 +2053,42 @@ const app = {
         return this.data.games.filter((game) => !this.isPlayed(game));
     },
 
-    getTeamGames(teamName) {
-        return this.data.games.filter((game) => game.home_team === teamName || game.away_team === teamName);
+    getTeamGames(teamOrName) {
+        const team = typeof teamOrName === "string" ? { team_name: teamOrName } : teamOrName;
+        const teamName = team?.team_name || teamOrName;
+
+        if (!teamName) {
+            return [];
+        }
+
+        return this.data.games.filter((game) => {
+            const isTeamFixture = game.home_team === teamName || game.away_team === teamName;
+            if (!isTeamFixture) {
+                return false;
+            }
+
+            if (typeof teamOrName === "string") {
+                return true;
+            }
+
+            const competitionMatches = Boolean(team.competition) && game.competition === team.competition;
+            const startDate = team.start_date ? this.parseDateTime(team.start_date, "00:00") : null;
+            const endDate = team.end_state?.end_date ? this.parseDateTime(team.end_state.end_date, "23:59") : null;
+            const gameDate = this.parseGameDate(game);
+
+            const isWithinTeamWindow = (!startDate || gameDate.getTime() >= startDate.getTime())
+                && (!endDate || gameDate.getTime() <= endDate.getTime());
+
+            if (!team.competition) {
+                return isWithinTeamWindow;
+            }
+
+            if (!competitionMatches) {
+                return false;
+            }
+
+            return isWithinTeamWindow;
+        });
     },
 
     isPlayed(game) {

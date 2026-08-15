@@ -10,6 +10,7 @@
         "competition": "string",
         "country": "string",
         "home_venue": "string",
+        "start_date": "string",
         "players": "array[array[string]]"
       }
     }
@@ -21,6 +22,8 @@
       "competition": "Series: VI.251",
       "country": "England",
       "home_venue": "Harriers Park",
+      "start_date": "06-08-2026",
+      "end_state": null,
       "players": [
         [
           "GK",
@@ -191,6 +194,7 @@
       "competition": "League Level 2",
       "country": "England",
       "home_venue": "The Concourse",
+      "start_date": "20-07-2026",
       "end_state": null,
       "players": [
         [
@@ -341,6 +345,8 @@
       "competition": "England 1st Division",
       "country": "England",
       "home_venue": "Old Trafford",
+      "start_date": "18-08-2026",
+      "end_state": null,
       "players": [
         [
           "GK",
@@ -546,6 +552,7 @@
       "competition": "England 5th Division",
       "country": "England",
       "home_venue": "J. Davidson Stadium",
+      "start_date": "29-07-2026",
       "end_state": null,
       "players": [
         [
@@ -745,6 +752,7 @@
       "competition": "England 2nd Division",
       "country": "England",
       "home_venue": "Fratton Park",
+      "start_date": "14-08-2026",
       "end_state": null,
       "players": [
         [
@@ -965,6 +973,7 @@
       "competition": "England 2nd Division",
       "country": "England",
       "home_venue": "Old Trafford",
+      "start_date": "01-07-2026",
       "end_state": {
         "final_place": "3rd",
         "end_date": "12-08-2026"
@@ -1139,6 +1148,7 @@
       "competition": "World 2026",
       "country": "N/A",
       "home_venue": "N/A",
+      "start_date": "27-06-2026",
       "end_state": {
         "final_place": "1st",
         "end_date": "04-07-2026"
