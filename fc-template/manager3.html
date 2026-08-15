@@ -221,9 +221,20 @@
                     }
                 });
 
+                function resolveDefaultSiteBaseUrl() {
+                    if (typeof window === "undefined") return "https://jamieharperuk.github.io/fc-template/";
+                    const origin = window.location.origin || "https://jamieharperuk.github.io";
+                    const pathname = window.location.pathname || "/";
+                    if (pathname.includes("/fc-template")) {
+                        const base = pathname.replace(/\/manager(?:3)?\.html?$/i, "").replace(/\/+$/, "");
+                        return `${origin}${base}/`;
+                    }
+                    return "https://jamieharperuk.github.io/fc-template/";
+                }
+
                 const FC_MANAGER_CONFIG = {
                     repoFullName: "jamieharperuk/jamieharperuk.github.io",
-                    siteBaseUrl: "https://example.com/fc-template/",
+                    siteBaseUrl: resolveDefaultSiteBaseUrl(),
                     commitMessage: "Update fc-template data",
                     oauth: {
                         clientId: "Ov23liJxZCIXpxYWlATm",

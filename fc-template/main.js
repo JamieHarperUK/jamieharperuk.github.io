@@ -21,7 +21,6 @@ function buildRootUrl(path = "", useCanonical = false) {
 }
 
 const dataSources = {
-    club: buildFmUrl("data/fc_club.json"),
     games: buildFmUrl("data/fc_games.json"),
     teams: buildFmUrl("data/fc_teams.json"),
     posts: buildFmUrl("data/posts.json"),
@@ -63,7 +62,6 @@ const app = {
         image: buildFmUrl("data/fm_bg.png", true)
     },
     data: {
-        club: {},
         games: [],
         teams: [],
         posts: [],
@@ -369,8 +367,7 @@ const app = {
     },
 
     async loadData() {
-        const [clubResponse, gamesResponse, teamsResponse, postsResponse, ticketsResponse, tablesResponse] = await Promise.all([
-            fetch(dataSources.club).catch(() => ({ ok: false, status: 404 })),
+        const [gamesResponse, teamsResponse, postsResponse, ticketsResponse, tablesResponse] = await Promise.all([
             fetch(dataSources.games),
             fetch(dataSources.teams),
             fetch(dataSources.posts),
@@ -382,8 +379,7 @@ const app = {
             throw new Error("Unable to load one or more JSON data sources.");
         }
 
-        const [clubJson, gamesJson, teamsJson, postsJson, ticketsJson, tablesJson] = await Promise.all([
-            clubResponse.ok ? clubResponse.json() : {},
+        const [gamesJson, teamsJson, postsJson, ticketsJson, tablesJson] = await Promise.all([
             gamesResponse.json(),
             teamsResponse.json(),
             postsResponse.json(),
@@ -391,12 +387,27 @@ const app = {
             tablesResponse.json()
         ]);
 
-        this.data.club = clubJson && typeof clubJson === "object" ? clubJson : {};
         this.data.games = Array.isArray(gamesJson.games) ? gamesJson.games : [];
         this.data.teams = Array.isArray(teamsJson.teams) ? teamsJson.teams : [];
         this.data.posts = Array.isArray(postsJson.posts) ? postsJson.posts : [];
         this.data.tickets = Array.isArray(ticketsJson.tickets) ? ticketsJson.tickets : [];
         this.data.tables = Array.isArray(tablesJson.tables) ? tablesJson.tables : [];
+
+        if (!this.data.games.length && gamesJson && Array.isArray(gamesJson)) {
+            this.data.games = gamesJson;
+        }
+        if (!this.data.teams.length && teamsJson && Array.isArray(teamsJson)) {
+            this.data.teams = teamsJson;
+        }
+        if (!this.data.posts.length && postsJson && Array.isArray(postsJson)) {
+            this.data.posts = postsJson;
+        }
+        if (!this.data.tickets.length && ticketsJson && Array.isArray(ticketsJson)) {
+            this.data.tickets = ticketsJson;
+        }
+        if (!this.data.tables.length && tablesJson && Array.isArray(tablesJson)) {
+            this.data.tables = tablesJson;
+        }
     },
 
     syncBodyModalOpenState() {

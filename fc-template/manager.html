@@ -6,76 +6,119 @@
         <title>FC Template Manager</title>
         <style>
             :root {
-                --bg:#0b1020;
-                --panel:#111a2d;
-                --panel-strong:#17243f;
-                --panel-soft:#1d2a46;
-                --line:#2d3d62;
-                --text:#edf3ff;
-                --muted:#a9b8d3;
-                --accent:#72d7ff;
-                --accent-strong:#3ea7ff;
-                --success:#57d29b;
-                --warning:#ffb870;
-                --danger:#ff6d7d;
-                --shadow: rgba(10, 18, 35, 0.46);
+                --bg: #0a1220;
+                --panel: #101b2d;
+                --panel-strong: #14233d;
+                --line: #2b3f5f;
+                --text: #edf4ff;
+                --muted: #aabbd9;
+                --accent: #76d7ff;
+                --accent-strong: #2d8cff;
+                --success: #5fe0a8;
+                --warning: #ffbd71;
+                --danger: #ff7684;
+                --shadow: rgba(8, 15, 28, 0.5);
             }
 
             * { box-sizing: border-box; }
-            html, body { margin:0; min-height:100%; font-family: Inter, "Segoe UI", sans-serif; background:linear-gradient(180deg, #09111d 0%, #0d1629 100%); color:var(--text); }
-            body { padding:24px; }
-            .shell { max-width:1300px; margin:0 auto; }
+            html, body {
+                margin: 0;
+                min-height: 100%;
+                font-family: Inter, "Segoe UI", sans-serif;
+                background: linear-gradient(180deg, #09121d 0%, #0d1525 100%);
+                color: var(--text);
+            }
+            body { padding: 24px; }
+            .shell { max-width: 1300px; margin: 0 auto; }
             header {
-                display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 20px; margin-bottom:24px;
-                background:linear-gradient(140deg, rgba(18,29,48,.95), rgba(14,23,38,.96)); border:1px solid var(--line); border-radius:18px; box-shadow:0 18px 44px var(--shadow);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 16px;
+                padding: 18px 20px;
+                margin-bottom: 24px;
+                background: linear-gradient(140deg, rgba(18, 29, 48, 0.96), rgba(12, 21, 35, 0.96));
+                border: 1px solid var(--line);
+                border-radius: 18px;
+                box-shadow: 0 18px 44px var(--shadow);
             }
-            .brand { display:flex; flex-direction:column; gap:4px; }
-            .eyebrow { font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; }
-            h1 { font-size: clamp(1.3rem, 2vw, 2rem); margin:0; }
-            .tagline { color:var(--muted); margin:0; }
-            .repo-meta { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
-            .status-pill { padding:8px 12px; border:1px solid var(--line); border-radius:999px; background:rgba(114,215,255,0.08); color:var(--accent); font-weight:600; }
-            .status-pill.warn { color:var(--warning); border-color: rgba(255,184,112,.4); }
-            .layout { display:grid; grid-template-columns: 350px minmax(0,1fr); gap:24px; }
-            .panel { background:rgba(17,26,45,.92); border:1px solid var(--line); border-radius:18px; box-shadow:0 20px 38px rgba(8,15,26,.35); }
-            .sidebar { padding:18px; }
-            .sidebar .section { margin-bottom:18px; }
-            .sidebar .section:last-child { margin-bottom:0; }
-            label { display:flex; flex-direction:column; gap:8px; font-size:0.82rem; color:var(--muted); margin-bottom:12px; }
+            .brand { display: flex; flex-direction: column; gap: 4px; }
+            .eyebrow {
+                font-size: 11px;
+                letter-spacing: 0.18em;
+                text-transform: uppercase;
+                color: var(--accent);
+                font-weight: 700;
+            }
+            h1 { font-size: clamp(1.35rem, 2vw, 2rem); margin: 0; }
+            .tagline { color: var(--muted); margin: 0; }
+            .repo-meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+            .status-pill { padding: 8px 12px; border: 1px solid var(--line); border-radius: 999px; background: rgba(118, 215, 255, 0.08); color: var(--accent); font-weight: 600; }
+            .status-pill.warn { color: var(--warning); border-color: rgba(255, 189, 113, 0.4); }
+            .layout { display: grid; grid-template-columns: 360px minmax(0, 1fr); gap: 24px; }
+            .panel { background: rgba(16, 27, 45, 0.96); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 20px 38px rgba(7, 14, 25, 0.38); }
+            .sidebar { padding: 18px; }
+            .sidebar .section { margin-bottom: 18px; }
+            .sidebar .section:last-child { margin-bottom: 0; }
+            label {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                font-size: 0.82rem;
+                color: var(--muted);
+                margin-bottom: 12px;
+            }
             input, textarea, button, select {
-                width:100%; border:1px solid var(--line); background:#0e182d; color:var(--text); border-radius:10px; padding:10px 12px; font:inherit;
+                width: 100%;
+                border: 1px solid var(--line);
+                background: #0d182b;
+                color: var(--text);
+                border-radius: 10px;
+                padding: 10px 12px;
+                font: inherit;
             }
-            textarea { min-height:90px; resize:vertical; }
-            button { cursor:pointer; border:1px solid transparent; transition:transform .15s ease, border-color .15s ease, background .15s ease; }
-            button:hover { transform:translateY(-1px); }
-            .primary { background:linear-gradient(180deg, var(--accent-strong), #2f7ae6); color:#08121d; font-weight:700; }
-            .secondary { background:rgba(114,215,255,0.1); border-color:rgba(114,215,255,0.3); color:var(--text); }
-            .danger { background:rgba(255,109,125,.08); border-color:rgba(255,109,125,.35); color:var(--text); }
-            .toolbar { display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
-            .status { padding:12px; border-radius:12px; background:rgba(18,26,43,0.9); border:1px solid var(--line); color:var(--muted); margin-top:12px; min-height:50px; }
-            .status.ok { color:#d5ffe9; border-color: rgba(87,210,155,.32); background:rgba(87,210,155,.08); }
-            .status.bad { color:#ffd6dc; border-color: rgba(255,109,125,.32); background:rgba(255,109,125,.08); }
-            .status.info { color:#dfeaff; border-color: rgba(114,215,255,.2); background:rgba(114,215,255,.08); }
-            .content { padding:18px; }
-            .tab-list { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:18px; }
-            .tab-button { width:auto; min-width:110px; } 
-            .tab-button.active { border-color:rgba(114,215,255,.46); background:rgba(114,215,255,.14); }
-            .file-header { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:16px; }
-            .file-header h2 { margin:0; font-size:1.2rem; }
-            .meta-chip { padding:6px 10px; border-radius:999px; border:1px solid var(--line); color:var(--muted); background:rgba(255,255,255,0.02); font-size:0.78rem; }
-            .record-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(210px,1fr)); gap:12px; }
-            .record-card { display:flex; flex-direction:column; gap:12px; background:rgba(14,22,37,.76); border:1px solid var(--line); border-radius:14px; padding:14px; }
-            .record-card h3 { margin:0; font-size:1rem; }
-            .card-actions { display:flex; justify-content:flex-end; }
-            .mini-list { display:grid; gap:12px; }
-            .sub-card { padding:12px; border-radius:12px; border:1px solid var(--line); background:rgba(17,31,55,.9); }
-            .sub-card h4 { margin:0 0 10px; }
-            .btn-row { display:flex; gap:8px; flex-wrap:wrap; }
-            .hidden { display:none !important; }
-            .empty-state { padding:22px; border:1px dashed var(--line); border-radius:14px; color:var(--muted); background:rgba(255,255,255,.01); }
+            textarea { min-height: 92px; resize: vertical; }
+            button {
+                cursor: pointer;
+                border: 1px solid transparent;
+                transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+            }
+            button:hover { transform: translateY(-1px); }
+            .primary { background: linear-gradient(180deg, var(--accent-strong), #2d5be2); color: #041623; font-weight: 700; }
+            .secondary { background: rgba(118, 215, 255, 0.09); border-color: rgba(118, 215, 255, 0.3); color: var(--text); }
+            .danger { background: rgba(255, 118, 132, 0.08); border-color: rgba(255, 118, 132, 0.32); color: var(--text); }
+            .toolbar { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+            .status {
+                padding: 12px;
+                border-radius: 12px;
+                background: rgba(17, 27, 42, 0.9);
+                border: 1px solid var(--line);
+                color: var(--muted);
+                margin-top: 12px;
+                min-height: 50px;
+            }
+            .status.ok { color: #d9ffef; border-color: rgba(95, 224, 168, 0.32); background: rgba(95, 224, 168, 0.09); }
+            .status.bad { color: #ffdfe3; border-color: rgba(255, 118, 132, 0.32); background: rgba(255, 118, 132, 0.08); }
+            .status.info { color: #e8f3ff; border-color: rgba(118, 215, 255, 0.18); background: rgba(118, 215, 255, 0.08); }
+            .content { padding: 18px; }
+            .tab-list { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+            .tab-button { width: auto; min-width: 116px; }
+            .tab-button.active { border-color: rgba(118, 215, 255, 0.42); background: rgba(118, 215, 255, 0.12); }
+            .file-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+            .file-header h2 { margin: 0; font-size: 1.2rem; }
+            .meta-chip { padding: 6px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); background: rgba(255, 255, 255, 0.02); font-size: 0.78rem; }
+            .record-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+            .record-card { display: flex; flex-direction: column; gap: 12px; background: rgba(12, 19, 31, 0.8); border: 1px solid var(--line); border-radius: 14px; padding: 14px; }
+            .record-card h3 { margin: 0; font-size: 1rem; }
+            .mini-list { display: grid; gap: 12px; }
+            .sub-card { padding: 12px; border-radius: 12px; border: 1px solid var(--line); background: rgba(18, 29, 47, 0.9); }
+            .sub-card h4 { margin: 0 0 10px; }
+            .btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
+            .hidden { display: none !important; }
+            .empty-state { padding: 22px; border: 1px dashed var(--line); border-radius: 14px; color: var(--muted); background: rgba(255, 255, 255, 0.01); }
             @media (max-width: 980px) {
-                .layout { grid-template-columns:1fr; }
-                body { padding:16px; }
+                body { padding: 16px; }
+                .layout { grid-template-columns: 1fr; }
             }
         </style>
     </head>
@@ -85,7 +128,7 @@
                 <div class="brand">
                     <span class="eyebrow">Oakshift FC</span>
                     <h1>FC Template Manager</h1>
-                    <p class="tagline">Repository-scoped editor for the football club data used by the fc-template site.</p>
+                    <p class="tagline">GitHub OAuth editor for the fc-template data files in this site.</p>
                 </div>
                 <div class="repo-meta">
                     <span id="repoBadge" class="status-pill">No repo connected</span>
@@ -102,13 +145,13 @@
                         </label>
                         <label>
                             Site base URL
-                            <input id="siteUrlInput" type="url" value="https://example.com/fc-template/" placeholder="https://your-site.github.io/fc-template/">
+                            <input id="siteUrlInput" type="url" value="https://jamieharperuk.github.io/fc-template/" placeholder="https://your-site.github.io/fc-template/">
                         </label>
                         <div class="toolbar">
                             <button id="signInBtn" type="button" class="primary">Sign in with GitHub</button>
                             <button id="loadRepoBtn" type="button" class="secondary">Load fc-template files</button>
                         </div>
-                        <div id="repoStatus" class="status info">Queue a repository and authenticate to edit the fc-template data files.</div>
+                        <div id="repoStatus" class="status info">Authenticate and load the repository to start editing the club data.</div>
                     </div>
 
                     <div class="section">
@@ -136,6 +179,32 @@
             (() => {
                 const API_BASE = "https://api.github.com";
                 const AUTH_STORAGE_KEY = "fc_template_manager_auth";
+
+                function resolveDefaultSiteBaseUrl() {
+                    if (typeof window === "undefined") {
+                        return "https://jamieharperuk.github.io/fc-template/";
+                    }
+
+                    const origin = window.location.origin || "https://jamieharperuk.github.io";
+                    const pathname = window.location.pathname || "/";
+                    if (pathname.includes("/fc-template")) {
+                        const base = pathname.replace(/\/manager(?:3)?\.html?$/i, "").replace(/\/+$/, "");
+                        return `${origin}${base}/`;
+                    }
+                    return "https://jamieharperuk.github.io/fc-template/";
+                }
+
+                const DEFAULT_CONFIG = {
+                    repoFullName: "jamieharperuk/jamieharperuk.github.io",
+                    siteBaseUrl: resolveDefaultSiteBaseUrl(),
+                    commitMessage: "Update fc-template data",
+                    oauth: {
+                        clientId: "Ov23liJxZCIXpxYWlATm",
+                        scope: "repo read:user",
+                        brokerBaseUrl: "https://ghwe.oakshiftsoftware.workers.dev"
+                    }
+                };
+
                 const FILE_DEFS = Object.freeze({
                     club: {
                         label: "Club",
@@ -221,25 +290,14 @@
                     }
                 });
 
-                const FC_MANAGER_CONFIG = {
-                    repoFullName: "jamieharperuk/jamieharperuk.github.io",
-                    siteBaseUrl: "https://example.com/fc-template/",
-                    commitMessage: "Update fc-template data",
-                    oauth: {
-                        clientId: "Ov23liJxZCIXpxYWlATm",
-                        scope: "repo read:user",
-                        brokerBaseUrl: "https://ghwe.oakshiftsoftware.workers.dev"
-                    }
-                };
-
                 const state = {
                     token: "",
-                    repoFullName: "",
-                    siteBaseUrl: "",
+                    repoFullName: DEFAULT_CONFIG.repoFullName,
+                    siteBaseUrl: DEFAULT_CONFIG.siteBaseUrl,
                     files: {},
                     activeKey: "club",
                     dirtyKeys: new Set(),
-                    commitMessage: "Update fc-template data"
+                    commitMessage: DEFAULT_CONFIG.commitMessage
                 };
 
                 const repoInput = document.getElementById("repoInput");
@@ -249,6 +307,11 @@
                 const editorContainer = document.getElementById("editorContainer");
                 const commitMessageInput = document.getElementById("commitMessageInput");
 
+                function setStatus(message, type = "info") {
+                    repoStatus.className = `status ${type}`;
+                    repoStatus.textContent = message;
+                }
+
                 function escapeHtml(value) {
                     return String(value ?? "").replace(/[&<>\"']/g, (char) => ({
                         "&": "&amp;",
@@ -257,11 +320,6 @@
                         '"': "&quot;",
                         "'": "&#039;"
                     }[char]));
-                }
-
-                function setStatus(message, type = "info") {
-                    repoStatus.className = `status ${type}`;
-                    repoStatus.textContent = message;
                 }
 
                 function getStoredSession() {
@@ -278,28 +336,28 @@
                 }
 
                 function saveStoredSession(accessToken) {
-                    sessionStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify({ accessToken }));
                     state.token = accessToken;
+                    sessionStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify({ accessToken }));
                 }
 
                 function clearStoredSession() {
-                    sessionStorage.removeItem(AUTH_STORAGE_KEY);
                     state.token = "";
+                    sessionStorage.removeItem(AUTH_STORAGE_KEY);
                 }
 
                 function getSiteBaseUrl() {
-                    const siteUrl = siteUrlInput.value.trim();
-                    if (siteUrl) {
-                        state.siteBaseUrl = siteUrl;
-                        return siteUrl;
+                    const rawValue = siteUrlInput.value.trim();
+                    if (rawValue) {
+                        state.siteBaseUrl = rawValue;
+                        return rawValue;
                     }
-                    return "https://example.com/fc-template/";
+                    return DEFAULT_CONFIG.siteBaseUrl;
                 }
 
                 function getRepoFullName() {
-                    const repoName = repoInput.value.trim();
-                    state.repoFullName = repoName;
-                    return repoName;
+                    const rawValue = repoInput.value.trim();
+                    state.repoFullName = rawValue;
+                    return rawValue;
                 }
 
                 function getFilePayload(key) {
@@ -324,8 +382,8 @@
                                 club: {
                                     club_name: "The Club",
                                     home_venue: "Home Ground",
-                                    city: "City",
-                                    country: "Country",
+                                    city: "City Name",
+                                    country: "Country Name",
                                     established_year: "2026",
                                     description: "Your club description here.",
                                     socials: {
@@ -370,6 +428,10 @@
                     cursor[segments[segments.length - 1]] = value;
                 }
 
+                function encodeBase64Utf8(value) {
+                    return btoa(unescape(encodeURIComponent(value)));
+                }
+
                 async function ghFetch(path, options = {}) {
                     const method = options.method || "GET";
                     const headers = Object.assign({
@@ -381,17 +443,12 @@
                         headers.Authorization = `Bearer ${state.token}`;
                     }
 
-                    const requestInit = {
-                        method,
-                        headers
-                    };
-
+                    const requestInit = { method, headers };
                     if (options.body) {
                         requestInit.body = options.body;
                     }
 
                     const response = await fetch(`${API_BASE}${path}`, requestInit);
-
                     if (response.status === 204) {
                         return null;
                     }
@@ -412,7 +469,7 @@
                 }
 
                 async function brokerRequest(endpoint, payload) {
-                    const base = (FC_MANAGER_CONFIG.oauth.brokerBaseUrl || "https://ghwe.oakshiftsoftware.workers.dev").replace(/\/$/, "");
+                    const base = (DEFAULT_CONFIG.oauth.brokerBaseUrl || "https://ghwe.oakshiftsoftware.workers.dev").replace(/\/$/, "");
                     const response = await fetch(`${base}${endpoint}`, {
                         method: "POST",
                         headers: {
@@ -435,14 +492,14 @@
                 }
 
                 async function startDeviceFlow() {
-                    const clientId = FC_MANAGER_CONFIG.oauth.clientId;
+                    const clientId = DEFAULT_CONFIG.oauth.clientId;
                     if (!clientId) {
                         throw new Error("No OAuth client ID configured for the manager.");
                     }
 
                     const deviceCodeResponse = await brokerRequest("/github/device/code", {
                         client_id: clientId,
-                        scope: FC_MANAGER_CONFIG.oauth.scope
+                        scope: DEFAULT_CONFIG.oauth.scope
                     });
 
                     if (!deviceCodeResponse?.device_code) {
@@ -454,7 +511,7 @@
                     const intervalSeconds = Number(deviceCodeResponse.interval || 5);
                     const expiresInSeconds = Number(deviceCodeResponse.expires_in || 900);
 
-                    setStatus(`Open ${verificationUri} and enter code: ${userCode}. The browser will poll for approval for up to ${expiresInSeconds} seconds.`, "info");
+                    setStatus(`Open ${verificationUri} and enter code: ${userCode}. This window will keep polling for approval for up to ${expiresInSeconds} seconds.`, "info");
 
                     const startedAt = Date.now();
                     while (Date.now() - startedAt < expiresInSeconds * 1000) {
@@ -477,12 +534,13 @@
                         }
                     }
 
-                    throw new Error("GitHub authentication timed out. Try again.");
+                    throw new Error("GitHub authentication timed out. Please try again.");
                 }
 
                 async function loadRepository() {
                     const repoFullName = getRepoFullName();
                     const siteUrl = getSiteBaseUrl();
+
                     if (!repoFullName || !repoFullName.includes("/")) {
                         setStatus("Enter a GitHub repository in owner/repo format before loading the fc-template files.", "bad");
                         return;
@@ -505,24 +563,11 @@
                         for (const [key, def] of Object.entries(FILE_DEFS)) {
                             try {
                                 const payload = await ghFetch(`/repos/${encodeURIComponent(repoFullName)}/contents/${encodeURIComponent(def.path)}`);
-                                const rawText = atob(payload.content.replace(/\s/g, ""));
+                                const rawText = decodeURIComponent(escape(atob(payload.content.replace(/\s/g, ""))));
                                 const parsed = JSON.parse(rawText);
-                                state.files[key] = {
-                                    def,
-                                    data: parsed,
-                                    sha: payload.sha,
-                                    path: def.path,
-                                    exists: true
-                                };
+                                state.files[key] = { def, data: parsed, sha: payload.sha, path: def.path, exists: true };
                             } catch (error) {
-                                state.files[key] = {
-                                    def,
-                                    data: buildFileTemplate(key),
-                                    sha: null,
-                                    path: def.path,
-                                    exists: false,
-                                    error: String(error.message || error)
-                                };
+                                state.files[key] = { def, data: buildFileTemplate(key), sha: null, path: def.path, exists: false, error: String(error.message || error) };
                             }
                         }
 
@@ -540,7 +585,7 @@
                     const tabs = Object.entries(FILE_DEFS).map(([key, def]) => {
                         const isActive = key === state.activeKey;
                         const isDirty = isDirty(key);
-                        return `<button type="button" data-key="${key}" class="tab-button ${isActive ? "active" : ""}" style="position:relative;">${def.label}${isDirty ? " *" : ""}</button>`;
+                        return `<button type="button" data-key="${key}" class="tab-button ${isActive ? "active" : ""}">${def.label}${isDirty ? " *" : ""}</button>`;
                     }).join("");
 
                     editorContainer.innerHTML = `<div class="tab-list">${tabs}</div>`;
@@ -575,27 +620,24 @@
                 function renderClubEditor(data) {
                     const club = data.club || {};
                     const socials = club.socials || {};
-                    const rows = FILE_DEFS.club.fields.map(([pathKey, label]) => renderInputField(label, club[pathKey], `club.${pathKey}`));
-                    const socialRows = FILE_DEFS.club.nestedFields.map(([pathKey, label]) => renderInputField(label, socials[pathKey], `club.socials.${pathKey}`));
+                    const mainFields = FILE_DEFS.club.fields.map(([key, label]) => renderInputField(label, club[key], `club.${key}`));
+                    const socialFields = FILE_DEFS.club.nestedFields.map(([key, label]) => renderInputField(label, socials[key], `club.socials.${key}`));
                     return `
                         <div class="file-header">
                             <h2>Club overview</h2>
                             <span class="meta-chip">${state.files.club?.exists ? "Tracked file" : "New file"}</span>
                         </div>
-                        <div class="record-grid">
-                            ${rows.join("")}
-                        </div>
-                        <div class="record-card" style="margin-top:16px;">
+                        <div class="record-grid">${mainFields.join("")}</div>
+                        <div class="record-card" style="margin-top: 16px;">
                             <h3>Social links</h3>
-                            <div class="record-grid">
-                                ${socialRows.join("")}
-                            </div>
+                            <div class="record-grid">${socialFields.join("")}</div>
                         </div>
                     `;
                 }
 
-                function renderArrayEditor(key, arrayKey, fieldDefs, itemFactoryFn) {
-                    const entries = Array.isArray(getFilePayload(key)?.[arrayKey]) ? getFilePayload(key)[arrayKey] : [];
+                function renderArrayEditor(key, arrayKey, itemFactoryFn) {
+                    const payload = getFilePayload(key);
+                    const entries = Array.isArray(payload?.[arrayKey]) ? payload[arrayKey] : [];
                     if (!entries.length) {
                         return `
                             <div class="file-header">
@@ -612,24 +654,20 @@
                             <h2>${FILE_DEFS[key].label}</h2>
                             <button type="button" data-action="add-${key}" class="secondary">Add item</button>
                         </div>
-                        <div class="mini-list">
-                            ${cards}
-                        </div>
+                        <div class="mini-list">${cards}</div>
                     `;
                 }
 
                 function renderGamesEditor() {
-                    return renderArrayEditor("games", "games", FILE_DEFS.games.fields, (entry, index) => {
+                    return renderArrayEditor("games", "games", (entry, index) => {
                         const fields = FILE_DEFS.games.fields.map(([fieldKey, label]) => renderInputField(label, entry[fieldKey], `games.${index}.${fieldKey}`));
                         return `
                             <div class="record-card">
-                                <div class="file-header" style="margin-bottom:0;">
+                                <div class="file-header" style="margin-bottom: 0;">
                                     <h3>Game ${index + 1}</h3>
                                     <button type="button" class="danger" data-action="remove-game" data-index="${index}">Remove</button>
                                 </div>
-                                <div class="record-grid">
-                                    ${fields.join("")}
-                                </div>
+                                <div class="record-grid">${fields.join("")}</div>
                             </div>
                         `;
                     });
@@ -676,12 +714,12 @@
 
                         return `
                             <div class="record-card">
-                                <div class="file-header" style="margin-bottom:0;">
+                                <div class="file-header" style="margin-bottom: 0;">
                                     <h3>Team ${teamIndex + 1}</h3>
                                     <button type="button" class="danger" data-action="remove-team" data-index="${teamIndex}">Remove</button>
                                 </div>
                                 <div class="record-grid">${teamFields.join("")}</div>
-                                <div class="sub-card">
+                                <div class="sub-card" style="margin-top: 12px;">
                                     <h4>Players</h4>
                                     <div class="btn-row"><button type="button" class="secondary" data-action="add-player" data-team-index="${teamIndex}">Add player</button></div>
                                     ${players.length ? playerCards : "<div class='empty-state'>No players assigned to this team yet.</div>"}
@@ -733,14 +771,15 @@
                                 </div>
                             `;
                         }).join("");
+
                         return `
                             <div class="record-card">
-                                <div class="file-header" style="margin-bottom:0;">
+                                <div class="file-header" style="margin-bottom: 0;">
                                     <h3>Table ${tableIndex + 1}</h3>
                                     <button type="button" class="danger" data-action="remove-table" data-index="${tableIndex}">Remove</button>
                                 </div>
                                 <div class="record-grid">${tableFields.join("")}</div>
-                                <div class="sub-card">
+                                <div class="sub-card" style="margin-top: 12px;">
                                     <h4>Table rows</h4>
                                     <div class="btn-row"><button type="button" class="secondary" data-action="add-table-row" data-table-index="${tableIndex}">Add row</button></div>
                                     ${rows.length ? rowCards : "<div class='empty-state'>No rows in this table.</div>"}
@@ -759,17 +798,15 @@
                 }
 
                 function renderTicketsEditor() {
-                    return renderArrayEditor("tickets", "tickets", FILE_DEFS.tickets.fields, (entry, index) => {
+                    return renderArrayEditor("tickets", "tickets", (entry, index) => {
                         const fields = FILE_DEFS.tickets.fields.map(([fieldKey, label]) => renderInputField(label, entry[fieldKey], `tickets.${index}.${fieldKey}`));
                         return `
                             <div class="record-card">
-                                <div class="file-header" style="margin-bottom:0;">
+                                <div class="file-header" style="margin-bottom: 0;">
                                     <h3>Ticket ${index + 1}</h3>
                                     <button type="button" class="danger" data-action="remove-ticket" data-index="${index}">Remove</button>
                                 </div>
-                                <div class="record-grid">
-                                    ${fields.join("")}
-                                </div>
+                                <div class="record-grid">${fields.join("")}</div>
                             </div>
                         `;
                     });
@@ -812,13 +849,11 @@
                         control.addEventListener("input", (event) => {
                             const path = event.target.dataset.path;
                             if (!path) return;
-                            const nextValue = event.target.type === "number" ? Number(event.target.value) : event.target.value;
                             const payload = getFilePayload(key);
                             if (!payload) return;
+                            const nextValue = event.target.value;
                             setValueAtPath(payload, path, nextValue);
-                            if (payload.metadata) {
-                                payload.metadata.lastUpdated = new Date().toISOString();
-                            }
+                            if (payload.metadata) payload.metadata.lastUpdated = new Date().toISOString();
                             markDirty(key, true);
                             renderEditor();
                         });
@@ -840,6 +875,7 @@
                 function addItemForKey(key) {
                     const payload = getFilePayload(key);
                     if (!payload) return;
+
                     if (key === "games") {
                         ensureContainerArray("games", "games");
                         payload.games.push({
@@ -855,6 +891,7 @@
                             winner: ""
                         });
                     }
+
                     if (key === "teams") {
                         ensureContainerArray("teams", "teams");
                         payload.teams.push({
@@ -866,6 +903,7 @@
                             players: []
                         });
                     }
+
                     if (key === "tables") {
                         ensureContainerArray("tables", "tables");
                         payload.tables.push({
@@ -874,6 +912,7 @@
                             rows: []
                         });
                     }
+
                     if (key === "tickets") {
                         ensureContainerArray("tickets", "tickets");
                         payload.tickets.push({
@@ -886,6 +925,7 @@
                             link: "https://example.com"
                         });
                     }
+
                     if (payload.metadata) payload.metadata.lastUpdated = new Date().toISOString();
                     markDirty(key, true);
                     renderEditor();
@@ -994,17 +1034,14 @@
                         if (!file || !file.path) continue;
                         const body = JSON.stringify(file.data, null, 2);
                         const current = await ghFetch(`/repos/${encodeURIComponent(repoFullName)}/contents/${encodeURIComponent(file.path)}`);
-                        const base64 = btoa(unescape(encodeURIComponent(body)));
+                        const content = encodeBase64Utf8(body);
                         await ghFetch(`/repos/${encodeURIComponent(repoFullName)}/contents/${encodeURIComponent(file.path)}`, {
                             method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
+                            headers: { "Content-Type": "application/json" },
                             body: JSON.stringify({
                                 message,
-                                content: base64,
-                                sha: current?.sha || undefined,
-                                branch: current?.name ? undefined : undefined
+                                content,
+                                sha: current?.sha || undefined
                             })
                         });
                         file.sha = current?.sha || file.sha;
@@ -1050,29 +1087,26 @@
                     resetEdits();
                 });
 
-                const session = getStoredSession();
-                if (session?.accessToken) {
-                    state.token = session.accessToken;
+                const storedSession = getStoredSession();
+                if (storedSession?.accessToken) {
+                    state.token = storedSession.accessToken;
                     setStatus("Stored GitHub session found. You can load the repository immediately.", "ok");
                 }
 
-                const config = window.FC_MANAGER_CONFIG || {};
-                if (config.repoFullName) repoInput.value = config.repoFullName;
-                if (config.siteBaseUrl) siteUrlInput.value = config.siteBaseUrl;
-                if (config.commitMessage) commitMessageInput.value = config.commitMessage;
+                const currentConfig = window.FC_MANAGER_CONFIG || {};
+                if (currentConfig.repoFullName) repoInput.value = currentConfig.repoFullName;
+                if (currentConfig.siteBaseUrl) siteUrlInput.value = currentConfig.siteBaseUrl;
+                if (currentConfig.commitMessage) commitMessageInput.value = currentConfig.commitMessage;
 
-                FC_MANAGER_CONFIG.repoFullName = repoInput.value.trim();
-                FC_MANAGER_CONFIG.siteBaseUrl = getSiteBaseUrl();
-                FC_MANAGER_CONFIG.commitMessage = commitMessageInput.value.trim();
-                if (!FC_MANAGER_CONFIG.oauth || !FC_MANAGER_CONFIG.oauth.clientId) {
-                    FC_MANAGER_CONFIG.oauth = {
-                        clientId: "Ov23liJxZCIXpxYWlATm",
-                        scope: "repo read:user",
-                        brokerBaseUrl: "https://ghwe.oakshiftsoftware.workers.dev"
-                    };
-                }
-                window.FC_MANAGER_CONFIG = FC_MANAGER_CONFIG;
+                window.FC_MANAGER_CONFIG = {
+                    ...DEFAULT_CONFIG,
+                    repoFullName: repoInput.value.trim() || DEFAULT_CONFIG.repoFullName,
+                    siteBaseUrl: siteUrlInput.value.trim() || DEFAULT_CONFIG.siteBaseUrl,
+                    commitMessage: commitMessageInput.value.trim() || DEFAULT_CONFIG.commitMessage,
+                    oauth: DEFAULT_CONFIG.oauth
+                };
             })();
         </script>
     </body>
 </html>
+
