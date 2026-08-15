@@ -87,13 +87,13 @@ nav {
 
 .nav-links a:hover {
     color: var(--text-primary);
-    border-color: rgba(200, 16, 46, 0.45);
-    background-color: rgba(200, 16, 46, 0.08);
+    border-color: rgba(253, 218, 28, 0.45);
+    background-color: rgba(253, 218, 28, 0.08);
 }
 
 .nav-links a.active {
     color: var(--secondary-color);
-    background: linear-gradient(135deg, var(--primary-color), #de3955);
+    background: linear-gradient(135deg, #fdda1cbd);
     border-color: transparent;
 }
 
