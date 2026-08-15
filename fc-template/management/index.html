@@ -728,7 +728,7 @@
 
         <script>
             const webEditorConfig = {
-                site_domain: "https://jhuk.co.uk",
+                site_domain: "https://jamieharperuk.github.io",
                 site_directory: "fc-template",
                 oauth: {
                     clientId: "Ov23liJxZCIXpxYWlATm",
@@ -875,6 +875,20 @@
                     return [];
                 }
                 return Object.entries(value).filter(([key]) => !hiddenKeysSet().has(key));
+            }
+
+            function parseRepoFullName(repoFullName) {
+                const normalized = String(repoFullName || "").trim();
+                const [owner, ...repoParts] = normalized.split("/");
+                const repo = repoParts.join("/");
+                if (!owner || !repo) {
+                    throw new Error("Repository must be in owner/repo format.");
+                }
+                return {
+                    owner: encodeURIComponent(owner),
+                    repo: encodeURIComponent(repo),
+                    repoPath: `/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}`
+                };
             }
 
             function parsePathDefinition(pathString) {
@@ -1423,7 +1437,9 @@
                     if (!userData || !userData.login) {
                         return false;
                     }
-                    await ghFetch(`/repos/${encodeURIComponent(repoFullName)}/contents`);
+
+                    const repoInfo = parseRepoFullName(repoFullName);
+                    await ghFetch(`${repoInfo.repoPath}`);
                     state.repoVerified = true;
                     return true;
                 } catch (error) {
@@ -1626,6 +1642,8 @@
 
                 setStatus(`Committing ${dirtyPaths.length} FC file(s) to ${repoFullName}...`, "info");
 
+                const repoInfo = parseRepoFullName(repoFullName);
+
                 for (const dirtyPath of dirtyPaths) {
                     const file = state.files.find((candidate) => candidate.path === dirtyPath);
                     if (!file) continue;
@@ -1638,8 +1656,8 @@
                     }
 
                     const contentPath = encodeURIComponent(dirtyPath);
-                    const current = await ghFetch(`/repos/${encodeURIComponent(repoFullName)}/contents/${contentPath}`);
-                    await ghFetch(`/repos/${encodeURIComponent(repoFullName)}/contents/${contentPath}`, {
+                    const current = await ghFetch(`${repoInfo.repoPath}/contents/${contentPath}`);
+                    await ghFetch(`${repoInfo.repoPath}/contents/${contentPath}`, {
                         method: "PUT",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
