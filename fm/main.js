@@ -2061,13 +2061,15 @@ const app = {
             return [];
         }
 
+        const isSeasonScoped = this.normalizePlatformName(team?.osm_or_top_eleven) === "OSM";
+
         return this.data.games.filter((game) => {
             const isTeamFixture = game.home_team === teamName || game.away_team === teamName;
             if (!isTeamFixture) {
                 return false;
             }
 
-            if (typeof teamOrName === "string") {
+            if (typeof teamOrName === "string" || !isSeasonScoped) {
                 return true;
             }
 
