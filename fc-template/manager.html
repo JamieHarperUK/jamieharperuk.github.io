@@ -353,6 +353,7 @@
                 function saveStoredSession(accessToken) {
                     state.token = accessToken;
                     sessionStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify({ accessToken }));
+                    updateAuthUi();
                 }
 
                 function clearStoredSession() {
@@ -451,8 +452,15 @@
                 }
 
                 function ensurePageIsServed() {
-                    if (window.location.protocol === "file:") {
-                        throw new Error("Open this manager through a local web server or GitHub Pages. File:// pages cannot reliably complete GitHub fetches and OAuth flows.");
+                    const protocol = window.location.protocol;
+                    const hostname = window.location.hostname || "";
+                    if (protocol === "file:") {
+                        const message = "This manager must be served over http://localhost or https://... before GitHub sign-in will work. Open it via a local web server or GitHub Pages.";
+                        setStatus(message, "bad");
+                        throw new Error(message);
+                    }
+                    if (protocol === "http:" && !(hostname === "localhost" || hostname === "127.0.0.1")) {
+                        return;
                     }
                 }
 
@@ -468,7 +476,12 @@
                         headers.Authorization = `Bearer ${state.token}`;
                     }
 
-                    const requestInit = { method, headers };
+                    const requestInit = {
+                        method,
+                        headers,
+                        cache: "no-store",
+                        mode: "cors"
+                    };
                     if (options.body) {
                         requestInit.body = options.body;
                     }
@@ -477,7 +490,8 @@
                     try {
                         response = await fetch(`${API_BASE}${path}`, requestInit);
                     } catch (error) {
-                        throw new Error(`GitHub request failed: ${error.message || "Failed to fetch"}`);
+                        const message = error?.message || "Failed to fetch";
+                        throw new Error(`GitHub request failed: ${message}. This usually means the page is not being served over HTTP(S), or the GitHub API request was blocked by the browser.`);
                     }
 
                     if (response.status === 204) {
@@ -510,10 +524,13 @@
                                 Accept: "application/json",
                                 "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
                             },
-                            body: new URLSearchParams(payload).toString()
+                            body: new URLSearchParams(payload).toString(),
+                            mode: "cors",
+                            cache: "no-store"
                         });
                     } catch (error) {
-                        throw new Error(`Authentication request failed: ${error.message || "Failed to fetch"}`);
+                        const message = error?.message || "Failed to fetch";
+                        throw new Error(`Authentication request failed: ${message}. This usually means the app is being opened from a file:// page or the network request was blocked by the browser.`);
                     }
 
                     const text = await response.text();
@@ -1098,6 +1115,7 @@
 
                 signInBtn.addEventListener("click", async () => {
                     try {
+                        ensurePageIsServed();
                         if (!isSignedIn()) {
                             await startDeviceFlow();
                         } else {
@@ -1119,6 +1137,7 @@
 
                 document.getElementById("loadRepoBtn").addEventListener("click", async () => {
                     try {
+                        ensurePageIsServed();
                         await loadRepository();
                     } catch (error) {
                         setStatus(error.message || "The repository could not be loaded.", "bad");
