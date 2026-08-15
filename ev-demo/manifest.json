@@ -1,0 +1,22 @@
+{
+  "name": "Football Club Site",
+  "short_name": "FC Site",
+  "description": "Track your club's fixtures, players, and news in one place.",
+  "start_url": "/fc-template/?source=pwa",
+  "scope": "/fc-template/",
+  "display": "standalone",
+  "background_color": "#0a0f1e",
+  "theme_color": "#c8102e",
+  "icons": [
+    {
+      "src": "/fc-template/data/fm_icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/fc-template/data/fm_icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

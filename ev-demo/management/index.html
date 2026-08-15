@@ -1,0 +1,1780 @@
+<!--
+    Oakshift WebEditor - Football Club Edition
+    Clone of the fc-template management flow, operating from /fc-template/management/.
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Football Club Management</title>
+
+        <style>
+            :root {
+                --bg: #f2f5fb;
+                --card: rgba(255,255,255,0.9);
+                --card-strong: #ffffff;
+                --ink: #10233c;
+                --muted: #60708a;
+                --line: #d9e3f0;
+                --brand: #0f6cbd;
+                --brand-strong: #0a4d8a;
+                --brand-soft: rgba(15, 108, 189, 0.08);
+                --success: #1f8d5c;
+                --warning: #b87400;
+                --danger: #b63d4b;
+                --shadow: 0 18px 46px rgba(12, 29, 48, 0.12);
+                --radius: 16px;
+                --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                margin: 0;
+                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+                background: linear-gradient(180deg, #ecf1f8 0%, #f9fbff 100%);
+                color: var(--ink);
+            }
+
+            a {
+                color: inherit;
+            }
+
+            .shell {
+                max-width: 1440px;
+                margin: 0 auto;
+                padding: 22px;
+            }
+
+            header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 16px;
+                border: 1px solid var(--line);
+                border-radius: var(--radius);
+                background: rgba(255,255,255,0.88);
+                box-shadow: var(--shadow);
+                padding: 18px 20px;
+                position: sticky;
+                top: 12px;
+                z-index: 10;
+                backdrop-filter: blur(10px);
+            }
+
+            .brand {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .eyebrow {
+                text-transform: uppercase;
+                letter-spacing: 0.14em;
+                font-size: 11px;
+                font-weight: 800;
+                color: var(--brand);
+            }
+
+            h1 {
+                margin: 0;
+                font-size: clamp(1.5rem, 2vw, 2.15rem);
+            }
+
+            .tagline {
+                margin: 0;
+                color: var(--muted);
+                font-size: 0.9rem;
+            }
+
+            .header-actions {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            .pill {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 999px;
+                padding: 8px 12px;
+                border: 1px solid var(--line);
+                background: var(--brand-soft);
+                font-weight: 700;
+                color: var(--brand);
+                font-size: 0.8rem;
+            }
+
+            .pill.warn {
+                background: rgba(184, 116, 0, 0.1);
+                border-color: rgba(184, 116, 0, 0.3);
+                color: var(--warning);
+            }
+
+            .pill.ok {
+                background: rgba(31, 141, 92, 0.08);
+                border-color: rgba(31, 141, 92, 0.25);
+                color: var(--success);
+            }
+
+            .layout {
+                display: grid;
+                grid-template-columns: 320px minmax(0, 1fr);
+                gap: 22px;
+                margin-top: 22px;
+            }
+
+            .card {
+                background: var(--card);
+                border: 1px solid var(--line);
+                border-radius: var(--radius);
+                box-shadow: var(--shadow);
+            }
+
+            .sidebar {
+                padding: 18px;
+                height: fit-content;
+            }
+
+            .workspace {
+                padding: 18px;
+            }
+
+            .section {
+                margin-bottom: 18px;
+            }
+
+            .section:last-child {
+                margin-bottom: 0;
+            }
+
+            .section h2 {
+                margin: 0 0 12px;
+                font-size: 1.02rem;
+            }
+
+            label {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                margin-bottom: 12px;
+                font-size: 0.82rem;
+                color: var(--muted);
+            }
+
+            input,
+            textarea,
+            select,
+            button {
+                font: inherit;
+            }
+
+            input,
+            textarea,
+            select {
+                width: 100%;
+                padding: 10px 12px;
+                border-radius: 11px;
+                border: 1px solid var(--line);
+                background: #fff;
+                color: var(--ink);
+            }
+
+            textarea {
+                min-height: 160px;
+                resize: vertical;
+                font-family: var(--mono);
+                line-height: 1.5;
+                font-size: 0.84rem;
+            }
+
+            button {
+                border: 1px solid var(--line);
+                background: #fff;
+                color: var(--ink);
+                border-radius: 11px;
+                padding: 10px 14px;
+                font-weight: 700;
+                cursor: pointer;
+                transition: transform 0.12s ease, border-color 0.12s ease;
+            }
+
+            button:hover {
+                transform: translateY(-1px);
+                border-color: var(--brand);
+            }
+
+            button.primary {
+                background: var(--brand);
+                color: white;
+                border-color: var(--brand);
+            }
+
+            button.primary:hover {
+                background: var(--brand-strong);
+                border-color: var(--brand-strong);
+            }
+
+            button.secondary {
+                background: var(--brand-soft);
+                border-color: rgba(15, 108, 189, 0.24);
+                color: var(--brand-strong);
+            }
+
+            button.warn {
+                background: rgba(182, 61, 75, 0.06);
+                border-color: rgba(182, 61, 75, 0.22);
+                color: var(--danger);
+            }
+
+            .toolbar,
+            .content-actions,
+            .button-row {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .status {
+                min-height: 56px;
+                border-left: 4px solid var(--brand);
+                background: rgba(15, 108, 189, 0.04);
+                color: var(--ink);
+                border-radius: 10px;
+                padding: 10px 12px;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+
+            .status.ok {
+                border-left-color: var(--success);
+                background: rgba(31, 141, 92, 0.06);
+            }
+
+            .status.bad {
+                border-left-color: var(--danger);
+                background: rgba(182, 61, 75, 0.06);
+            }
+
+            .status.info {
+                border-left-color: var(--brand);
+                background: rgba(15, 108, 189, 0.05);
+            }
+
+            .workspace-top {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+                flex-wrap: wrap;
+                margin-bottom: 14px;
+            }
+
+            .editor-header h2 {
+                margin: 0;
+                font-size: 1.25rem;
+            }
+
+            .editor-header p {
+                margin: 4px 0 0;
+                color: var(--muted);
+                font-size: 0.8rem;
+            }
+
+            .mode-switch {
+                display: inline-flex;
+                border: 1px solid var(--line);
+                border-radius: 999px;
+                background: #fff;
+                padding: 4px;
+                gap: 4px;
+            }
+
+            .mode-switch button {
+                border: none;
+                background: transparent;
+                border-radius: 999px;
+                padding: 8px 12px;
+                color: var(--muted);
+            }
+
+            .mode-switch button.active {
+                background: var(--brand);
+                color: white;
+            }
+
+            .editor-meta {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+                margin: 10px 0 14px;
+            }
+
+            .file-badge {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 999px;
+                border: 1px solid var(--line);
+                padding: 6px 10px;
+                font-size: 0.72rem;
+                font-weight: 800;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                color: var(--muted);
+            }
+
+            .file-badge.clean {
+                color: var(--success);
+                background: rgba(31, 141, 92, 0.06);
+                border-color: rgba(31, 141, 92, 0.22);
+            }
+
+            .file-badge.dirty {
+                color: var(--warning);
+                background: rgba(184, 116, 0, 0.08);
+                border-color: rgba(184, 116, 0, 0.25);
+            }
+
+            .summary {
+                color: var(--muted);
+                font-size: 0.82rem;
+            }
+
+            .auth-gate {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 68vh;
+                padding: 24px;
+            }
+
+            .auth-card {
+                max-width: 560px;
+                text-align: center;
+                padding: 28px 24px;
+            }
+
+            .auth-card h2 {
+                margin: 12px 0 8px;
+                font-size: clamp(1.7rem, 2vw, 2.2rem);
+            }
+
+            .auth-card p {
+                color: var(--muted);
+                line-height: 1.6;
+            }
+
+            .file-list {
+                display: grid;
+                gap: 10px;
+            }
+
+            .file-item {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+                text-align: left;
+                padding: 12px 14px;
+                border: 1px solid var(--line);
+                background: rgba(255,255,255,0.52);
+                border-radius: 12px;
+            }
+
+            .file-item.active {
+                border-color: rgba(15, 108, 189, 0.4);
+                background: rgba(15, 108, 189, 0.06);
+            }
+
+            .file-main {
+                display: flex;
+                flex-direction: column;
+                gap: 3px;
+                min-width: 0;
+            }
+
+            .file-name {
+                font-weight: 700;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .file-path {
+                font-size: 0.72rem;
+                color: var(--muted);
+                word-break: break-word;
+            }
+
+            .hidden {
+                display: none !important;
+            }
+
+            .editor-pane {
+                display: flex;
+                flex-direction: column;
+                gap: 14px;
+            }
+
+            .structured-view {
+                display: grid;
+                gap: 16px;
+            }
+
+            .record-card {
+                border: 1px solid var(--line);
+                border-radius: 14px;
+                background: rgba(255,255,255,0.52);
+                padding: 14px;
+            }
+
+            .record-card h3 {
+                margin: 0 0 10px;
+                font-size: 1rem;
+            }
+
+            .field-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: 12px;
+            }
+
+            .field-wrap {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .field-wrap label {
+                margin: 0;
+                font-size: 0.76rem;
+                color: var(--muted);
+            }
+
+            .field-wrap input,
+            .field-wrap textarea,
+            .field-wrap select {
+                width: 100%;
+                padding: 9px 10px;
+            }
+
+            .field-wrap textarea {
+                min-height: 90px;
+            }
+
+            .subsection {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px 12px;
+                border: 1px solid var(--line);
+                border-radius: 12px;
+                background: rgba(12, 20, 36, 0.02);
+            }
+
+            .subsection h4 {
+                margin: 0;
+                font-size: 0.9rem;
+            }
+
+            .array-list {
+                display: grid;
+                gap: 10px;
+            }
+
+            .array-item {
+                padding: 12px;
+                border: 1px solid var(--line);
+                border-radius: 12px;
+                background: rgba(255,255,255,0.72);
+            }
+
+            .empty-state {
+                padding: 14px 16px;
+                border: 1px dashed var(--line);
+                border-radius: 12px;
+                color: var(--muted);
+                background: rgba(12,20,36,0.01);
+            }
+
+            .preview-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: 12px;
+                margin-top: 16px;
+            }
+
+            .mini-stat {
+                padding: 14px;
+                border: 1px solid var(--line);
+                border-radius: 12px;
+                background: rgba(255,255,255,0.72);
+            }
+
+            .mini-stat-label {
+                display: block;
+                font-size: 0.74rem;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                color: var(--muted);
+                margin-bottom: 6px;
+            }
+
+            .mini-stat-value {
+                font-size: 1.4rem;
+                font-weight: 800;
+            }
+
+            .preview-block {
+                margin-top: 18px;
+                padding: 14px;
+                border: 1px solid var(--line);
+                border-radius: 12px;
+                background: rgba(255,255,255,0.72);
+            }
+
+            .preview-block h3 {
+                margin: 0 0 10px;
+            }
+
+            .preview-list {
+                display: grid;
+                gap: 8px;
+            }
+
+            .preview-item {
+                display: flex;
+                justify-content: space-between;
+                gap: 12px;
+                border-bottom: 1px solid rgba(217, 227, 240, 0.8);
+                padding-bottom: 8px;
+            }
+
+            .preview-item:last-child {
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+
+            .modal {
+                position: fixed;
+                inset: 0;
+                background: rgba(15, 24, 36, 0.54);
+                display: grid;
+                place-items: center;
+                padding: 24px;
+                z-index: 30;
+            }
+
+            .modal.hidden {
+                display: none;
+            }
+
+            .modal-card {
+                width: min(100%, 860px);
+                background: #ffffff;
+                border: 1px solid var(--line);
+                border-radius: 18px;
+                box-shadow: 0 24px 50px rgba(10, 23, 38, 0.22);
+                padding: 18px;
+            }
+
+            .modal-head {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+                margin-bottom: 14px;
+            }
+
+            .modal-head h3 {
+                margin: 0;
+                font-size: 1.2rem;
+            }
+
+            .modal-body {
+                display: grid;
+                gap: 12px;
+                max-height: 70vh;
+                overflow: auto;
+                padding-right: 6px;
+            }
+
+            .modal-actions {
+                display: flex;
+                justify-content: flex-end;
+                gap: 10px;
+                margin-top: 18px;
+            }
+
+            .field-grid.compact {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            }
+
+            @media (max-width: 980px) {
+                .layout {
+                    grid-template-columns: 1fr;
+                }
+
+                .shell {
+                    padding: 16px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="shell">
+            <header>
+                <div class="brand">
+                    <span class="eyebrow">Oakshift FC</span>
+                    <h1>FC Template Management</h1>
+                    <p class="tagline">Edit the live JSON source files for the football club site.</p>
+                </div>
+                <div class="header-actions">
+                    <span id="repoBadge" class="pill">No repo connected</span>
+                </div>
+            </header>
+
+            <div id="authGate" class="auth-gate">
+                <div class="auth-card card">
+                    <span class="eyebrow">GitHub access required</span>
+                    <h2>Sign in to edit FC data</h2>
+                    <p>This editor is locked until a GitHub account with access to the configured repository is authenticated.</p>
+                    <div class="toolbar">
+                        <button id="signInBtn" type="button" class="primary">Sign in with GitHub</button>
+                    </div>
+                    <div id="status" class="status info">Connect GitHub to unlock the FC template editor.</div>
+                </div>
+            </div>
+
+            <main id="appShell" class="layout hidden">
+                <aside class="card sidebar">
+                    <div class="section">
+                        <h2>Repository</h2>
+                        <label>
+                            GitHub repo
+                            <input id="repoInput" type="text" value="jamieharperuk/jamieharperuk.github.io" />
+                        </label>
+                        <div class="toolbar">
+                            <button id="signOutBtn" type="button" class="secondary">Sign out</button>
+                            <button id="loadFilesBtn" type="button" class="secondary">Reload files</button>
+                        </div>
+                        <div id="status" class="status info">Authenticated and ready.</div>
+                    </div>
+
+                    <div class="section">
+                        <h2>FC data files</h2>
+                        <div id="fileList" class="file-list"></div>
+                    </div>
+
+                    <div class="section">
+                        <h2>Commit</h2>
+                        <label>
+                            Commit message
+                            <input id="commitMessageInput" type="text" value="Update fc-template data" />
+                        </label>
+                        <div class="toolbar">
+                            <button id="commitBtn" type="button" class="primary">Commit changes</button>
+                            <button id="resetAllBtn" type="button" class="secondary">Reset all edits</button>
+                        </div>
+                    </div>
+                </aside>
+
+                <section class="card workspace">
+                    <div class="workspace-top">
+                        <div class="editor-header">
+                            <h2 id="fileTitle">Select a file</h2>
+                            <p id="fileMeta">Choose a file to begin editing.</p>
+                        </div>
+                        <div class="content-actions">
+                            <button id="saveFileBtn" type="button" class="secondary">Save current file</button>
+                            <button id="resetFileBtn" type="button" class="secondary">Reset file</button>
+                        </div>
+                    </div>
+
+                    <div class="editor-meta">
+                        <span id="fileStateBadge" class="file-badge clean">clean</span>
+                        <span id="summaryText" class="summary">0 commit-ready file(s)</span>
+                    </div>
+
+                    <div class="editor-pane">
+                        <div id="structuredView" class="structured-view"></div>
+                        <div id="previewPanel" class="preview-block hidden"></div>
+                    </div>
+                </section>
+            </main>
+
+            <div id="recordModal" class="modal hidden" role="dialog" aria-modal="true">
+                <div class="modal-card">
+                    <div class="modal-head">
+                        <h3 id="recordModalTitle">Edit record</h3>
+                        <button id="recordModalCloseBtn" type="button" class="warn">Close</button>
+                    </div>
+                    <div id="recordModalBody" class="modal-body"></div>
+                    <div class="modal-actions">
+                        <button id="recordModalSaveBtn" type="button" class="primary">Save</button>
+                        <button id="recordModalCancelBtn" type="button">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            const webEditorConfig = {
+                site_domain: "https://jamieharperuk.github.io",
+                site_directory: "fc-template",
+                oauth: {
+                    clientId: "Ov23liJxZCIXpxYWlATm",
+                    scope: "repo read:user",
+                    brokerBaseUrl: "https://ghwe.oakshiftsoftware.workers.dev"
+                },
+                session: {
+                    ttlSeconds: 8 * 60 * 60
+                },
+                repository: {
+                    targetRepoFullName: "jamieharperuk/jamieharperuk.github.io",
+                    files: {
+                        club: "data/fc_club.json",
+                        games: "data/fc_games.json",
+                        teams: "data/fc_teams.json",
+                        tickets: "data/fc_tickets.json",
+                        tables: "data/fc_tables.json"
+                    },
+                    defaultFileKey: "club"
+                }
+            };
+
+            const API_BASE = "https://api.github.com";
+            const AUTH_STORAGE_KEY = "fc_template_auth_session";
+            const repoInput = document.getElementById("repoInput");
+            const statusEl = document.getElementById("status");
+            const fileListEl = document.getElementById("fileList");
+            const fileTitleEl = document.getElementById("fileTitle");
+            const fileMetaEl = document.getElementById("fileMeta");
+            const fileStateBadgeEl = document.getElementById("fileStateBadge");
+            const summaryTextEl = document.getElementById("summaryText");
+            const structuredViewEl = document.getElementById("structuredView");
+            const previewPanelEl = document.getElementById("previewPanel");
+            const recordModal = document.getElementById("recordModal");
+            const recordModalTitle = document.getElementById("recordModalTitle");
+            const recordModalBody = document.getElementById("recordModalBody");
+            const appShell = document.getElementById("appShell");
+            const authGate = document.getElementById("authGate");
+
+            const state = {
+                token: "",
+                repoVerified: false,
+                selectedKey: webEditorConfig.repository.defaultFileKey,
+                files: [],
+                dirtyPaths: new Set(),
+                currentModal: null
+            };
+
+            function setStatus(message, type = "info") {
+                const container = document.getElementById("status");
+                container.className = `status ${type}`;
+                container.textContent = message;
+            }
+
+            function isPlainObject(value) {
+                return value !== null && typeof value === "object" && !Array.isArray(value);
+            }
+
+            function trimSlashes(value) {
+                return String(value || "").replace(/^\/+|\/+$/g, "");
+            }
+
+            function getSiteBasePath() {
+                return trimSlashes(webEditorConfig.site_directory || "fc-template") || "fc-template";
+            }
+
+            function getBaseUrl() {
+                return new URL("../", window.location.href).toString();
+            }
+
+            function getFileUrl(filePath) {
+                try {
+                    return new URL(filePath, getBaseUrl()).toString();
+                } catch (error) {
+                    return `${window.location.origin}/${trimSlashes(getSiteBasePath())}/${filePath.replace(/^\//, "")}`;
+                }
+            }
+
+            function getStoredSession() {
+                const raw = sessionStorage.getItem(AUTH_STORAGE_KEY);
+                if (!raw) {
+                    return null;
+                }
+                try {
+                    const session = JSON.parse(raw);
+                    if (!session || !session.accessToken) {
+                        return null;
+                    }
+                    if (session.expiresAt && Date.now() >= Number(session.expiresAt)) {
+                        sessionStorage.removeItem(AUTH_STORAGE_KEY);
+                        return null;
+                    }
+                    return session;
+                } catch (error) {
+                    sessionStorage.removeItem(AUTH_STORAGE_KEY);
+                    return null;
+                }
+            }
+
+            function saveStoredSession(accessToken, tokenPayload = {}) {
+                const expiresSeconds = Number(tokenPayload.expires_in) || webEditorConfig.session.ttlSeconds || 28800;
+                const session = {
+                    accessToken,
+                    createdAt: Date.now(),
+                    expiresAt: Date.now() + (expiresSeconds * 1000)
+                };
+                sessionStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(session));
+                state.token = accessToken;
+                return session;
+            }
+
+            function clearStoredSession() {
+                state.token = "";
+                state.repoVerified = false;
+                sessionStorage.removeItem(AUTH_STORAGE_KEY);
+                updateAccessUI();
+            }
+
+            function isAuthenticated() {
+                return Boolean(state.token || getStoredSession()?.accessToken) && state.repoVerified;
+            }
+
+            function updateAccessUI() {
+                const authenticated = isAuthenticated();
+                appShell.classList.toggle("hidden", !authenticated);
+                authGate.classList.toggle("hidden", authenticated);
+                if (!authenticated) {
+                    fileListEl.innerHTML = "";
+                    structuredViewEl.innerHTML = "";
+                    previewPanelEl.classList.add("hidden");
+                }
+            }
+
+            function currentFile() {
+                return state.files.find((file) => file.key === state.selectedKey) || null;
+            }
+
+            function hiddenKeysSet() {
+                return new Set(["metadata", "fields"]);
+            }
+
+            function visibleEntriesForObject(value) {
+                if (!isPlainObject(value)) {
+                    return [];
+                }
+                return Object.entries(value).filter(([key]) => !hiddenKeysSet().has(key));
+            }
+
+            function parseRepoFullName(repoFullName) {
+                const normalized = String(repoFullName || "").trim();
+                const [owner, ...repoParts] = normalized.split("/");
+                const repo = repoParts.join("/");
+                if (!owner || !repo) {
+                    throw new Error("Repository must be in owner/repo format.");
+                }
+                return {
+                    owner: encodeURIComponent(owner),
+                    repo: encodeURIComponent(repo),
+                    repoPath: `/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}`
+                };
+            }
+
+            function parsePathDefinition(pathString) {
+                return String(pathString || "").split(".").filter((segment) => segment !== "");
+            }
+
+            function getValueAtPath(target, pathParts) {
+                let current = target;
+                for (const part of pathParts) {
+                    if (current === undefined || current === null) {
+                        return undefined;
+                    }
+                    current = current[part];
+                }
+                return current;
+            }
+
+            function setValueAtPath(target, pathParts, nextValue) {
+                if (!pathParts.length) {
+                    return nextValue;
+                }
+                const key = pathParts[0];
+                const remaining = pathParts.slice(1);
+                if (!remaining.length) {
+                    target[key] = nextValue;
+                    return target;
+                }
+                if (target[key] === undefined || target[key] === null || typeof target[key] !== "object") {
+                    target[key] = /^\d+$/.test(String(remaining[0])) ? [] : {};
+                }
+                setValueAtPath(target[key], remaining, nextValue);
+                return target;
+            }
+
+            function humanizeKey(value) {
+                return String(value || "")
+                    .replace(/[_-]+/g, " ")
+                    .replace(/([a-z])([A-Z])/g, "$1 $2")
+                    .replace(/\b\w/g, (char) => char.toUpperCase());
+            }
+
+            function getListSummary(sectionKey, item) {
+                if (!item || typeof item !== "object") {
+                    return sectionKey || "Item";
+                }
+                if (sectionKey === "teams") return item.team_name || item.name || "Team";
+                if (sectionKey === "tickets") return item.title || item.match || "Ticket";
+                if (sectionKey === "tables") return item.title || "Table";
+                if (sectionKey === "games") return `${item.home_team || "Home"} vs ${item.away_team || "Away"}`;
+                if (item.title) return item.title;
+                if (item.name) return item.name;
+                const first = Object.values(item).find((entry) => typeof entry !== "object");
+                return first !== undefined ? String(first) : "Record";
+            }
+
+            function createDefaultRecord(sectionKey) {
+                if (sectionKey === "teams") {
+                    return { team_name: "New Team", team_type: "First Team", competition: "League", country: "Country", home_venue: "Venue", players: [] };
+                }
+                if (sectionKey === "tickets") {
+                    return { title: "New Ticket", match: "Club vs Opponent", date: "2026-09-01", venue: "Home Ground", status: "On sale", notes: "", link: "#" };
+                }
+                if (sectionKey === "tables") {
+                    return { title: "New Table", season: "2026/27", rows: [{ position: "1", team: "Club", played: "0", won: "0", drawn: "0", lost: "0", goal_difference: "0", points: "0" }] };
+                }
+                if (sectionKey === "games") {
+                    return { date: "2026-09-01", time: "19:45", home_team: "Club", away_team: "Opponent", competition: "League", venue: "Home Ground" };
+                }
+                return { name: "New Item" };
+            }
+
+            function renderFieldInput(labelText, value, pathString) {
+                const wrapper = document.createElement("div");
+                wrapper.className = "field-wrap";
+
+                const label = document.createElement("label");
+                label.textContent = labelText;
+                wrapper.appendChild(label);
+
+                if (Array.isArray(value)) {
+                    const textarea = document.createElement("textarea");
+                    textarea.value = JSON.stringify(value, null, 2);
+                    textarea.addEventListener("input", () => {
+                        try {
+                            const parsed = JSON.parse(textarea.value);
+                            const file = currentFile();
+                            if (!file) return;
+                            const nextData = JSON.parse(JSON.stringify(file.data));
+                            setValueAtPath(nextData, parsePathDefinition(pathString), parsed);
+                            file.data = nextData;
+                            file.rawText = JSON.stringify(nextData, null, 2);
+                            state.dirtyPaths.add(file.path);
+                            renderFileList();
+                            renderEditor();
+                            syncSummary();
+                        } catch (error) {
+                            // let the user save when valid JSON is present
+                        }
+                    });
+                    wrapper.appendChild(textarea);
+                    return wrapper;
+                }
+
+                if (isPlainObject(value)) {
+                    const textarea = document.createElement("textarea");
+                    textarea.value = JSON.stringify(value, null, 2);
+                    textarea.addEventListener("input", () => {
+                        try {
+                            const parsed = JSON.parse(textarea.value);
+                            const file = currentFile();
+                            if (!file) return;
+                            const nextData = JSON.parse(JSON.stringify(file.data));
+                            setValueAtPath(nextData, parsePathDefinition(pathString), parsed);
+                            file.data = nextData;
+                            file.rawText = JSON.stringify(nextData, null, 2);
+                            state.dirtyPaths.add(file.path);
+                            renderFileList();
+                            renderEditor();
+                            syncSummary();
+                        } catch (error) {
+                            // leave the record modal open until valid JSON is entered
+                        }
+                    });
+                    wrapper.appendChild(textarea);
+                    return wrapper;
+                }
+
+                const input = document.createElement("input");
+                input.type = typeof value === "number" ? "number" : "text";
+                input.value = value === null || value === undefined ? "" : String(value);
+                input.addEventListener("input", () => {
+                    const file = currentFile();
+                    if (!file) return;
+                    const nextData = JSON.parse(JSON.stringify(file.data));
+                    const resolved = typeof value === "number" && input.value !== "" ? Number(input.value) : input.value;
+                    setValueAtPath(nextData, parsePathDefinition(pathString), resolved);
+                    file.data = nextData;
+                    file.rawText = JSON.stringify(nextData, null, 2);
+                    state.dirtyPaths.add(file.path);
+                    renderFileList();
+                    renderPreview();
+                    syncSummary();
+                });
+                wrapper.appendChild(input);
+                return wrapper;
+            }
+
+            function renderRecordModal(file, sectionKey, value, itemPath) {
+                const modalPath = itemPath || [sectionKey];
+                recordModalTitle.textContent = `Edit ${humanizeKey(sectionKey)}`;
+                recordModalBody.innerHTML = "";
+
+                const fields = document.createElement("div");
+                fields.className = "field-grid compact";
+
+                Object.entries(value || {}).forEach(([key, fieldValue]) => {
+                    const fieldWrap = document.createElement("div");
+                    fieldWrap.className = "record-card";
+                    const title = document.createElement("h3");
+                    title.textContent = humanizeKey(key);
+                    fieldWrap.appendChild(title);
+
+                    if (Array.isArray(fieldValue) || isPlainObject(fieldValue)) {
+                        const textarea = document.createElement("textarea");
+                        textarea.value = JSON.stringify(fieldValue, null, 2);
+                        textarea.addEventListener("input", () => {
+                            try {
+                                const parsed = JSON.parse(textarea.value);
+                                const nextData = JSON.parse(JSON.stringify(file.data));
+                                const targetPath = modalPath.concat(key);
+                                setValueAtPath(nextData, targetPath, parsed);
+                                file.data = nextData;
+                                file.rawText = JSON.stringify(nextData, null, 2);
+                                state.dirtyPaths.add(file.path);
+                                renderFileList();
+                                renderPreview();
+                                syncSummary();
+                            } catch (error) {
+                                // no-op until valid JSON is entered
+                            }
+                        });
+                        fieldWrap.appendChild(textarea);
+                    } else {
+                        fieldWrap.appendChild(renderFieldInput(humanizeKey(key), fieldValue, modalPath.concat(key).join(".")));
+                    }
+
+                    fields.appendChild(fieldWrap);
+                });
+
+                recordModalBody.appendChild(fields);
+                recordModal.classList.remove("hidden");
+                state.currentModal = { file, sectionKey, path: modalPath };
+            }
+
+            function closeRecordModal() {
+                recordModal.classList.add("hidden");
+                state.currentModal = null;
+            }
+
+            function saveRecordModal() {
+                if (!state.currentModal) return;
+                const { file } = state.currentModal;
+                const nextData = JSON.parse(JSON.stringify(file.data));
+                const rootValue = getValueAtPath(nextData, [state.currentModal.sectionKey]);
+                const list = Array.isArray(rootValue) ? rootValue : [rootValue];
+                file.data = nextData;
+                file.rawText = JSON.stringify(nextData, null, 2);
+                state.dirtyPaths.add(file.path);
+                renderFileList();
+                renderEditor();
+                renderPreview();
+                syncSummary();
+                closeRecordModal();
+            }
+
+            function renderArraySection(file, sectionKey, value, rootPath) {
+                const card = document.createElement("div");
+                card.className = "record-card";
+
+                const header = document.createElement("div");
+                header.className = "record-head";
+                const heading = document.createElement("h3");
+                heading.textContent = humanizeKey(sectionKey);
+                header.appendChild(heading);
+
+                const addBtn = document.createElement("button");
+                addBtn.type = "button";
+                addBtn.textContent = "Add record";
+                addBtn.addEventListener("click", () => {
+                    const nextData = JSON.parse(JSON.stringify(file.data));
+                    const target = getValueAtPath(nextData, [sectionKey]);
+                    if (Array.isArray(target)) {
+                        target.push(createDefaultRecord(sectionKey));
+                        file.data = nextData;
+                        file.rawText = JSON.stringify(nextData, null, 2);
+                        state.dirtyPaths.add(file.path);
+                        renderEditor();
+                        renderPreview();
+                        syncSummary();
+                    }
+                });
+                header.appendChild(addBtn);
+                card.appendChild(header);
+
+                const list = document.createElement("div");
+                list.className = "array-list";
+
+                if (!Array.isArray(value) || !value.length) {
+                    const empty = document.createElement("div");
+                    empty.className = "empty-state";
+                    empty.textContent = "No records yet.";
+                    list.appendChild(empty);
+                    card.appendChild(list);
+                    return card;
+                }
+
+                value.forEach((item, index) => {
+                    const row = document.createElement("div");
+                    row.className = "array-item";
+
+                    const summary = document.createElement("div");
+                    summary.style.fontWeight = "700";
+                    summary.style.marginBottom = "8px";
+                    summary.textContent = `${getListSummary(sectionKey, item)} #${index + 1}`;
+                    row.appendChild(summary);
+
+                    const actions = document.createElement("div");
+                    actions.className = "toolbar";
+
+                    const editBtn = document.createElement("button");
+                    editBtn.type = "button";
+                    editBtn.textContent = "Edit";
+                    editBtn.addEventListener("click", () => {
+                        const nextData = JSON.parse(JSON.stringify(file.data));
+                        const itemValue = getValueAtPath(nextData, [sectionKey, index]);
+                        renderRecordModal(file, sectionKey, itemValue, [sectionKey, index]);
+                    });
+                    actions.appendChild(editBtn);
+
+                    const upBtn = document.createElement("button");
+                    upBtn.type = "button";
+                    upBtn.textContent = "↑";
+                    upBtn.addEventListener("click", () => {
+                        if (index > 0) {
+                            const nextData = JSON.parse(JSON.stringify(file.data));
+                            const target = getValueAtPath(nextData, [sectionKey]);
+                            [target[index - 1], target[index]] = [target[index], target[index - 1]];
+                            file.data = nextData;
+                            file.rawText = JSON.stringify(nextData, null, 2);
+                            state.dirtyPaths.add(file.path);
+                            renderEditor();
+                            renderPreview();
+                            syncSummary();
+                        }
+                    });
+                    actions.appendChild(upBtn);
+
+                    const downBtn = document.createElement("button");
+                    downBtn.type = "button";
+                    downBtn.textContent = "↓";
+                    downBtn.addEventListener("click", () => {
+                        if (index < value.length - 1) {
+                            const nextData = JSON.parse(JSON.stringify(file.data));
+                            const target = getValueAtPath(nextData, [sectionKey]);
+                            [target[index], target[index + 1]] = [target[index + 1], target[index]];
+                            file.data = nextData;
+                            file.rawText = JSON.stringify(nextData, null, 2);
+                            state.dirtyPaths.add(file.path);
+                            renderEditor();
+                            renderPreview();
+                            syncSummary();
+                        }
+                    });
+                    actions.appendChild(downBtn);
+
+                    const delBtn = document.createElement("button");
+                    delBtn.type = "button";
+                    delBtn.className = "warn";
+                    delBtn.textContent = "Delete";
+                    delBtn.addEventListener("click", () => {
+                        const nextData = JSON.parse(JSON.stringify(file.data));
+                        const target = getValueAtPath(nextData, [sectionKey]);
+                        target.splice(index, 1);
+                        file.data = nextData;
+                        file.rawText = JSON.stringify(nextData, null, 2);
+                        state.dirtyPaths.add(file.path);
+                        renderEditor();
+                        renderPreview();
+                        syncSummary();
+                    });
+                    actions.appendChild(delBtn);
+
+                    row.appendChild(actions);
+                    list.appendChild(row);
+                });
+
+                card.appendChild(list);
+                return card;
+            }
+
+            function renderObjectSection(file, sectionKey, value) {
+                const card = document.createElement("div");
+                card.className = "record-card";
+                const title = document.createElement("h3");
+                title.textContent = humanizeKey(sectionKey);
+                card.appendChild(title);
+
+                const grid = document.createElement("div");
+                grid.className = "field-grid compact";
+
+                visibleEntriesForObject(value).forEach(([key, childValue]) => {
+                    const wrap = document.createElement("div");
+                    wrap.className = "field-wrap";
+                    const label = document.createElement("label");
+                    label.textContent = humanizeKey(key);
+                    wrap.appendChild(label);
+
+                    if (Array.isArray(childValue)) {
+                        const summary = document.createElement("div");
+                        summary.className = "empty-state";
+                        summary.textContent = `${childValue.length} item(s) stored in ${humanizeKey(key)}`;
+                        wrap.appendChild(summary);
+                    } else if (isPlainObject(childValue)) {
+                        const summary = document.createElement("div");
+                        summary.className = "empty-state";
+                        summary.textContent = `${Object.keys(childValue).length} field(s) in ${humanizeKey(key)}`;
+                        wrap.appendChild(summary);
+                    } else {
+                        const input = document.createElement("input");
+                        input.type = typeof childValue === "number" ? "number" : "text";
+                        input.value = childValue === null || childValue === undefined ? "" : String(childValue);
+                        input.addEventListener("input", () => {
+                            const nextData = JSON.parse(JSON.stringify(file.data));
+                            const target = getValueAtPath(nextData, [sectionKey, key]);
+                            const resolved = typeof childValue === "number" && input.value !== "" ? Number(input.value) : input.value;
+                            setValueAtPath(nextData, [sectionKey, key], resolved);
+                            file.data = nextData;
+                            file.rawText = JSON.stringify(nextData, null, 2);
+                            state.dirtyPaths.add(file.path);
+                            renderPreview();
+                            syncSummary();
+                        });
+                        wrap.appendChild(input);
+                    }
+
+                    grid.appendChild(wrap);
+                });
+
+                card.appendChild(grid);
+                return card;
+            }
+
+            function renderStructuredEditor(file) {
+                structuredViewEl.innerHTML = "";
+                if (!file || !file.data || typeof file.data !== "object") {
+                    structuredViewEl.innerHTML = '<div class="empty-state">This file is not structured JSON.</div>';
+                    return;
+                }
+
+                const entries = visibleEntriesForObject(file.data);
+                if (!entries.length) {
+                    structuredViewEl.innerHTML = '<div class="empty-state">No editable fields are available in this file.</div>';
+                    return;
+                }
+
+                const root = document.createElement("div");
+                root.className = "structured-view";
+
+                entries.forEach(([key, value]) => {
+                    if (Array.isArray(value)) {
+                        root.appendChild(renderArraySection(file, key, value, [key]));
+                    } else if (isPlainObject(value)) {
+                        root.appendChild(renderObjectSection(file, key, value));
+                    } else {
+                        root.appendChild(renderObjectSection(file, key, { [key]: value }));
+                    }
+                });
+
+                structuredViewEl.appendChild(root);
+            }
+
+            function renderFileList() {
+                if (!state.files.length) {
+                    fileListEl.innerHTML = '<div class="empty-state">No FC JSON files were loaded.</div>';
+                    return;
+                }
+
+                fileListEl.innerHTML = state.files.map((file) => {
+                    const active = file.key === state.selectedKey ? "active" : "";
+                    const isDirty = state.dirtyPaths.has(file.path);
+                    const label = isDirty ? "dirty" : "clean";
+                    return `
+                        <button type="button" class="file-item ${active}" data-key="${file.key}">
+                            <span class="file-main">
+                                <span class="file-name">${file.filename}</span>
+                                <span class="file-path">${file.path}</span>
+                            </span>
+                            <span class="file-badge ${isDirty ? "dirty" : "clean"}">${label}</span>
+                        </button>
+                    `;
+                }).join("");
+
+                fileListEl.querySelectorAll(".file-item").forEach((button) => {
+                    button.addEventListener("click", () => {
+                        state.selectedKey = button.dataset.key;
+                        renderFileList();
+                        renderEditor();
+                    });
+                });
+            }
+
+            function renderPreview() {
+                const file = currentFile();
+                if (!file) {
+                    previewPanelEl.classList.add("hidden");
+                    return;
+                }
+
+                const source = file.data || {};
+                const club = source.club || {};
+                const teams = Array.isArray(source.teams) ? source.teams : [];
+                const games = Array.isArray(source.games) ? source.games : [];
+                const tickets = Array.isArray(source.tickets) ? source.tickets : [];
+                const tables = Array.isArray(source.tables) ? source.tables : [];
+
+                previewPanelEl.classList.remove("hidden");
+                previewPanelEl.innerHTML = `
+                    <h3>Live FC preview</h3>
+                    <div class="preview-grid">
+                        <div class="mini-stat">
+                            <span class="mini-stat-label">Club</span>
+                            <div class="mini-stat-value">${(club.club_name || "The Club").replace(/</g, "&lt;")}</div>
+                        </div>
+                        <div class="mini-stat">
+                            <span class="mini-stat-label">Teams</span>
+                            <div class="mini-stat-value">${teams.length}</div>
+                        </div>
+                        <div class="mini-stat">
+                            <span class="mini-stat-label">Fixtures</span>
+                            <div class="mini-stat-value">${games.length}</div>
+                        </div>
+                        <div class="mini-stat">
+                            <span class="mini-stat-label">Tickets</span>
+                            <div class="mini-stat-value">${tickets.length}</div>
+                        </div>
+                    </div>
+                    <div class="preview-block">
+                        <h3>Club details</h3>
+                        <div class="preview-list">
+                            <div class="preview-item"><strong>Venue</strong><span>${(club.home_venue || "Unknown").replace(/</g, "&lt;")}</span></div>
+                            <div class="preview-item"><strong>Location</strong><span>${((club.city || "") + (club.city && club.country ? ", " : "") + (club.country || "")).replace(/</g, "&lt;") || "Unknown"}</span></div>
+                            <div class="preview-item"><strong>Description</strong><span>${(club.description || "No club description").replace(/</g, "&lt;")}</span></div>
+                        </div>
+                    </div>
+                    <div class="preview-block">
+                        <h3>Upcoming tables</h3>
+                        <div class="preview-list">
+                            ${tables.map((table) => `<div class="preview-item"><strong>${(table.title || "Table").replace(/</g, "&lt;")}</strong><span>${Array.isArray(table.rows) ? table.rows.length : 0} rows</span></div>`).join("") || '<div class="preview-item"><strong>No tables</strong><span>—</span></div>'}
+                        </div>
+                    </div>
+                `;
+            }
+
+            function syncSummary() {
+                summaryTextEl.textContent = `${state.dirtyPaths.size} commit-ready file(s)`;
+            }
+
+            function updateFileBadge() {
+                const file = currentFile();
+                if (!file) {
+                    fileStateBadgeEl.className = "file-badge clean";
+                    fileStateBadgeEl.textContent = "clean";
+                    return;
+                }
+                const isDirty = state.dirtyPaths.has(file.path);
+                fileStateBadgeEl.className = `file-badge ${isDirty ? "dirty" : "clean"}`;
+                fileStateBadgeEl.textContent = isDirty ? "dirty" : "clean";
+            }
+
+            function renderEditor() {
+                const file = currentFile();
+                if (!file) {
+                    fileTitleEl.textContent = "Select a file";
+                    fileMetaEl.textContent = "Choose a file to begin editing.";
+                    structuredViewEl.innerHTML = '<div class="empty-state">Choose a file to begin editing.</div>';
+                    updateFileBadge();
+                    return;
+                }
+
+                fileTitleEl.textContent = file.filename;
+                fileMetaEl.textContent = `${file.label} · ${file.path}`;
+                renderStructuredEditor(file);
+                updateFileBadge();
+                renderPreview();
+                syncSummary();
+            }
+
+            async function verifyRepositoryAccess(repoFullName) {
+                const token = state.token || getStoredSession()?.accessToken;
+                if (!token) {
+                    return false;
+                }
+
+                try {
+                    const userData = await ghFetch("/user");
+                    if (!userData || !userData.login) {
+                        return false;
+                    }
+
+                    const repoInfo = parseRepoFullName(repoFullName);
+                    await ghFetch(`${repoInfo.repoPath}`);
+                    state.repoVerified = true;
+                    return true;
+                } catch (error) {
+                    state.repoVerified = false;
+                    setStatus("GitHub authentication succeeded, but the account does not have access to this repository.", "bad");
+                    return false;
+                }
+            }
+
+            async function loadLocalFiles() {
+                const repoFullName = (repoInput.value || webEditorConfig.repository.targetRepoFullName).trim();
+                if (!repoFullName || !repoFullName.includes("/")) {
+                    setStatus("Enter a valid repository in owner/repo format.", "bad");
+                    return;
+                }
+
+                if (!state.repoVerified) {
+                    const verified = await verifyRepositoryAccess(repoFullName);
+                    if (!verified) {
+                        return;
+                    }
+                }
+
+                const loaded = [];
+                for (const [key, filePath] of Object.entries(webEditorConfig.repository.files)) {
+                    const url = getFileUrl(filePath);
+                    try {
+                        const response = await fetch(url, { cache: "no-store" });
+                        if (!response.ok) continue;
+                        const json = await response.json();
+                        loaded.push({
+                            key,
+                            filename: filePath.split("/").pop(),
+                            label: key.charAt(0).toUpperCase() + key.slice(1),
+                            path: filePath,
+                            data: json,
+                            rawText: JSON.stringify(json, null, 2)
+                        });
+                    } catch (error) {
+                        continue;
+                    }
+                }
+
+                state.files = loaded;
+                if (!state.files.length) {
+                    setStatus("Authenticated but no FC files were available from the repository.", "bad");
+                    renderFileList();
+                    renderEditor();
+                    return;
+                }
+
+                state.selectedKey = state.files.some((file) => file.key === webEditorConfig.repository.defaultFileKey)
+                    ? webEditorConfig.repository.defaultFileKey
+                    : state.files[0].key;
+
+                state.dirtyPaths.clear();
+                renderFileList();
+                renderEditor();
+                setStatus(`Connected to ${repoFullName} and loaded ${state.files.length} FC file(s).`, "ok");
+                updateAccessUI();
+            }
+
+            function resetCurrentFile() {
+                const file = currentFile();
+                if (!file) return;
+                file.rawText = JSON.stringify(file.data, null, 2);
+                state.dirtyPaths.delete(file.path);
+                renderFileList();
+                renderEditor();
+                setStatus(`${file.filename} reset to the last loaded version.`, "info");
+            }
+
+            function resetAllEdits() {
+                state.files.forEach((file) => {
+                    file.rawText = JSON.stringify(file.data, null, 2);
+                });
+                state.dirtyPaths.clear();
+                renderFileList();
+                renderEditor();
+                setStatus("All edits were reset to the last loaded data.", "info");
+            }
+
+            function saveCurrentFile() {
+                const file = currentFile();
+                if (!file) return;
+                try {
+                    JSON.parse(file.rawText);
+                    state.dirtyPaths.add(file.path);
+                    renderFileList();
+                    renderEditor();
+                    setStatus(`${file.filename} saved locally.`, "ok");
+                } catch (error) {
+                    setStatus("The JSON is invalid. Fix the syntax before saving the file.", "bad");
+                }
+            }
+
+            function requireOAuthBrokerBaseUrl() {
+                const broker = String((webEditorConfig.oauth && webEditorConfig.oauth.brokerBaseUrl) || "").trim();
+                if (!broker) {
+                    throw new Error("The OAuth broker URL is not configured.");
+                }
+                return broker.replace(/\/$/, "");
+            }
+
+            async function brokerRequest(endpoint, payload) {
+                const brokerBaseUrl = requireOAuthBrokerBaseUrl();
+                const response = await fetch(`${brokerBaseUrl}${endpoint}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+                    },
+                    body: new URLSearchParams(payload).toString(),
+                    mode: "cors",
+                    cache: "no-store"
+                });
+
+                const text = await response.text();
+                if (!response.ok) {
+                    throw new Error(text || "OAuth broker request failed.");
+                }
+
+                try {
+                    return JSON.parse(text);
+                } catch (error) {
+                    return { raw: text };
+                }
+            }
+
+            async function ghFetch(path, options = {}) {
+                const method = String(options.method || "GET").toUpperCase();
+                const headers = {
+                    Accept: "application/vnd.github+json",
+                    "X-GitHub-Api-Version": "2022-11-28",
+                    ...(options.headers || {})
+                };
+
+                const token = state.token || getStoredSession()?.accessToken;
+                if (token) {
+                    headers.Authorization = `Bearer ${token}`;
+                }
+
+                const response = await fetch(`${API_BASE}${path}`, {
+                    method,
+                    headers,
+                    cache: "no-store",
+                    mode: "cors",
+                    ...(Object.prototype.hasOwnProperty.call(options, "body") ? { body: options.body } : {})
+                });
+
+                if (response.status === 204) {
+                    return null;
+                }
+
+                const text = await response.text();
+                if (!response.ok) {
+                    let message = `GitHub request failed (${response.status})`;
+                    try {
+                        const payload = JSON.parse(text);
+                        message = payload?.message || message;
+                    } catch (error) {
+                        message = text || message;
+                    }
+                    if (response.status === 401 || response.status === 403) {
+                        clearStoredSession();
+                    }
+                    throw new Error(message);
+                }
+
+                return text ? JSON.parse(text) : null;
+            }
+
+            function encodeBase64Utf8(value) {
+                return btoa(unescape(encodeURIComponent(value)));
+            }
+
+            async function commitChangedFiles() {
+                const dirtyPaths = Array.from(state.dirtyPaths);
+                if (!dirtyPaths.length) {
+                    setStatus("No FC template files are marked as changed.", "info");
+                    return;
+                }
+
+                const repoFullName = (repoInput.value || webEditorConfig.repository.targetRepoFullName).trim();
+                if (!repoFullName || !repoFullName.includes("/")) {
+                    setStatus("Enter a repository in owner/repo format before committing.", "bad");
+                    return;
+                }
+
+                const token = state.token || getStoredSession()?.accessToken;
+                if (!token) {
+                    setStatus("Sign in with GitHub before committing.", "bad");
+                    return;
+                }
+
+                const message = (document.getElementById("commitMessageInput").value || "Update fc-template data").trim();
+                if (!message) {
+                    setStatus("Add a commit message before submitting the changes.", "bad");
+                    return;
+                }
+
+                setStatus(`Committing ${dirtyPaths.length} FC file(s) to ${repoFullName}...`, "info");
+
+                const repoInfo = parseRepoFullName(repoFullName);
+
+                for (const dirtyPath of dirtyPaths) {
+                    const file = state.files.find((candidate) => candidate.path === dirtyPath);
+                    if (!file) continue;
+
+                    let parsed;
+                    try {
+                        parsed = JSON.parse(file.rawText);
+                    } catch (error) {
+                        throw new Error(`Could not parse JSON in ${file.filename}. Fix the syntax before committing.`);
+                    }
+
+                    const contentPath = encodeURIComponent(dirtyPath);
+                    const current = await ghFetch(`${repoInfo.repoPath}/contents/${contentPath}`);
+                    await ghFetch(`${repoInfo.repoPath}/contents/${contentPath}`, {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            message,
+                            content: encodeBase64Utf8(JSON.stringify(parsed, null, 2)),
+                            sha: current?.sha || undefined
+                        })
+                    });
+
+                    file.data = parsed;
+                    file.rawText = JSON.stringify(parsed, null, 2);
+                    state.dirtyPaths.delete(dirtyPath);
+                }
+
+                renderFileList();
+                renderEditor();
+                syncSummary();
+                setStatus(`Committed ${dirtyPaths.size} FC file(s) successfully.`, "ok");
+            }
+
+            async function startDeviceFlow() {
+                const clientId = webEditorConfig.oauth.clientId;
+                const scope = webEditorConfig.oauth.scope || "repo read:user";
+                const deviceResponse = await brokerRequest("/github/device/code", {
+                    client_id: clientId,
+                    scope
+                });
+
+                if (!deviceResponse || !deviceResponse.device_code) {
+                    throw new Error("GitHub device flow did not return a device code.");
+                }
+
+                const userCode = String(deviceResponse.user_code || "");
+                const verificationUri = String(deviceResponse.verification_uri || "https://github.com/login/device");
+                const interval = Number(deviceResponse.interval || 5) * 1000;
+                const expiresIn = Number(deviceResponse.expires_in || 900) * 1000;
+                const startedAt = Date.now();
+
+                setStatus(`Open ${verificationUri} and enter code: ${userCode}. Waiting for GitHub approval...`, "info");
+
+                while (Date.now() - startedAt < expiresIn) {
+                    await new Promise((resolve) => setTimeout(resolve, interval));
+                    const polling = await brokerRequest("/github/oauth/access_token", {
+                        client_id: clientId,
+                        device_code: deviceResponse.device_code,
+                        grant_type: "urn:ietf:params:oauth:grant-type:device_code"
+                    });
+
+                    if (polling && polling.access_token) {
+                        saveStoredSession(polling.access_token, polling);
+                        state.token = polling.access_token;
+                        const repoFullName = (repoInput.value || webEditorConfig.repository.targetRepoFullName).trim();
+                        const valid = await verifyRepositoryAccess(repoFullName);
+                        if (!valid) {
+                            return;
+                        }
+                        await loadLocalFiles();
+                        return;
+                    }
+
+                    if (polling && polling.error && !["authorization_pending", "slow_down"].includes(String(polling.error))) {
+                        throw new Error(String(polling.error_description || polling.error || "GitHub authentication failed."));
+                    }
+                }
+
+                throw new Error("GitHub authentication timed out. Please try again.");
+            }
+
+            function attachEventHandlers() {
+                document.getElementById("signInBtn").addEventListener("click", async () => {
+                    try {
+                        await startDeviceFlow();
+                    } catch (error) {
+                        setStatus(error.message || "GitHub authentication failed.", "bad");
+                    }
+                });
+
+                document.getElementById("signOutBtn").addEventListener("click", () => {
+                    clearStoredSession();
+                    setStatus("Signed out. Sign in again with a repository-authorized account.", "info");
+                });
+
+                document.getElementById("loadFilesBtn").addEventListener("click", async () => {
+                    await loadLocalFiles();
+                });
+
+                document.getElementById("resetFileBtn").addEventListener("click", resetCurrentFile);
+                document.getElementById("resetAllBtn").addEventListener("click", resetAllEdits);
+                document.getElementById("saveFileBtn").addEventListener("click", saveCurrentFile);
+                document.getElementById("commitBtn").addEventListener("click", async () => {
+                    try {
+                        await commitChangedFiles();
+                    } catch (error) {
+                        setStatus(error.message || "Commit failed.", "bad");
+                    }
+                });
+
+                document.getElementById("recordModalCloseBtn").addEventListener("click", closeRecordModal);
+                document.getElementById("recordModalCancelBtn").addEventListener("click", closeRecordModal);
+                document.getElementById("recordModalSaveBtn").addEventListener("click", saveRecordModal);
+            }
+
+            const storedSession = getStoredSession();
+            if (storedSession && storedSession.accessToken) {
+                state.token = storedSession.accessToken;
+                const repoFullName = (repoInput.value || webEditorConfig.repository.targetRepoFullName).trim();
+                verifyRepositoryAccess(repoFullName).then((verified) => {
+                    if (verified) {
+                        loadLocalFiles();
+                    }
+                }).catch(() => {
+                    setStatus("Stored session was found, but repository access could not be verified.", "bad");
+                });
+            }
+
+            updateAccessUI();
+            attachEventHandlers();
+        </script>
+    </body>
+</html>
