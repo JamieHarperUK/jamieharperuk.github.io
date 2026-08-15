@@ -21,11 +21,12 @@ function buildRootUrl(path = "", useCanonical = false) {
 }
 
 const dataSources = {
-    games: buildFmUrl("data/games.json"),
-    teams: buildFmUrl("data/teams.json"),
+    club: buildFmUrl("data/fc_club.json"),
+    games: buildFmUrl("data/fc_games.json"),
+    teams: buildFmUrl("data/fc_teams.json"),
     posts: buildFmUrl("data/posts.json"),
-    tickets: buildFmUrl("data/tickets.json"),
-    tables: buildFmUrl("data/tables.json")
+    tickets: buildFmUrl("data/fc_tickets.json"),
+    tables: buildFmUrl("data/fc_tables.json")
 };
 
 const pushConfig = {
@@ -367,24 +368,26 @@ const app = {
     },
 
     async loadData() {
-        const [gamesResponse, teamsResponse, postsResponse, ticketsResponse, tablesResponse] = await Promise.all([
-            fetch(dataSources.games),
-            fetch(dataSources.teams),
-            fetch(dataSources.posts),
-            fetch(dataSources.tickets),
-            fetch(dataSources.tables)
+        const [gamesResponse, teamsResponse, postsResponse, ticketsResponse, tablesResponse, clubResponse] = await Promise.all([
+            fetch(dataSources.games).catch(() => ({ ok: false })),
+            fetch(dataSources.teams).catch(() => ({ ok: false })),
+            fetch(dataSources.posts).catch(() => ({ ok: false })),
+            fetch(dataSources.tickets).catch(() => ({ ok: false })),
+            fetch(dataSources.tables).catch(() => ({ ok: false })),
+            fetch(dataSources.club).catch(() => ({ ok: false }))
         ]);
 
-        if (!gamesResponse.ok || !teamsResponse.ok || !postsResponse.ok || !ticketsResponse.ok || !tablesResponse.ok) {
-            throw new Error("Unable to load one or more JSON data sources.");
+        if (!gamesResponse.ok || !teamsResponse.ok || !ticketsResponse.ok || !tablesResponse.ok) {
+            throw new Error("Unable to load one or more FC JSON data sources.");
         }
 
-        const [gamesJson, teamsJson, postsJson, ticketsJson, tablesJson] = await Promise.all([
-            gamesResponse.json(),
-            teamsResponse.json(),
-            postsResponse.json(),
-            ticketsResponse.json(),
-            tablesResponse.json()
+        const [gamesJson, teamsJson, postsJson, ticketsJson, tablesJson, clubJson] = await Promise.all([
+            gamesResponse.ok ? gamesResponse.json() : { games: [] },
+            teamsResponse.ok ? teamsResponse.json() : { teams: [] },
+            postsResponse.ok ? postsResponse.json() : { posts: [] },
+            ticketsResponse.ok ? ticketsResponse.json() : { tickets: [] },
+            tablesResponse.ok ? tablesResponse.json() : { tables: [] },
+            clubResponse.ok ? clubResponse.json() : { club: null }
         ]);
 
         this.data.games = Array.isArray(gamesJson.games) ? gamesJson.games : [];
@@ -392,6 +395,13 @@ const app = {
         this.data.posts = Array.isArray(postsJson.posts) ? postsJson.posts : [];
         this.data.tickets = Array.isArray(ticketsJson.tickets) ? ticketsJson.tickets : [];
         this.data.tables = Array.isArray(tablesJson.tables) ? tablesJson.tables : [];
+
+        if (clubJson && clubJson.club) {
+            this.siteMeta = {
+                ...this.siteMeta,
+                club: clubJson.club
+            };
+        }
     },
 
     syncBodyModalOpenState() {
