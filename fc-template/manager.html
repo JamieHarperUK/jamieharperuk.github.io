@@ -179,7 +179,7 @@
         <script>
             (() => {
                 const API_BASE = "https://api.github.com";
-                const AUTH_STORAGE_KEY = "fc_template_manager_auth";
+                const AUTH_STORAGE_KEY = "fc_manager_auth_session";
 
                 function resolveDefaultSiteBaseUrl() {
                     if (typeof window === "undefined") {
@@ -199,11 +199,24 @@
                     repoFullName: "jamieharperuk/jamieharperuk.github.io",
                     siteBaseUrl: resolveDefaultSiteBaseUrl(),
                     commitMessage: "Update fc-template data",
+                    session: {
+                        ttlSeconds: 8 * 60 * 60
+                    },
+                    repository: {
+                        targetRepoFullName: "jamieharperuk/jamieharperuk.github.io",
+                        files: {
+                            club: "fc-template/data/fc_club.json",
+                            games: "fc-template/data/fc_games.json",
+                            teams: "fc-template/data/fc_teams.json",
+                            tables: "fc-template/data/fc_tables.json",
+                            tickets: "fc-template/data/fc_tickets.json"
+                        },
+                        defaultFileKey: "club"
+                    },
                     oauth: {
                         clientId: "Ov23liJxZCIXpxYWlATm",
                         scope: "repo read:user",
-                        brokerBaseUrl: "https://ghwe.oakshiftsoftware.workers.dev",
-                        apiProxyBaseUrl: "https://ghwe.oakshiftsoftware.workers.dev"
+                        brokerBaseUrl: "https://ghwe.oakshiftsoftware.workers.dev"
                     }
                 };
 
@@ -339,11 +352,22 @@
                 }
 
                 function getStoredSession() {
+                    const raw = sessionStorage.getItem(AUTH_STORAGE_KEY);
+                    if (!raw) {
+                        return null;
+                    }
+
                     try {
-                        const raw = sessionStorage.getItem(AUTH_STORAGE_KEY);
-                        if (!raw) return null;
                         const parsed = JSON.parse(raw);
-                        if (!parsed || !parsed.accessToken) return null;
+                        if (!parsed || typeof parsed !== "object" || !parsed.accessToken) {
+                            return null;
+                        }
+
+                        if (parsed.expiresAt && Date.now() >= Number(parsed.expiresAt)) {
+                            sessionStorage.removeItem(AUTH_STORAGE_KEY);
+                            return null;
+                        }
+
                         return parsed;
                     } catch (_error) {
                         sessionStorage.removeItem(AUTH_STORAGE_KEY);
@@ -351,10 +375,17 @@
                     }
                 }
 
-                function saveStoredSession(accessToken) {
+                function saveStoredSession(accessToken, tokenPayload = {}) {
+                    const expiresIn = Number(tokenPayload.expires_in) || DEFAULT_CONFIG.session.ttlSeconds;
+                    const authSession = {
+                        accessToken,
+                        createdAt: Date.now(),
+                        expiresAt: Date.now() + (expiresIn * 1000)
+                    };
                     state.token = accessToken;
-                    sessionStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify({ accessToken }));
+                    sessionStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(authSession));
                     updateAuthUi();
+                    return authSession;
                 }
 
                 function clearStoredSession() {
@@ -624,7 +655,7 @@
                         });
 
                         if (sessionResponse?.access_token) {
-                            saveStoredSession(sessionResponse.access_token);
+                            saveStoredSession(sessionResponse.access_token, sessionResponse);
                             setStatus("GitHub access granted. You can now load and edit the fc-template JSON files.", "ok");
                             await loadRepository();
                             return;
@@ -661,14 +692,16 @@
                         state.files = {};
                         state.dirtyKeys.clear();
 
-                        for (const [key, def] of Object.entries(FILE_DEFS)) {
+                        const fcFiles = Object.entries(DEFAULT_CONFIG.repository.files || FILE_DEFS);
+                        for (const [key, filePath] of fcFiles) {
+                            const def = FILE_DEFS[key] || { label: key.charAt(0).toUpperCase() + key.slice(1), path: filePath, kind: "object" };
                             try {
-                                const payload = await ghFetch(`/repos/${encodeURIComponent(repoFullName)}/contents/${encodeURIComponent(def.path)}`);
+                                const payload = await ghFetch(`/repos/${encodeURIComponent(repoFullName)}/contents/${encodeURIComponent(filePath)}`);
                                 const rawText = decodeURIComponent(escape(atob(payload.content.replace(/\s/g, ""))));
                                 const parsed = JSON.parse(rawText);
-                                state.files[key] = { def, data: parsed, sha: payload.sha, path: def.path, exists: true };
+                                state.files[key] = { def, data: parsed, sha: payload.sha, path: filePath, exists: true };
                             } catch (error) {
-                                state.files[key] = { def, data: buildFileTemplate(key), sha: null, path: def.path, exists: false, error: String(error.message || error) };
+                                state.files[key] = { def, data: buildFileTemplate(key), sha: null, path: filePath, exists: false, error: String(error.message || error) };
                             }
                         }
 
