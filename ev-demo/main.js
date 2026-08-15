@@ -2374,7 +2374,7 @@ const app = {
         if (appContainer) {
             appContainer.innerHTML = `
                 <section class="page active">
-                    <h1 class="section-title">Unable to Load Football Hub</h1>
+                    <h1 class="section-title">Unable to Load Club Website</h1>
                     <div class="empty-state">
                         ${this.escapeHtml(error?.message || "An unknown error occurred while loading data.")}
                     </div>
