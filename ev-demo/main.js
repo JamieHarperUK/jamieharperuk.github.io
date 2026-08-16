@@ -380,19 +380,21 @@ const app = {
             fetch(dataSources.games),
             fetch(dataSources.teams),
             fetch(dataSources.tickets),
-            fetch(dataSources.tables)
+            fetch(dataSources.tables),
+            fetch(dataSources.posts)
         ]);
 
         if (!clubResponse.ok || !gamesResponse.ok || !teamsResponse.ok || !ticketsResponse.ok || !tablesResponse.ok) {
             throw new Error("Unable to load one or more FC template JSON data sources.");
         }
 
-        const [clubJson, gamesJson, teamsJson, ticketsJson, tablesJson] = await Promise.all([
+        const [clubJson, gamesJson, teamsJson, ticketsJson, tablesJson, postsJson] = await Promise.all([
             clubResponse.json(),
             gamesResponse.json(),
             teamsResponse.json(),
             ticketsResponse.json(),
-            tablesResponse.json()
+            tablesResponse.json(),
+            postsResponse.json()
         ]);
 
         this.data.club = clubJson?.club || clubJson || {};
@@ -404,7 +406,7 @@ const app = {
 
         this.data.games = Array.isArray(gamesJson.games) ? gamesJson.games : [];
         this.data.teams = Array.isArray(teamsJson.teams) ? teamsJson.teams : [];
-        this.data.posts = [];
+        this.data.posts = Array.isArray(postsJson.posts) ? postsJson.posts : [];
         this.data.tickets = Array.isArray(ticketsJson.tickets) ? ticketsJson.tickets : [];
         this.data.tables = Array.isArray(tablesJson.tables) ? tablesJson.tables : [];
     },
@@ -472,14 +474,16 @@ const app = {
         dropdown.appendChild(dropdownMenu);
         navLinks.appendChild(dropdown);
 
-        const hallOfFameLink = document.createElement("a");
-        hallOfFameLink.href = "#hall-of-fame";
-        hallOfFameLink.textContent = "Hall of Fame";
-        hallOfFameLink.setAttribute("data-analytics-action", "nav_click");
-        hallOfFameLink.setAttribute("data-analytics-category", "Navigation");
-        hallOfFameLink.setAttribute("data-analytics-label", "Hall of Fame");
-        navLinks.appendChild(hallOfFameLink);
+        // Fixtures
+        const fixturesLink = document.createElement("a");
+        fixturesLink.href = "#fixtures";
+        fixturesLink.textContent = "Fixtures";
+        fixturesLink.setAttribute("data-analytics-action", "nav_click");
+        fixturesLink.setAttribute("data-analytics-category", "Navigation");
+        fixturesLink.setAttribute("data-analytics-label", "Fixtures");
+        navLinks.appendChild(fixturesLink);
 
+        // Posts
         const postsLink = document.createElement("a");
         postsLink.href = "#posts";
         postsLink.textContent = "Posts";
@@ -487,6 +491,7 @@ const app = {
         postsLink.setAttribute("data-analytics-category", "Navigation");
         postsLink.setAttribute("data-analytics-label", "Posts");
         navLinks.appendChild(postsLink);
+
         // Group less-frequent items into a 'More' dropdown for mobile
         const moreDropdown = document.createElement("div");
         moreDropdown.className = "nav-dropdown";
@@ -504,6 +509,7 @@ const app = {
         const moreMenu = document.createElement("div");
         moreMenu.className = "nav-dropdown-menu";
 
+        // Match Tickets
         const ticketsLink = document.createElement("a");
         ticketsLink.href = "#tickets";
         ticketsLink.textContent = "Tickets";
@@ -515,27 +521,29 @@ const app = {
         });
         moreMenu.appendChild(ticketsLink);
 
+        // League Tables
         const tablesLink = document.createElement("a");
         tablesLink.href = "#tables";
-        tablesLink.textContent = "Tables";
+        tablesLink.textContent = "League Tables";
         tablesLink.setAttribute("data-analytics-action", "nav_click");
         tablesLink.setAttribute("data-analytics-category", "Navigation");
-        tablesLink.setAttribute("data-analytics-label", "Tables");
+        tablesLink.setAttribute("data-analytics-label", "League Tables");
         tablesLink.addEventListener("click", () => {
             this.closeMoreDropdown();
         });
         moreMenu.appendChild(tablesLink);
 
-        const fixturesLink = document.createElement("a");
-        fixturesLink.href = "#fixtures";
-        fixturesLink.textContent = "Fixtures";
-        fixturesLink.setAttribute("data-analytics-action", "nav_click");
-        fixturesLink.setAttribute("data-analytics-category", "Navigation");
-        fixturesLink.setAttribute("data-analytics-label", "Fixtures");
-        fixturesLink.addEventListener("click", () => {
+        // Hall of Fame
+        const hallOfFameLink = document.createElement("a");
+        hallOfFameLink.href = "#hall-of-fame";
+        hallOfFameLink.textContent = "Hall of Fame";
+        hallOfFameLink.setAttribute("data-analytics-action", "nav_click");
+        hallOfFameLink.setAttribute("data-analytics-category", "Navigation");
+        hallOfFameLink.setAttribute("data-analytics-label", "Hall of Fame");
+        hallOfFameLink.addEventListener("click", () => {
             this.closeMoreDropdown();
         });
-        moreMenu.appendChild(fixturesLink);
+        moreMenu.appendChild(hallOfFameLink);
 
         moreDropdown.appendChild(moreToggle);
         moreDropdown.appendChild(moreMenu);
