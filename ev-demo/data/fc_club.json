@@ -23,13 +23,17 @@
   "club": {
     "club_name": "Elton Vale FC",
     "home_venue": "Elton Vale Sports Club",
-    "city": "Bury, Greater Manchester",
+    "city": "Elton Vale Road, Bury, BL8 2RZ",
     "country": "England",
     "established_year": "1957",
     "description": "The Club is a placeholder football club description section, your team details and club information should replace this information.",
+    "contact": {
+      "email": "#",
+      "phone": "+44 161 762 0666"
+    },
     "socials": {
-      "facebook": "#",
-      "twitter_x": "@EltonValeFC",
+      "facebook": "https://www.facebook.com/profile.php?id=100057268877717&locale=en_GB",
+      "twitter_x": "https://x.com/EltonValeFC",
       "instagram": "#",
       "youtube": "#",
       "tiktok": "#"

@@ -2081,7 +2081,7 @@ const app = {
 
                 const info = document.createElement("div");
                 info.className = "player-info-card";
-                info.innerHTML = `<div class="player-pos">${this.escapeHtml(normalized.position)}</div><div class="player-number">${normalized.number ? `#${normalized.number}` : ""}</div>`;
+                info.innerHTML = `<div class="player-name">${this.escapeHtml(normalized.name)}</div><div class="player-pos">${this.escapeHtml(normalized.position)}</div><div class="player-number">${normalized.number ? `#${normalized.number}` : ""}</div>`;
 
                 card.appendChild(imgWrap);
                 card.appendChild(info);
