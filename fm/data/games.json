@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Away",
-      "home_team": "Stoke City",
-      "away_team": "Portsmouth",
-      "date": "16-08-2026",
-      "time": "22:16",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 2nd Division",
-      "venue": "bet365 Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Home",
       "home_team": "Harper FC",
       "away_team": "Pr Fc",
@@ -73,6 +60,19 @@
       "winner": ""
     },
     {
+      "home_or_away": "Home",
+      "home_team": "Portsmouth",
+      "away_team": "Charlton Athletic",
+      "date": "17-08-2026",
+      "time": "22:16",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Fratton Park",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
       "home_or_away": "Away",
       "home_team": "Machaca Club FC",
       "away_team": "Harper FC",
@@ -97,6 +97,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Stoke City",
+      "away_team": "Portsmouth",
+      "date": "16-08-2026",
+      "time": "22:16",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "bet365 Stadium",
+      "home_score": "0",
+      "away_score": "2",
+      "winner": "Portsmouth"
     },
     {
       "home_or_away": "Home",
