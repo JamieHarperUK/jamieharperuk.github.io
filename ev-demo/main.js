@@ -1,8 +1,18 @@
 // Core site URL configuration.
 const siteConfig = {
     canonicalOrigin: "https://jhuk.co.uk",
-    appBasePath: "/ev-demo/",
-    ticketsPageEnabled: true
+    appBasePath: (() => {
+        if (typeof window === "undefined" || !window.location) {
+            return "/ev-demo/";
+        }
+
+        const pathname = String(window.location.pathname || "/");
+        const resolvedBase = new URL(".", window.location.href).pathname;
+        return resolvedBase.endsWith("/") ? resolvedBase : `${resolvedBase}/`;
+    })(),
+    ticketsPageEnabled: true,
+    contactPageEnabled: true,
+    venueHirePageEnabled: true
 };
 
 const runtimeOrigin = (typeof window !== "undefined" && window.location && window.location.origin)
@@ -10,14 +20,28 @@ const runtimeOrigin = (typeof window !== "undefined" && window.location && windo
     : siteConfig.canonicalOrigin;
 
 function buildFmUrl(path = "", useCanonical = false) {
-    const origin = useCanonical ? siteConfig.canonicalOrigin : runtimeOrigin;
-    const base = new URL(siteConfig.appBasePath.replace(/^\//, ""), origin.replace(/\/+$/, "") + "/");
+    const isFileOrigin = typeof window !== "undefined" && window.location && window.location.protocol === "file:";
+    const origin = useCanonical && !isFileOrigin ? siteConfig.canonicalOrigin : runtimeOrigin;
+
+    if (isFileOrigin && !useCanonical) {
+        return new URL(path.replace(/^\/+/, ""), window.location.href).toString();
+    }
+
+    const appBase = typeof window !== "undefined" && window.location ? new URL(".", window.location.href).pathname : siteConfig.appBasePath;
+    const base = new URL(appBase.replace(/^\//, ""), origin.replace(/\/+$/, "") + "/");
     return new URL(path.replace(/^\/+/, ""), base).toString();
 }
 
 function buildRootUrl(path = "", useCanonical = false) {
-    const origin = useCanonical ? siteConfig.canonicalOrigin : runtimeOrigin;
-    return new URL(path.replace(/^\/+/, ""), origin.replace(/\/+$/, "") + "/").toString();
+    const isFileOrigin = typeof window !== "undefined" && window.location && window.location.protocol === "file:";
+    const origin = useCanonical && !isFileOrigin ? siteConfig.canonicalOrigin : runtimeOrigin;
+
+    if (isFileOrigin && !useCanonical) {
+        return new URL(path.replace(/^\/+/, ""), window.location.href).toString();
+    }
+
+    const appBase = typeof window !== "undefined" && window.location ? new URL(".", window.location.href).pathname : siteConfig.appBasePath;
+    return new URL(path.replace(/^\/+/, ""), new URL(appBase.replace(/^\//, ""), origin.replace(/\/+$/, "") + "/")).toString();
 }
 
 const dataSources = {
@@ -53,6 +77,15 @@ function urlBase64ToUint8Array(base64String) {
     return outputArray;
 }
 
+const gameTwitterHandles = {
+    announcement: "@EltonValeFC",
+    club_news: "@EltonValeFC",
+    top_eleven: "@TopEleven",
+    osm: "@OSMLikeABoss",
+    hattrick: "@Hattrick",
+    other: "@EltonValeFC"
+};
+
 // To be referenced and used when specifically sharing posts on social media platforms like X (formerly Twitter), not Facebook.
 const app = {
     currentPage: "home",
@@ -70,6 +103,24 @@ const app = {
         tickets: [],
         tables: []
     },
+    customPages: [
+        {
+            id: "contact",
+            label: "Contact",
+            sectionId: "contact-page",
+            title: "Contact",
+            description: "Get in touch with the club for general enquiries, tickets, and club updates.",
+            enabled: siteConfig.contactPageEnabled
+        },
+        {
+            id: "venue-hire",
+            label: "Venue Hire",
+            sectionId: "venue-hire-page",
+            title: "Venue Hire",
+            description: "Book the club venue for community events, meetings, and private functions.",
+            enabled: siteConfig.venueHirePageEnabled
+        }
+    ],
     uiState: {
         pastFixtures: {},
         installPromptEvent: null,
@@ -261,6 +312,15 @@ const app = {
         });
     },
 
+    getCustomPageByRoute(route) {
+        const normalized = String(route || "").trim();
+        if (!normalized) {
+            return null;
+        }
+
+        return this.customPages.find((page) => page.enabled && page.id === normalized) || null;
+    },
+
     getRoutePathFromLocation() {
         const hash = window.location.hash.replace(/^#/, "").trim();
         if (hash) {
@@ -289,6 +349,14 @@ const app = {
 
         if (view === "hall-of-fame") {
             return "hall-of-fame";
+        }
+
+        if (view === "contact" && this.getCustomPageByRoute("contact")) {
+            return "contact";
+        }
+
+        if (view === "venue-hire" && this.getCustomPageByRoute("venue-hire")) {
+            return "venue-hire";
         }
 
         if (view === "post" && slug) {
@@ -321,6 +389,11 @@ const app = {
 
         if (path === "hall-of-fame") {
             return "/fc-template/?view=hall-of-fame";
+        }
+
+        const customPage = this.getCustomPageByRoute(path);
+        if (customPage) {
+            return `/fc-template/?view=${encodeURIComponent(customPage.id)}`;
         }
 
         if (path.startsWith("post/")) {
@@ -357,6 +430,11 @@ const app = {
 
         if (path === "hall-of-fame") {
             return "Hall of Fame";
+        }
+
+        const customPage = this.getCustomPageByRoute(path);
+        if (customPage) {
+            return customPage.title;
         }
 
         if (path.startsWith("post/")) {
@@ -545,6 +623,21 @@ const app = {
         });
         moreMenu.appendChild(hallOfFameLink);
 
+        this.customPages
+            .filter((page) => page.enabled)
+            .forEach((page) => {
+                const customLink = document.createElement("a");
+                customLink.href = `#${page.id}`;
+                customLink.textContent = page.label;
+                customLink.setAttribute("data-analytics-action", "nav_click");
+                customLink.setAttribute("data-analytics-category", "Navigation");
+                customLink.setAttribute("data-analytics-label", page.label);
+                customLink.addEventListener("click", () => {
+                    this.closeMoreDropdown();
+                });
+                moreMenu.appendChild(customLink);
+            });
+
         moreDropdown.appendChild(moreToggle);
         moreDropdown.appendChild(moreMenu);
         navLinks.appendChild(moreDropdown);
@@ -650,6 +743,11 @@ const app = {
             return;
         }
 
+        if (this.getCustomPageByRoute(route)) {
+            this.navigate(route);
+            return;
+        }
+
         if (route.startsWith("post/")) {
             const postSlug = route.split("/")[1];
             this.navigate(`post/${postSlug}`);
@@ -731,26 +829,40 @@ const app = {
                 image: this.siteMeta.image,
                 url: this.getCanonicalPageUrl("hall-of-fame")
             });
-        } else if (path.startsWith("post/")) {
-            const postSlug = path.split("/")[1];
-            this.renderPostDetailPage(postSlug);
-            document.getElementById("post-detail")?.classList.add("active");
-        } else if (path.startsWith("team/")) {
-            const teamId = path.split("/")[1];
-            const pageId = `team-${teamId}`;
-            const page = document.getElementById(pageId);
-            if (page) {
-                this.renderTeamPage(teamId);
-                page.classList.add("active");
+        } else {
+            const customPage = this.getCustomPageByRoute(path);
+            if (customPage) {
+                const pageElement = document.getElementById(customPage.sectionId);
+                if (pageElement) {
+                    pageElement.classList.add("active");
+                }
+                this.updatePageMetadata({
+                    title: `${customPage.title} | ${this.siteMeta.title}`,
+                    description: customPage.description,
+                    image: this.siteMeta.image,
+                    url: this.getCanonicalPageUrl(path)
+                });
+            } else if (path.startsWith("post/")) {
+                const postSlug = path.split("/")[1];
+                this.renderPostDetailPage(postSlug);
+                document.getElementById("post-detail")?.classList.add("active");
+            } else if (path.startsWith("team/")) {
+                const teamId = path.split("/")[1];
+                const pageId = `team-${teamId}`;
+                const page = document.getElementById(pageId);
+                if (page) {
+                    this.renderTeamPage(teamId);
+                    page.classList.add("active");
 
-                const team = this.data.teams.find((item) => this.toTeamId(item.team_name) === teamId);
-                if (team) {
-                    this.updatePageMetadata({
-                        title: `${team.team_name} | ${this.siteMeta.title}`,
-                        description: `${team.team_name} team page with squad, fixtures, and form updates.`,
-                        image: this.siteMeta.image,
-                        url: this.getCanonicalPageUrl(`team/${teamId}`)
-                    });
+                    const team = this.data.teams.find((item) => this.toTeamId(item.team_name) === teamId);
+                    if (team) {
+                        this.updatePageMetadata({
+                            title: `${team.team_name} | ${this.siteMeta.title}`,
+                            description: `${team.team_name} team page with squad, fixtures, and form updates.`,
+                            image: this.siteMeta.image,
+                            url: this.getCanonicalPageUrl(`team/${teamId}`)
+                        });
+                    }
                 }
             }
         }
@@ -782,6 +894,12 @@ const app = {
                 return;
             }
 
+            const customPage = this.getCustomPageByRoute(this.currentPage);
+            if (customPage && href === `#${customPage.id}`) {
+                link.classList.add("active");
+                return;
+            }
+
             if (this.currentPage === "tickets" && href === "#tickets") {
                 link.classList.add("active");
                 return;
@@ -808,7 +926,7 @@ const app = {
         }
         const moreToggle = document.getElementById("moreDropdownToggle");
         if (moreToggle) {
-            const moreActive = ["tickets", "tables", "fixtures"].includes(this.currentPage);
+            const moreActive = ["tickets", "tables", "fixtures", "contact", "venue-hire"].includes(this.currentPage);
             moreToggle.classList.toggle("active", moreActive);
         }
     },
@@ -1593,7 +1711,19 @@ const app = {
     },
 
     findPostBySlug(postSlug) {
-        return this.data.posts.find((post) => this.getPostSlug(post) === postSlug) || null;
+        const target = String(postSlug || "").trim();
+        if (!target) {
+            return null;
+        }
+
+        return this.data.posts.find((post) => {
+            const candidateSlugs = new Set([
+                this.getPostSlug(post),
+                this.getLegacyPostSlug(post),
+                this.getCompactPostSlug(post)
+            ]);
+            return candidateSlugs.has(target);
+        }) || null;
     },
 
     getPostSlug(post) {
@@ -1606,6 +1736,29 @@ const app = {
             .toLowerCase()
             .replace(/[^a-z0-9]+/g, "-")
             .replace(/^-|-$/g, "") || "post";
+    },
+
+    getLegacyPostSlug(post) {
+        const title = String(post?.title || "post");
+        const date = String(post?.date_time?.[0] || "");
+        const time = String(post?.date_time?.[1] || "").replace(/:/g, "");
+        const seed = `${title}-${date}-${time}`;
+
+        return seed
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/^-|-$/g, "") || "post";
+    },
+
+    getCompactPostSlug(post) {
+        const title = String(post?.title || "post");
+        const date = String(post?.date_time?.[0] || "");
+        const time = String(post?.date_time?.[1] || "").replace(/:/g, "");
+        const seed = `${title}-${date}-${time}`;
+
+        return seed
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, "") || "post";
     },
 
     getPostDescription(content) {
@@ -1778,6 +1931,11 @@ const app = {
 
         if (path === "tables") {
             return `${canonicalBase}?view=tables`;
+        }
+
+        const customPage = this.getCustomPageByRoute(path);
+        if (customPage) {
+            return `${canonicalBase}?view=${encodeURIComponent(customPage.id)}`;
         }
 
         if (path.startsWith("post/")) {
