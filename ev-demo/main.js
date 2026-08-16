@@ -10,7 +10,7 @@ const siteConfig = {
         const resolvedBase = new URL(".", window.location.href).pathname;
         return resolvedBase.endsWith("/") ? resolvedBase : `${resolvedBase}/`;
     })(),
-    ticketsPageEnabled: true,
+    ticketsPageEnabled: false,
     contactPageEnabled: true,
     venueHirePageEnabled: true
 };
