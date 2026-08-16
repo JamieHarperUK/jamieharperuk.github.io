@@ -375,7 +375,7 @@ const app = {
     },
 
     async loadData() {
-        const [clubResponse, gamesResponse, teamsResponse, ticketsResponse, tablesResponse] = await Promise.all([
+        const [clubResponse, gamesResponse, teamsResponse, ticketsResponse, tablesResponse, postsResponse] = await Promise.all([
             fetch(dataSources.club),
             fetch(dataSources.games),
             fetch(dataSources.teams),
@@ -384,7 +384,7 @@ const app = {
             fetch(dataSources.posts)
         ]);
 
-        if (!clubResponse.ok || !gamesResponse.ok || !teamsResponse.ok || !ticketsResponse.ok || !tablesResponse.ok) {
+        if (!clubResponse.ok || !gamesResponse.ok || !teamsResponse.ok || !ticketsResponse.ok || !tablesResponse.ok || !postsResponse.ok) {
             throw new Error("Unable to load one or more FC template JSON data sources.");
         }
 
