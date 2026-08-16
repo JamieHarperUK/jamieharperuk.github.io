@@ -2,10 +2,10 @@ self.addEventListener("push", (event) => {
 	let payload = {
 		title: "New Club Update",
 		body: "A new club announcement is available.",
-		icon: "https://example.com/fc-template/data/fm_icon.png",
-		badge: "https://example.com/fc-template/data/fm_icon.png",
+		icon: "https://jhuk.co.uk/ev-demo/data/evfc_logo.png",
+		badge: "https://jhuk.co.uk/ev-demo/data/evfc_logo.png",
 		data: {
-			url: "https://example.com/fc-template/#posts"
+			url: "https://jhuk.co.uk/ev-demo/#posts"
 		}
 	};
 
