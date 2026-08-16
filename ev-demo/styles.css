@@ -571,6 +571,7 @@ main {
 
 .fixture-league {
     font-size: 0.9rem;
+    color: var(--accent-color);
 }
 
 .fixture-body {
@@ -881,7 +882,7 @@ main {
 
 .site-button {
     display: inline-block;
-    background: linear-gradient(90deg, var(--primary-color), #de3955);
+    background: linear-gradient(45deg, var(--primary-color), #00234B);
     color: #fff;
     padding: 0.5rem 0.85rem;
     border-radius: 8px;
