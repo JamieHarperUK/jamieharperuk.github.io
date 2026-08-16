@@ -926,7 +926,7 @@ const app = {
         }
         const moreToggle = document.getElementById("moreDropdownToggle");
         if (moreToggle) {
-            const moreActive = ["tickets", "tables", "fixtures", "contact", "venue-hire"].includes(this.currentPage);
+            const moreActive = ["tickets", "tables", "hall-of-fame", "contact", "venue-hire"].includes(this.currentPage);
             moreToggle.classList.toggle("active", moreActive);
         }
     },
