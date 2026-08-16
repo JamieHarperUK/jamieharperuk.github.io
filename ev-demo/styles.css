@@ -1280,7 +1280,7 @@ main {
 .roster-heading {
     font-size: 1rem;
     margin-bottom: 0.6rem;
-    color: var(--accent-color);
+    color: #c3c3c3;
 }
 
 .roster-table {
