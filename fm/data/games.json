@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Away",
-      "home_team": "FC Halifax Town",
-      "away_team": "Altrincham FC",
-      "date": "16-08-2026",
-      "time": "20:20",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 5th Division",
-      "venue": "The Shay",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Home",
       "home_team": "Harper FC",
       "away_team": "persibo fc.",
@@ -73,6 +60,19 @@
       "winner": ""
     },
     {
+      "home_or_away": "Home",
+      "home_team": "Altrincham FC",
+      "away_team": "Solihull Moors",
+      "date": "17-08-2026",
+      "time": "20:20",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 5th Division",
+      "venue": "J. Davidson Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
       "home_or_away": "Away",
       "home_team": "pompi67 FC",
       "away_team": "Harper FC",
@@ -97,6 +97,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "FC Halifax Town",
+      "away_team": "Altrincham FC",
+      "date": "16-08-2026",
+      "time": "20:20",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 5th Division",
+      "venue": "The Shay",
+      "home_score": "2",
+      "away_score": "3",
+      "winner": "Altrincham FC"
     },
     {
       "home_or_away": "Home",
