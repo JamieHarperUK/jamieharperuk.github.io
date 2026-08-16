@@ -1020,7 +1020,7 @@ main {
 
 .player-info-card .player-name {
     font-size: 0.98rem;
-    display: none;
+    display: block;
 }
 
 .player-info-card .player-pos {
