@@ -1210,9 +1210,9 @@ main {
 }
 
 .latest-post-card {
-    border: 1px solid rgba(200, 16, 46, 0.3);
+    border: 1px solid rgba(253, 218, 28, 0.3);
     border-radius: 10px;
-    background: linear-gradient(135deg, rgba(200, 16, 46, 0.14), rgba(0, 61, 165, 0.1));
+    background: linear-gradient(135deg, rgba(253, 218, 28, 0.14), rgba(0, 35, 75, 0.1));
     padding: 1rem;
     margin-top: 1rem;
 }
