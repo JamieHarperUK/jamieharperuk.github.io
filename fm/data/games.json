@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Away",
-      "home_team": "pompi67 FC",
-      "away_team": "Harper FC",
-      "date": "17-08-2026",
-      "time": "21:15",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "Cup (Round of 16)",
-      "venue": "Estadio pompi67 FC",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Home",
       "home_team": "Portsmouth",
       "away_team": "Charlton Athletic",
@@ -86,6 +73,19 @@
       "winner": ""
     },
     {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "Alejandrojk12 FC",
+      "date": "19-08-2026",
+      "time": "21:35",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Cup (Quarter-Finals)",
+      "venue": "Estadio Alejandrojk12 FC",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
       "home_or_away": "Away",
       "home_team": "shallgar CF",
       "away_team": "Cheshire Harriers FC",
@@ -97,6 +97,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "pompi67 FC",
+      "away_team": "Harper FC",
+      "date": "17-08-2026",
+      "time": "21:15",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Cup (Round of 16)",
+      "venue": "Estadio pompi67 FC",
+      "home_score": "0",
+      "away_score": "9",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Home",
