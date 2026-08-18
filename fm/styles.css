@@ -238,6 +238,14 @@ main {
     margin-bottom: 1.2rem;
 }
 
+.team-stats-standard {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.team-stats-fpl {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
 .stat-card,
 .fixture-card,
 .update-card,
@@ -999,6 +1007,12 @@ a.site-link:hover {
     .nav-dropdown-menu {
         right: auto;
         left: 0;
+    }
+
+    .team-stats,
+    .team-stats-standard,
+    .team-stats-fpl {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .section-title {

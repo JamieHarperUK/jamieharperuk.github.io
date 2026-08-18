@@ -1847,7 +1847,7 @@ const app = {
         content.innerHTML = `
             <h1 class="section-title">${this.escapeHtml(team.team_name)}</h1>
 
-            <section class="team-stats">
+            <section class="team-stats ${isFplTeam ? "team-stats-fpl" : "team-stats-standard"}">
                 <article class="stat-card">
                     <div class="stat-label">Game</div>
                     <div class="stat-value">
