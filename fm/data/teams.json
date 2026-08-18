@@ -384,8 +384,8 @@
           "0"
         ],
         [
-          "GK",
-          "Karl Darlow",
+          "CB",
+          "Jonathan Tah",
           "0",
           "0",
           "0"
@@ -405,6 +405,13 @@
           "0"
         ],
         [
+          "CB",
+          "Harry Maguire",
+          "0",
+          "0",
+          "0"
+        ],
+        [
           "LB",
           "Matthijs de Ligt",
           "0",
@@ -419,13 +426,6 @@
           "0"
         ],
         [
-          "CB",
-          "Harry Maguire",
-          "0",
-          "0",
-          "0"
-        ],
-        [
           "LB",
           "Luke Shaw",
           "0",
@@ -433,15 +433,15 @@
           "0"
         ],
         [
-          "LB",
-          "Patrick Dorgu",
+          "RB",
+          "Noussair Mazraoui",
           "0",
           "0",
           "0"
         ],
         [
-          "RB",
-          "Noussair Mazraoui",
+          "LB",
+          "Patrick Dorgu",
           "0",
           "0",
           "0"
@@ -475,8 +475,8 @@
           "0"
         ],
         [
-          "CDM",
-          "Andrey Santos",
+          "CAM",
+          "Mason Mount",
           "0",
           "0",
           "0"
@@ -489,8 +489,8 @@
           "0"
         ],
         [
-          "CAM",
-          "Mason Mount",
+          "CDM",
+          "Andrey Santos",
           "0",
           "0",
           "0"
@@ -498,13 +498,6 @@
         [
           "CDM",
           "Toby Collyer",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CAM",
-          "Jack Fletcher",
           "0",
           "0",
           "0"
