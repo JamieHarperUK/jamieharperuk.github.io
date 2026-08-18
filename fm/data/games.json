@@ -73,6 +73,19 @@
       "winner": ""
     },
     {
+      "home_or_away": "Away",
+      "home_team": "Manchester City",
+      "away_team": "Manchester United",
+      "date": "18-08-2026",
+      "time": "22:52",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 1st Division",
+      "venue": "Etihad Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
       "home_or_away": "Home",
       "home_team": "Harper FC",
       "away_team": "Alejandrojk12 FC",
