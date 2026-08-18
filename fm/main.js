@@ -2168,8 +2168,8 @@ const app = {
 
     getPositionGroup(position) {
         const goalkeepers = ["GK", "GKP"];
-        const defenders = ["LB", "RB", "CB", "LCB", "RCB", "DL", "DR", "DC", "WB", "CD", "DEF"];
-        const midfielders = ["CM", "CDM", "CAM", "LM", "RM", "MC", "DMC", "AMC", "AML", "AMR", "W", "IM", "MID"];
+        const defenders = ["LB", "RB", "CB", "LCB", "RCB", "DL", "DR", "DC", "DM", "WB", "CD", "DEF"];
+        const midfielders = ["CM", "CDM", "CAM", "LM", "RM", "MC", "ML", "MR", "DMC", "AMC", "AML", "AMR", "W", "IM", "MID"];
         const forwards = ["ST", "CF", "LW", "RW", "SS", "FW", "FWD"];
 
         if (goalkeepers.includes(position)) {
