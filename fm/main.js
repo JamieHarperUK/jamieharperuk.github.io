@@ -1790,7 +1790,7 @@ const app = {
         let gameLogoTag = this.escapeHtml(gameTypeData.fullName || "Unknown");
         if (gameTypeData.logo) {
             const topElevenFilterStyle = gameTypeData.invertLogo ? " filter: invert(1);" : "";
-            gameLogoTag = `<img src="${gameTypeData.logo}" alt="${gameTypeData.fullName} logo" style="width: -webkit-fill-available; vertical-align: middle;${topElevenFilterStyle}">`;
+            gameLogoTag = `<img src="${gameTypeData.logo}" alt="${gameTypeData.fullName} logo" style="height: 2rem; vertical-align: middle;${topElevenFilterStyle}">`;
         }
 
         const fplStats = team.stats || {};
