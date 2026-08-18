@@ -983,7 +983,7 @@ main {
 .roster-heading {
     font-size: 1rem;
     margin-bottom: 0.6rem;
-    color: var(--accent-color);
+    color: #91abd7;
 }
 
 .roster-table {
