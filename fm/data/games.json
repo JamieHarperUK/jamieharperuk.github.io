@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Away",
-      "home_team": "toby FC",
-      "away_team": "Harper FC",
-      "date": "18-08-2026",
-      "time": "11:56",
-      "osm_or_top_eleven": "OSM",
-      "competition": "League Level 2",
-      "venue": "Stadio toby FC",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "FC Boreham Wood",
       "away_team": "Altrincham FC",
       "date": "18-08-2026",
@@ -88,6 +75,19 @@
     {
       "home_or_away": "Home",
       "home_team": "Harper FC",
+      "away_team": "HONG KONG UNITED",
+      "date": "19-08-2026",
+      "time": "12:49",
+      "osm_or_top_eleven": "OSM",
+      "competition": "League Level 2",
+      "venue": "The Concourse",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
       "away_team": "Alejandrojk12 FC",
       "date": "19-08-2026",
       "time": "21:35",
@@ -110,6 +110,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "toby FC",
+      "away_team": "Harper FC",
+      "date": "18-08-2026",
+      "time": "11:56",
+      "osm_or_top_eleven": "OSM",
+      "competition": "League Level 2",
+      "venue": "Stadio toby FC",
+      "home_score": "0",
+      "away_score": "12",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Home",
