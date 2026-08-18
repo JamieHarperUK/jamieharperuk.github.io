@@ -40,7 +40,8 @@ const platformLogoUrls = {
     topEleven: buildFmUrl("data/top-eleven-logo.png", true),
     osm: buildFmUrl("data/osm-logo.png", true),
     hattrick: buildFmUrl("data/hattrick-logo.png", true),
-    fpl: buildFmUrl("data/fpl-logo.png", true)
+    fpl: buildFmUrl("data/fpl-logo.png", true),
+    ladderfm: buildFmUrl("data/ladderfm-logo.png", true)
 };
 
 function urlBase64ToUint8Array(base64String) {
@@ -61,7 +62,8 @@ const gameTwitterHandles = {
     top_eleven: "@topeleven",
     osm: "@OSMLikeABoss",
     hattrick: "@Hattrick",
-    fpl: "@OfficialFPL"
+    fpl: "@OfficialFPL",
+    ladderfm: ""
 };
 
 const app = {
@@ -355,6 +357,9 @@ const app = {
         if (key === "fpl" || key === "fantasy premier league" || key === "fantasypl") {
             return "FPL";
         }
+        if (key === "ladderfm" || key === "ladder fm") {
+            return "Ladder FM";
+        }
         return value || "Unknown";
     },
 
@@ -402,6 +407,17 @@ const app = {
                 invertLogo: false,
                 kFactor: 28,
                 eloIntro: "This rating is a continuously evolving ELO for this Hattrick team based on the matches I have recorded."
+            };
+        }
+        if (normalized === "Ladder FM") {
+            return {
+                name: "Ladder FM",
+                fullName: "Ladder FM",
+                logo: platformLogoUrls.ladderfm,
+                link: "https://www.ladderfm.com/",
+                invertLogo: false,
+                kFactor: 28,
+                eloIntro: "This rating is a continuously evolving ELO for this Ladder FM team based on the matches I have recorded."
             };
         }
         return {
