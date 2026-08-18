@@ -4641,8 +4641,7 @@
                     { key: "position", label: "Position", type: "number" },
                     { key: "team", label: "Team", type: "text" },
                     { key: "points", label: "Points", type: "number" },
-                    { key: "transfers_used", label: "Transfers Used", type: "number" },
-                    { key: "played", label: "Played", type: "number" }
+                    { key: "transfers_used", label: "Transfers Used", type: "number" }
                 ];
 
                 fieldDefinitions.forEach(function(field) {
@@ -5238,6 +5237,10 @@
 
                     const leagueSummary = document.createElement("div");
                     leagueSummary.className = "player-summary-card";
+                    leagueSummary.style.display = "flex";
+                    leagueSummary.style.flexDirection = "column";
+                    leagueSummary.style.justifyContent = "space-between";
+                    leagueSummary.style.alignItems = "stretch";
                     const leagueTitle = document.createElement("label");
                     leagueTitle.textContent = "League Table";
                     leagueSummary.appendChild(leagueTitle);
@@ -5245,29 +5248,29 @@
                     const leagueInfo = document.createElement("div");
                     leagueInfo.className = "pill mono";
                     const tableRows = Array.isArray(record.league_table) && record.league_table.length ? record.league_table : [];
-                    if (tableRows.length) {
-                        const firstRow = tableRows[0] || {};
-                        const pos = firstRow.position ?? "-";
-                        const team = firstRow.team || "Unknown";
-                        const transfers = firstRow.transfers_used ?? firstRow.transfers_made ?? "0";
-                        const points = firstRow.points ?? "0";
-                        leagueInfo.textContent = "#" + pos + " · " + team + " · " + points + " pts · " + transfers + " transfers";
-                    } else {
-                        leagueInfo.textContent = "No league table rows yet";
-                    }
+                    leagueInfo.textContent = tableRows.length ? ("Teams in table: " + tableRows.length) : "No table rows yet";
                     leagueSummary.appendChild(leagueInfo);
 
+                    const leagueActions = document.createElement("div");
+                    leagueActions.style.display = "flex";
+                    leagueActions.style.justifyContent = "flex-end";
+                    leagueActions.style.marginTop = "0.8rem";
                     const openLeagueTableBtn = document.createElement("button");
                     openLeagueTableBtn.type = "button";
                     openLeagueTableBtn.textContent = "Manage League Table";
                     openLeagueTableBtn.addEventListener("click", function() {
                         openLeagueTableModal(recordIndex);
                     });
-                    leagueSummary.appendChild(openLeagueTableBtn);
+                    leagueActions.appendChild(openLeagueTableBtn);
+                    leagueSummary.appendChild(leagueActions);
                     targetContainer.appendChild(leagueSummary);
 
                     const playersWrapper = document.createElement("div");
                     playersWrapper.className = "player-summary-card";
+                    playersWrapper.style.display = "flex";
+                    playersWrapper.style.flexDirection = "column";
+                    playersWrapper.style.justifyContent = "space-between";
+                    playersWrapper.style.alignItems = "stretch";
                     const playersLabel = document.createElement("label");
                     playersLabel.textContent = "Players";
                     playersWrapper.appendChild(playersLabel);
@@ -5278,13 +5281,18 @@
                     playersCount.textContent = "Total players: " + normalizedPlayers.length;
                     playersWrapper.appendChild(playersCount);
 
+                    const playersActions = document.createElement("div");
+                    playersActions.style.display = "flex";
+                    playersActions.style.justifyContent = "flex-end";
+                    playersActions.style.marginTop = "0.8rem";
                     const openPlayersBtn = document.createElement("button");
                     openPlayersBtn.type = "button";
                     openPlayersBtn.textContent = "Manage Players";
                     openPlayersBtn.addEventListener("click", function() {
                         openTeamPlayersModal(recordIndex);
                     });
-                    playersWrapper.appendChild(openPlayersBtn);
+                    playersActions.appendChild(openPlayersBtn);
+                    playersWrapper.appendChild(playersActions);
 
                     targetContainer.appendChild(playersWrapper);
                     return true;
