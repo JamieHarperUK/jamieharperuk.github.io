@@ -2169,14 +2169,14 @@ const app = {
                 <div class="fixture-league">${competition}</div>
             </div>
             <div class="fixture-body">
-                <div class="fixture-date">${gameDate} at ${gameTime} (<i>${homeOrAway}</>)</div>
+                <div class="fixture-date">${gameDate} at ${gameTime}</div>
                 <div class="fixture-match">
                     <div class="team-name">${homeTeam}</div>
                     <div class="score ${played ? "" : "pending"}">${score}</div>
                     <div class="team-name right">${awayTeam}</div>
                 </div>
                 <div class="fixture-meta">
-                    <span>${gameType}</span>
+                    <span><i>${homeOrAway}</i></span>
                     <span>${venue}</span>
                 </div>
             </div>
