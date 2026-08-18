@@ -38,7 +38,8 @@ const shareConfig = {
 const platformLogoUrls = {
     topEleven: buildFmUrl("data/top-eleven-logo.png", true),
     osm: buildFmUrl("data/osm-logo.png", true),
-    hattrick: buildFmUrl("data/hattrick-logo.png", true)
+    hattrick: buildFmUrl("data/hattrick-logo.png", true),
+    fpl: buildFmUrl("data/fpl-logo.png", true)
 };
 
 function urlBase64ToUint8Array(base64String) {
@@ -58,7 +59,8 @@ function urlBase64ToUint8Array(base64String) {
 const gameTwitterHandles = {
     top_eleven: "@topeleven",
     osm: "@OSMLikeABoss",
-    hattrick: "@Hattrick"
+    hattrick: "@Hattrick",
+    fpl: "@OfficialFPL"
 };
 
 const app = {
@@ -367,6 +369,17 @@ const app = {
                 invertLogo: false,
                 kFactor: 24,
                 eloIntro: "This rating is a season-style ELO for this OSM team based on the matches I have recorded for that platform."
+            };
+        }
+        if (normalized === "FPL") {
+            return {
+                name: "FPL",
+                fullName: "Fantasy Premier League",
+                logo: platformLogoUrls.fpl,
+                link: "https://fantasy.premierleague.com/",
+                invertLogo: false,
+                kFactor: 24,
+                eloIntro: "This rating is a season-style ELO for this FPL team based on the matches I have recorded for that platform."
             };
         }
         if (normalized === "Hattrick") {
@@ -1745,7 +1758,7 @@ const app = {
         let gameLogoTag = this.escapeHtml(gameTypeData.fullName || "Unknown");
         if (gameTypeData.logo) {
             const topElevenFilterStyle = gameTypeData.invertLogo ? " filter: invert(1);" : "";
-            gameLogoTag = `<img src="${gameTypeData.logo}" alt="${gameTypeData.fullName} logo" style="height: 1.75rem; vertical-align: middle;${topElevenFilterStyle}">`;
+            gameLogoTag = `<img src="${gameTypeData.logo}" alt="${gameTypeData.fullName} logo" style="height: 2rem; vertical-align: middle;${topElevenFilterStyle}">`;
         }
 
         content.innerHTML = `
