@@ -354,6 +354,79 @@
       ]
     },
     {
+      "team_name": "Greyhound AFC",
+      "osm_or_top_eleven": "LadderFM",
+      "competition": "England Tier 1 League",
+      "country": "England",
+      "home_venue": "The Coursing Ground",
+      "start_date": "",
+      "players": [
+        [
+          "GK",
+          "Jack Murray",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "GK",
+          "Florence Thompson",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "GK",
+          "Christopher Griffin",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "DC",
+          "Joseph Thompson",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "DC",
+          "James Brooks",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "DL",
+          "George Murray",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "DC",
+          "Benjamin Walker",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "MC",
+          "Tony Fox",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "ST",
+          "Declan Wells",
+          "0",
+          "0",
+          "0"
+        ]
+      ]
+    },
+    {
       "team_name": "Manchester United",
       "osm_or_top_eleven": "OSM",
       "competition": "England 1st Division",
