@@ -688,6 +688,66 @@ main {
     margin-bottom: 1.2rem;
 }
 
+.table-wrapper {
+    overflow-x: auto;
+    background: rgba(10, 15, 30, 0.45);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    min-width: 420px;
+}
+
+.data-table th,
+.data-table td {
+    padding: 0.8rem 0.9rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(42, 58, 82, 0.75);
+    vertical-align: middle;
+}
+
+.data-table thead th {
+    background: rgba(21, 29, 45, 0.95);
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.data-table thead th:first-child,
+.data-table tbody td:first-child {
+    width: 4.5rem;
+    text-align: center;
+}
+
+.data-table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.data-table tbody tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.data-table tbody tr:hover {
+    background: rgba(200, 16, 46, 0.08);
+}
+
+.data-table tbody td {
+    color: var(--text-primary);
+    font-size: 0.95rem;
+}
+
+.data-table tbody td:last-child {
+    font-weight: 700;
+    color: var(--warning-color);
+}
+
 .notify-panel {
     margin-bottom: 1.3rem;
 }
