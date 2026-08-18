@@ -1614,6 +1614,7 @@
                         posts: "fm/data/posts.json",
                         games: "fm/data/games.json",
                         teams: "fm/data/teams.json",
+                        fpl_teams: "fm/data/fpl-teams.json",
 
                         // FM Template
                         fmt_posts: "fm-template/data/posts.json",
@@ -2813,7 +2814,7 @@
 
             function getCurrentEditorFileKind() {
                 const path = String(state.currentJsonPath || "").toLowerCase();
-                if (path.endsWith("/teams.json") || path.endsWith("teams.json")) {
+                if (path.endsWith("/teams.json") || path.endsWith("teams.json") || path.endsWith("/fpl-teams.json") || path.endsWith("fpl-teams.json")) {
                     return "teams";
                 }
                 if (path.endsWith("/games.json") || path.endsWith("games.json")) {

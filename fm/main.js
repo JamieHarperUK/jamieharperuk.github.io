@@ -22,6 +22,7 @@ function buildRootUrl(path = "", useCanonical = false) {
 const dataSources = {
     games: buildFmUrl("data/games.json"),
     teams: buildFmUrl("data/teams.json"),
+    fplTeams: buildFmUrl("data/fpl-teams.json"),
     posts: buildFmUrl("data/posts.json")
 };
 
@@ -74,6 +75,7 @@ const app = {
     data: {
         games: [],
         teams: [],
+        fplTeams: [],
         posts: [],
         eloRatings: {}
     },
@@ -310,9 +312,10 @@ const app = {
     },
 
     async loadData() {
-        const [gamesResponse, teamsResponse, postsResponse] = await Promise.all([
+        const [gamesResponse, teamsResponse, fplTeamsResponse, postsResponse] = await Promise.all([
             fetch(dataSources.games),
             fetch(dataSources.teams),
+            fetch(dataSources.fplTeams).catch(() => null),
             fetch(dataSources.posts)
         ]);
 
@@ -320,14 +323,19 @@ const app = {
             throw new Error("Unable to load one or more JSON data sources.");
         }
 
-        const [gamesJson, teamsJson, postsJson] = await Promise.all([
+        const [gamesJson, teamsJson, fplTeamsJson, postsJson] = await Promise.all([
             gamesResponse.json(),
             teamsResponse.json(),
+            fplTeamsResponse && fplTeamsResponse.ok ? fplTeamsResponse.json() : Promise.resolve({ teams: [] }),
             postsResponse.json()
         ]);
 
         this.data.games = Array.isArray(gamesJson.games) ? gamesJson.games : [];
-        this.data.teams = Array.isArray(teamsJson.teams) ? teamsJson.teams : [];
+        this.data.teams = [
+            ...(Array.isArray(teamsJson.teams) ? teamsJson.teams : []),
+            ...(Array.isArray(fplTeamsJson.teams) ? fplTeamsJson.teams : [])
+        ];
+        this.data.fplTeams = Array.isArray(fplTeamsJson.teams) ? fplTeamsJson.teams : [];
         this.data.posts = Array.isArray(postsJson.posts) ? postsJson.posts : [];
         this.calculateEloRatings();
     },
@@ -343,6 +351,9 @@ const app = {
         }
         if (key === "hattrick") {
             return "Hattrick";
+        }
+        if (key === "fpl" || key === "fantasy premier league" || key === "fantasypl") {
+            return "FPL";
         }
         return value || "Unknown";
     },
@@ -1739,6 +1750,7 @@ const app = {
             return;
         }
 
+        const isFplTeam = this.normalizePlatformName(team.osm_or_top_eleven) === "FPL";
         const teamGames = this.getTeamGames(team);
         const upcoming = teamGames.filter((game) => !this.isPlayed(game)).sort((a, b) => this.compareGameDateAsc(a, b));
         const played = teamGames.filter((game) => this.isPlayed(game)).sort((a, b) => this.compareGameDateDesc(a, b));
@@ -1746,8 +1758,8 @@ const app = {
         const recentFormResults = played.slice(0, 5).map((game) => this.getResultLetter(game, team.team_name));
         const recentFormMarkup = this.getRecentFormMarkup(recentFormResults);
 
-        const yellowCards = (team.players || []).reduce((count, player) => count + Number(player[2] || 0), 0);
-        const redCards = (team.players || []).reduce((count, player) => count + Number(player[3] || 0), 0);
+        const yellowCards = (team.players || []).reduce((count, player) => count + Number(Array.isArray(player) ? (player[2] || 0) : (player?.yellow_cards ?? player?.yellow ?? 0)), 0);
+        const redCards = (team.players || []).reduce((count, player) => count + Number(Array.isArray(player) ? (player[3] || 0) : (player?.red_cards ?? player?.red ?? 0)), 0);
         const isCompletedTeam = Boolean(team.end_state && typeof team.end_state === "object");
         const eloPlatform = this.normalizePlatformName(team.osm_or_top_eleven);
         const platformRatings = this.data.eloRatings?.[eloPlatform] || {};
@@ -1760,6 +1772,77 @@ const app = {
             const topElevenFilterStyle = gameTypeData.invertLogo ? " filter: invert(1);" : "";
             gameLogoTag = `<img src="${gameTypeData.logo}" alt="${gameTypeData.fullName} logo" style="height: 2rem; vertical-align: middle;${topElevenFilterStyle}">`;
         }
+
+        const fplStats = team.stats || {};
+        const fplStatsCards = [
+            ["Gameweek Points", fplStats.gameweek_points ?? "—"],
+            ["Overall Points", fplStats.overall_points ?? "—"],
+            ["Overall Rank", fplStats.overall_rank ?? "—"],
+            ["Free Transfers", fplStats.free_transfers ?? "—"],
+            ["Gameweek Transfers Made", fplStats.gameweek_transfers_made ?? "—"],
+            ["Bank (£)", typeof fplStats.bank === "number" ? `£${fplStats.bank.toFixed(2)}` : (fplStats.bank ?? "—")],
+            ["Team Value (£)", typeof fplStats.team_value === "number" ? `£${fplStats.team_value.toFixed(2)}` : (fplStats.team_value ?? "—")]
+        ].map(([label, value]) => `
+            <article class="stat-card">
+                <div class="stat-label">${this.escapeHtml(label)}</div>
+                <div class="stat-value">${this.escapeHtml(String(value))}</div>
+            </article>
+        `).join("");
+
+        const leagueTableStyle = Array.isArray(team.league_table) && team.league_table.some((entry) => typeof entry?.points !== "undefined" && !Object.prototype.hasOwnProperty.call(entry, "won") && !Object.prototype.hasOwnProperty.call(entry, "drawn") && !Object.prototype.hasOwnProperty.call(entry, "lost"));
+
+        const leagueRows = Array.isArray(team.league_table) && team.league_table.length
+            ? team.league_table.map((entry) => {
+                const position = this.escapeHtml(String(entry.position || "-"));
+                const teamName = this.escapeHtml(String(entry.team || "Unknown Team"));
+                const played = this.escapeHtml(String(entry.played || "0"));
+                const points = this.escapeHtml(String(entry.points ?? "0"));
+                const transfersUsed = this.escapeHtml(String(entry.transfers_used ?? entry.transfers_made ?? entry.transfer_count ?? "0"));
+                const won = this.escapeHtml(String(entry.won || "0"));
+                const drawn = this.escapeHtml(String(entry.drawn || "0"));
+                const lost = this.escapeHtml(String(entry.lost || "0"));
+
+                if (leagueTableStyle) {
+                    return `
+                        <tr>
+                            <td>${position}</td>
+                            <td>${teamName}</td>
+                            <td>${transfersUsed}</td>
+                            <td>${points}</td>
+                        </tr>
+                    `;
+                }
+
+                return `
+                    <tr>
+                        <td>${position}</td>
+                        <td>${teamName}</td>
+                        <td>${played}</td>
+                        <td>${won}</td>
+                        <td>${drawn}</td>
+                        <td>${lost}</td>
+                        <td>${points}</td>
+                    </tr>
+                `;
+            }).join("")
+            : '<tr><td colspan="7"><div class="empty-state">League table will appear once the FPL league starts.</div></td></tr>';
+
+        const leagueTableHeader = leagueTableStyle
+            ? `
+                <th>Pos</th>
+                <th>Team</th>
+                <th>Transfers</th>
+                <th>Pts</th>
+            `
+            : `
+                <th>Pos</th>
+                <th>Team</th>
+                <th>P</th>
+                <th>W</th>
+                <th>D</th>
+                <th>L</th>
+                <th>Pts</th>
+            `;
 
         content.innerHTML = `
             <h1 class="section-title">${this.escapeHtml(team.team_name)}</h1>
@@ -1781,23 +1864,25 @@ const app = {
                     <div class="stat-label">Squad Size</div>
                     <div class="stat-value">${team.players?.length || 0}</div>
                 </article>
-                <article class="stat-card">
-                    <div class="stat-label">Recent Form</div>
-                    ${recentFormMarkup}
-                </article>
-                <article class="stat-card elo-card">
-                    <div class="stat-label">
-                        ELO Rating
-                        <button class="elo-info-btn" type="button" data-analytics-action="elo_info_click" data-analytics-category="Teams" data-analytics-label="${this.escapeHtml(team.team_name)}" aria-label="Explain how ELO is calculated for ${this.escapeHtml(team.team_name)}">
-                            <i class="fas fa-info-circle"></i>
-                        </button>
-                    </div>
-                    <div class="stat-value">${eloValue}</div>
-                </article>
-                <article class="stat-card">
-                    <div class="stat-label">Cards</div>
-                    <div class="stat-value"><span style="color: var(--warning-color);">${yellowCards}</span> <span style="color: var(--text-secondary); font-weight: normal;">/</span> <span style="color: var(--danger-color);">${redCards}</span></div>
-                </article>
+                ${isFplTeam ? fplStatsCards : `
+                    <article class="stat-card">
+                        <div class="stat-label">Recent Form</div>
+                        ${recentFormMarkup}
+                    </article>
+                    <article class="stat-card elo-card">
+                        <div class="stat-label">
+                            ELO Rating
+                            <button class="elo-info-btn" type="button" data-analytics-action="elo_info_click" data-analytics-category="Teams" data-analytics-label="${this.escapeHtml(team.team_name)}" aria-label="Explain how ELO is calculated for ${this.escapeHtml(team.team_name)}">
+                                <i class="fas fa-info-circle"></i>
+                            </button>
+                        </div>
+                        <div class="stat-value">${eloValue}</div>
+                    </article>
+                    <article class="stat-card">
+                        <div class="stat-label">Cards</div>
+                        <div class="stat-value"><span style="color: var(--warning-color);">${yellowCards}</span> <span style="color: var(--text-secondary); font-weight: normal;">/</span> <span style="color: var(--danger-color);">${redCards}</span></div>
+                    </article>
+                `}
             </section>
 
             <section class="panel">
@@ -1808,25 +1893,40 @@ const app = {
                 </p>
             </section>
 
-            ${isCompletedTeam ? "" : `
-            <section class="panel">
-                <h2 class="panel-title">Upcoming Fixtures</h2>
-                <div class="fixtures-grid" id="team-upcoming-${teamId}"></div>
-            </section>
-            `}
+            ${isFplTeam ? `
+                <section class="panel">
+                    <h2 class="panel-title">League Table</h2>
+                    <p style="margin-top: -0.25rem; margin-bottom: 0.9rem; color: var(--text-secondary);">Ranked by FPL points, with ties broken by fewer transfers used.</p>
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>${leagueTableHeader}</tr>
+                            </thead>
+                            <tbody>${leagueRows}</tbody>
+                        </table>
+                    </div>
+                </section>
+            ` : `
+                ${isCompletedTeam ? "" : `
+                <section class="panel">
+                    <h2 class="panel-title">Upcoming Fixtures</h2>
+                    <div class="fixtures-grid" id="team-upcoming-${teamId}"></div>
+                </section>
+                `}
 
-            <section class="panel past-panel ${pastFixturesState.collapsed ? "is-collapsed" : ""}" id="past-panel-${teamId}">
-                <div class="panel-heading">
-                    <h2 class="panel-title">Past Fixtures</h2>
-                    <button class="panel-toggle-btn" id="team-played-toggle-${teamId}" type="button" aria-expanded="${String(!pastFixturesState.collapsed)}">
-                        ${pastFixturesState.collapsed ? "Expand" : "Collapse"}
-                    </button>
-                </div>
-                <div class="panel-content" id="team-played-panel-content-${teamId}">
-                    <div class="fixtures-grid" id="team-played-${teamId}"></div>
-                    <div class="panel-controls" id="team-played-controls-${teamId}"></div>
-                </div>
-            </section>
+                <section class="panel past-panel ${pastFixturesState.collapsed ? "is-collapsed" : ""}" id="past-panel-${teamId}">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Past Fixtures</h2>
+                        <button class="panel-toggle-btn" id="team-played-toggle-${teamId}" type="button" aria-expanded="${String(!pastFixturesState.collapsed)}">
+                            ${pastFixturesState.collapsed ? "Expand" : "Collapse"}
+                        </button>
+                    </div>
+                    <div class="panel-content" id="team-played-panel-content-${teamId}">
+                        <div class="fixtures-grid" id="team-played-${teamId}"></div>
+                        <div class="panel-controls" id="team-played-controls-${teamId}"></div>
+                    </div>
+                </section>
+            `}
 
             <section class="panel">
                 <h2 class="panel-title">Squad</h2>
@@ -1856,8 +1956,10 @@ const app = {
             });
         }
 
-        this.renderPastFixturesList(teamId, played);
-        this.updatePastFixturesPanelState(teamId);
+        if (!isFplTeam) {
+            this.renderPastFixturesList(teamId, played);
+            this.updatePastFixturesPanelState(teamId);
+        }
 
         if (eloInfoButton) {
             eloInfoButton.addEventListener("click", (event) => {
@@ -1982,9 +2084,16 @@ const app = {
         };
 
         players.forEach((player) => {
-            const position = String(player[0] || "").toUpperCase();
+            const row = Array.isArray(player) ? player : [
+                player?.position || player?.role || player?.pos || "",
+                player?.name || player?.player || "Unknown Player",
+                player?.yellow_cards ?? player?.yellow ?? "0",
+                player?.red_cards ?? player?.red ?? "0",
+                player?.injury_days ?? player?.injury ?? "0"
+            ];
+            const position = String(row[0] || "").toUpperCase();
             const bucket = this.getPositionGroup(position);
-            groups[bucket].push(player);
+            groups[bucket].push(row);
         });
 
         container.innerHTML = "";
@@ -2038,10 +2147,10 @@ const app = {
     },
 
     getPositionGroup(position) {
-        const goalkeepers = ["GK"];
-        const defenders = ["LB", "RB", "CB", "LCB", "RCB", "DL", "DR", "DC", "WB", "CD"];
-        const midfielders = ["CM", "CDM", "CAM", "LM", "RM", "MC", "DMC", "AMC", "AML", "AMR", "W", "IM"];
-        const forwards = ["ST", "CF", "LW", "RW", "SS", "FW"];
+        const goalkeepers = ["GK", "GKP"];
+        const defenders = ["LB", "RB", "CB", "LCB", "RCB", "DL", "DR", "DC", "WB", "CD", "DEF"];
+        const midfielders = ["CM", "CDM", "CAM", "LM", "RM", "MC", "DMC", "AMC", "AML", "AMR", "W", "IM", "MID"];
+        const forwards = ["ST", "CF", "LW", "RW", "SS", "FW", "FWD"];
 
         if (goalkeepers.includes(position)) {
             return "Goalkeepers";

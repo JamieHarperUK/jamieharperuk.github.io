@@ -1,0 +1,66 @@
+{
+  "metadata": {
+    "lastUpdated": "2026-08-18T00:00:00Z",
+    "version": "1.0.0",
+    "fields": {
+      "team": {
+        "team_name": "string",
+        "osm_or_top_eleven": "string",
+        "competition": "string",
+        "country": "string",
+        "home_venue": "string",
+        "start_date": "string",
+        "players": "array[array[string]]",
+        "stats": "object",
+        "league_table": "array[object]"
+      }
+    }
+  },
+  "teams": [
+    {
+      "team_name": "North West Athletic",
+      "osm_or_top_eleven": "FPL",
+      "competition": "Fantasy Premier League",
+      "country": "England",
+      "home_venue": "N/A",
+      "start_date": "21-08-2026",
+      "league_table": [
+        {
+          "position": 1,
+          "team": "North West Athletic",
+          "transfers_used": 0,
+          "points": 0
+        }
+      ],
+      "stats": {
+        "gameweek_points": 0,
+        "overall_points": 0,
+        "overall_rank": 0,
+        "free_transfers": 0,
+        "gameweek_transfers_made": 0,
+        "bank": 1.0,
+        "team_value": 99.0
+      },
+      "players": [
+        ["GK", "Nick Pope", "0", "0", "0"],
+        ["GK", "Dorde Petrovic", "0", "0", "0"],
+        
+        ["DEF", "Nico O'Reilly", "0", "0", "0"],
+        ["DEF", "Virgil van Dijk", "0", "0", "0"],
+        ["DEF", "Marc Guehi", "0", "0", "0"],
+        ["DEF", "Adrien Truffert", "0", "0", "0"],
+        ["DEF", "Andrew Robertson", "0", "0", "0"],
+        
+        ["MID", "Cole Palmer", "0", "0", "0"],
+        ["MID", "Matheus Santos Carneiro da Cunha", "0", "0", "0"],
+        ["MID", "Morgan Gibbs-White", "0", "0", "0"],
+        ["MID", "Eliot Anderson", "0", "0", "0"],
+        ["MID", "Dan Ndoye", "0", "0", "0"],
+        
+        ["FWD", "Alexander Isak", "0", "0", "0"],
+        ["FWD", "Igor Thiago Nascimento Rodrigues", "0", "0", "0"],
+        ["FWD", "Gonzalo Garcia", "0", "0", "0"]
+      ]
+    }
+  ]
+}

@@ -10,6 +10,7 @@
         "fm_games": "fm/data/games.json",
         "fm_posts": "fm/data/posts.json",
         "fm_teams": "fm/data/teams.json",
+        "fm_fpl_teams": "fm/data/fpl-teams.json",
 
         "fmt_games": "fm-template/data/games.json",
         "fmt_posts": "fm-template/data/posts.json",
