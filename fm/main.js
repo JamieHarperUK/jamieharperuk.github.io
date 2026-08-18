@@ -1780,8 +1780,8 @@ const app = {
             ["Overall Rank", fplStats.overall_rank ?? "—"],
             ["Free Transfers", fplStats.free_transfers ?? "—"],
             ["Gameweek Transfers Made", fplStats.gameweek_transfers_made ?? "—"],
-            ["Bank (£)", typeof fplStats.bank === "number" ? `£${fplStats.bank.toFixed(2)}` : (fplStats.bank ?? "—")],
-            ["Team Value (£)", typeof fplStats.team_value === "number" ? `£${fplStats.team_value.toFixed(2)}` : (fplStats.team_value ?? "—")]
+            ["Bank (£)", typeof fplStats.bank === "number" ? `£${fplStats.bank.toFixed(2)} M` : (fplStats.bank ?? "—")],
+            ["Team Value (£)", typeof fplStats.team_value === "number" ? `£${fplStats.team_value.toFixed(2)} M` : (fplStats.team_value ?? "—")]
         ].map(([label, value]) => `
             <article class="stat-card">
                 <div class="stat-label">${this.escapeHtml(label)}</div>
