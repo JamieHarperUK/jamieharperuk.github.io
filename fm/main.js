@@ -388,7 +388,7 @@ const app = {
                 fullName: "Fantasy Premier League",
                 logo: platformLogoUrls.fpl,
                 link: "https://fantasy.premierleague.com/",
-                invertLogo: false,
+                invertLogo: true,
                 kFactor: 24,
                 eloIntro: "This rating is a season-style ELO for this FPL team based on the matches I have recorded for that platform."
             };
