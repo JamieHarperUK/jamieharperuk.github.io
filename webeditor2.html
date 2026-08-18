@@ -1462,6 +1462,40 @@
                 </div>
             </div>
 
+            <div id="leagueTableModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="leagueTableModalTitle">
+                <div class="modal-card" style="width:min(100%, 860px);">
+                    <div class="modal-head">
+                        <h3 id="leagueTableModalTitle">Edit League Table</h3>
+                        <button id="leagueTableModalCloseBtn" type="button" class="warn">Close</button>
+                    </div>
+                    <div class="stack">
+                        <div class="row">
+                            <button id="leagueTableModalAddBtn" type="button" class="primary">Add Row</button>
+                        </div>
+                        <div id="leagueTableModalBody" class="player-modal-body"></div>
+                        <div class="row">
+                            <button id="leagueTableModalDoneBtn" class="primary" type="button">Done</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="leagueTableEntryModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="leagueTableEntryModalTitle">
+                <div class="modal-card" style="width:min(100%, 540px);">
+                    <div class="modal-head">
+                        <h3 id="leagueTableEntryModalTitle">Edit League Row</h3>
+                        <button id="leagueTableEntryModalCloseBtn" type="button" class="warn">Close</button>
+                    </div>
+                    <div class="stack modal-body-scroll">
+                        <div id="leagueTableEntryModalFields" class="field-grid"></div>
+                        <div class="row">
+                            <button id="leagueTableEntryModalSaveBtn" class="primary" type="button">Save</button>
+                            <button id="leagueTableEntryModalCancelBtn" type="button">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div id="playerEditModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="playerEditModalTitle">
                 <div class="modal-card" style="width:min(100%, 620px);">
                     <div class="modal-head">
@@ -1759,6 +1793,9 @@
                     gamesVisibleCount: 10,
                     gamesPageSize: 10,
                     playersModalRecordIndex: 0,
+                    leagueTableModalRecordIndex: 0,
+                    leagueTableEntryModalRecordIndex: 0,
+                    leagueTableEntryModalRowIndex: -1,
                     playerEditModalRecordIndex: 0,
                     playerEditModalPlayerIndex: -1,
                     postContentModalRecordIndex: 0,
@@ -1913,6 +1950,18 @@
                 teamPlayersModalAddBtn: document.getElementById("teamPlayersModalAddBtn"),
                 teamPlayersModalDoneBtn: document.getElementById("teamPlayersModalDoneBtn"),
                 teamPlayersModalCloseBtn: document.getElementById("teamPlayersModalCloseBtn"),
+                leagueTableModal: document.getElementById("leagueTableModal"),
+                leagueTableModalTitle: document.getElementById("leagueTableModalTitle"),
+                leagueTableModalBody: document.getElementById("leagueTableModalBody"),
+                leagueTableModalAddBtn: document.getElementById("leagueTableModalAddBtn"),
+                leagueTableModalDoneBtn: document.getElementById("leagueTableModalDoneBtn"),
+                leagueTableModalCloseBtn: document.getElementById("leagueTableModalCloseBtn"),
+                leagueTableEntryModal: document.getElementById("leagueTableEntryModal"),
+                leagueTableEntryModalTitle: document.getElementById("leagueTableEntryModalTitle"),
+                leagueTableEntryModalFields: document.getElementById("leagueTableEntryModalFields"),
+                leagueTableEntryModalSaveBtn: document.getElementById("leagueTableEntryModalSaveBtn"),
+                leagueTableEntryModalCancelBtn: document.getElementById("leagueTableEntryModalCancelBtn"),
+                leagueTableEntryModalCloseBtn: document.getElementById("leagueTableEntryModalCloseBtn"),
                 playerEditModal: document.getElementById("playerEditModal"),
                 playerEditModalTitle: document.getElementById("playerEditModalTitle"),
                 playerEditModalFields: document.getElementById("playerEditModalFields"),
@@ -4408,6 +4457,261 @@
                 }
             }
 
+            function getActiveLeagueTableRecord() {
+                const index = Number(state.crmModel.leagueTableModalRecordIndex ?? state.crmModel.selectedIndex ?? 0);
+                const record = state.crmModel.records[index] || null;
+                if (!record || typeof record !== "object") {
+                    return null;
+                }
+                if (!Array.isArray(record.league_table)) {
+                    record.league_table = [];
+                }
+                return record;
+            }
+
+            function openLeagueTableModal(recordIndex) {
+                if (!state.crmModel.records.length) {
+                    return;
+                }
+                state.crmModel.leagueTableModalRecordIndex = Math.max(0, Math.min(Number(recordIndex ?? state.crmModel.selectedIndex ?? 0), state.crmModel.records.length - 1));
+                renderLeagueTableModal();
+                if (el.leagueTableModal) {
+                    el.leagueTableModal.classList.remove("hidden");
+                }
+            }
+
+            function closeLeagueTableModal() {
+                if (el.leagueTableModal) {
+                    el.leagueTableModal.classList.add("hidden");
+                }
+            }
+
+            function buildDefaultLeagueTableRow(positionOverride = 0) {
+                const position = Number(positionOverride) || 0;
+                return {
+                    position,
+                    team: "New Club",
+                    points: 0,
+                    transfers_used: 0
+                };
+            }
+
+            function renderLeagueTableModal() {
+                if (!el.leagueTableModal || !el.leagueTableModalBody) {
+                    return;
+                }
+                const record = getActiveLeagueTableRecord();
+                if (!record) {
+                    closeLeagueTableModal();
+                    return;
+                }
+
+                const title = record.team_name || record.teamName || record.name || "Team";
+                if (el.leagueTableModalTitle) {
+                    el.leagueTableModalTitle.textContent = "Edit League Table · " + title;
+                }
+
+                const rows = Array.isArray(record.league_table) ? record.league_table : [];
+                el.leagueTableModalBody.innerHTML = "";
+
+                const summary = document.createElement("div");
+                summary.className = "row";
+                const countPill = document.createElement("div");
+                countPill.className = "pill mono";
+                countPill.textContent = "Rows: " + rows.length;
+                summary.appendChild(countPill);
+                el.leagueTableModalBody.appendChild(summary);
+
+                const list = document.createElement("div");
+                list.className = "stack";
+
+                rows.forEach(function(row, rowIndex) {
+                    const entry = document.createElement("div");
+                    entry.style.display = "grid";
+                    entry.style.gridTemplateColumns = "1fr auto";
+                    entry.style.gap = "0.6rem";
+                    entry.style.alignItems = "center";
+                    entry.style.padding = "0.7rem";
+                    entry.style.border = "1px solid var(--line)";
+                    entry.style.borderRadius = "8px";
+                    entry.style.background = "#fff";
+
+                    const info = document.createElement("div");
+                    info.style.display = "flex";
+                    info.style.flexDirection = "column";
+                    info.style.gap = "0.15rem";
+                    const pos = document.createElement("strong");
+                    pos.textContent = "#" + (row.position ?? (rowIndex + 1));
+                    const team = document.createElement("span");
+                    team.textContent = String(row.team || "Unknown Team");
+                    const stats = document.createElement("span");
+                    stats.style.color = "var(--muted)";
+                    stats.textContent = (row.points ?? 0) + " pts · " + (row.transfers_used ?? row.transfers_made ?? row.transfer_count ?? 0) + " transfers";
+                    info.appendChild(pos);
+                    info.appendChild(team);
+                    info.appendChild(stats);
+                    entry.appendChild(info);
+
+                    const actions = document.createElement("div");
+                    actions.style.display = "flex";
+                    actions.style.gap = "0.35rem";
+                    actions.style.alignItems = "center";
+
+                    const editBtn = document.createElement("button");
+                    editBtn.type = "button";
+                    editBtn.textContent = "Edit";
+                    editBtn.className = "primary";
+                    editBtn.style.padding = "0.38rem 0.6rem";
+                    editBtn.style.fontSize = "0.85rem";
+                    editBtn.addEventListener("click", function() {
+                        openLeagueTableEntryModal(state.crmModel.leagueTableModalRecordIndex, rowIndex);
+                    });
+                    actions.appendChild(editBtn);
+
+                    const moveUpBtn = document.createElement("button");
+                    moveUpBtn.type = "button";
+                    moveUpBtn.textContent = "↑";
+                    moveUpBtn.title = "Move up";
+                    moveUpBtn.style.padding = "0.38rem 0.45rem";
+                    moveUpBtn.addEventListener("click", function() {
+                        if (rowIndex <= 0) return;
+                        const [moved] = record.league_table.splice(rowIndex, 1);
+                        record.league_table.splice(rowIndex - 1, 0, moved);
+                        renderLeagueTableModal();
+                        syncCrmToJsonText();
+                    });
+                    actions.appendChild(moveUpBtn);
+
+                    const moveDownBtn = document.createElement("button");
+                    moveDownBtn.type = "button";
+                    moveDownBtn.textContent = "↓";
+                    moveDownBtn.title = "Move down";
+                    moveDownBtn.style.padding = "0.38rem 0.45rem";
+                    moveDownBtn.addEventListener("click", function() {
+                        if (rowIndex >= record.league_table.length - 1) return;
+                        const [moved] = record.league_table.splice(rowIndex, 1);
+                        record.league_table.splice(rowIndex + 1, 0, moved);
+                        renderLeagueTableModal();
+                        syncCrmToJsonText();
+                    });
+                    actions.appendChild(moveDownBtn);
+
+                    const removeBtn = document.createElement("button");
+                    removeBtn.type = "button";
+                    removeBtn.textContent = "Remove";
+                    removeBtn.style.padding = "0.38rem 0.6rem";
+                    removeBtn.style.fontSize = "0.85rem";
+                    removeBtn.addEventListener("click", function() {
+                        record.league_table.splice(rowIndex, 1);
+                        renderLeagueTableModal();
+                        syncCrmToJsonText();
+                    });
+                    actions.appendChild(removeBtn);
+
+                    entry.appendChild(actions);
+                    list.appendChild(entry);
+                });
+
+                el.leagueTableModalBody.appendChild(list);
+            }
+
+            function openLeagueTableEntryModal(recordIndex, rowIndex) {
+                const record = getActiveLeagueTableRecord();
+                if (!record) {
+                    return;
+                }
+
+                state.crmModel.leagueTableEntryModalRecordIndex = Math.max(0, Math.min(Number(recordIndex ?? state.crmModel.selectedIndex ?? 0), state.crmModel.records.length - 1));
+                state.crmModel.leagueTableEntryModalRowIndex = Number(rowIndex);
+
+                if (!Array.isArray(record.league_table)) {
+                    record.league_table = [];
+                }
+                if (rowIndex < 0 || rowIndex >= record.league_table.length) {
+                    return;
+                }
+
+                const row = record.league_table[rowIndex] || {};
+                if (!el.leagueTableEntryModalFields) {
+                    return;
+                }
+
+                el.leagueTableEntryModalFields.innerHTML = "";
+                const fieldDefinitions = [
+                    { key: "position", label: "Position", type: "number" },
+                    { key: "team", label: "Team", type: "text" },
+                    { key: "points", label: "Points", type: "number" },
+                    { key: "transfers_used", label: "Transfers Used", type: "number" },
+                    { key: "played", label: "Played", type: "number" }
+                ];
+
+                fieldDefinitions.forEach(function(field) {
+                    const wrapper = document.createElement("div");
+                    wrapper.className = "field-item";
+                    const label = document.createElement("label");
+                    label.textContent = field.label;
+                    label.style.display = "block";
+                    label.style.marginBottom = "0.3rem";
+                    label.style.fontWeight = "600";
+
+                    const input = document.createElement("input");
+                    input.type = field.type || "text";
+                    input.value = row[field.key] == null ? "" : String(row[field.key]);
+                    input.setAttribute("data-field-key", field.key);
+                    input.className = "league-table-field-input";
+
+                    wrapper.appendChild(label);
+                    wrapper.appendChild(input);
+                    el.leagueTableEntryModalFields.appendChild(wrapper);
+                });
+
+                const titleTeam = record.team_name || record.teamName || record.name || "Team";
+                if (el.leagueTableEntryModalTitle) {
+                    el.leagueTableEntryModalTitle.textContent = "Edit League Row · " + titleTeam;
+                }
+
+                if (el.leagueTableEntryModal) {
+                    el.leagueTableEntryModal.classList.remove("hidden");
+                }
+            }
+
+            function closeLeagueTableEntryModal() {
+                if (el.leagueTableEntryModal) {
+                    el.leagueTableEntryModal.classList.add("hidden");
+                }
+                state.crmModel.leagueTableEntryModalRowIndex = -1;
+            }
+
+            function saveLeagueTableEntry() {
+                const record = getActiveLeagueTableRecord();
+                const rowIndex = state.crmModel.leagueTableEntryModalRowIndex;
+                if (!record || rowIndex < 0 || !Array.isArray(record.league_table) || !el.leagueTableEntryModalFields) {
+                    closeLeagueTableEntryModal();
+                    return;
+                }
+
+                const row = record.league_table[rowIndex] || {};
+                const inputs = el.leagueTableEntryModalFields.querySelectorAll(".league-table-field-input");
+
+                inputs.forEach(function(input) {
+                    const fieldKey = input.getAttribute("data-field-key");
+                    const rawValue = input.value;
+                    if (fieldKey === "position" || fieldKey === "points" || fieldKey === "transfers_used" || fieldKey === "played") {
+                        row[fieldKey] = rawValue === "" ? 0 : Number(rawValue);
+                    } else {
+                        row[fieldKey] = rawValue;
+                    }
+                });
+
+                if (!record.league_table[rowIndex]) {
+                    record.league_table[rowIndex] = row;
+                }
+
+                syncCrmToJsonText();
+                renderLeagueTableModal();
+                closeLeagueTableEntryModal();
+            }
+
             function getActivePostContentRecord() {
                 const index = Number(state.crmModel.postContentModalRecordIndex ?? state.crmModel.selectedIndex ?? 0);
                 const record = state.crmModel.records[index] || null;
@@ -4952,6 +5256,14 @@
                         leagueInfo.textContent = "No league table rows yet";
                     }
                     leagueSummary.appendChild(leagueInfo);
+
+                    const openLeagueTableBtn = document.createElement("button");
+                    openLeagueTableBtn.type = "button";
+                    openLeagueTableBtn.textContent = "Manage League Table";
+                    openLeagueTableBtn.addEventListener("click", function() {
+                        openLeagueTableModal(recordIndex);
+                    });
+                    leagueSummary.appendChild(openLeagueTableBtn);
                     targetContainer.appendChild(leagueSummary);
 
                     const playersWrapper = document.createElement("div");
@@ -6081,6 +6393,53 @@
                 el.teamPlayersModal.addEventListener("click", function(event) {
                     if (event.target === el.teamPlayersModal) {
                         closeTeamPlayersModal();
+                    }
+                });
+
+                el.leagueTableModalAddBtn.addEventListener("click", function() {
+                    const record = getActiveLeagueTableRecord();
+                    if (!record) {
+                        return;
+                    }
+                    if (!Array.isArray(record.league_table)) {
+                        record.league_table = [];
+                    }
+                    const nextPosition = record.league_table.length + 1;
+                    record.league_table.push(buildDefaultLeagueTableRow(nextPosition));
+                    syncCrmToJsonText();
+                    renderLeagueTableModal();
+                    openLeagueTableEntryModal(state.crmModel.leagueTableModalRecordIndex, record.league_table.length - 1);
+                });
+
+                el.leagueTableModal.addEventListener("click", function(event) {
+                    if (event.target === el.leagueTableModal) {
+                        closeLeagueTableModal();
+                    }
+                });
+
+                el.leagueTableModalDoneBtn.addEventListener("click", function() {
+                    closeLeagueTableModal();
+                });
+
+                el.leagueTableModalCloseBtn.addEventListener("click", function() {
+                    closeLeagueTableModal();
+                });
+
+                el.leagueTableEntryModalCloseBtn.addEventListener("click", function() {
+                    closeLeagueTableEntryModal();
+                });
+
+                el.leagueTableEntryModalCancelBtn.addEventListener("click", function() {
+                    closeLeagueTableEntryModal();
+                });
+
+                el.leagueTableEntryModalSaveBtn.addEventListener("click", function() {
+                    saveLeagueTableEntry();
+                });
+
+                el.leagueTableEntryModal.addEventListener("click", function(event) {
+                    if (event.target === el.leagueTableEntryModal) {
+                        closeLeagueTableEntryModal();
                     }
                 });
 
