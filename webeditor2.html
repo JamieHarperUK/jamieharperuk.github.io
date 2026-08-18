@@ -2007,7 +2007,7 @@
                     return;
                 }
 
-                if (fileKind === "teams" || fileKind === "sites") {
+                if (fileKind === "teams" || fileKind === "fpl_teams" || fileKind === "sites") {
                     el.notifyOnCommitCheckbox.checked = false;
                     el.notifyOnCommitCheckbox.disabled = true;
                     updateSubscriberToolsVisibility();
@@ -2814,7 +2814,10 @@
 
             function getCurrentEditorFileKind() {
                 const path = String(state.currentJsonPath || "").toLowerCase();
-                if (path.endsWith("/teams.json") || path.endsWith("teams.json") || path.endsWith("/fpl-teams.json") || path.endsWith("fpl-teams.json")) {
+                if (path.endsWith("/fpl-teams.json") || path.endsWith("fpl-teams.json")) {
+                    return "fpl_teams";
+                }
+                if (path.endsWith("/teams.json") || path.endsWith("teams.json")) {
                     return "teams";
                 }
                 if (path.endsWith("/games.json") || path.endsWith("games.json")) {
@@ -4215,6 +4218,21 @@
                     }
                 }
 
+                if (kind === "fpl_teams") {
+                    const teamName = record.team_name || record.teamName || record.name || "";
+                    const competition = record.competition || "";
+                    const startDate = record.start_date || record.startDate || "";
+                    if (teamName && competition) {
+                        return teamName + " · " + competition;
+                    }
+                    if (teamName && startDate) {
+                        return teamName + " · " + startDate;
+                    }
+                    if (teamName) {
+                        return teamName;
+                    }
+                }
+
                 if (kind === "teams") {
                     const teamName = record.team_name || record.teamName || record.name || "";
                     const competition = record.competition || "";
@@ -4854,6 +4872,112 @@
                     return true;
                 }
 
+                if (kind === "fpl_teams") {
+                    const basicFieldDefinitions = [
+                        { key: "team_name", label: "Team Name" },
+                        { key: "osm_or_top_eleven", label: "Platform" },
+                        { key: "competition", label: "Competition" },
+                        { key: "country", label: "Country" },
+                        { key: "home_venue", label: "Home Venue" },
+                        { key: "start_date", label: "Start Date" }
+                    ];
+
+                    basicFieldDefinitions.forEach(function(field) {
+                        const wrapper = document.createElement("div");
+                        wrapper.className = "crm-field-card";
+                        const label = document.createElement("label");
+                        label.textContent = field.label;
+                        const input = document.createElement("input");
+                        input.type = "text";
+                        input.value = record[field.key] == null ? "" : String(record[field.key]);
+                        input.addEventListener("input", function(event) {
+                            record[field.key] = event.target.value;
+                            syncCrmToJsonText();
+                        });
+                        wrapper.appendChild(label);
+                        wrapper.appendChild(input);
+                        targetContainer.appendChild(wrapper);
+                    });
+
+                    const stats = record.stats && typeof record.stats === "object" ? record.stats : {};
+                    const statDefinitions = [
+                        { key: "gameweek_points", label: "Gameweek Points", numeric: true },
+                        { key: "overall_points", label: "Overall Points", numeric: true },
+                        { key: "overall_rank", label: "Overall Rank", numeric: true },
+                        { key: "free_transfers", label: "Free Transfers", numeric: true },
+                        { key: "gameweek_transfers_made", label: "Transfers This GW", numeric: true },
+                        { key: "bank", label: "Bank (£)", numeric: true },
+                        { key: "team_value", label: "Team Value (£)", numeric: true }
+                    ];
+
+                    statDefinitions.forEach(function(field) {
+                        const wrapper = document.createElement("div");
+                        wrapper.className = "crm-field-card";
+                        const label = document.createElement("label");
+                        label.textContent = field.label;
+                        const input = document.createElement("input");
+                        input.type = "number";
+                        input.step = field.numeric ? "any" : "1";
+                        input.value = stats[field.key] == null ? "" : String(stats[field.key]);
+                        input.addEventListener("input", function(event) {
+                            if (!record.stats || typeof record.stats !== "object") {
+                                record.stats = {};
+                            }
+                            const rawValue = event.target.value;
+                            record.stats[field.key] = rawValue === "" ? "" : (field.numeric ? Number(rawValue) : rawValue);
+                            syncCrmToJsonText();
+                        });
+                        wrapper.appendChild(label);
+                        wrapper.appendChild(input);
+                        targetContainer.appendChild(wrapper);
+                    });
+
+                    const leagueSummary = document.createElement("div");
+                    leagueSummary.className = "player-summary-card";
+                    const leagueTitle = document.createElement("label");
+                    leagueTitle.textContent = "League Table";
+                    leagueSummary.appendChild(leagueTitle);
+
+                    const leagueInfo = document.createElement("div");
+                    leagueInfo.className = "pill mono";
+                    const tableRows = Array.isArray(record.league_table) && record.league_table.length ? record.league_table : [];
+                    if (tableRows.length) {
+                        const firstRow = tableRows[0] || {};
+                        const pos = firstRow.position ?? "-";
+                        const team = firstRow.team || "Unknown";
+                        const transfers = firstRow.transfers_used ?? firstRow.transfers_made ?? "0";
+                        const points = firstRow.points ?? "0";
+                        leagueInfo.textContent = "#" + pos + " · " + team + " · " + points + " pts · " + transfers + " transfers";
+                    } else {
+                        leagueInfo.textContent = "No league table rows yet";
+                    }
+                    leagueSummary.appendChild(leagueInfo);
+                    targetContainer.appendChild(leagueSummary);
+
+                    const playersWrapper = document.createElement("div");
+                    playersWrapper.className = "player-summary-card";
+                    const playersLabel = document.createElement("label");
+                    playersLabel.textContent = "Players";
+                    playersWrapper.appendChild(playersLabel);
+
+                    const playersCount = document.createElement("div");
+                    playersCount.className = "pill mono";
+                    const normalizedPlayers = ensureTeamPlayersArray(record);
+                    playersCount.textContent = "Total players: " + normalizedPlayers.length;
+                    playersWrapper.appendChild(playersCount);
+
+                    const openPlayersBtn = document.createElement("button");
+                    openPlayersBtn.type = "button";
+                    openPlayersBtn.textContent = "Manage Players";
+                    openPlayersBtn.addEventListener("click", function() {
+                        openTeamPlayersModal(recordIndex);
+                    });
+                    playersWrapper.appendChild(openPlayersBtn);
+
+                    targetContainer.appendChild(playersWrapper);
+                    return true;
+                }
+
                 if (kind === "teams") {
                     const basicFieldDefinitions = [
                         { key: "team_name", label: "Team Name" },
@@ -5312,8 +5436,8 @@
                 }
 
                 const fileKind = getCurrentEditorFileKind();
-                if (fileKind === "teams") {
-                    return { skipped: true, reason: "teams" };
+                if (fileKind === "teams" || fileKind === "fpl_teams") {
+                    return { skipped: true, reason: fileKind === "fpl_teams" ? "fpl_teams" : "teams" };
                 }
                 if (fileKind !== "posts" && fileKind !== "games") {
                     return { skipped: true, reason: "unsupported-kind" };
