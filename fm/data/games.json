@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Away",
-      "home_team": "Swansea City",
-      "away_team": "Portsmouth",
-      "date": "19-08-2026",
-      "time": "22:16",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 2nd Division",
-      "venue": "Swansea.com Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "AwayHome",
       "home_team": "Manchester United",
       "away_team": "Newcastle United",
@@ -99,6 +86,19 @@
       "winner": ""
     },
     {
+      "home_or_away": "Home",
+      "home_team": "Portsmouth",
+      "away_team": "Middlesbrough",
+      "date": "20-08-2026",
+      "time": "22:16",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Fratton Park",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
       "home_or_away": "Away",
       "home_team": "Alejandrojk12 FC",
       "away_team": "Harper FC",
@@ -123,6 +123,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Swansea City",
+      "away_team": "Portsmouth",
+      "date": "19-08-2026",
+      "time": "22:16",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Swansea.com Stadium",
+      "home_score": "0",
+      "away_score": "0",
+      "winner": "Draw"
     },
     {
       "home_or_away": "Home",
