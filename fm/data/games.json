@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Away",
-      "home_team": "Bristol City",
-      "away_team": "Portsmouth",
-      "date": "18-08-2026",
-      "time": "22:16",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 2nd Division",
-      "venue": "Ashton Gate Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "Manchester City",
       "away_team": "Manchester United",
       "date": "18-08-2026",
@@ -87,6 +74,19 @@
     },
     {
       "home_or_away": "Away",
+      "home_team": "Swansea City",
+      "away_team": "Portsmouth",
+      "date": "19-08-2026",
+      "time": "22:16",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Swansea.com Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
       "home_team": "dong mau quyFC",
       "away_team": "Harper FC",
       "date": "20-08-2026",
@@ -110,6 +110,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Bristol City",
+      "away_team": "Portsmouth",
+      "date": "18-08-2026",
+      "time": "22:16",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Ashton Gate Stadium",
+      "home_score": "1",
+      "away_score": "2",
+      "winner": "Portsmouth"
     },
     {
       "home_or_away": "Away",
