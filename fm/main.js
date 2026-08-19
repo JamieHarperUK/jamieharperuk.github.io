@@ -1367,7 +1367,7 @@ const app = {
 
             let categoryGameType = "";
 
-            if (safeCategory.toLowerCase() === "top eleven" || safeCategory.toLowerCase() === "osm" || safeCategory.toLowerCase() === "hattrick") {
+            if (safeCategory.toLowerCase() === "top eleven" || safeCategory.toLowerCase() === "osm" || safeCategory.toLowerCase() === "hattrick" || safeCategory.toLowerCase() === "ladderfm" || safeCategory.toLowerCase() === "ladder fm") {
                 let gameTypeDataTwo = {
                     title: "Unknown",
                     logo: ""
@@ -1384,6 +1384,10 @@ const app = {
                 } else if (safeCategory.toLowerCase() === "hattrick") {
                     gameTypeDataTwo.title = "Hattrick";
                     gameTypeDataTwo.logo = platformLogoUrls.hattrick;
+                    categoryGameType = `<img src="${gameTypeDataTwo.logo}" alt="${gameTypeDataTwo.title} logo" style="height: 1rem; vertical-align: middle;">`;
+                } else if (safeCategory.toLocaleLowerCase() === "ladderfm" || safeCategory.toLocaleLowerCase() === "ladder fm") {
+                    gameTypeDataTwo.title = "Ladder FM";
+                    gameTypeDataTwo.logo = platformLogoUrls.ladderfm;
                     categoryGameType = `<img src="${gameTypeDataTwo.logo}" alt="${gameTypeDataTwo.title} logo" style="height: 1rem; vertical-align: middle;">`;
                 }
             } else {
@@ -1438,7 +1442,7 @@ const app = {
 
         let categoryGameType = "";
 
-        if (safeCategory.toLowerCase() === "top eleven" || safeCategory.toLowerCase() === "osm" || safeCategory.toLowerCase() === "hattrick") {
+        if (safeCategory.toLowerCase() === "top eleven" || safeCategory.toLowerCase() === "osm" || safeCategory.toLowerCase() === "hattrick" || safeCategory.toLowerCase() === "ladderfm" || safeCategory.toLowerCase() === "ladder fm") {
             let gameTypeDataTwo = {
                 title: "Unknown",
                 logo: ""
