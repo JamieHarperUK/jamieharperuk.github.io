@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Away",
-      "home_team": "Manchester City",
-      "away_team": "Manchester United",
-      "date": "18-08-2026",
-      "time": "22:52",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 1st Division",
-      "venue": "Etihad Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Home",
       "home_team": "Harper FC",
       "away_team": "HONG KONG UNITED",
@@ -86,6 +73,19 @@
       "winner": ""
     },
     {
+      "home_or_away": "AwayHome",
+      "home_team": "Manchester United",
+      "away_team": "Newcastle United",
+      "date": "19-08-2026",
+      "time": "22:52",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 1st Division",
+      "venue": "Old Trafford",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
       "home_or_away": "Away",
       "home_team": "dong mau quyFC",
       "away_team": "Harper FC",
@@ -110,6 +110,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Manchester City",
+      "away_team": "Manchester United",
+      "date": "18-08-2026",
+      "time": "22:52",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 1st Division",
+      "venue": "Etihad Stadium",
+      "home_score": "1",
+      "away_score": "2",
+      "winner": "Manchester United"
     },
     {
       "home_or_away": "Away",
