@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Home",
-      "home_team": "Harper FC",
-      "away_team": "HONG KONG UNITED",
-      "date": "19-08-2026",
-      "time": "12:49",
-      "osm_or_top_eleven": "OSM",
-      "competition": "League Level 2",
-      "venue": "The Concourse",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Home",
       "home_team": "Greyhound AFC",
       "away_team": "Del Rei FC",
       "date": "19-08-2026",
@@ -113,6 +100,19 @@
     },
     {
       "home_or_away": "Away",
+      "home_team": "Calabria Fc",
+      "away_team": "Harper FC",
+      "date": "20-08-2026",
+      "time": "20:22",
+      "osm_or_top_eleven": "OSM",
+      "competition": "League Level 2",
+      "venue": "calabria Fc'S Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
       "home_team": "shallgar CF",
       "away_team": "Cheshire Harriers FC",
       "date": "23-08-2026",
@@ -123,6 +123,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "HONG KONG UNITED",
+      "date": "19-08-2026",
+      "time": "12:49",
+      "osm_or_top_eleven": "OSM",
+      "competition": "League Level 2",
+      "venue": "The Concourse",
+      "home_score": "5",
+      "away_score": "0",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Away",
