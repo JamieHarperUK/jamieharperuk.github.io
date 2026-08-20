@@ -707,21 +707,51 @@ const app = {
         dropdown.appendChild(dropdownMenu);
         navLinks.appendChild(dropdown);
 
-        const analysisLink = document.createElement("a");
-        analysisLink.href = "#analysis";
-        analysisLink.textContent = "Analysis";
-        analysisLink.setAttribute("data-analytics-action", "nav_click");
-        analysisLink.setAttribute("data-analytics-category", "Navigation");
-        analysisLink.setAttribute("data-analytics-label", "Analysis");
-        navLinks.appendChild(analysisLink);
+        const moreDropdown = document.createElement("div");
+        moreDropdown.className = "nav-dropdown";
 
-        const hallOfFameLink = document.createElement("a");
-        hallOfFameLink.href = "#hall-of-fame";
-        hallOfFameLink.textContent = "Hall of Fame";
-        hallOfFameLink.setAttribute("data-analytics-action", "nav_click");
-        hallOfFameLink.setAttribute("data-analytics-category", "Navigation");
-        hallOfFameLink.setAttribute("data-analytics-label", "Hall of Fame");
-        navLinks.appendChild(hallOfFameLink);
+        const moreToggle = document.createElement("button");
+        moreToggle.className = "nav-dropdown-toggle";
+        moreToggle.type = "button";
+        moreToggle.id = "moreDropdownToggle";
+        moreToggle.setAttribute("aria-expanded", "false");
+        moreToggle.setAttribute("data-analytics-action", "nav_click");
+        moreToggle.setAttribute("data-analytics-category", "Navigation");
+        moreToggle.setAttribute("data-analytics-label", "More Menu");
+        moreToggle.textContent = "More";
+
+        const moreMenu = document.createElement("div");
+        moreMenu.className = "nav-dropdown-menu";
+        moreMenu.id = "moreDropdownMenu";
+
+        [
+            ["#analysis", "Analysis"],
+            ["#hall-of-fame", "Hall of Fame"]
+        ].forEach(([href, label]) => {
+            const link = document.createElement("a");
+            link.href = href;
+            link.textContent = label;
+            link.setAttribute("data-analytics-action", "nav_click");
+            link.setAttribute("data-analytics-category", "Navigation");
+            link.setAttribute("data-analytics-label", label);
+            link.addEventListener("click", () => this.closeMoreDropdown());
+            moreMenu.appendChild(link);
+        });
+
+        moreToggle.addEventListener("click", () => {
+            const isOpen = moreDropdown.classList.toggle("open");
+            moreToggle.setAttribute("aria-expanded", String(isOpen));
+        });
+
+        document.addEventListener("click", (event) => {
+            if (!moreDropdown.contains(event.target)) {
+                this.closeMoreDropdown();
+            }
+        });
+
+        moreDropdown.appendChild(moreToggle);
+        moreDropdown.appendChild(moreMenu);
+        navLinks.appendChild(moreDropdown);
 
         const postsLink = document.createElement("a");
         postsLink.href = "#posts";
@@ -738,6 +768,17 @@ const app = {
         const dropdown = document.querySelector(".nav-dropdown");
         const toggle = document.getElementById("teamsDropdownToggle");
         if (dropdown && dropdown.classList.contains("open")) {
+            dropdown.classList.remove("open");
+        }
+        if (toggle) {
+            toggle.setAttribute("aria-expanded", "false");
+        }
+    },
+
+    closeMoreDropdown() {
+        const dropdown = document.getElementById("moreDropdownToggle")?.closest(".nav-dropdown");
+        const toggle = document.getElementById("moreDropdownToggle");
+        if (dropdown) {
             dropdown.classList.remove("open");
         }
         if (toggle) {
@@ -883,6 +924,7 @@ const app = {
         }
 
         this.closeTeamsDropdown();
+        this.closeMoreDropdown();
         this.trackPageView(path);
 
         window.scrollTo(0, 0);
@@ -921,6 +963,12 @@ const app = {
         const dropdownToggle = document.getElementById("teamsDropdownToggle");
         if (dropdownToggle) {
             dropdownToggle.classList.toggle("active", this.currentPage.startsWith("team/"));
+        }
+
+        const moreToggle = document.getElementById("moreDropdownToggle");
+        if (moreToggle) {
+            const isMorePage = this.currentPage === "analysis" || this.currentPage === "hall-of-fame";
+            moreToggle.classList.toggle("active", isMorePage);
         }
     },
 
