@@ -748,6 +748,55 @@ main {
     color: var(--warning-color);
 }
 
+.analysis-panel {
+    margin-bottom: 1.3rem;
+}
+
+.analysis-range {
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    margin: -0.35rem 0 0.9rem;
+}
+
+.analysis-table {
+    min-width: 620px;
+}
+
+.analysis-table th:first-child,
+.analysis-table td:first-child {
+    width: auto;
+    text-align: left;
+}
+
+.analysis-table th:nth-child(n + 3),
+.analysis-table td:nth-child(n + 3) {
+    text-align: center;
+}
+
+.analysis-rating {
+    display: inline-block;
+    min-width: 4.5rem;
+    border-radius: 999px;
+    padding: 0.2rem 0.55rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.analysis-rating-good {
+    color: #b8f0c1;
+    background: rgba(46, 160, 67, 0.2);
+}
+
+.analysis-rating-watch {
+    color: #ffe3a1;
+    background: rgba(230, 160, 32, 0.2);
+}
+
+.analysis-rating-risk {
+    color: #ffb6bf;
+    background: rgba(200, 16, 46, 0.2);
+}
+
 .notify-panel {
     margin-bottom: 1.3rem;
 }

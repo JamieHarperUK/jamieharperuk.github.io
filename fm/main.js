@@ -96,6 +96,7 @@ const app = {
             this.captureDefaultSiteMetadata();
             await this.loadData();
             this.setupEloModal();
+            this.setupAnalysisModal();
             this.setupNavigation();
             this.generateTeamPages();
             this.setupHashRouting();
@@ -244,6 +245,10 @@ const app = {
 
         if (view === "posts") {
             return "posts";
+        }
+
+        if (view === "analysis") {
+            return "analysis";
         }
 
         if (view === "hall-of-fame") {
@@ -530,6 +535,67 @@ const app = {
         });
     },
 
+    setupAnalysisModal() {
+        const modal = document.getElementById("analysisInfoModal");
+        const closeButton = modal?.querySelector(".modal-close");
+
+        if (!modal || !closeButton) {
+            return;
+        }
+
+        closeButton.addEventListener("click", () => this.closeAnalysisInfoModal());
+
+        modal.addEventListener("click", (event) => {
+            if (event.target === modal) {
+                this.closeAnalysisInfoModal();
+            }
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") {
+                this.closeAnalysisInfoModal();
+            }
+        });
+    },
+
+    openAnalysisInfoModal(section) {
+        const modal = document.getElementById("analysisInfoModal");
+        const title = document.getElementById("analysisInfoTitle");
+        const content = document.getElementById("analysisInfoContent");
+        const explanations = {
+            fixtures: {
+                title: "Last 7 Days Explained",
+                content: "This section uses the current local date and includes today plus the six preceding calendar days. It shows played fixtures belonging to active teams, matching the team competition and active season window where those fields are available."
+            },
+            ratings: {
+                title: "Squad Availability Explained",
+                content: "Each active team starts at 100. Two points are deducted for every yellow card, eight for every red card, and one for each day of injury recorded in teams.json. The result is capped between 0 and 100, so a higher score means a more available squad."
+            }
+        };
+        const explanation = explanations[section];
+
+        if (!modal || !title || !content || !explanation) {
+            return;
+        }
+
+        title.textContent = explanation.title;
+        content.textContent = explanation.content;
+        modal.classList.add("is-open");
+        modal.setAttribute("aria-hidden", "false");
+        document.body.classList.add("modal-open");
+    },
+
+    closeAnalysisInfoModal() {
+        const modal = document.getElementById("analysisInfoModal");
+        if (!modal) {
+            return;
+        }
+
+        modal.classList.remove("is-open");
+        modal.setAttribute("aria-hidden", "true");
+        this.syncBodyModalOpenState();
+    },
+
     openEloInfoModal(team, platform) {
         const modal = document.getElementById("eloInfoModal");
         const content = document.getElementById("eloInfoContent");
@@ -641,6 +707,14 @@ const app = {
         dropdown.appendChild(dropdownMenu);
         navLinks.appendChild(dropdown);
 
+        const analysisLink = document.createElement("a");
+        analysisLink.href = "#analysis";
+        analysisLink.textContent = "Analysis";
+        analysisLink.setAttribute("data-analytics-action", "nav_click");
+        analysisLink.setAttribute("data-analytics-category", "Navigation");
+        analysisLink.setAttribute("data-analytics-label", "Analysis");
+        navLinks.appendChild(analysisLink);
+
         const hallOfFameLink = document.createElement("a");
         hallOfFameLink.href = "#hall-of-fame";
         hallOfFameLink.textContent = "Hall of Fame";
@@ -711,6 +785,11 @@ const app = {
             return;
         }
 
+        if (route === "analysis") {
+            this.navigate("analysis");
+            return;
+        }
+
         if (route === "hall-of-fame") {
             this.navigate("hall-of-fame");
             return;
@@ -760,6 +839,15 @@ const app = {
                 description: "Latest Football Management updates, announcements, and match progress posts.",
                 image: this.siteMeta.image,
                 url: this.getCanonicalPageUrl("posts")
+            });
+        } else if (path === "analysis") {
+            this.renderAnalysisPage();
+            document.getElementById("analysis")?.classList.add("active");
+            this.updatePageMetadata({
+                title: `Analysis | ${this.siteMeta.title}`,
+                description: "A rolling seven-day fixture summary and squad availability analysis for active Football Management teams.",
+                image: this.siteMeta.image,
+                url: this.getCanonicalPageUrl("analysis")
             });
         } else if (path === "hall-of-fame") {
             this.renderHallOfFamePage();
@@ -811,6 +899,11 @@ const app = {
             }
 
              if ((this.currentPage === "posts" || this.currentPage.startsWith("post/")) && href === "#posts") {
+                link.classList.add("active");
+                return;
+            }
+
+            if (this.currentPage === "analysis" && href === "#analysis") {
                 link.classList.add("active");
                 return;
             }
@@ -944,6 +1037,144 @@ const app = {
 
     renderPostsPage() {
         this.renderPosts("allPosts", Number.POSITIVE_INFINITY);
+    },
+
+    getActiveTeams() {
+        return this.data.teams.filter((team) => !team.end_state || typeof team.end_state !== "object");
+    },
+
+    getAnalysisDateWindow() {
+        const endDate = new Date();
+        endDate.setHours(23, 59, 59, 999);
+        const startDate = new Date(endDate);
+        startDate.setDate(startDate.getDate() - 6);
+        startDate.setHours(0, 0, 0, 0);
+
+        return { startDate, endDate };
+    },
+
+    getAnalysisFixtures() {
+        const { startDate, endDate } = this.getAnalysisDateWindow();
+        const activeTeams = this.getActiveTeams();
+        const fixturesByTeam = activeTeams.map((team) => {
+            const fixtures = this.getTeamGames(team)
+                .filter((game) => {
+                    if (!this.isPlayed(game)) {
+                        return false;
+                    }
+
+                    const gameDate = this.parseGameDate(game);
+                    return gameDate >= startDate && gameDate <= endDate;
+                })
+                .sort((a, b) => this.compareGameDateDesc(a, b));
+
+            return { team, fixtures };
+        });
+        const fixtures = [...new Set(fixturesByTeam.flatMap(({ fixtures: teamFixtures }) => teamFixtures))]
+            .sort((a, b) => this.compareGameDateDesc(a, b));
+
+        return { activeTeams, fixturesByTeam, fixtures, startDate, endDate };
+    },
+
+    getTeamAvailabilityRating(team) {
+        const cardTotals = (team.players || []).reduce((totals, player) => {
+            const values = Array.isArray(player)
+                ? { yellow: player[2], red: player[3], injury: player[4] }
+                : { yellow: player?.yellow_cards ?? player?.yellow, red: player?.red_cards ?? player?.red, injury: player?.injury_days ?? player?.injury };
+
+            totals.yellow += Number(values.yellow) || 0;
+            totals.red += Number(values.red) || 0;
+            totals.injury += Number(values.injury) || 0;
+            return totals;
+        }, { yellow: 0, red: 0, injury: 0 });
+        const penalty = cardTotals.yellow * 2 + cardTotals.red * 8 + cardTotals.injury;
+
+        return {
+            ...cardTotals,
+            penalty,
+            score: Math.max(0, Math.min(100, 100 - penalty))
+        };
+    },
+
+    getAnalysisRatingClass(score) {
+        if (score >= 85) {
+            return "analysis-rating-good";
+        }
+        if (score >= 65) {
+            return "analysis-rating-watch";
+        }
+        return "analysis-rating-risk";
+    },
+
+    renderAnalysisPage() {
+        const container = document.getElementById("analysisContent");
+        if (!container) {
+            return;
+        }
+
+        const { activeTeams, fixturesByTeam, fixtures, startDate, endDate } = this.getAnalysisFixtures();
+        const dateFormatter = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric" });
+        const windowLabel = `${dateFormatter.format(startDate)} to ${dateFormatter.format(endDate)}`;
+        const fixtureRows = fixturesByTeam
+            .filter(({ fixtures: teamFixtures }) => teamFixtures.length)
+            .map(({ team, fixtures: teamFixtures }) => `
+                <tr>
+                    <td><a class="site-link" href="#team/${this.toTeamId(team)}">${this.escapeHtml(team.team_name)}</a></td>
+                    <td>${this.escapeHtml(this.normalizePlatformName(team.osm_or_top_eleven))}</td>
+                    <td>${teamFixtures.length}</td>
+                    <td>${teamFixtures.filter((game) => this.getResultLetter(game, team.team_name) === "W").length}</td>
+                    <td>${teamFixtures.filter((game) => this.getResultLetter(game, team.team_name) === "D").length}</td>
+                    <td>${teamFixtures.filter((game) => this.getResultLetter(game, team.team_name) === "L").length}</td>
+                </tr>
+            `).join("");
+        const ratingRows = activeTeams.map((team) => {
+            const rating = this.getTeamAvailabilityRating(team);
+            return `
+                <tr>
+                    <td><a class="site-link" href="#team/${this.toTeamId(team)}">${this.escapeHtml(team.team_name)}</a></td>
+                    <td><span class="analysis-rating ${this.getAnalysisRatingClass(rating.score)}">${rating.score}/100</span></td>
+                    <td>${rating.yellow}</td>
+                    <td>${rating.red}</td>
+                    <td>${rating.injury}</td>
+                </tr>
+            `;
+        }).join("");
+
+        container.innerHTML = `
+            <h1 class="section-title">Analysis</h1>
+            <div class="notes-section">
+                <div class="notes-content">A rolling view of recent results and current squad availability across active teams.</div>
+            </div>
+            <section class="panel analysis-panel">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Fixtures in the Last 7 Days</h2>
+                    <button class="elo-info-btn analysis-info-btn" type="button" data-analysis-section="fixtures" aria-label="Explain last 7 days calculation"><i class="fas fa-info-circle"></i></button>
+                </div>
+                <p class="analysis-range">${this.escapeHtml(windowLabel)} - ${fixtures.length} unique played ${fixtures.length === 1 ? "fixture" : "fixtures"}</p>
+                <div class="table-wrapper">
+                    <table class="data-table analysis-table">
+                        <thead><tr><th>Team</th><th>Game</th><th>Played</th><th>W</th><th>D</th><th>L</th></tr></thead>
+                        <tbody>${fixtureRows || '<tr><td colspan="6"><div class="empty-state">No played fixtures found in this rolling window.</div></td></tr>'}</tbody>
+                    </table>
+                </div>
+            </section>
+            <section class="panel analysis-panel">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Squad Availability Ratings</h2>
+                    <button class="elo-info-btn analysis-info-btn" type="button" data-analysis-section="ratings" aria-label="Explain squad availability calculation"><i class="fas fa-info-circle"></i></button>
+                </div>
+                <div class="table-wrapper">
+                    <table class="data-table analysis-table">
+                        <thead><tr><th>Team</th><th>Rating</th><th>Yellow</th><th>Red</th><th>Injury Days</th></tr></thead>
+                        <tbody>${ratingRows || '<tr><td colspan="5"><div class="empty-state">No active teams found.</div></td></tr>'}</tbody>
+                    </table>
+                </div>
+            </section>
+        `;
+
+        container.querySelectorAll(".analysis-info-btn").forEach((button) => {
+            button.addEventListener("click", () => this.openAnalysisInfoModal(button.dataset.analysisSection));
+        });
     },
 
     renderLatestPostPreview() {
@@ -1688,6 +1919,10 @@ const app = {
 
         if (path === "posts") {
             return `${canonicalBase}?view=posts`;
+        }
+
+        if (path === "analysis") {
+            return `${canonicalBase}?view=analysis`;
         }
 
         if (path.startsWith("post/")) {

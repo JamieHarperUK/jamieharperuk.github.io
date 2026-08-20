@@ -24,6 +24,7 @@
       "country": "England",
       "home_venue": "N/A",
       "start_date": "21-08-2026",
+      "end_state": null,
       "league_table": [
         {
           "position": 1,
