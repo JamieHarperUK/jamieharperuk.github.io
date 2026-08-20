@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Away",
-      "home_team": "FC Merder",
-      "away_team": "Greyhound AFC",
-      "date": "20-08-2026",
-      "time": "16:05",
-      "osm_or_top_eleven": "Ladder FM",
-      "competition": "England Tier 1 League",
-      "venue": "Merdum Arena",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "Calabria Fc",
       "away_team": "Harper FC",
       "date": "20-08-2026",
@@ -99,6 +86,19 @@
       "winner": ""
     },
     {
+      "home_or_away": "Home",
+      "home_team": "Greyhound AFC",
+      "away_team": "City",
+      "date": "21-08-2026",
+      "time": "16:00",
+      "osm_or_top_eleven": "Ladder FM",
+      "competition": "England Tier 1 League",
+      "venue": "The Coursing Ground",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
       "home_or_away": "Away",
       "home_team": "Dogzy FC",
       "away_team": "Harper FC",
@@ -123,6 +123,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "FC Merder",
+      "away_team": "Greyhound AFC",
+      "date": "20-08-2026",
+      "time": "16:05",
+      "osm_or_top_eleven": "Ladder FM",
+      "competition": "England Tier 1 League",
+      "venue": "Merdum Arena",
+      "home_score": "4",
+      "away_score": "1",
+      "winner": "FC Merder"
     },
     {
       "home_or_away": "Away",
