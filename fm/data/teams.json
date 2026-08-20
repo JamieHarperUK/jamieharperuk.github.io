@@ -755,13 +755,6 @@
           "0"
         ],
         [
-          "CB",
-          "Agustin Oliveros",
-          "2",
-          "0",
-          "0"
-        ],
-        [
           "RB",
           "Tristan Crama",
           "0",
@@ -777,7 +770,21 @@
         ],
         [
           "CB",
+          "Agustin Oliveros",
+          "2",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
           "Pedro Jorge Goncalves Malheiro",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Willian Estefani Machado",
           "0",
           "0",
           "0"
@@ -797,22 +804,8 @@
           "0"
         ],
         [
-          "CB",
-          "Willian Estefani Machado",
-          "0",
-          "0",
-          "0"
-        ],
-        [
           "CAM",
           "Ismael Saibari",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "CAM",
-          "Wallace Davi Nunes Da Silva Dias",
           "1",
           "0",
           "0"
@@ -821,6 +814,13 @@
           "CM",
           "Fransisco Roman Alarcon Suarez",
           "2",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Wallace Davi Nunes Da Silva Dias",
+          "1",
           "0",
           "0"
         ],
@@ -846,9 +846,9 @@
           "0"
         ],
         [
-          "CM",
-          "Fransisco Roman Isco",
-          "1",
+          "ST",
+          "Bukayo Saka",
+          "0",
           "0",
           "0"
         ],
@@ -867,15 +867,15 @@
           "2"
         ],
         [
-          "ST",
-          "Halil Akbunar",
+          "RW",
+          "Louis Mafouta",
           "0",
           "0",
           "0"
         ],
         [
-          "RW",
-          "Louis Mafouta",
+          "ST",
+          "Halil Akbunar",
           "0",
           "0",
           "0"
