@@ -48,19 +48,6 @@
     },
     {
       "home_or_away": "Away",
-      "home_team": "dong mau quyFC",
-      "away_team": "Harper FC",
-      "date": "20-08-2026",
-      "time": "11:45",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "Elite League",
-      "venue": "SVD dong mau quyFC",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "Forest Green Rovers",
       "away_team": "Altrincham FC",
       "date": "20-08-2026",
@@ -113,6 +100,19 @@
     },
     {
       "home_or_away": "Away",
+      "home_team": "Dogzy FC",
+      "away_team": "Harper FC",
+      "date": "22-08-2026",
+      "time": "21:25",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Elite League",
+      "venue": "Dogzy FC Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
       "home_team": "shallgar CF",
       "away_team": "Cheshire Harriers FC",
       "date": "23-08-2026",
@@ -123,6 +123,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "dong mau quyFC",
+      "away_team": "Harper FC",
+      "date": "20-08-2026",
+      "time": "11:45",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Elite League",
+      "venue": "SVD dong mau quyFC",
+      "home_score": "0",
+      "away_score": "5",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Home",
