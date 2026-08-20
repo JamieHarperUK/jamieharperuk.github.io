@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Away",
-      "home_team": "Ipswich Town",
-      "away_team": "Manchester United",
-      "date": "20-08-2026",
-      "time": "22:52",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 1st Division",
-      "venue": "Portman Road",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "Alejandrojk12 FC",
       "away_team": "Harper FC",
       "date": "21-08-2026",
@@ -99,6 +86,19 @@
       "winner": ""
     },
     {
+      "home_or_away": "Home",
+      "home_team": "Manchester United",
+      "away_team": "Bournemouth",
+      "date": "21-08-2026",
+      "time": "22:52",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 1st Division",
+      "venue": "Old Trafford",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
       "home_or_away": "Away",
       "home_team": "Dogzy FC",
       "away_team": "Harper FC",
@@ -123,6 +123,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Ipswich Town",
+      "away_team": "Manchester United",
+      "date": "20-08-2026",
+      "time": "22:52",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 1st Division",
+      "venue": "Portman Road",
+      "home_score": "0",
+      "away_score": "0",
+      "winner": "Draw"
     },
     {
       "home_or_away": "Home",
