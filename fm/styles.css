@@ -722,8 +722,8 @@ main {
 
 .data-table thead th:first-child,
 .data-table tbody td:first-child {
-    width: 4.5rem;
-    text-align: center;
+    width: auto;
+    text-align: left;
 }
 
 .data-table tbody tr {

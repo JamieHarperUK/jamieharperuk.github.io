@@ -1160,7 +1160,7 @@ const app = {
             </section>
             <section class="panel analysis-panel">
                 <div class="panel-heading">
-                    <h2 class="panel-title">Squad Availability Ratings</h2>
+                    <h2 class="panel-title" style="margin-bottom: 0.9rem;">Squad Availability Ratings</h2>
                     <button class="elo-info-btn analysis-info-btn" type="button" data-analysis-section="ratings" aria-label="Explain squad availability calculation"><i class="fas fa-info-circle"></i></button>
                 </div>
                 <div class="table-wrapper">
