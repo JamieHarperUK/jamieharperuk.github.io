@@ -569,7 +569,7 @@ const app = {
             },
             ratings: {
                 title: "Squad Availability Explained",
-                content: "Each active team starts at 100. Two points are deducted for every yellow card, eight for every red card, and one for each day of injury recorded in teams.json. The result is capped between 0 and 100, so a higher score means a more available squad."
+                content: "Each active team starts at 100. Two points are deducted for every yellow card, eight for every red card, and one for each day of injury recorded in each team's data. The result is capped between 0 and 100, so a higher score means a more available squad."
             }
         };
         const explanation = explanations[section];
