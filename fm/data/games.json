@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Home",
-      "home_team": "Harper FC",
-      "away_team": "ip fc",
-      "date": "21-08-2026",
-      "time": "19:06",
-      "osm_or_top_eleven": "OSM",
-      "competition": "League Level 2",
-      "venue": "The Concourse",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Home",
       "home_team": "Altrincham FC",
       "away_team": "Bolton United",
       "date": "21-08-2026",
@@ -68,6 +55,19 @@
       "osm_or_top_eleven": "OSM",
       "competition": "England 1st Division",
       "venue": "Old Trafford",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "GRACELLO FC",
+      "away_team": "Harper FC",
+      "date": "22-08-2026",
+      "time": "13:05",
+      "osm_or_top_eleven": "OSM",
+      "competition": "League Level 2",
+      "venue": "Stadion GRACELLO FC",
       "home_score": "",
       "away_score": "",
       "winner": ""
@@ -136,6 +136,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "ip fc",
+      "date": "21-08-2026",
+      "time": "19:06",
+      "osm_or_top_eleven": "OSM",
+      "competition": "League Level 2",
+      "venue": "The Concourse",
+      "home_score": "6",
+      "away_score": "0",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Home",
