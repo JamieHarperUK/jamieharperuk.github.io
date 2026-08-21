@@ -1249,7 +1249,8 @@ const app = {
         const gameLogoKey = {
             "top eleven": platformLogoUrls.topEleven,
             "osm": platformLogoUrls.osm,
-            "hattrick": platformLogoUrls.hattrick
+            "hattrick": platformLogoUrls.hattrick,
+            "fpl": platformLogoUrls.fpl
         };
 
         if (latestPost.category?.toLowerCase() === "top eleven") {
@@ -1258,6 +1259,8 @@ const app = {
             categoryGameType = `<img src="${gameLogoKey["osm"]}" alt="Online Soccer Manager logo" style="height: 1rem; vertical-align: middle;">`;
         } else if (latestPost.category?.toLowerCase() === "hattrick") {
             categoryGameType = `<img src="${gameLogoKey["hattrick"]}" alt="Hattrick logo" style="height: 1rem; vertical-align: middle;">`;
+        } else if (latestPost.category?.toLowerCase() === "fpl") {
+            categoryGameType = `<img src="${gameLogoKey["fpl"]}" alt="Fantasy Premier League logo" style="height: 1rem; vertical-align: middle; filter: invert(1);">`;
         }
 
         container.innerHTML = `
@@ -1646,7 +1649,7 @@ const app = {
 
             let categoryGameType = "";
 
-            if (safeCategory.toLowerCase() === "top eleven" || safeCategory.toLowerCase() === "osm" || safeCategory.toLowerCase() === "hattrick" || safeCategory.toLowerCase() === "ladderfm" || safeCategory.toLowerCase() === "ladder fm") {
+            if (safeCategory.toLowerCase() === "top eleven" || safeCategory.toLowerCase() === "osm" || safeCategory.toLowerCase() === "hattrick" || safeCategory.toLowerCase() === "fpl" || safeCategory.toLowerCase() === "ladderfm" || safeCategory.toLowerCase() === "ladder fm") {
                 let gameTypeDataTwo = {
                     title: "Unknown",
                     logo: ""
@@ -1664,6 +1667,10 @@ const app = {
                     gameTypeDataTwo.title = "Hattrick";
                     gameTypeDataTwo.logo = platformLogoUrls.hattrick;
                     categoryGameType = `<img src="${gameTypeDataTwo.logo}" alt="${gameTypeDataTwo.title} logo" style="height: 1rem; vertical-align: middle;">`;
+                } else if (safeCategory.toLowerCase() === "fpl") {
+                    gameTypeDataTwo.title = "Fantasy Premier League";
+                    gameTypeDataTwo.logo = platformLogoUrls.fpl;
+                    categoryGameType = `<img src="${gameTypeDataTwo.logo}" alt="${gameTypeDataTwo.title} logo" style="height: 1rem; vertical-align: middle; filter: invert(1);">`;
                 } else if (safeCategory.toLocaleLowerCase() === "ladderfm" || safeCategory.toLocaleLowerCase() === "ladder fm") {
                     gameTypeDataTwo.title = "Ladder FM";
                     gameTypeDataTwo.logo = platformLogoUrls.ladderfm;
@@ -1721,7 +1728,7 @@ const app = {
 
         let categoryGameType = "";
 
-        if (safeCategory.toLowerCase() === "top eleven" || safeCategory.toLowerCase() === "osm" || safeCategory.toLowerCase() === "hattrick" || safeCategory.toLowerCase() === "ladderfm" || safeCategory.toLowerCase() === "ladder fm") {
+        if (safeCategory.toLowerCase() === "top eleven" || safeCategory.toLowerCase() === "osm" || safeCategory.toLowerCase() === "hattrick" || safeCategory.toLowerCase() === "fpl" || safeCategory.toLowerCase() === "ladderfm" || safeCategory.toLowerCase() === "ladder fm") {
             let gameTypeDataTwo = {
                 title: "Unknown",
                 logo: ""
@@ -1739,6 +1746,10 @@ const app = {
                 gameTypeDataTwo.title = "Hattrick";
                 gameTypeDataTwo.logo = platformLogoUrls.hattrick;
                 categoryGameType = `<img src="${gameTypeDataTwo.logo}" alt="${gameTypeDataTwo.title} logo" style="height: 2rem; vertical-align: middle;">`;
+            } else if (safeCategory.toLowerCase() === "fpl") {
+                gameTypeDataTwo.title = "Fantasy Premier League";
+                gameTypeDataTwo.logo = platformLogoUrls.fpl;
+                categoryGameType = `<img src="${gameTypeDataTwo.logo}" alt="${gameTypeDataTwo.title} logo" style="height: 2rem; vertical-align: middle; filter: invert(1);">`;
             } else if (safeCategory.toLocaleLowerCase() === "ladderfm" || safeCategory.toLocaleLowerCase() === "ladder fm") {
                 gameTypeDataTwo.title = "Ladder FM";
                 gameTypeDataTwo.logo = platformLogoUrls.ladderfm;
