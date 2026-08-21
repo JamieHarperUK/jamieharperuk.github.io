@@ -641,7 +641,7 @@
         [
           "CAM",
           "Mason Mount",
-          "0",
+          "1",
           "0",
           "0"
         ],
@@ -729,7 +729,7 @@
         [
           "GK",
           "Alfonso Herrero",
-          "0",
+          "1",
           "0",
           "0"
         ],
@@ -751,13 +751,6 @@
           "CB",
           "Evan N'Dicka",
           "0",
-          "1",
-          "0"
-        ],
-        [
-          "CB",
-          "Agustin Oliveros",
-          "2",
           "0",
           "0"
         ],
@@ -777,7 +770,21 @@
         ],
         [
           "CB",
+          "Agustin Oliveros",
+          "2",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
           "Pedro Jorge Goncalves Malheiro",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Willian Estefani Machado",
           "0",
           "0",
           "0"
@@ -797,13 +804,6 @@
           "0"
         ],
         [
-          "CB",
-          "Willian Estefani Machado",
-          "0",
-          "0",
-          "0"
-        ],
-        [
           "CAM",
           "Ismael Saibari",
           "1",
@@ -813,12 +813,12 @@
         [
           "CM",
           "Fransisco Roman Alarcon Suarez",
-          "1",
+          "2",
           "0",
           "0"
         ],
         [
-          "CAM",
+          "CM",
           "Wallace Davi Nunes Da Silva Dias",
           "1",
           "0",
@@ -846,9 +846,9 @@
           "0"
         ],
         [
-          "CM",
-          "Fransisco Roman Isco",
-          "1",
+          "ST",
+          "Bukayo Saka",
+          "0",
           "0",
           "0"
         ],
@@ -864,18 +864,18 @@
           "Cyriel Dessers",
           "2",
           "0",
+          "2"
+        ],
+        [
+          "RW",
+          "Louis Mafouta",
+          "0",
+          "0",
           "0"
         ],
         [
           "ST",
           "Halil Akbunar",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "RW",
-          "Louis Mafouta",
           "0",
           "0",
           "0"
@@ -943,7 +943,7 @@
         [
           "CB",
           "Albian Hajdari",
-          "0",
+          "1",
           "0",
           "0"
         ],
