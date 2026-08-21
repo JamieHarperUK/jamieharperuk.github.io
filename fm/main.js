@@ -2128,7 +2128,7 @@ const app = {
                 if (leagueTableStyle) {
                     return `
                         <tr>
-                            <td>${position}</td>
+                            <td>${position.toLocaleString('en-US', { maximumFractionDigits: 0 })}</td>
                             <td>${teamName}</td>
                             <td>${gameweekPoints}</td>
                             <td>${totalPoints}</td>
