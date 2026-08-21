@@ -4491,8 +4491,8 @@
                 return {
                     position,
                     team: "New Club",
-                    points: 0,
-                    transfers_used: 0
+                    gameweek_points: 0,
+                    total_points: 0
                 };
             }
 
@@ -4546,7 +4546,7 @@
                     team.textContent = String(row.team || "Unknown Team");
                     const stats = document.createElement("span");
                     stats.style.color = "var(--muted)";
-                    stats.textContent = (row.points ?? 0) + " pts · " + (row.transfers_used ?? row.transfers_made ?? row.transfer_count ?? 0) + " transfers";
+                    stats.textContent = (row.gameweek_points ?? 0) + " gw · " + (row.total_points ?? 0) + " total";
                     info.appendChild(pos);
                     info.appendChild(team);
                     info.appendChild(stats);
@@ -4640,8 +4640,8 @@
                 const fieldDefinitions = [
                     { key: "position", label: "Position", type: "number" },
                     { key: "team", label: "Team", type: "text" },
-                    { key: "points", label: "Points", type: "number" },
-                    { key: "transfers_used", label: "Transfers Used", type: "number" }
+                    { key: "gameweek_points", label: "Gameweek Points", type: "number" },
+                    { key: "total_points", label: "Total Points", type: "number" }
                 ];
 
                 fieldDefinitions.forEach(function(field) {
@@ -4695,7 +4695,7 @@
                 inputs.forEach(function(input) {
                     const fieldKey = input.getAttribute("data-field-key");
                     const rawValue = input.value;
-                    if (fieldKey === "position" || fieldKey === "points" || fieldKey === "transfers_used" || fieldKey === "played") {
+                    if (fieldKey === "position" || fieldKey === "gameweek_points" || fieldKey === "total_points" || fieldKey === "played") {
                         row[fieldKey] = rawValue === "" ? 0 : Number(rawValue);
                     } else {
                         row[fieldKey] = rawValue;
