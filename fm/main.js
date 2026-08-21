@@ -2100,7 +2100,7 @@ const app = {
             </article>
         `).join("");
 
-        const leagueTableStyle = Array.isArray(team.league_table) && team.league_table.some((entry) => typeof entry?.points !== "undefined" && !Object.prototype.hasOwnProperty.call(entry, "won") && !Object.prototype.hasOwnProperty.call(entry, "drawn") && !Object.prototype.hasOwnProperty.call(entry, "lost"));
+        const leagueTableStyle = isFplTeam;
 
         const leagueRows = Array.isArray(team.league_table) && team.league_table.length
             ? team.league_table.map((entry) => {
@@ -2137,14 +2137,14 @@ const app = {
                     </tr>
                 `;
             }).join("")
-            : '<tr><td colspan="7"><div class="empty-state">League table will appear once the FPL league starts.</div></td></tr>';
+            : `<tr><td colspan="${leagueTableStyle ? "4" : "7"}"><div class="empty-state">League table will appear once the FPL league starts.</div></td></tr>`;
 
         const leagueTableHeader = leagueTableStyle
             ? `
-                <th>Pos</th>
-                <th>Team</th>
-                <th>GW Pts</th>
-                <th>Total Pts</th>
+                <th>POS</th>
+                <th>TEAM</th>
+                <th>GAMEWEEK POINTS</th>
+                <th>TOTAL POINTS</th>
             `
             : `
                 <th>Pos</th>
