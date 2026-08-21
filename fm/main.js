@@ -2107,8 +2107,9 @@ const app = {
                 const position = this.escapeHtml(String(entry.position || "-"));
                 const teamName = this.escapeHtml(String(entry.team || "Unknown Team"));
                 const played = this.escapeHtml(String(entry.played || "0"));
+                const gameweekPoints = this.escapeHtml(String(entry.gameweek_points ?? "0"));
+                const totalPoints = this.escapeHtml(String(entry.total_points ?? "0"));
                 const points = this.escapeHtml(String(entry.points ?? "0"));
-                const transfersUsed = this.escapeHtml(String(entry.transfers_used ?? entry.transfers_made ?? entry.transfer_count ?? "0"));
                 const won = this.escapeHtml(String(entry.won || "0"));
                 const drawn = this.escapeHtml(String(entry.drawn || "0"));
                 const lost = this.escapeHtml(String(entry.lost || "0"));
@@ -2118,8 +2119,8 @@ const app = {
                         <tr>
                             <td>${position}</td>
                             <td>${teamName}</td>
-                            <td>${transfersUsed}</td>
-                            <td>${points}</td>
+                            <td>${gameweekPoints}</td>
+                            <td>${totalPoints}</td>
                         </tr>
                     `;
                 }
@@ -2142,8 +2143,8 @@ const app = {
             ? `
                 <th>Pos</th>
                 <th>Team</th>
-                <th>Transfers</th>
-                <th>Pts</th>
+                <th>GW Pts</th>
+                <th>Total Pts</th>
             `
             : `
                 <th>Pos</th>

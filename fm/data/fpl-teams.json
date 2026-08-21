@@ -29,8 +29,8 @@
         {
           "position": 1,
           "team": "North West Athletic",
-          "transfers_used": 0,
-          "points": 0
+          "gameweek_points": 0,
+          "total_points": 0
         }
       ],
       "stats": {
