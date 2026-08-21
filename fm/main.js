@@ -4,6 +4,8 @@ const siteConfig = {
     appBasePath: "/fm/"
 };
 
+const thousandFormatter = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });
+
 const runtimeOrigin = (typeof window !== "undefined" && window.location && window.location.origin)
     ? window.location.origin
     : siteConfig.canonicalOrigin;
@@ -2099,7 +2101,7 @@ const app = {
         const fplStatsCards = [
             ["Gameweek Points", fplStats.gameweek_points ?? "—"],
             ["Overall Points", fplStats.overall_points ?? "—"],
-            ["Overall Rank", fplStats.overall_rank ?? "—"],
+            ["Overall Rank", thousandFormatter.format(fplStats.overall_rank) ?? "—"],
             ["Free Transfers", fplStats.free_transfers ?? "—"],
             ["Gameweek Transfers Made", fplStats.gameweek_transfers_made ?? "—"],
             ["Bank", typeof fplStats.bank === "number" ? `£${fplStats.bank.toFixed(2)} M` : (fplStats.bank ?? "—")],
@@ -2115,7 +2117,7 @@ const app = {
 
         const leagueRows = Array.isArray(team.league_table) && team.league_table.length
             ? team.league_table.map((entry) => {
-                const position = this.escapeHtml(String(entry.position || "-"));
+                const position = this.escapeHtml(String(thousandFormatter.format(entry.position) || "-"));
                 const teamName = this.escapeHtml(String(entry.team || "Unknown Team"));
                 const played = this.escapeHtml(String(entry.played || "0"));
                 const gameweekPoints = this.escapeHtml(String(entry.gameweek_points ?? "0"));
@@ -2128,7 +2130,7 @@ const app = {
                 if (leagueTableStyle) {
                     return `
                         <tr>
-                            <td>${position.toLocaleString('en-US', { maximumFractionDigits: 0 })}</td>
+                            <td>${position}</td>
                             <td>${teamName}</td>
                             <td>${gameweekPoints}</td>
                             <td>${totalPoints}</td>
