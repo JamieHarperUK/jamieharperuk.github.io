@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Away",
-      "home_team": "Alejandrojk12 FC",
-      "away_team": "Harper FC",
-      "date": "21-08-2026",
-      "time": "14:33",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "Cup (Quarter-Finals)",
-      "venue": "Estadio Alejandrojk12 FC",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Home",
       "home_team": "Greyhound AFC",
       "away_team": "City",
@@ -125,6 +112,19 @@
       "winner": ""
     },
     {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "BYSON FC",
+      "date": "23-08-2026",
+      "time": "21:37",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Cup (Semi-Finals)",
+      "venue": "The Concourse",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
       "home_or_away": "Away",
       "home_team": "SV 1921 Etingen/Rätzlingen",
       "away_team": "Cheshire Harriers FC",
@@ -136,6 +136,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Alejandrojk12 FC",
+      "away_team": "Harper FC",
+      "date": "21-08-2026",
+      "time": "14:33",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Cup (Quarter-Finals)",
+      "venue": "Estadio Alejandrojk12 FC",
+      "home_score": "0",
+      "away_score": "6",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Away",
