@@ -2152,7 +2152,7 @@ const app = {
 
         const leagueTableHeader = leagueTableStyle
             ? `
-                <th>POS</th>
+                <th>RANK</th>
                 <th>TEAM</th>
                 <th>GAMEWEEK POINTS</th>
                 <th>TOTAL POINTS</th>
@@ -2218,7 +2218,7 @@ const app = {
 
             ${isFplTeam ? `
                 <section class="panel">
-                    <h2 class="panel-title">League Table</h2>
+                    <h2 class="panel-title">League Table Position</h2>
                     <p style="margin-top: -0.25rem; margin-bottom: 0.9rem; color: var(--text-secondary);">Ranked by FPL points, with ties broken by fewer transfers used.</p>
                     <div class="table-wrapper">
                         <table class="data-table">
