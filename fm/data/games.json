@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Away",
-      "home_team": "Tamworth FC",
-      "away_team": "Altrincham FC",
-      "date": "22-08-2026",
-      "time": "20:20",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 5th Division",
-      "venue": "The Lamb Ground",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "Dogzy FC",
       "away_team": "Harper FC",
       "date": "22-08-2026",
@@ -112,6 +99,19 @@
       "winner": ""
     },
     {
+      "home_or_away": "Away",
+      "home_team": "FC Gateshead",
+      "away_team": "Altrincham FC",
+      "date": "23-08-2026",
+      "time": "20:20",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 5th Division",
+      "venue": "Gateshead International Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
       "home_or_away": "Home",
       "home_team": "Harper FC",
       "away_team": "BYSON FC",
@@ -136,6 +136,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Tamworth FC",
+      "away_team": "Altrincham FC",
+      "date": "22-08-2026",
+      "time": "20:20",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 5th Division",
+      "venue": "The Lamb Ground",
+      "home_score": "0",
+      "away_score": "4",
+      "winner": "Altrincham FC"
     },
     {
       "home_or_away": "Home",
