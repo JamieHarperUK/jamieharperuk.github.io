@@ -213,29 +213,29 @@
       "players": [
         [
           "GK",
-          "Mads Lohmann",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "GK",
           "Pedro Guedes",
           "0",
           "0",
           "0"
         ],
         [
-          "DL",
-          "David Pirie",
+          "GK",
+          "Mads Lohmann",
           "0",
           "0",
           "0"
         ],
         [
           "DL",
-          "Arnaud Bedime",
-          "1",
+          "Luke Howarth",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "DR",
+          "Alcidio Fleytas",
+          "0",
           "0",
           "0"
         ],
@@ -254,9 +254,9 @@
           "0"
         ],
         [
-          "DR",
-          "Alcidio Fleytas",
-          "0",
+          "DL",
+          "Arnaud Bedime",
+          "1",
           "0",
           "0"
         ],
@@ -264,34 +264,6 @@
           "DR",
           "Mourad Bouizgar",
           "0",
-          "0",
-          "0"
-        ],
-        [
-          "MC",
-          "Cristian Zardetto",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "MC",
-          "Stanislav Bozhankov",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "MC",
-          "Rattasak Saiwaew",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "MC",
-          "Peter Izing",
-          "1",
           "0",
           "0"
         ],
@@ -304,7 +276,14 @@
         ],
         [
           "AMR",
-          "Maximiliano Martinones",
+          "Giannis Larkin",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "MC",
+          "Peter Izing",
           "1",
           "0",
           "0"
@@ -317,22 +296,43 @@
           "0"
         ],
         [
-          "ST",
-          "David Douence",
+          "AMR",
+          "Maximiliano Martinones",
           "1",
           "0",
           "0"
         ],
         [
-          "ST",
-          "Sergio Moreno da Silva",
+          "MC",
+          "Rattasak Saiwaew",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "MC",
+          "Cristian Zardetto",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "AMR",
+          "Mark Robertson",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "MC",
+          "Stanislav Bozhankov",
           "0",
           "0",
           "0"
         ],
         [
           "ST",
-          "Mark Robertson",
+          "Cristian Vera",
           "0",
           "0",
           "0"
@@ -346,8 +346,8 @@
         ],
         [
           "ST",
-          "Cristian Vera",
-          "0",
+          "David Douence",
+          "1",
           "0",
           "0"
         ]
@@ -1027,13 +1027,6 @@
         [
           "CDM",
           "Mohammad Erfan Masoumi",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CAM",
-          "Odin Bailey",
           "0",
           "0",
           "0"
