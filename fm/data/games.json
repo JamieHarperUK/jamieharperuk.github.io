@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Away",
-      "home_team": "Dogzy FC",
-      "away_team": "Harper FC",
-      "date": "22-08-2026",
-      "time": "21:25",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "Elite League",
-      "venue": "Dogzy FC Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Home",
       "home_team": "Portsmouth",
       "away_team": "West Bromwich Albion",
@@ -125,6 +112,19 @@
       "winner": ""
     },
     {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "POPCORN FC",
+      "date": "24-08-2026",
+      "time": "11:47",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Elite League",
+      "venue": "The Concourse",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
       "home_or_away": "Away",
       "home_team": "SV 1921 Etingen/Rätzlingen",
       "away_team": "Cheshire Harriers FC",
@@ -136,6 +136,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Dogzy FC",
+      "away_team": "Harper FC",
+      "date": "22-08-2026",
+      "time": "21:25",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Elite League",
+      "venue": "Dogzy FC Stadium",
+      "home_score": "0",
+      "away_score": "13",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Away",
