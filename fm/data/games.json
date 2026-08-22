@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Home",
-      "home_team": "Greyhound AFC",
-      "away_team": "Le Carre FC",
-      "date": "22-08-2026",
-      "time": "16:00",
-      "osm_or_top_eleven": "Ladder FM",
-      "competition": "England Tier 1 League",
-      "venue": "The Coursing Ground",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Away",
       "home_team": "Tamworth FC",
       "away_team": "Altrincham FC",
@@ -100,6 +87,19 @@
     },
     {
       "home_or_away": "Away",
+      "home_team": "fcv",
+      "away_team": "Greyhound AFC",
+      "date": "23-08-2026",
+      "time": "16:00",
+      "osm_or_top_eleven": "Ladder FM",
+      "competition": "England Tier 1 League",
+      "venue": "do",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
       "home_team": "shallgar CF",
       "away_team": "Cheshire Harriers FC",
       "date": "23-08-2026",
@@ -136,6 +136,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Greyhound AFC",
+      "away_team": "Le Carre FC",
+      "date": "22-08-2026",
+      "time": "16:00",
+      "osm_or_top_eleven": "Ladder FM",
+      "competition": "England Tier 1 League",
+      "venue": "The Coursing Ground",
+      "home_score": "1",
+      "away_score": "1",
+      "winner": "Draw"
     },
     {
       "home_or_away": "Away",
