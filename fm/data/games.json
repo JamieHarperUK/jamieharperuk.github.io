@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Away",
-      "home_team": "fcv",
-      "away_team": "Greyhound AFC",
-      "date": "23-08-2026",
-      "time": "16:00",
-      "osm_or_top_eleven": "Ladder FM",
-      "competition": "England Tier 1 League",
-      "venue": "do",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "shallgar CF",
       "away_team": "Cheshire Harriers FC",
       "date": "23-08-2026",
@@ -100,6 +87,19 @@
     },
     {
       "home_or_away": "Home",
+      "home_team": "Greyhound FC",
+      "away_team": "North Arequipa Silver",
+      "date": "24-08-2026",
+      "time": "16:00",
+      "osm_or_top_eleven": "Ladder FM",
+      "competition": "England Tier 1 League",
+      "venue": "NAS Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
       "home_team": "Harper FC",
       "away_team": "Paradise Fc",
       "date": "24-08-2026",
@@ -136,6 +136,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "fcv",
+      "away_team": "Greyhound AFC",
+      "date": "23-08-2026",
+      "time": "16:00",
+      "osm_or_top_eleven": "Ladder FM",
+      "competition": "England Tier 1 League",
+      "venue": "do",
+      "home_score": "4",
+      "away_score": "3",
+      "winner": "fcv"
     },
     {
       "home_or_away": "Away",
