@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Away",
-      "home_team": "shallgar CF",
-      "away_team": "Cheshire Harriers FC",
-      "date": "23-08-2026",
-      "time": "17:00",
-      "osm_or_top_eleven": "Hattrick",
-      "competition": "Series: VI.251",
-      "venue": "shallgar Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "FC Gateshead",
       "away_team": "Altrincham FC",
       "date": "23-08-2026",
@@ -136,6 +123,32 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Cheshire Harriers FC",
+      "away_team": "tabas cf",
+      "date": "30-08-2026",
+      "time": "17:00",
+      "osm_or_top_eleven": "Hattrick",
+      "competition": "Series: VI.251",
+      "venue": "Harriers Park",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "shallgar CF",
+      "away_team": "Cheshire Harriers FC",
+      "date": "23-08-2026",
+      "time": "17:00",
+      "osm_or_top_eleven": "Hattrick",
+      "competition": "Series: VI.251",
+      "venue": "shallgar Stadium",
+      "home_score": "1",
+      "away_score": "1",
+      "winner": "Draw"
     },
     {
       "home_or_away": "Away",
