@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Home",
-      "home_team": "Harper FC",
-      "away_team": "BYSON FC",
-      "date": "23-08-2026",
-      "time": "21:37",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "Cup (Semi-Finals)",
-      "venue": "The Concourse",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Away",
       "home_team": "Millwall",
       "away_team": "Portsmouth",
@@ -113,6 +100,19 @@
     },
     {
       "home_or_away": "Away",
+      "home_team": "BYSON FC",
+      "away_team": "Harper FC",
+      "date": "25-08-2026",
+      "time": "10:51",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Cup (Semi-Finals)",
+      "venue": "",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
       "home_team": "SV 1921 Etingen/Rätzlingen",
       "away_team": "Cheshire Harriers FC",
       "date": "25-08-2026",
@@ -136,6 +136,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "BYSON FC",
+      "date": "23-08-2026",
+      "time": "21:37",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Cup (Semi-Finals)",
+      "venue": "The Concourse",
+      "home_score": "2",
+      "away_score": "1",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Away",
