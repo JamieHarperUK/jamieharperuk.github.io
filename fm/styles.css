@@ -129,7 +129,8 @@ nav {
     position: absolute;
     right: 0;
     top: calc(100% + 0.45rem);
-    min-width: 220px;
+    width: max-content;
+    max-width: calc(100vw - 2rem);
     background-color: rgba(21, 29, 45, 0.98);
     border: 1px solid var(--border-color);
     border-radius: 10px;
@@ -147,7 +148,8 @@ nav {
 .nav-dropdown-menu a {
     display: block;
     border-radius: 8px;
-    width: 100%;
+    width: auto;
+    white-space: nowrap;
 }
 
 main {
@@ -182,6 +184,79 @@ main {
     margin: 0 0 1.2rem;
     border-bottom: 2px solid var(--primary-color);
     padding-bottom: 0.45rem;
+}
+
+.about-layout {
+    display: grid;
+    grid-template-columns: minmax(220px, 0.75fr) minmax(0, 1.25fr);
+    gap: 2rem;
+    align-items: stretch;
+    background: linear-gradient(135deg, rgba(21, 29, 45, 0.98), rgba(0, 61, 165, 0.16));
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.about-portrait {
+    min-height: 460px;
+    position: relative;
+    background: var(--card-bg);
+}
+
+.about-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 460px;
+    object-fit: cover;
+    object-position: center 28%;
+}
+
+.about-portrait figcaption {
+    position: absolute;
+    left: 1rem;
+    bottom: 1rem;
+    color: var(--secondary-color);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.about-copy {
+    align-self: center;
+    padding: 2.4rem 2.4rem 2.4rem 0;
+    max-width: 620px;
+}
+
+.about-kicker {
+    color: var(--warning-color);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.65rem;
+}
+
+.about-copy h2 {
+    color: var(--secondary-color);
+    font-size: clamp(1.7rem, 4vw, 2.7rem);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+}
+
+.about-copy p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.about-copy .about-signoff {
+    color: var(--text-primary);
+    font-weight: 600;
+    margin-top: 1.4rem;
+    margin-bottom: 0;
 }
 
 .notes-section {
@@ -1122,6 +1197,26 @@ a.site-link:hover {
     .team-stats-standard,
     .team-stats-fpl {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .about-layout {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .about-portrait {
+        height: 420px;
+        min-height: 0;
+    }
+
+    .about-image {
+        min-height: 0;
+        max-height: none;
+        object-position: center 42%;
+    }
+
+    .about-copy {
+        padding: 1.6rem 1.4rem 1.8rem;
     }
 
     .section-title {

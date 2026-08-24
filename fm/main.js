@@ -253,6 +253,10 @@ const app = {
             return "analysis";
         }
 
+        if (view === "about-me") {
+            return "about-me";
+        }
+
         if (view === "hall-of-fame") {
             return "hall-of-fame";
         }
@@ -281,6 +285,10 @@ const app = {
             return "/fm/?view=hall-of-fame";
         }
 
+        if (path === "about-me") {
+            return "/fm/?view=about-me";
+        }
+
         if (path.startsWith("post/")) {
             return `/fm/?view=post&slug=${encodeURIComponent(path.split("/")[1])}`;
         }
@@ -303,6 +311,10 @@ const app = {
 
         if (path === "hall-of-fame") {
             return "Hall of Fame";
+        }
+
+        if (path === "about-me") {
+            return "About Me";
         }
 
         if (path.startsWith("post/")) {
@@ -728,6 +740,7 @@ const app = {
 
         [
             ["#analysis", "Analysis"],
+            ["#about-me", "About Me"],
             ["#hall-of-fame", "Hall of Fame"]
         ].forEach(([href, label]) => {
             const link = document.createElement("a");
@@ -833,6 +846,11 @@ const app = {
             return;
         }
 
+        if (route === "about-me") {
+            this.navigate("about-me");
+            return;
+        }
+
         if (route === "hall-of-fame") {
             this.navigate("hall-of-fame");
             return;
@@ -891,6 +909,14 @@ const app = {
                 description: "A rolling seven-day fixture summary and squad availability analysis for active Football Management teams.",
                 image: this.siteMeta.image,
                 url: this.getCanonicalPageUrl("analysis")
+            });
+        } else if (path === "about-me") {
+            document.getElementById("about-me")?.classList.add("active");
+            this.updatePageMetadata({
+                title: `About Me | ${this.siteMeta.title}`,
+                description: "Learn more about Jamie Harper and the football management projects behind this hub.",
+                image: buildFmUrl("data/jamie_harper.jpg", true),
+                url: this.getCanonicalPageUrl("about-me")
             });
         } else if (path === "hall-of-fame") {
             this.renderHallOfFamePage();
@@ -969,7 +995,7 @@ const app = {
 
         const moreToggle = document.getElementById("moreDropdownToggle");
         if (moreToggle) {
-            const isMorePage = this.currentPage === "analysis" || this.currentPage === "hall-of-fame";
+            const isMorePage = this.currentPage === "analysis" || this.currentPage === "about-me" || this.currentPage === "hall-of-fame";
             moreToggle.classList.toggle("active", isMorePage);
         }
     },
