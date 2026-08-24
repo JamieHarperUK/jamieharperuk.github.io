@@ -248,6 +248,10 @@ main {
     font-size: 0.88rem;
     font-weight: 700;
     text-decoration: none;
+    /*
+    
+    */
+    width: -webkit-fill-available;
 }
 
 .home-primary-action {
@@ -1230,7 +1234,7 @@ main {
 }
 
 .latest-post-panel {
-    margin-top: 1.3rem;
+    margin-top: 0rem;
     margin-bottom: 0rem;
 }
 
