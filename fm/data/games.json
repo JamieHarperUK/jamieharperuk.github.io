@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Away",
-      "home_team": "Millwall",
-      "away_team": "Portsmouth",
-      "date": "23-08-2026",
-      "time": "22:16",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 2nd Division",
-      "venue": "The Den",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Home",
       "home_team": "Harper FC",
       "away_team": "POPCORN FC",
@@ -81,6 +68,19 @@
       "osm_or_top_eleven": "OSM",
       "competition": "League Level 2",
       "venue": "The Concourse",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Portsmouth",
+      "away_team": "West Ham United",
+      "date": "24-08-2026",
+      "time": "22:16",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Fratton Park",
       "home_score": "",
       "away_score": "",
       "winner": ""
@@ -136,6 +136,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Millwall",
+      "away_team": "Portsmouth",
+      "date": "23-08-2026",
+      "time": "22:16",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "The Den",
+      "home_score": "1",
+      "away_score": "1",
+      "winner": "Draw"
     },
     {
       "home_or_away": "Home",
