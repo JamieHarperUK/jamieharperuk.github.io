@@ -51,24 +51,58 @@
 
         <main id="app">
             <section id="home" class="page active">
-                <h1 class="section-title">Hub Overview</h1>
-                <div class="manager-stats" id="overviewStats"></div>
-                <div class="notes-section">
-                    <div class="notes-content" id="notesContent">
-                        Follow my football management journeys, from multiple different games and platforms, all in one place. Explore team pages for squads and form, keep track of upcoming fixtures, and check the latest update posts.
+                <section class="home-hero" aria-labelledby="home-title">
+                    <div class="home-hero-copy">
+                        <p class="home-eyebrow">JHUK Football Management</p>
+                        <h1 id="home-title">Every season,<br><span>in one place.</span></h1>
+                        <p class="home-intro" id="notesContent">
+                            Follow my football management journeys across the games and platforms that make every fixture count.
+                        </p>
+                        <div class="home-hero-actions">
+                            <a href="#posts" class="home-primary-action">Read the latest <i class="fas fa-arrow-right"></i></a>
+                            <a href="#about-me" class="home-secondary-action">About me</a>
+                        </div>
                     </div>
-                    <img src="data/fm_bg_thin.png" alt="Football Management Hub" class="notes-image">
-                </div>
-
-                <h2 class="section-title">Upcoming Fixtures</h2>
-                <div class="fixtures-grid-home" id="upcomingFixtures"></div>
-
-                <section class="panel latest-post-panel" aria-labelledby="latest-post-title">
-                    <div class="panel-heading">
-                        <h2 class="panel-title" id="latest-post-title">Latest Post</h2>
+                    <div class="home-hero-art">
+                        <img src="data/fm_bg_thin.png" alt="Football Management Hub" class="notes-image">
+                        <div class="home-hero-stamp"><i class="fas fa-chart-line"></i> Live season notes</div>
                     </div>
-                    <div id="latestPostPreview"></div>
                 </section>
+
+                <section class="home-snapshot" aria-labelledby="snapshot-title">
+                    <div class="home-section-heading">
+                        <div>
+                            <p class="home-eyebrow">The current picture</p>
+                            <h2 id="snapshot-title">Season snapshot</h2>
+                        </div>
+                        <span class="home-live-indicator"><i class="fas fa-circle"></i> Updated live</span>
+                    </div>
+                    <div class="manager-stats" id="overviewStats"></div>
+                </section>
+
+                <div class="home-content-grid">
+                    <section class="panel home-fixtures-panel" aria-labelledby="upcoming-title">
+                        <div class="panel-heading">
+                            <div>
+                                <p class="home-eyebrow">Next on the calendar</p>
+                                <h2 class="panel-title" id="upcoming-title">Upcoming fixtures</h2>
+                            </div>
+                            <i class="fas fa-calendar-alt home-panel-icon" aria-hidden="true"></i>
+                        </div>
+                        <div class="fixtures-grid-home" id="upcomingFixtures"></div>
+                    </section>
+
+                    <section class="panel latest-post-panel" aria-labelledby="latest-post-title">
+                        <div class="panel-heading">
+                            <div>
+                                <p class="home-eyebrow">From the notebook</p>
+                                <h2 class="panel-title" id="latest-post-title">Latest post</h2>
+                            </div>
+                            <i class="fas fa-pen home-panel-icon" aria-hidden="true"></i>
+                        </div>
+                        <div id="latestPostPreview"></div>
+                    </section>
+                </div>
             </section>
 
             <section id="posts" class="page">
