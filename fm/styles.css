@@ -365,7 +365,7 @@ main {
 }
 
 .home-content-grid .panel {
-    height: 100%;
+    height: auto;
     margin-bottom: 0;
 }
 
@@ -386,6 +386,96 @@ main {
 
 .home-content-grid .latest-post-card {
     margin-top: 0;
+}
+
+.home-content-grid .fixtures-grid-home {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.7rem;
+}
+
+.home-content-grid .fixture-card {
+    min-width: 0;
+    border-radius: 8px;
+}
+
+.home-content-grid .fixture-header {
+    padding: 0.55rem 0.7rem;
+}
+
+.home-content-grid .fixture-badge {
+    margin-bottom: 0.2rem;
+    padding: 0.12rem 0.4rem;
+    font-size: 0.62rem;
+}
+
+.home-content-grid .fixture-league {
+    overflow: hidden;
+    font-size: 0.78rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.home-content-grid .fixture-body {
+    padding: 0.7rem;
+}
+
+.home-content-grid .fixture-date {
+    overflow: hidden;
+    font-size: 0.72rem;
+    margin-bottom: 0.5rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.home-content-grid .fixture-match {
+    gap: 0.35rem;
+    margin-bottom: 0;
+}
+
+.home-content-grid .team-name {
+    font-size: 0.82rem;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+}
+
+.home-content-grid .score.pending {
+    font-size: 0.78rem;
+}
+
+.home-content-grid .fixture-meta {
+    display: none;
+}
+
+.home-content-grid .latest-post-card {
+    padding: 0.85rem;
+}
+
+.home-content-grid .latest-post-card-secondary {
+    margin-top: 0.75rem;
+    border-top-color: rgba(0, 61, 165, 0.55);
+}
+
+.home-content-grid .latest-post-header {
+    display: none;
+}
+
+.home-content-grid .latest-post-card .update-title {
+    font-size: 1.05rem;
+    line-height: 1.25;
+}
+
+.home-content-grid .latest-post-card .update-meta {
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.home-content-grid .latest-post-card .update-content {
+    display: -webkit-box;
+    overflow: hidden;
+    line-clamp: 7;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 7;
 }
 
 .about-layout {

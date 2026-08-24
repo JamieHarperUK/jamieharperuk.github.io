@@ -1259,20 +1259,13 @@ const app = {
             return;
         }
 
-        const latestPost = [...this.data.posts]
-            .sort((a, b) => this.comparePostDateDesc(a, b))[0];
+        const latestPosts = [...this.data.posts]
+            .sort((a, b) => this.comparePostDateDesc(a, b));
 
-        if (!latestPost) {
+        if (!latestPosts.length) {
             container.innerHTML = '<div class="empty-state">No posts yet.</div>';
             return;
         }
-
-        const safeTitle = this.escapeHtml(latestPost.title || "Untitled update");
-        const safeDate = this.escapeHtml(latestPost.date_time?.[0] || "Unknown date");
-        const safeTime = this.escapeHtml(latestPost.date_time?.[1] || "--:--");
-        const safeContent = this.escapeHtml(this.getPostDescription(latestPost.content || ""));
-        const tags = Array.isArray(latestPost.tags) ? latestPost.tags : [];
-        let categoryGameType = latestPost.category || "Other";
 
         const gameLogoKey = {
             "top eleven": platformLogoUrls.topEleven,
@@ -1281,30 +1274,40 @@ const app = {
             "fpl": platformLogoUrls.fpl
         };
 
-        if (latestPost.category?.toLowerCase() === "top eleven") {
-            categoryGameType = `<img src="${gameLogoKey["top eleven"]}" alt="Top Eleven logo" style="height: 1rem; vertical-align: middle; filter: invert(1);">`;
-        } else if (latestPost.category?.toLowerCase() === "osm") {
-            categoryGameType = `<img src="${gameLogoKey["osm"]}" alt="Online Soccer Manager logo" style="height: 1rem; vertical-align: middle;">`;
-        } else if (latestPost.category?.toLowerCase() === "hattrick") {
-            categoryGameType = `<img src="${gameLogoKey["hattrick"]}" alt="Hattrick logo" style="height: 1rem; vertical-align: middle;">`;
-        } else if (latestPost.category?.toLowerCase() === "fpl") {
-            categoryGameType = `<img src="${gameLogoKey["fpl"]}" alt="Fantasy Premier League logo" style="height: 1rem; vertical-align: middle; filter: invert(1);">`;
-        }
+        container.innerHTML = latestPosts.slice(0, 2).map((post, index) => {
+            const safeTitle = this.escapeHtml(post.title || "Untitled update");
+            const safeDate = this.escapeHtml(post.date_time?.[0] || "Unknown date");
+            const safeTime = this.escapeHtml(post.date_time?.[1] || "--:--");
+            const safeContent = this.escapeHtml(this.getPostDescription(post.content || ""));
+            const tags = Array.isArray(post.tags) ? post.tags : [];
+            const categoryKey = String(post.category || "").toLowerCase();
+            let categoryGameType = this.escapeHtml(post.category || "Other");
 
-        container.innerHTML = `
-            <article class="latest-post-card">
-                <div class="latest-post-header">
-                    <span class="latest-post-label">Latest update</span>
-                </div>
-                <h3 class="update-title"><a href="#post/${this.getPostSlug(latestPost)}" class="post-link" data-analytics-action="post_click" data-analytics-category="Posts" data-analytics-label="Latest Post">${safeTitle}</a></h3>
-                <div class="update-meta">
-                    <span>${safeDate} @ ${safeTime}</span>
-                    <span class="update-category">${categoryGameType}</span>
-                </div>
-                <p class="update-content">${safeContent}</p>
-                <div class="tags">${tags.map((tag) => `<span class="tag">#${this.escapeHtml(tag)}</span>`).join("")}</div>
-            </article>
-        `;
+            if (gameLogoKey[categoryKey]) {
+                const logo = gameLogoKey[categoryKey];
+                const title = categoryKey === "top eleven"
+                    ? "Top Eleven"
+                    : categoryKey === "osm"
+                        ? "Online Soccer Manager"
+                        : categoryKey === "hattrick"
+                            ? "Hattrick"
+                            : "Fantasy Premier League";
+                const filter = categoryKey === "top eleven" || categoryKey === "fpl" ? " filter: invert(1);" : "";
+                categoryGameType = `<img src="${logo}" alt="${title} logo" style="height: 1rem; vertical-align: middle;${filter}">`;
+            }
+
+            return `
+                <article class="latest-post-card ${index > 0 ? "latest-post-card-secondary" : ""}">
+                    <h3 class="update-title"><a href="#post/${this.getPostSlug(post)}" class="post-link" data-analytics-action="post_click" data-analytics-category="Posts" data-analytics-label="${index === 0 ? "Latest Post" : "Recent Post"}">${safeTitle}</a></h3>
+                    <div class="update-meta">
+                        <span>${safeDate} @ ${safeTime}</span>
+                        <span class="update-category">${categoryGameType}</span>
+                    </div>
+                    <p class="update-content">${safeContent}</p>
+                    <div class="tags">${tags.map((tag) => `<span class="tag">#${this.escapeHtml(tag)}</span>`).join("")}</div>
+                </article>
+            `;
+        }).join("");
     },
 
     getPushUiElements() {
