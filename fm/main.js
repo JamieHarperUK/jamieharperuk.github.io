@@ -739,9 +739,9 @@ const app = {
         moreMenu.id = "moreDropdownMenu";
 
         [
+            ["#hall-of-fame", "Hall of Fame"],
             ["#analysis", "Analysis"],
-            ["#about-me", "About Me"],
-            ["#hall-of-fame", "Hall of Fame"]
+            ["#about-me", "About Me"]
         ].forEach(([href, label]) => {
             const link = document.createElement("a");
             link.href = href;
