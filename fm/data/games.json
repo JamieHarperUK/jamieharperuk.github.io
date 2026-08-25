@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Home",
-      "home_team": "Harper FC",
-      "away_team": "Paradise Fc",
-      "date": "24-08-2026",
-      "time": "20:47",
-      "osm_or_top_eleven": "OSM",
-      "competition": "League Level 2",
-      "venue": "The Concourse",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Home",
       "home_team": "Portsmouth",
       "away_team": "West Ham United",
       "date": "24-08-2026",
@@ -68,6 +55,19 @@
       "osm_or_top_eleven": "Top Eleven",
       "competition": "Cup (Semi-Finals)",
       "venue": "",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "sheba Fc",
+      "date": "25-08-2026",
+      "time": "15:09",
+      "osm_or_top_eleven": "OSM",
+      "competition": "League Level 2",
+      "venue": "The Concourse",
       "home_score": "",
       "away_score": "",
       "winner": ""
@@ -123,6 +123,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "Paradise Fc",
+      "date": "24-08-2026",
+      "time": "20:47",
+      "osm_or_top_eleven": "OSM",
+      "competition": "League Level 2",
+      "venue": "The Concourse",
+      "home_score": "9",
+      "away_score": "0",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Home",
