@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Away",
-      "home_team": "Dubilin",
-      "away_team": "Greyhound FC",
-      "date": "25-08-2026",
-      "time": "16:00",
-      "osm_or_top_eleven": "Ladder FM",
-      "competition": "England Tier 1 League",
-      "venue": "Kargonski Park",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "SV 1921 Etingen/Rätzlingen",
       "away_team": "Cheshire Harriers FC",
       "date": "25-08-2026",
@@ -86,6 +73,19 @@
       "winner": ""
     },
     {
+      "home_or_away": "Home",
+      "home_team": "Greyhound FC",
+      "away_team": "Tokatkale FK",
+      "date": "26-08-2026",
+      "time": "16:00",
+      "osm_or_top_eleven": "Ladder FM",
+      "competition": "England Tier 1 League",
+      "venue": "The Coursing Ground",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
       "home_or_away": "Away",
       "home_team": "Thimphu City",
       "away_team": "Harper FC",
@@ -110,6 +110,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Dubilin",
+      "away_team": "Greyhound FC",
+      "date": "25-08-2026",
+      "time": "16:00",
+      "osm_or_top_eleven": "Ladder FM",
+      "competition": "England Tier 1 League",
+      "venue": "Kargonski Park",
+      "home_score": "1",
+      "away_score": "1",
+      "winner": "Draw"
     },
     {
       "home_or_away": "Home",
