@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Away",
-      "home_team": "BYSON FC",
-      "away_team": "Harper FC",
-      "date": "25-08-2026",
-      "time": "10:51",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "Cup (Semi-Finals)",
-      "venue": "",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Home",
       "home_team": "Harper FC",
       "away_team": "sheba Fc",
@@ -123,6 +110,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "BYSON FC",
+      "away_team": "Harper FC",
+      "date": "25-08-2026",
+      "time": "10:51",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Cup (Semi-Finals)",
+      "venue": "BYSON FC Stadium",
+      "home_score": "1",
+      "away_score": "4",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Home",
