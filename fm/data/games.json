@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Away",
-      "home_team": "Sunderland",
-      "away_team": "Manchester United",
-      "date": "25-08-2026",
-      "time": "22:52",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 1st Division",
-      "venue": "Stadium of Light",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Home",
       "home_team": "Greyhound FC",
       "away_team": "Tokatkale FK",
@@ -87,6 +74,19 @@
     },
     {
       "home_or_away": "Home",
+      "home_team": "Manchester United",
+      "away_team": "Crystal Palace",
+      "date": "26-08-2026",
+      "time": "22:52",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 1st Division",
+      "venue": "Old Trafford",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
       "home_team": "Cheshire Harriers FC",
       "away_team": "tabas cf",
       "date": "30-08-2026",
@@ -97,6 +97,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Sunderland",
+      "away_team": "Manchester United",
+      "date": "25-08-2026",
+      "time": "22:52",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 1st Division",
+      "venue": "Stadium of Light",
+      "home_score": "0",
+      "away_score": "1",
+      "winner": "Manchester United"
     },
     {
       "home_or_away": "Away",
