@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Away",
-      "home_team": "Preston North End",
-      "away_team": "Portsmouth",
-      "date": "25-08-2026",
-      "time": "22:16",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 2nd Division",
-      "venue": "Deepdale",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "Sunderland",
       "away_team": "Manchester United",
       "date": "25-08-2026",
@@ -87,6 +74,19 @@
     },
     {
       "home_or_away": "Home",
+      "home_team": "Portsmouth",
+      "away_team": "Derby County",
+      "date": "26-08-2026",
+      "time": "22:16",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Fratton Park",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
       "home_team": "Cheshire Harriers FC",
       "away_team": "tabas cf",
       "date": "30-08-2026",
@@ -97,6 +97,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Preston North End",
+      "away_team": "Portsmouth",
+      "date": "25-08-2026",
+      "time": "22:16",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Deepdale",
+      "home_score": "0",
+      "away_score": "3",
+      "winner": "Portsmouth"
     },
     {
       "home_or_away": "Home",
