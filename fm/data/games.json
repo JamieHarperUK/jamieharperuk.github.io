@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Home",
-      "home_team": "Greyhound FC",
-      "away_team": "Tokatkale FK",
-      "date": "26-08-2026",
-      "time": "16:00",
-      "osm_or_top_eleven": "Ladder FM",
-      "competition": "England Tier 1 League",
-      "venue": "The Coursing Ground",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Away",
       "home_team": "Southend United",
       "away_team": "Altrincham FC",
@@ -86,6 +73,19 @@
       "winner": ""
     },
     {
+      "home_or_away": "Away",
+      "home_team": "Nordic United FC",
+      "away_team": "Greyhound AFC",
+      "date": "27-08-2026",
+      "time": "16:00",
+      "osm_or_top_eleven": "Ladder FM",
+      "competition": "England Tier 1 League",
+      "venue": "Nordic United FC Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
       "home_or_away": "Home",
       "home_team": "Cheshire Harriers FC",
       "away_team": "tabas cf",
@@ -97,6 +97,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Greyhound FC",
+      "away_team": "Tokatkale FK",
+      "date": "26-08-2026",
+      "time": "16:00",
+      "osm_or_top_eleven": "Ladder FM",
+      "competition": "England Tier 1 League",
+      "venue": "The Coursing Ground",
+      "home_score": "1",
+      "away_score": "0",
+      "winner": "Greyhound AFC"
     },
     {
       "home_or_away": "Away",
