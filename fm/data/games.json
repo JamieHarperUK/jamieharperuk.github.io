@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Home",
-      "home_team": "Altrincham FC",
-      "away_team": "Harrogate Town",
-      "date": "27-08-2026",
-      "time": "20:20",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 5th Division",
-      "venue": "J. Davidson Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Home",
       "home_team": "Portsmouth",
       "away_team": "Wolverhampton Wanderers",
       "date": "27-08-2026",
@@ -55,6 +42,19 @@
       "osm_or_top_eleven": "OSM",
       "competition": "England 1st Division",
       "venue": "Craven Cottage",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Persib Bandung",
+      "away_team": "Harper FC",
+      "date": "28-08-2026",
+      "time": "04:09",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Cup (Final)",
+      "venue": "Stadion Persib Bandung",
       "home_score": "",
       "away_score": "",
       "winner": ""
@@ -86,6 +86,19 @@
       "winner": ""
     },
     {
+      "home_or_away": "Away",
+      "home_team": "AFC Fylde",
+      "away_team": "Altrincham FC",
+      "date": "28-08-2026",
+      "time": "20:20",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 5th Division",
+      "venue": "Mill Farm",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
       "home_or_away": "Home",
       "home_team": "Cheshire Harriers FC",
       "away_team": "tabas cf",
@@ -97,6 +110,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Altrincham FC",
+      "away_team": "Harrogate Town",
+      "date": "27-08-2026",
+      "time": "20:20",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 5th Division",
+      "venue": "J. Davidson Stadium",
+      "home_score": "2",
+      "away_score": "0",
+      "winner": "Altrincham FC"
     },
     {
       "home_or_away": "Home",
