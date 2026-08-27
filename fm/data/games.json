@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Away",
-      "home_team": "Thimphu City",
-      "away_team": "Harper FC",
-      "date": "26-08-2026",
-      "time": "20:28",
-      "osm_or_top_eleven": "OSM",
-      "competition": "League Level 2",
-      "venue": "Thimphu City's Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Home",
       "home_team": "Portsmouth",
       "away_team": "Derby County",
@@ -74,6 +61,19 @@
     },
     {
       "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "asrof FC",
+      "date": "27-08-2026",
+      "time": "19:32",
+      "osm_or_top_eleven": "OSM",
+      "competition": "League Level 2",
+      "venue": "The Concourse",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
       "home_team": "Altrincham FC",
       "away_team": "Harrogate Town",
       "date": "27-08-2026",
@@ -97,6 +97,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Thimphu City",
+      "away_team": "Harper FC",
+      "date": "26-08-2026",
+      "time": "20:28",
+      "osm_or_top_eleven": "OSM",
+      "competition": "League Level 2",
+      "venue": "Thimphu City's Stadium",
+      "home_score": "0",
+      "away_score": "8",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Away",
