@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Away",
-      "home_team": "Nordic United FC",
-      "away_team": "Greyhound AFC",
-      "date": "27-08-2026",
-      "time": "16:00",
-      "osm_or_top_eleven": "Ladder FM",
-      "competition": "England Tier 1 League",
-      "venue": "Nordic United FC Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Home",
       "home_team": "Harper FC",
       "away_team": "asrof FC",
@@ -87,6 +74,19 @@
     },
     {
       "home_or_away": "Home",
+      "home_team": "Greyhound AFC",
+      "away_team": "Novopantalons",
+      "date": "28-08-2026",
+      "time": "16:00",
+      "osm_or_top_eleven": "Ladder FM",
+      "competition": "England Tier 1 League",
+      "venue": "The Coursing Ground",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
       "home_team": "Cheshire Harriers FC",
       "away_team": "tabas cf",
       "date": "30-08-2026",
@@ -97,6 +97,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Nordic United FC",
+      "away_team": "Greyhound AFC",
+      "date": "27-08-2026",
+      "time": "16:00",
+      "osm_or_top_eleven": "Ladder FM",
+      "competition": "England Tier 1 League",
+      "venue": "Nordic United FC Stadium",
+      "home_score": "0",
+      "away_score": "2",
+      "winner": "Greyhound AFC"
     },
     {
       "home_or_away": "Home",
