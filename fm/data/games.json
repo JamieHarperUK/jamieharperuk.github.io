@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Away",
-      "home_team": "Cardiff City",
-      "away_team": "Portsmouth",
-      "date": "28-08-2026",
-      "time": "22:16",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 2nd Division",
-      "venue": "Cardiff City Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Home",
       "home_team": "Manchester United",
       "away_team": "Liverpool",
@@ -100,6 +87,19 @@
     },
     {
       "home_or_away": "Home",
+      "home_team": "Portsmouth",
+      "away_team": "Southampton",
+      "date": "29-08-2026",
+      "time": "22:16",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Neutral Ground",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
       "home_team": "Cheshire Harriers FC",
       "away_team": "tabas cf",
       "date": "30-08-2026",
@@ -110,6 +110,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Cardiff City",
+      "away_team": "Portsmouth",
+      "date": "28-08-2026",
+      "time": "22:16",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Cardiff City Stadium",
+      "home_score": "2",
+      "away_score": "2",
+      "winner": "Draw"
     },
     {
       "home_or_away": "Away",
