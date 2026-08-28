@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Away",
-      "home_team": "Adana demirspor",
-      "away_team": "Harper FC",
-      "date": "28-08-2026",
-      "time": "14:09",
-      "osm_or_top_eleven": "OSM",
-      "competition": "League Level 2",
-      "venue": "Adana demirspor Stadyumu",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Home",
       "home_team": "Greyhound AFC",
       "away_team": "Novopantalons",
@@ -87,6 +74,19 @@
     },
     {
       "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "GARUDA 1945 FC",
+      "date": "29-08-2026",
+      "time": "20:49",
+      "osm_or_top_eleven": "OSM",
+      "competition": "League Level 2",
+      "venue": "The Concourse",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
       "home_team": "Cheshire Harriers FC",
       "away_team": "tabas cf",
       "date": "30-08-2026",
@@ -97,6 +97,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Adana demirspor",
+      "away_team": "Harper FC",
+      "date": "28-08-2026",
+      "time": "14:09",
+      "osm_or_top_eleven": "OSM",
+      "competition": "League Level 2",
+      "venue": "Adana demirspor Stadyumu",
+      "home_score": "0",
+      "away_score": "11",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Away",
