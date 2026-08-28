@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Away",
-      "home_team": "Persib Bandung",
-      "away_team": "Harper FC",
-      "date": "28-08-2026",
-      "time": "04:09",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "Cup (Final)",
-      "venue": "Stadion Persib Bandung",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "Adana demirspor",
       "away_team": "Harper FC",
       "date": "28-08-2026",
@@ -110,6 +97,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Persib Bandung",
+      "away_team": "Harper FC",
+      "date": "28-08-2026",
+      "time": "04:09",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Cup (Final)",
+      "venue": "Stadion Persib Bandung",
+      "home_score": "0",
+      "away_score": "6",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Away",
