@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Home",
-      "home_team": "Altrincham FC",
-      "away_team": "Kidderminster Harriers",
-      "date": "29-08-2026",
-      "time": "20:20",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 5th Division",
-      "venue": "J. Davidson Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Home",
       "home_team": "Harper FC",
       "away_team": "GARUDA 1945 FC",
       "date": "29-08-2026",
@@ -110,6 +97,32 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Carlisle United",
+      "away_team": "Altrincham FC",
+      "date": "30-08-2026",
+      "time": "20:20",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 5th Division",
+      "venue": "Brunton Park",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Altrincham FC",
+      "away_team": "Kidderminster Harriers",
+      "date": "29-08-2026",
+      "time": "20:20",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 5th Division",
+      "venue": "J. Davidson Stadium",
+      "home_score": "4",
+      "away_score": "1",
+      "winner": "Altrincham FC"
     },
     {
       "home_or_away": "Home",
