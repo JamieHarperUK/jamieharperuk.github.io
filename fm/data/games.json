@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Away",
-      "home_team": "Hull City",
-      "away_team": "Manchester United",
-      "date": "29-08-2026",
-      "time": "22:52",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 1st Division",
-      "venue": "MKM Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "Leuven Ballers",
       "away_team": "Greyhound AFC",
       "date": "30-08-2026",
@@ -110,6 +97,32 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Brighton and Hove Albion",
+      "away_team": "Manchester United",
+      "date": "30-08-2026",
+      "time": "22:52",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 1st Division",
+      "venue": "Amex Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Hull City",
+      "away_team": "Manchester United",
+      "date": "29-08-2026",
+      "time": "22:52",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 1st Division",
+      "venue": "MKM Stadium",
+      "home_score": "0",
+      "away_score": "1",
+      "winner": "Manchester United"
     },
     {
       "home_or_away": "Home",
