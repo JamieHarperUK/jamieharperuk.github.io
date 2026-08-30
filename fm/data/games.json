@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Home",
-      "home_team": "Harper FC",
-      "away_team": "Curasao",
-      "date": "29-08-2026",
-      "time": "17:41",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "Elite League (Round of 16)",
-      "venue": "The Concourse",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Home",
       "home_team": "Altrincham FC",
       "away_team": "Kidderminster Harriers",
       "date": "29-08-2026",
@@ -110,6 +97,32 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Curasao",
+      "away_team": "Harper FC",
+      "date": "30-08-2026",
+      "time": "17:19",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Elite League (Round of 16)",
+      "venue": "dazzling A.C.'s Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "Curasao",
+      "date": "29-08-2026",
+      "time": "17:41",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Elite League (Round of 16)",
+      "venue": "The Concourse",
+      "home_score": "9",
+      "away_score": "0",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Home",
