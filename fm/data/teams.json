@@ -562,134 +562,15 @@
       "end_state": null,
       "players": [
         [
-          "GK",
-          "Senne Lammens",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "GK",
-          "Altay Bayindir",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "RB",
-          "Josip Stanisic",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CB",
-          "Jonathan Tah",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "LB",
-          "Federico Dimarco",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CB",
-          "Lisandro Martinez",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CB",
-          "Harry Maguire",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "LB",
-          "Matthijs de Ligt",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "RB",
-          "Diogo Dalot",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CB",
-          "Leny Yoro",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "LB",
-          "Luke Shaw",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CAM",
-          "Bruno Fernandes",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CM",
-          "Nicolo Barella",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CM",
-          "Kobbie Mainoo",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CM",
-          "Youri Tielemans",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "CAM",
-          "Mason Mount",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "CDM",
-          "Manuel Ugarte",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CDM",
-          "Andrey Santos",
-          "0",
-          "0",
-          "0"
-        ],
-        [
           "RW",
           "Bryan Mbeumo",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "LW",
+          "Khvicha Kvaratskhelia",
           "0",
           "0",
           "0"
@@ -723,8 +604,106 @@
           "0"
         ],
         [
-          "RW",
-          "Amad Diallo",
+          "CAM",
+          "Bruno Fernandes",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Kobbie Mainoo",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Nicolo Barella",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Youri Tielemans",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "CAM",
+          "Mason Mount",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Aymeric Laporte",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "RB",
+          "Josip Stanisic",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "LB",
+          "Maximiliano Araújo",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "LB",
+          "Federico Dimarco",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Lisandro Martinez",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Jonathan Tah",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Harry Maguire",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "RB",
+          "Diogo Dalot",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "GK",
+          "Senne Lammens",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "GK",
+          "Altay Bayindir",
           "0",
           "0",
           "0"
@@ -740,125 +719,6 @@
       "start_date": "29-07-2026",
       "end_state": null,
       "players": [
-        [
-          "GK",
-          "Alfonso Herrero",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "GK",
-          "Owen Evans",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CB",
-          "Marquinhos",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "LB",
-          "Neco Williams",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CB",
-          "Evan N'Dicka",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "RB",
-          "Tristan Crama",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CB",
-          "Justin de Haas",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "CB",
-          "Pedro Jorge Goncalves Malheiro",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CB",
-          "Willian Estefani Machado",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CB",
-          "Yigithan Guveli",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CB",
-          "Yugo Okawa",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CAM",
-          "Ismael Saibari",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "CM",
-          "Fransisco Roman Alarcon Suarez",
-          "2",
-          "0",
-          "0"
-        ],
-        [
-          "CM",
-          "Wallace Davi Nunes Da Silva Dias",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "CM",
-          "Giacomo Faticanti",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "CM",
-          "Jack Hinchy",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "CM",
-          "Kai Klefisch",
-          "1",
-          "0",
-          "0"
-        ],
         [
           "ST",
           "Bukayo Saka",
@@ -902,9 +762,107 @@
           "0"
         ],
         [
-          "LW",
-          "Sam Taylor",
+          "CM",
+          "Wallace Davi Nunes Da Silva Dias",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "CAM",
+          "Ismael Saibari",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Fransisco Roman Alarcon Suarez",
           "2",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Giacomo Faticanti",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Jack Hinchy",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Kai Klefisch",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Marc Guehi",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Joachim Andersen",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Marquinhos",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "LB",
+          "Neco Williams",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "RB",
+          "Tristan Crama",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Evan N'Dicka",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Justin de Haas",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "GK",
+          "Alfonso Herrero",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "GK",
+          "Owen Evans",
+          "0",
           "0",
           "0"
         ]
@@ -920,104 +878,6 @@
       "end_state": null,
       "players": [
         [
-          "GK",
-          "David Raya",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "GK",
-          "Nicolas Schmid",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "RB",
-          "Josip Stanisic",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CB",
-          "Jakub Kiwior",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CB",
-          "Bafode Diakite",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "RB",
-          "Terry Devlin",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "CB",
-          "Albian Hajdari",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "CB",
-          "Conor Shaughnessy",
-          "2",
-          "0",
-          "0"
-        ],
-        [
-          "LB",
-          "Zak Swanson",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CM",
-          "Kobbie Mainoo",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "CM",
-          "Rocco Robert Shein",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CM",
-          "Ebou Adams",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "CAM",
-          "John Swift",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "CM",
-          "Mark Kosznovsky",
-          "0",
-          "0",
-          "0"
-        ],
-        [
           "LW",
           "Raphinha",
           "0",
@@ -1025,15 +885,15 @@
           "0"
         ],
         [
-          "ST",
-          "Lautaro Martinez",
+          "RW",
+          "Adrian Segecic",
           "0",
           "0",
           "0"
         ],
         [
-          "RW",
-          "Adrian Segecic",
+          "ST",
+          "Lautaro Martinez",
           "0",
           "0",
           "0"
@@ -1055,6 +915,111 @@
         [
           "ST",
           "Colby Bishop",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Kobbie Mainoo",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Rocco Robert Shein",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CDM",
+          "Caio Alexandre",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Ebou Adams",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "CAM",
+          "John Swift",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Jakub Kiwior",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "RB",
+          "Josip Stanisic",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "LB",
+          "Theo Hernandez",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "RB",
+          "Terry Devlin",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Bafode Diakite",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Albian Hajdari",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "LB",
+          "Zak Swanson",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Conor Shaughnessy",
+          "2",
+          "0",
+          "0"
+        ],
+        [
+          "GK",
+          "David Raya",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "GK",
+          "Nicolas Schmid",
           "0",
           "0",
           "0"
