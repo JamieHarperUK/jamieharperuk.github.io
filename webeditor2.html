@@ -4300,7 +4300,7 @@
                 }
 
                 if (kind === "posts") {
-                    const titleValue = record.title || record.name || record.label || record.slug;
+                    const titleValue = "[" + record.date_time[0] + " · " + record.date_time[1] + "] " + record.title || record.name || record.label || record.slug;
                     if (titleValue) {
                         return String(titleValue);
                     }
