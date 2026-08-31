@@ -4259,9 +4259,9 @@
                     const time = record.time || "";
                     const homeScore = record.home_score ?? record.homeScore ?? "";
                     const awayScore = record.away_score ?? record.awayScore ?? "";
-                    const scoreText = (homeScore === "" && awayScore === "") ? "" : "(" + String(homeScore) + "-" + String(awayScore) + ")";
+                    const scoreText = (homeScore === "" && awayScore === "") ? "" : "(<i>" + String(homeScore) + "-" + String(awayScore) + "</i>)";
                     if (home && away) {
-                        const parts = [home + " vs " + away];
+                        const parts = ["<b>" + home + " vs " + away + "</b>"];
                         if (date) parts.push(date);
                         if (time) parts.push(time);
                         if (scoreText) parts.push(scoreText);
