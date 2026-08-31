@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Away",
-      "home_team": "Brighton and Hove Albion",
-      "away_team": "Manchester United",
-      "date": "30-08-2026",
-      "time": "22:52",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 1st Division",
-      "venue": "Amex Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Home",
       "home_team": "Harper FC",
       "away_team": "toby FC",
@@ -99,6 +86,19 @@
       "winner": ""
     },
     {
+      "home_or_away": "Home",
+      "home_team": "Manchester United",
+      "away_team": "Nottingham Forest",
+      "date": "31-08-2026",
+      "time": "22:52",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 1st Division",
+      "venue": "Neutral Ground",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
       "home_or_away": "Away",
       "home_team": "New Arsenal FC",
       "away_team": "Cheshire Harriers FC",
@@ -110,6 +110,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Brighton and Hove Albion",
+      "away_team": "Manchester United",
+      "date": "30-08-2026",
+      "time": "22:52",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 1st Division",
+      "venue": "Amex Stadium",
+      "home_score": "1",
+      "away_score": "2",
+      "winner": "Manchester United"
     },
     {
       "home_or_away": "Home",
