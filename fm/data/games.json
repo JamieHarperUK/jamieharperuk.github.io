@@ -22,32 +22,6 @@
   "games": [
     {
       "home_or_away": "Home",
-      "home_team": "Portsmouth",
-      "away_team": "Burnley",
-      "date": "30-08-2026",
-      "time": "22:16",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 2nd Division",
-      "venue": "Fratton Park",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
-      "home_team": "Brighton and Hove Albion",
-      "away_team": "Manchester United",
-      "date": "30-08-2026",
-      "time": "22:52",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 1st Division",
-      "venue": "Amex Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Home",
       "home_team": "Harper FC",
       "away_team": "toby FC",
       "date": "31-08-2026",
@@ -100,6 +74,32 @@
     },
     {
       "home_or_away": "Away",
+      "home_team": "Wrexham",
+      "away_team": "Portsmouth",
+      "date": "31-08-2026",
+      "time": "22:16",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Racecourse Ground",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Manchester United",
+      "away_team": "Nottingham Forest",
+      "date": "31-08-2026",
+      "time": "22:52",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 1st Division",
+      "venue": "Neutral Ground",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
       "home_team": "New Arsenal FC",
       "away_team": "Cheshire Harriers FC",
       "date": "06-09-2026",
@@ -110,6 +110,32 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Brighton and Hove Albion",
+      "away_team": "Manchester United",
+      "date": "30-08-2026",
+      "time": "22:52",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 1st Division",
+      "venue": "Amex Stadium",
+      "home_score": "1",
+      "away_score": "2",
+      "winner": "Manchester United"
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Portsmouth",
+      "away_team": "Burnley",
+      "date": "30-08-2026",
+      "time": "22:16",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Fratton Park",
+      "home_score": "1",
+      "away_score": "0",
+      "winner": "Portsmouth"
     },
     {
       "home_or_away": "Away",
