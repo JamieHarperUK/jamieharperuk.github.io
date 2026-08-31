@@ -4262,10 +4262,9 @@
                     const awayScore = record.away_score ?? record.awayScore ?? "";
                     const scoreText = (homeScore === "" && awayScore === "") ? "" : "· (" + String(homeScore) + "-" + String(awayScore) + ")";
                     if (home && away && date && time) {
-                        if (homeScore === "" && awayScore === "") {
-                            let homeS = "";
-                            let awayS = "";
-                        } else {
+                        let homeS = "";
+                        let awayS = "";
+                        if (homeScore !== "" && awayScore !== "") {
                             let homeS = ` (${homeScore})`;
                             let awayS = ` (${awayScore})`;
                         }
