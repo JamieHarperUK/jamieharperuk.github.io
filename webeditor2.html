@@ -4255,13 +4255,14 @@
                 if (kind === "games") {
                     const home = record.home_team || record.homeTeam || "";
                     const away = record.away_team || record.awayTeam || "";
+                    const gamePlatform = record.osm_or_top_eleven || "";
                     const date = record.date || "";
                     const time = record.time || "";
                     const homeScore = record.home_score ?? record.homeScore ?? "";
                     const awayScore = record.away_score ?? record.awayScore ?? "";
                     const scoreText = (homeScore === "" && awayScore === "") ? "" : "· (" + String(homeScore) + "-" + String(awayScore) + ")";
                     if (home && away && date && time) {
-                        let gameTeams = home + " vs " + away;
+                        let gameTeams = gamePlatform + " - " + home + " vs " + away;
                         const parts = ["[" + date + " · " + time + "]"];
                         if (home && away) parts.push(gameTeams);
                         if (scoreText) parts.push(scoreText);
