@@ -4367,7 +4367,12 @@
 
                 el.crmDragPanel.classList.remove("hidden");
 
-                const visibleIndexes = getVisibleRecordIndexes();
+                let visibleIndexes = getVisibleRecordIndexes();
+                
+                // For posts files, display in reverse order (newest first)
+                if (getCurrentEditorFileKind() === "posts") {
+                    visibleIndexes = visibleIndexes.reverse();
+                }
 
                 visibleIndexes.forEach(function(globalIndex) {
                     const record = state.crmModel.records[globalIndex];
