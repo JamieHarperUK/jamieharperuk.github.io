@@ -4262,7 +4262,7 @@
                     const scoreText = (homeScore === "" && awayScore === "") ? "" : "· (" + String(homeScore) + "-" + String(awayScore) + ")";
                     if (home && away && date && time) {
                         let gameTeams = home + " vs " + away;
-                        let gameTimestamp = "[" + date + " " + time + "]";
+                        let gameTimestamp = "[" + date + " · " + time + "]";
                         const parts = [gameTimestamp];
                         if (home && away) parts.push(gameTeams);
                         if (scoreText) parts.push(scoreText);
