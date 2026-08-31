@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Home",
-      "home_team": "Harper FC",
-      "away_team": "hol",
-      "date": "31-08-2026",
-      "time": "21:21",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "Elite League (Quarter-Finals)",
-      "venue": "salva",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Away",
       "home_team": "Wrexham",
       "away_team": "Portsmouth",
@@ -68,6 +55,19 @@
       "osm_or_top_eleven": "Ladder FM",
       "competition": "England Tier 1 League",
       "venue": "Campinho",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "hol",
+      "away_team": "Harper FC",
+      "date": "01-09-2026",
+      "time": "17:00",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Elite League (Quarter-Finals)",
+      "venue": "salva",
       "home_score": "",
       "away_score": "",
       "winner": ""
@@ -110,6 +110,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "hol",
+      "date": "31-08-2026",
+      "time": "21:21",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Elite League (Quarter-Finals)",
+      "venue": "The Concourse",
+      "home_score": "7",
+      "away_score": "0",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Home",
