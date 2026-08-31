@@ -4259,13 +4259,14 @@
                     const time = record.time || "";
                     const homeScore = record.home_score ?? record.homeScore ?? "";
                     const awayScore = record.away_score ?? record.awayScore ?? "";
-                    const scoreText = (homeScore === "" && awayScore === "") ? "" : "(" + String(homeScore) + "-" + String(awayScore) + ")";
-                    if (home && away) {
-                        const parts = [home + " vs " + away];
-                        if (date) parts.push(date);
-                        if (time) parts.push(time);
+                    const scoreText = (homeScore === "" && awayScore === "") ? "" : "· (" + String(homeScore) + "-" + String(awayScore) + ")";
+                    if (home && away && date && time) {
+                        let gameTeams = home + " vs " + away;
+                        let gameTimestamp = "[" + date + " " + time + "]";
+                        const parts = [gameTimestamp];
+                        if (home && away) parts.push(gameTeams);
                         if (scoreText) parts.push(scoreText);
-                        return parts.join(" · ");
+                        return parts.join(" ");
                     }
                 }
 
