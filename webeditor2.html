@@ -4264,9 +4264,9 @@
                     if (home && away && date && time) {
                         let homeS = "";
                         let awayS = "";
-                        if (homeScore !== "" && awayScore !== "") {
-                            let homeS = ` (${homeScore})`;
-                            let awayS = ` (${awayScore})`;
+                        if (homeScore != "" && awayScore != "") {
+                            homeS = ` (${homeScore})`;
+                            awayS = ` (${awayScore})`;
                         }
                         let gameTeams = home + homeS + " vs " + away + awayS;
                         // gameTeams = gameTeams + " [" + gamePlatform + "]";
