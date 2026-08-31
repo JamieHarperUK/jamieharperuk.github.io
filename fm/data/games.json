@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Away",
-      "home_team": "Curasao",
-      "away_team": "Harper FC",
-      "date": "30-08-2026",
-      "time": "17:19",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "Elite League (Round of 16)",
-      "venue": "dazzling A.C.'s Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "Pr Fc",
       "away_team": "Harper FC",
       "date": "30-08-2026",
@@ -99,6 +86,19 @@
       "winner": ""
     },
     {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "hol",
+      "date": "31-08-2026",
+      "time": "21:21",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Elite League (Quarter-Finals)",
+      "venue": "salva",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
       "home_or_away": "Away",
       "home_team": "New Arsenal FC",
       "away_team": "Cheshire Harriers FC",
@@ -110,6 +110,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Curasao",
+      "away_team": "Harper FC",
+      "date": "30-08-2026",
+      "time": "17:19",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Elite League (Round of 16)",
+      "venue": "dazzling A.C.'s Stadium",
+      "home_score": "0",
+      "away_score": "5",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Home",
