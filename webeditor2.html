@@ -6339,8 +6339,16 @@
                     const templateRecord = state.crmModel.schema.enabled
                         ? buildRecordFromFields(state.crmModel.schema.activeFields || {})
                         : {};
-                    state.crmModel.records.push(templateRecord);
-                    state.crmModel.selectedIndex = state.crmModel.records.length - 1;
+                    
+                    // For games files, add to top; for others, add to bottom
+                    if (isGamesEditorFile()) {
+                        state.crmModel.records.unshift(templateRecord);
+                        state.crmModel.selectedIndex = 0;
+                    } else {
+                        state.crmModel.records.push(templateRecord);
+                        state.crmModel.selectedIndex = state.crmModel.records.length - 1;
+                    }
+                    
                     ensureSelectedRecordIsVisible();
                     renderCrmRecordSelect();
                     renderCrmFields();
