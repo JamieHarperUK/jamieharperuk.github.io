@@ -4259,7 +4259,7 @@
                     const time = record.time || "";
                     const homeScore = record.home_score ?? record.homeScore ?? "";
                     const awayScore = record.away_score ?? record.awayScore ?? "";
-                    const scoreText = (homeScore === "" && awayScore === "") ? "" : String(homeScore) + "-" + String(awayScore);
+                    const scoreText = (homeScore === "" && awayScore === "") ? "" : "(" + String(homeScore) + "-" + String(awayScore) + ")";
                     if (home && away) {
                         const parts = [home + " vs " + away];
                         if (date) parts.push(date);
