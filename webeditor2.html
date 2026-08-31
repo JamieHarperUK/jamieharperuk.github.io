@@ -4262,7 +4262,7 @@
                     const awayScore = record.away_score ?? record.awayScore ?? "";
                     const scoreText = (homeScore === "" && awayScore === "") ? "" : "· (" + String(homeScore) + "-" + String(awayScore) + ")";
                     if (home && away && date && time) {
-                        let gameTeams = gamePlatform + " - " + home + " vs " + away;
+                        let gameTeams = home + " vs " + away + " - " + gamePlatform;
                         const parts = ["[" + date + " · " + time + "]"];
                         if (home && away) parts.push(gameTeams);
                         if (scoreText) parts.push(scoreText);
