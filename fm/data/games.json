@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Away",
-      "home_team": "Del Rei FC",
-      "away_team": "Greyhound AFC",
-      "date": "01-09-2026",
-      "time": "16:00",
-      "osm_or_top_eleven": "Ladder FM",
-      "competition": "England Tier 1 League",
-      "venue": "Campinho",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "hol",
       "away_team": "Harper FC",
       "date": "01-09-2026",
@@ -99,6 +86,19 @@
       "winner": ""
     },
     {
+      "home_or_away": "Home",
+      "home_team": "Greyhound AFC",
+      "away_team": "FC Merder",
+      "date": "02-09-2026",
+      "time": "16:00",
+      "osm_or_top_eleven": "Ladder FM",
+      "competition": "England Tier 1 League",
+      "venue": "The Coursing Ground",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
       "home_or_away": "Away",
       "home_team": "New Arsenal FC",
       "away_team": "Cheshire Harriers FC",
@@ -110,6 +110,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Del Rei FC",
+      "away_team": "Greyhound AFC",
+      "date": "01-09-2026",
+      "time": "16:00",
+      "osm_or_top_eleven": "Ladder FM",
+      "competition": "England Tier 1 League",
+      "venue": "Campinho",
+      "home_score": "0",
+      "away_score": "0",
+      "winner": "Draw"
     },
     {
       "home_or_away": "Away",
