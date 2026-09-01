@@ -1,9 +1,3 @@
-function buildFmUrl(path = "", useCanonical = false) {
-    const origin = useCanonical ? siteConfig.canonicalOrigin : runtimeOrigin;
-    const base = new URL(siteConfig.appBasePath.replace(/^\//, ""), origin.replace(/\/+$/, "") + "/");
-    return new URL(path.replace(/^\/+/, ""), base).toString();
-}
-
 // Core site URL configuration.
 const siteConfig = {
     // Replace with live url (i.e. https://example.github.io/) when deploying to production.
@@ -15,7 +9,7 @@ const siteConfig = {
     siteMeta: {
         title: "Your Football Club",
         description: "Track your club's fixtures, squad updates, and match news in one place.",
-        image: buildFmUrl("data/fm_bg.png", true)
+        image: "data/fm_bg.png"
     },
 
     // Select optional features to enable or disable on the site.
@@ -30,6 +24,12 @@ const runtimeOrigin = (typeof window !== "undefined" && window.location && windo
 function buildRootUrl(path = "", useCanonical = false) {
     const origin = useCanonical ? siteConfig.canonicalOrigin : runtimeOrigin;
     return new URL(path.replace(/^\/+/, ""), origin.replace(/\/+$/, "") + "/").toString();
+}
+
+function buildFmUrl(path = "", useCanonical = false) {
+    const origin = useCanonical ? siteConfig.canonicalOrigin : runtimeOrigin;
+    const base = new URL(siteConfig.appBasePath.replace(/^\//, ""), origin.replace(/\/+$/, "") + "/");
+    return new URL(path.replace(/^\/+/, ""), base).toString();
 }
 
 const dataSources = {
@@ -77,7 +77,7 @@ const app = {
     siteMeta: {
         title: siteConfig.siteMeta.title,
         description: siteConfig.siteMeta.description,
-        image: siteConfig.siteMeta.image
+        image: buildFmUrl(siteConfig.siteMeta.image, true)
     },
     data: {
         club: {},
