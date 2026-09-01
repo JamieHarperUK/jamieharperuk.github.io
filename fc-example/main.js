@@ -10,7 +10,7 @@ const siteConfig = {
     canonicalOrigin: "https://jhuk.co.uk",
 
     // Replace with directory path (i.e. "/") when deploying to production.
-    appBasePath: "/fc-template/",
+    appBasePath: "/fc-example/",
 
     siteMeta: {
         title: "Your Football Club",
@@ -20,7 +20,7 @@ const siteConfig = {
 
     // Select optional features to enable or disable on the site.
     ticketsPageEnabled: true,
-    pushConfigEnabled: true
+    pushConfigEnabled: false
 };
 
 const runtimeOrigin = (typeof window !== "undefined" && window.location && window.location.origin)
@@ -321,34 +321,34 @@ const app = {
 
     getAnalyticsPagePath(path) {
         if (!path || path === "home") {
-            return "/fc-template/";
+            return `${siteConfig.appBasePath}`
         }
 
         if (path === "posts") {
-            return "/fc-template/?view=posts";
+            return `${siteConfig.appBasePath}?view=posts`;
         }
 
         if (path === "tickets") {
-            return "/fc-template/?view=tickets";
+            return `${siteConfig.appBasePath}?view=tickets`;
         }
 
         if (path === "tables") {
-            return "/fc-template/?view=tables";
+            return `${siteConfig.appBasePath}?view=tables`;
         }
 
         if (path === "hall-of-fame") {
-            return "/fc-template/?view=hall-of-fame";
+            return `${siteConfig.appBasePath}?view=hall-of-fame`;
         }
 
         if (path.startsWith("post/")) {
-            return `/fc-template/?view=post&slug=${encodeURIComponent(path.split("/")[1])}`;
+            return `${siteConfig.appBasePath}?view=post&slug=${encodeURIComponent(path.split("/")[1])}`;
         }
 
         if (path.startsWith("team/")) {
-            return `/fc-template/?view=team&slug=${encodeURIComponent(path.split("/")[1])}`;
+            return `${siteConfig.appBasePath}?view=team&slug=${encodeURIComponent(path.split("/")[1])}`;
         }
 
-        return "/fc-template/";
+        return `${siteConfig.appBasePath}`;
     },
 
     getAnalyticsPageTitle(path) {
