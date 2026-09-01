@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Home",
-      "home_team": "Manchester United",
-      "away_team": "Nottingham Forest",
-      "date": "31-08-2026",
-      "time": "22:52",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 1st Division",
-      "venue": "Neutral Ground",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Away",
       "home_team": "Del Rei FC",
       "away_team": "Greyhound AFC",
@@ -94,6 +81,19 @@
       "osm_or_top_eleven": "OSM",
       "competition": "England 2nd Division",
       "venue": "Fratton Park",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Manchester United",
+      "away_team": "Aston Villa",
+      "date": "01-09-2026",
+      "time": "22:52",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 1st Division",
+      "venue": "Old Trafford",
       "home_score": "",
       "away_score": "",
       "winner": ""
