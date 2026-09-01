@@ -1,0 +1,51 @@
+{
+  "metadata": {
+    "lastUpdated": "2026-08-12T00:00:00Z",
+    "version": "1.0.0",
+    "fields": {
+      "table": {
+        "title": "string",
+        "season": "string",
+        "rows": "array[object]"
+      }
+    }
+  },
+  "tables": [
+    {
+      "title": "Premier Division",
+      "season": "2026/27",
+      "rows": [
+        {
+          "position": "1",
+          "team": "The Club",
+          "played": "12",
+          "won": "9",
+          "drawn": "2",
+          "lost": "1",
+          "goal_difference": "+18",
+          "points": "29"
+        },
+        {
+          "position": "2",
+          "team": "Rivals FC",
+          "played": "12",
+          "won": "8",
+          "drawn": "2",
+          "lost": "2",
+          "goal_difference": "+12",
+          "points": "26"
+        },
+        {
+          "position": "3",
+          "team": "United Athletic",
+          "played": "12",
+          "won": "7",
+          "drawn": "3",
+          "lost": "2",
+          "goal_difference": "+10",
+          "points": "24"
+        }
+      ]
+    }
+  ]
+}

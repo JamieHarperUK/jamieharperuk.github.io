@@ -1,0 +1,38 @@
+{
+    "metadata": {
+    "lastUpdated": "2026-08-12T00:00:00Z",
+    "version": "1.0.0",
+    "fields": {
+      "clubs": {
+        "club_name": "string",
+        "home_venue": "string",
+        "city": "string",
+        "country": "string",
+        "established_year": "string",
+        "description": "string",
+        "socials": {
+            "facebook": "string",
+            "twitter_x": "string",
+            "instagram": "string",
+            "youtube": "string",
+            "tiktok": "string"
+        }
+      }
+    }
+  },
+  "club": {
+    "club_name": "The Club",
+    "home_venue": "Home Ground",
+    "city": "City Name",
+    "country": "Country Name",
+    "established_year": "2026",
+    "description": "The Club is a placeholder football club, your team details should replace this information.",
+    "socials": {
+      "facebook": "#",
+      "twitter_x": "#",
+      "instagram": "#",
+      "youtube": "#",
+      "tiktok": "#"
+    }
+  }
+}

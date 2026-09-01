@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!--
+            New Installation Instructions:
+            1. Ensure to replace all instances below with your actual club name, description, and image paths.
+                a. For example, replace all instances of 'jhuk.co.uk' with your ow domain name:
+                    - 'examples.co.uk'
+                    - '<username>.github.io'
+                b. A quick way to find all instances is to press Ctrl + F (or Cmd + F on Mac) and search for 'jhuk.co.uk'.
+        -->
+
+        <!-- Google Analytics Code Is Pasted Here -->
+
+        <meta property="og:title" content="Football Club Site">
+        <meta property="og:description" content="Track your club's fixtures, squads, and news in one place.">
+        <meta property="og:image" content="https://jhuk.co.uk/fc-template/data/fm_bg_thin.png">
+        <meta property="og:url" content="https://jhuk.co.uk/fc-template/">
+
+        <meta property="twitter:card" content="summary_large_image">
+        <meta property="twitter:title" content="Football Club Site">
+        <meta property="twitter:description" content="Track your club's fixtures, squads, and news in one place.">
+        <meta property="twitter:image" content="https://jhuk.co.uk/fc-template/data/fm_bg_thin.png">
+        <meta property="twitter:url" content="https://jhuk.co.uk/fc-template/">
+
+        <meta name="description" content="Track your club's fixtures, squads, and news in one place.">
+        <meta name="theme-color" content="#c8102e">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <meta name="apple-mobile-web-app-title" content="Football Club Site">
+        <meta name="mobile-web-app-capable" content="yes">
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="icon" type="image/png" sizes="32x32" href="https://jhuk.co.uk/fc-template/data/fm_icon.png">
+        <link rel="manifest" href="https://jhuk.co.uk/fc-template/manifest.json">
+        <link rel="apple-touch-icon" href="https://jhuk.co.uk/fc-template/data/fm_icon.png">
+        <title>Football Club Site</title>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <header>
+            <nav>
+                <a href="#home" class="nav-brand">
+                    <img src="data/fm_logo.png" alt="Football Club Logo" class="nav-logo">
+                </a>
+                <div class="nav-links" id="navLinks"></div>
+            </nav>
+        </header>
+
+        <main id="app">
+            <section id="home" class="page active">
+                <h1 class="section-title">Club Overview</h1>
+                <div class="manager-stats" id="overviewStats"></div>
+                <div class="notes-section">
+                    <div class="notes-content" id="notesContent">
+                        Follow your club's season in one place. Explore team pages for squads and form, keep track of upcoming fixtures, and read the latest club news.
+                    </div>
+                    <img src="data/fm_bg_thin.png" alt="Football Club Hub" class="notes-image">
+                </div>
+
+                <h2 class="section-title">Upcoming Fixtures</h2>
+                <div class="fixtures-grid-home" id="upcomingFixtures"></div>
+
+                <section class="panel latest-post-panel" aria-labelledby="latest-post-title">
+                    <div class="panel-heading">
+                        <h2 class="panel-title" id="latest-post-title">Latest Post</h2>
+                    </div>
+                    <div id="latestPostPreview"></div>
+                </section>
+            </section>
+
+            <section id="posts" class="page">
+                <h1 class="section-title">Club News & Updates</h1>
+                <div class="notes-section">
+                    <div class="notes-content">
+                        The latest club news, announcements, and match reports are shown below.
+                    </div>
+                </div>
+
+                <div class="updates-grid" id="allPosts"></div>
+            </section>
+
+            <section id="tickets" class="page">
+                <h1 class="section-title">Tickets</h1>
+                <div class="notes-section">
+                    <div class="notes-content">
+                        Matchday ticket information for upcoming home games and special club events.
+                    </div>
+                </div>
+                <div id="ticketsContent" class="tickets-grid"></div>
+            </section>
+
+            <section id="tables" class="page">
+                <h1 class="section-title">Tables</h1>
+                <div class="notes-section">
+                    <div class="notes-content">
+                        League standings and competition tables for the club's active campaigns.
+                    </div>
+                </div>
+                <div id="tablesContent"></div>
+            </section>
+
+            <section id="fixtures" class="page">
+                <h1 class="section-title">Fixtures</h1>
+                <div class="notes-section">
+                    <div class="notes-content">All upcoming and recent fixtures for the club.</div>
+                </div>
+                <div id="fixturesList" class="fixtures-grid"></div>
+            </section>
+
+            <section id="post-detail" class="page">
+                <div id="postDetailContent"></div>
+            </section>
+
+            <section id="hall-of-fame" class="page">
+                <div id="hallOfFameContent"></div>
+            </section>
+
+            <div id="teamPagesContainer"></div>
+        </main>
+
+        <div class="fab-group" aria-label="Quick actions">
+            <button
+                type="button"
+                id="installFab"
+                class="install-fab"
+                aria-hidden="true"
+                data-analytics-action="pwa_install_prompt"
+                data-analytics-category="PWA"
+                data-analytics-label="Install App"
+            >
+                <i class="fas fa-download"></i>
+                <span>Install</span>
+            </button>
+
+            <button
+                type="button"
+                id="pushFab"
+                class="push-fab"
+                aria-haspopup="dialog"
+                aria-controls="pushModal"
+                aria-expanded="false"
+                data-analytics-action="push_modal_open"
+                data-analytics-category="Notifications"
+                data-analytics-label="Open Notification Controls"
+            >
+                <i class="fas fa-bell"></i>
+                <span>Alerts</span>
+            </button>
+        </div>
+
+        <div class="modal-backdrop" id="pushModal" aria-hidden="true">
+            <div class="modal-dialog push-modal" role="dialog" aria-modal="true" aria-labelledby="pushModalTitle">
+                <button class="modal-close" id="pushModalClose" type="button" aria-label="Close notification settings">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h2 id="pushModalTitle">Notification Settings</h2>
+                <p class="notes-content">Enable browser push notifications to receive post and result updates.</p>
+                <div class="notify-actions">
+                    <button type="button" class="notify-btn" id="enablePushBtn">Enable Notifications</button>
+                    <button type="button" class="notify-btn notify-btn-secondary" id="disablePushBtn">Disable Notifications</button>
+                </div>
+                <p id="pushStatusText" class="push-status-text" aria-live="polite">Checking notification support...</p>
+            </div>
+        </div>
+
+        <div class="modal-backdrop" id="eloInfoModal" aria-hidden="true">
+            <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="eloInfoTitle">
+                <button class="modal-close" type="button" aria-label="Close ELO information">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h2 id="eloInfoTitle">ELO Rating Explained</h2>
+                <div id="eloInfoContent"></div>
+            </div>
+        </div>
+
+        <div class="modal-backdrop" id="playerDetailModal" aria-hidden="true">
+            <div class="modal-dialog player-modal" role="dialog" aria-modal="true" aria-labelledby="playerDetailTitle">
+                <button class="modal-close" type="button" aria-label="Close player details" id="playerDetailModalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="player-modal-content">
+                    <div class="player-modal-header">
+                        <div class="player-modal-image">
+                            <img id="playerDetailImage" src="" alt="" class="player-modal-img">
+                        </div>
+                        <div class="player-modal-info">
+                            <h2 id="playerDetailTitle">Player Name</h2>
+                            <div class="player-detail-position" id="playerDetailPosition">Position</div>
+                            <div class="player-detail-number" id="playerDetailNumber">Number</div>
+                        </div>
+                    </div>
+                    <div class="player-modal-stats">
+                        <div class="stat-row">
+                            <span class="stat-label">Appearances</span>
+                            <span class="stat-value" id="playerDetailAppearances">0</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Goals</span>
+                            <span class="stat-value" id="playerDetailGoals">0</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Assists</span>
+                            <span class="stat-value" id="playerDetailAssists">0</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Yellow Cards</span>
+                            <span class="stat-value" id="playerDetailYellow">0</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Red Cards</span>
+                            <span class="stat-value" id="playerDetailRed">0</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Injury Recovery</span>
+                            <span class="stat-value" id="playerDetailInjury">0 days</span>
+                        </div>
+                    </div>
+                    <div class="player-modal-notes" id="playerDetailNotesContainer" style="display: none;">
+                        <h3>Notes</h3>
+                        <p id="playerDetailNotes"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <span class="footer-disclaimer">This website is not affiliated with any league, club, or football platform mentioned.</span><br>
+            <small style="font-style: italic;">Custom Football Club Site - Built by <a href="https://oakshift.co.uk/" target="_blank" class="site-link">Oakshift Software</a></small>
+        </footer>
+
+        <script src="main.js"></script>
+    </body>
+</html>
