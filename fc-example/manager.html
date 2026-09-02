@@ -2739,6 +2739,43 @@
                 };
             }
 
+            async function getTeamNamesForGamesFile() {
+                // Cache team data in state to avoid repeated loads
+                if (state.cachedTeamNames && Array.isArray(state.cachedTeamNames)) {
+                    return state.cachedTeamNames;
+                }
+
+                // Try to load fc_teams.json from the same directory as current file
+                if (!state.selectedRepo || !state.currentJsonPath) {
+                    console.warn("No repository or file path available, cannot load team names");
+                    return [];
+                }
+
+                try {
+                    // Extract directory from current file path and replace filename with fc_teams.json
+                    const currentPath = state.currentJsonPath;
+                    const lastSlash = currentPath.lastIndexOf("/");
+                    const directory = lastSlash !== -1 ? currentPath.substring(0, lastSlash) : "";
+                    const teamsPath = directory + "/fc_teams.json";
+                    
+                    console.log("Loading teams from:", teamsPath);
+                    const teamsData = await loadRepoJsonFile(state.selectedRepo.full_name, teamsPath);
+                    
+                    if (teamsData.data && teamsData.data.teams && Array.isArray(teamsData.data.teams)) {
+                        const teamNames = teamsData.data.teams
+                            .map(function(team) { return team.team_name; })
+                            .filter(function(name) { return name && name.trim() !== ""; });
+                        state.cachedTeamNames = teamNames;
+                        console.log("Loaded team names:", teamNames);
+                        return teamNames;
+                    }
+                } catch (error) {
+                    console.error("Error loading team names:", error);
+                }
+
+                return [];
+            }
+
             async function connectSelectedRepository() {
                 const selected = state.validRepos[0] || state.repos[0];
                 if (!selected || normalizeRepoName(selected.full_name) !== TARGET_REPO_FULL_NAME) {
@@ -5239,44 +5276,98 @@
                 const kind = getCurrentEditorFileKind();
 
                 if (kind === "games") {
-                    const fieldDefinitions = [
-                        { key: "home_or_away", label: "Home / Away" },
-                        { key: "date", label: "Date" },
-                        { key: "time", label: "Time" },
-                        { key: "home_team", label: "Home Team" },
-                        { key: "away_team", label: "Away Team" },
-                        { key: "competition", label: "Competition" },
-                        { key: "home_score", label: "Home Score" },
-                        { key: "away_score", label: "Away Score" },
-                        { key: "venue", label: "Venue" },
-                        { key: "winner", label: "Winner" }
-                    ];
-
-                    fieldDefinitions.forEach(function(field) {
-                        const wrapper = document.createElement("div");
-                        wrapper.className = "crm-field-card";
-                        const label = document.createElement("label");
-                        label.textContent = field.label;
-                        const input = document.createElement("input");
-                        input.type = "text";
-                        // Ensure field exists in record before reading
-                        if (!(field.key in record)) {
-                            record[field.key] = "";
+                    // Helper to load team names and render fields
+                    (async function() {
+                        const teamNames = await getTeamNamesForGamesFile();
+                        
+                        // Render home_or_away as radio buttons
+                        const hoaWrapper = document.createElement("div");
+                        hoaWrapper.className = "crm-field-card";
+                        const hoaLabel = document.createElement("label");
+                        hoaLabel.textContent = "Home / Away";
+                        hoaWrapper.appendChild(hoaLabel);
+                        
+                        if (!("home_or_away" in record)) {
+                            record["home_or_away"] = "";
                         }
-                        input.value = record[field.key] == null ? "" : String(record[field.key]);
-                        input.addEventListener("input", function(event) {
-                            const rawValue = event.target.value;
-                            if (field.key === "home_score" || field.key === "away_score") {
-                                record[field.key] = rawValue === "" ? "" : String(Number(rawValue));
-                            } else {
-                                record[field.key] = rawValue;
-                            }
-                            syncCrmToJsonText();
+                        
+                        const radioContainer = document.createElement("div");
+                        radioContainer.style.display = "flex";
+                        radioContainer.style.gap = "1rem";
+                        
+                        ["Home", "Away"].forEach(function(value) {
+                            const radioWrapper = document.createElement("div");
+                            radioWrapper.style.display = "flex";
+                            radioWrapper.style.alignItems = "center";
+                            radioWrapper.style.gap = "0.5rem";
+                            
+                            const radio = document.createElement("input");
+                            radio.type = "radio";
+                            radio.name = "home_or_away_" + recordIndex;
+                            radio.value = value;
+                            radio.checked = record["home_or_away"] === value;
+                            
+                            radio.addEventListener("change", function() {
+                                record["home_or_away"] = value;
+                                syncCrmToJsonText();
+                                // Re-render the team fields when selection changes
+                                renderTeamFieldsForGames(targetContainer, record, recordIndex, teamNames);
+                            });
+                            
+                            const radioLabel = document.createElement("label");
+                            radioLabel.textContent = value;
+                            radioLabel.style.margin = "0";
+                            radioLabel.style.cursor = "pointer";
+                            radioLabel.style.fontWeight = "normal";
+                            
+                            radioWrapper.appendChild(radio);
+                            radioWrapper.appendChild(radioLabel);
+                            radioContainer.appendChild(radioWrapper);
                         });
-                        wrapper.appendChild(label);
-                        wrapper.appendChild(input);
-                        targetContainer.appendChild(wrapper);
-                    });
+                        
+                        hoaWrapper.appendChild(radioContainer);
+                        targetContainer.appendChild(hoaWrapper);
+                        
+                        // Render other fields
+                        const fieldDefinitions = [
+                            { key: "date", label: "Date" },
+                            { key: "time", label: "Time" },
+                            { key: "competition", label: "Competition" },
+                            { key: "home_score", label: "Home Score" },
+                            { key: "away_score", label: "Away Score" },
+                            { key: "venue", label: "Venue" },
+                            { key: "winner", label: "Winner" }
+                        ];
+                        
+                        fieldDefinitions.forEach(function(field) {
+                            const wrapper = document.createElement("div");
+                            wrapper.className = "crm-field-card";
+                            const label = document.createElement("label");
+                            label.textContent = field.label;
+                            const input = document.createElement("input");
+                            input.type = "text";
+                            if (!(field.key in record)) {
+                                record[field.key] = "";
+                            }
+                            input.value = record[field.key] == null ? "" : String(record[field.key]);
+                            input.addEventListener("input", function(event) {
+                                const rawValue = event.target.value;
+                                if (field.key === "home_score" || field.key === "away_score") {
+                                    record[field.key] = rawValue === "" ? "" : String(Number(rawValue));
+                                } else {
+                                    record[field.key] = rawValue;
+                                }
+                                syncCrmToJsonText();
+                            });
+                            wrapper.appendChild(label);
+                            wrapper.appendChild(input);
+                            targetContainer.appendChild(wrapper);
+                        });
+                        
+                        // Render team fields with dynamic dropdowns
+                        renderTeamFieldsForGames(targetContainer, record, recordIndex, teamNames);
+                    })();
+                    
                     return true;
                 }
 
@@ -5639,6 +5730,110 @@
                 }
 
                 return false;
+            }
+
+            function renderTeamFieldsForGames(targetContainer, record, recordIndex, teamNames) {
+                // Remove existing team field wrappers if they exist
+                const existingWrappers = targetContainer.querySelectorAll('[data-team-field-wrapper]');
+                existingWrappers.forEach(function(wrapper) {
+                    wrapper.remove();
+                });
+
+                const homeOrAway = record["home_or_away"] || "";
+
+                // Determine which field gets dropdown and which gets text input
+                const homeTeamIsDropdown = homeOrAway === "Home";
+                const awayTeamIsDropdown = homeOrAway === "Away";
+
+                // Render home_team field
+                const homeTeamWrapper = document.createElement("div");
+                homeTeamWrapper.className = "crm-field-card";
+                homeTeamWrapper.setAttribute("data-team-field-wrapper", "true");
+                const homeTeamLabel = document.createElement("label");
+                homeTeamLabel.textContent = "Home Team";
+                homeTeamWrapper.appendChild(homeTeamLabel);
+
+                if (!("home_team" in record)) {
+                    record["home_team"] = "";
+                }
+
+                if (homeTeamIsDropdown) {
+                    const select = document.createElement("select");
+                    const emptyOption = document.createElement("option");
+                    emptyOption.value = "";
+                    emptyOption.textContent = "-- Select Team --";
+                    select.appendChild(emptyOption);
+
+                    teamNames.forEach(function(name) {
+                        const option = document.createElement("option");
+                        option.value = name;
+                        option.textContent = name;
+                        select.appendChild(option);
+                    });
+
+                    select.value = record["home_team"] || "";
+                    select.addEventListener("change", function(event) {
+                        record["home_team"] = event.target.value;
+                        syncCrmToJsonText();
+                    });
+                    homeTeamWrapper.appendChild(select);
+                } else {
+                    const input = document.createElement("input");
+                    input.type = "text";
+                    input.value = record["home_team"] == null ? "" : String(record["home_team"]);
+                    input.addEventListener("input", function(event) {
+                        record["home_team"] = event.target.value;
+                        syncCrmToJsonText();
+                    });
+                    homeTeamWrapper.appendChild(input);
+                }
+
+                targetContainer.appendChild(homeTeamWrapper);
+
+                // Render away_team field
+                const awayTeamWrapper = document.createElement("div");
+                awayTeamWrapper.className = "crm-field-card";
+                awayTeamWrapper.setAttribute("data-team-field-wrapper", "true");
+                const awayTeamLabel = document.createElement("label");
+                awayTeamLabel.textContent = "Away Team";
+                awayTeamWrapper.appendChild(awayTeamLabel);
+
+                if (!("away_team" in record)) {
+                    record["away_team"] = "";
+                }
+
+                if (awayTeamIsDropdown) {
+                    const select = document.createElement("select");
+                    const emptyOption = document.createElement("option");
+                    emptyOption.value = "";
+                    emptyOption.textContent = "-- Select Team --";
+                    select.appendChild(emptyOption);
+
+                    teamNames.forEach(function(name) {
+                        const option = document.createElement("option");
+                        option.value = name;
+                        option.textContent = name;
+                        select.appendChild(option);
+                    });
+
+                    select.value = record["away_team"] || "";
+                    select.addEventListener("change", function(event) {
+                        record["away_team"] = event.target.value;
+                        syncCrmToJsonText();
+                    });
+                    awayTeamWrapper.appendChild(select);
+                } else {
+                    const input = document.createElement("input");
+                    input.type = "text";
+                    input.value = record["away_team"] == null ? "" : String(record["away_team"]);
+                    input.addEventListener("input", function(event) {
+                        record["away_team"] = event.target.value;
+                        syncCrmToJsonText();
+                    });
+                    awayTeamWrapper.appendChild(input);
+                }
+
+                targetContainer.appendChild(awayTeamWrapper);
             }
 
             function renderCrmFields(targetContainer = el.crmFields, recordIndex = state.crmModel.selectedIndex) {
