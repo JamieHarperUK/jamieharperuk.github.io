@@ -1814,14 +1814,28 @@
                     metaDescription.setAttribute("content", WEBEDITOR_CONFIG.branding.tagline);
                 }
 
-                el.brandTitle.textContent = WEBEDITOR_CONFIG.branding.appTitle;
-                el.brandTagline.textContent = WEBEDITOR_CONFIG.branding.tagline;
-                el.homeTitle.textContent = WEBEDITOR_CONFIG.branding.homeTitle;
+                if (el.brandTitle) {
+                    el.brandTitle.textContent = WEBEDITOR_CONFIG.branding.appTitle;
+                }
+                if (el.brandTagline) {
+                    el.brandTagline.textContent = WEBEDITOR_CONFIG.branding.tagline;
+                }
+                if (el.homeTitle) {
+                    el.homeTitle.textContent = WEBEDITOR_CONFIG.branding.homeTitle;
+                }
+                if (el.homeIntro) {
+                    el.homeIntro.textContent = WEBEDITOR_CONFIG.branding.homeIntro;
+                }
+                if (el.aboutTitle) {
+                    el.aboutTitle.textContent = WEBEDITOR_CONFIG.branding.aboutTitle;
+                }
+                if (el.aboutIntro) {
+                    el.aboutIntro.textContent = WEBEDITOR_CONFIG.branding.aboutIntro;
+                }
+                if (el.footerTitle) {
+                    el.footerTitle.textContent = WEBEDITOR_CONFIG.branding.appTitle;
+                }
                 updateCommitNotificationChoiceVisibility();
-                el.homeIntro.textContent = WEBEDITOR_CONFIG.branding.homeIntro;
-                el.aboutTitle.textContent = WEBEDITOR_CONFIG.branding.aboutTitle;
-                el.aboutIntro.textContent = WEBEDITOR_CONFIG.branding.aboutIntro;
-                el.footerTitle.textContent = WEBEDITOR_CONFIG.branding.appTitle;
             }
 
             function setEditorStep(step) {
@@ -2249,11 +2263,15 @@
                     history.replaceState(null, "", "#" + targetRoute);
                 }
 
-                for (const page of el.pages) {
-                    page.classList.toggle("active", page.id === targetRoute);
+                if (el.pages) {
+                    for (const page of el.pages) {
+                        page.classList.toggle("active", page.id === targetRoute);
+                    }
                 }
-                for (const link of el.navLinks) {
-                    link.classList.toggle("active", link.dataset.route === targetRoute);
+                if (el.navLinks) {
+                    for (const link of el.navLinks) {
+                        link.classList.toggle("active", link.dataset.route === targetRoute);
+                    }
                 }
             }
 
