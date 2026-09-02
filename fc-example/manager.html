@@ -5381,6 +5381,7 @@
                         { key: "home_venue", label: "Home Venue" }
                     ];
 
+                    console.log("Teams record loaded:", record);
                     basicFieldDefinitions.forEach(function(field) {
                         const wrapper = document.createElement("div");
                         wrapper.className = "crm-field-card";
@@ -5392,6 +5393,7 @@
                         if (!(field.key in record)) {
                             record[field.key] = "";
                         }
+                        console.log("Field:", field.key, "Value:", record[field.key]);
                         input.value = record[field.key] == null ? "" : String(record[field.key]);
                         input.addEventListener("input", function(event) {
                             record[field.key] = event.target.value;
