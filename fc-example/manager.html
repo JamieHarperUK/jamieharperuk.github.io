@@ -4175,7 +4175,9 @@
                 // Special hardcoded schema for fc_teams.json to bypass metadata loading
                 const currentPath = String(state.currentJsonPath || "").toLowerCase();
                 if (currentPath.includes("teams.json") && state.currentJsonData.teams && Array.isArray(state.currentJsonData.teams)) {
-                    console.log("Using hardcoded schema for teams.json");
+                    console.log("=== FC_TEAMS HARDCODED SCHEMA ACTIVATED ===");
+                    console.log("Raw JSON teams[0]:", JSON.stringify(state.currentJsonData.teams[0]));
+                    
                     state.crmModel.schema.enabled = true;
                     state.crmModel.schema.root = state.currentJsonData;
                     state.crmModel.schema.metadata = state.currentJsonData.metadata || {};
@@ -4190,14 +4192,22 @@
                         "home_venue": "string",
                         "players": "array[object]"
                     };
+                    console.log("Schema activeFields defined:", Object.keys(state.crmModel.schema.activeFields));
+                    
                     state.crmModel.schema.fieldCatalog = {
                         "team": state.crmModel.schema.activeFields
                     };
                     
                     state.crmModel.rootMode = "array";
-                    state.crmModel.records = state.currentJsonData.teams.map(function(item) {
-                        return (item && typeof item === "object") ? { ...item } : { value: item };
+                    state.crmModel.records = state.currentJsonData.teams.map(function(item, idx) {
+                        const record = (item && typeof item === "object") ? { ...item } : { value: item };
+                        if (idx === 0) {
+                            console.log("Record created at map index 0:", JSON.stringify(record));
+                        }
+                        return record;
                     });
+                    
+                    console.log("After mapping, state.crmModel.records[0]:", JSON.stringify(state.crmModel.records[0]));
 
                     state.crmModel.selectedIndex = 0;
                     el.crmRootMode.value = state.crmModel.rootMode;
@@ -5418,6 +5428,10 @@
                 }
 
                 if (kind === "teams") {
+                    console.log("=== RENDERING TEAMS FIELDS ===");
+                    console.log("Record object:", JSON.stringify(record));
+                    console.log("Has team_type?", "team_type" in record);
+                    
                     const basicFieldDefinitions = [
                         { key: "team_name", label: "Team Name" },
                         { key: "team_type", label: "Team Type" },
@@ -5435,7 +5449,10 @@
                         input.type = "text";
                         // Ensure field exists in record before reading
                         if (!(field.key in record)) {
+                            console.log("Field '" + field.key + "' missing from record, initializing to empty string");
                             record[field.key] = "";
+                        } else {
+                            console.log("Field '" + field.key + "' found in record with value:", record[field.key]);
                         }
                         input.value = record[field.key] == null ? "" : String(record[field.key]);
                         input.addEventListener("input", function(event) {
