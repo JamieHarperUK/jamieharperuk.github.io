@@ -3321,6 +3321,9 @@
                 });
 
                 if (Object.keys(directFields).length) {
+                    if (fieldMap.team_type !== undefined) {
+                        console.log("normalizeFieldMap found team fields:", directFields);
+                    }
                     return directFields;
                 }
 
@@ -4192,11 +4195,24 @@
                     state.crmModel.schema.fieldCatalog = fieldCatalog;
                     state.crmModel.schema.activeFieldGroup = activeFieldSelection.groupName;
                     state.crmModel.schema.activeFields = deepClone(activeFieldSelection.activeFields || {});
+                    
+                    if (dataKey === "teams") {
+                        console.log("Schema setup for teams:", {
+                            dataKey: dataKey,
+                            activeFieldGroup: activeFieldSelection.groupName,
+                            activeFields: state.crmModel.schema.activeFields,
+                            fieldCatalog: fieldCatalog
+                        });
+                    }
 
                     if (Array.isArray(schemaData)) {
                         state.crmModel.rootMode = "array";
                         state.crmModel.records = schemaData.map(function(item) {
-                            return (item && typeof item === "object") ? { ...item } : { value: item };
+                            const record = (item && typeof item === "object") ? { ...item } : { value: item };
+                            if (record.team_type !== undefined) {
+                                console.log("Loaded team record from JSON:", record);
+                            }
+                            return record;
                         });
                     } else if (schemaData && typeof schemaData === "object") {
                         state.crmModel.rootMode = "object";
