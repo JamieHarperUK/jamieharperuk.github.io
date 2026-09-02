@@ -4344,23 +4344,7 @@
                         // gameTeams = gameTeams + " [" + gamePlatform + "]";
                         const parts = ["[" + date + " · " + time + "]"];
                         if (home && away) parts.push(gameTeams);
-                        // if (scoreText) parts.push(scoreText);
                         return parts.join(" ");
-                    }
-                }
-
-                if (kind === "fpl_teams") {
-                    const teamName = record.team_name || record.teamName || record.name || "";
-                    const competition = record.competition || "";
-                    const startDate = record.start_date || record.startDate || "";
-                    if (teamName && competition) {
-                        return teamName + " · " + competition;
-                    }
-                    if (teamName && startDate) {
-                        return teamName + " · " + startDate;
-                    }
-                    if (teamName) {
-                        return teamName;
                     }
                 }
 
@@ -5257,14 +5241,14 @@
                 if (kind === "games") {
                     const fieldDefinitions = [
                         { key: "home_or_away", label: "Home / Away" },
-                        { key: "home_team", label: "Home Team" },
-                        { key: "away_team", label: "Away Team" },
                         { key: "date", label: "Date" },
                         { key: "time", label: "Time" },
+                        { key: "home_team", label: "Home Team" },
+                        { key: "away_team", label: "Away Team" },
                         { key: "competition", label: "Competition" },
-                        { key: "venue", label: "Venue" },
                         { key: "home_score", label: "Home Score" },
                         { key: "away_score", label: "Away Score" },
+                        { key: "venue", label: "Venue" },
                         { key: "winner", label: "Winner" }
                     ];
 
@@ -5421,9 +5405,11 @@
                 }
 
                 if (kind === "teams") {
+                    /*
                     console.log("=== RENDERING TEAMS FIELDS ===");
                     console.log("Record object:", JSON.stringify(record));
                     console.log("Has team_type?", "team_type" in record);
+                    */
                     
                     const basicFieldDefinitions = [
                         { key: "team_name", label: "Team Name" },
