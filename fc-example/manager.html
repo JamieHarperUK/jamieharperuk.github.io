@@ -3350,9 +3350,33 @@
 
                 console.log("resolveActiveFieldGroup called with:", { fieldCatalog, dataKey });
 
+                // Try exact match first
+                if (fieldCatalog[dataKey] && isFieldMapCandidate(fieldCatalog[dataKey])) {
+                    console.log("Found matching field group for dataKey:", dataKey);
+                    const result = normalizeFieldMap(fieldCatalog[dataKey]);
+                    console.log("Normalized result:", result);
+                    return {
+                        groupName: dataKey,
+                        activeFields: result
+                    };
+                }
+
+                // Try singular form
+                const singular = String(dataKey || "").replace(/s$/i, "");
+                console.log("Trying singular form:", singular);
+                if (singular && fieldCatalog[singular] && isFieldMapCandidate(fieldCatalog[singular])) {
+                    console.log("Found matching field group for singular:", singular);
+                    const result = normalizeFieldMap(fieldCatalog[singular]);
+                    console.log("Normalized result:", result);
+                    return {
+                        groupName: singular,
+                        activeFields: result
+                    };
+                }
+
+                // Try normalizing the whole catalog (for flat field structures)
                 const normalizedCatalog = normalizeFieldMap(fieldCatalog);
                 console.log("normalizedCatalog result:", normalizedCatalog);
-                
                 if (Object.keys(normalizedCatalog).length) {
                     return {
                         groupName: "",
@@ -3360,32 +3384,17 @@
                     };
                 }
 
-                if (fieldCatalog[dataKey] && isFieldMapCandidate(fieldCatalog[dataKey])) {
-                    console.log("Found matching field group for dataKey:", dataKey);
-                    return {
-                        groupName: dataKey,
-                        activeFields: normalizeFieldMap(fieldCatalog[dataKey])
-                    };
-                }
-
-                const singular = String(dataKey || "").replace(/s$/i, "");
-                console.log("Trying singular form:", singular);
-                if (singular && fieldCatalog[singular] && isFieldMapCandidate(fieldCatalog[singular])) {
-                    console.log("Found matching field group for singular:", singular);
-                    return {
-                        groupName: singular,
-                        activeFields: normalizeFieldMap(fieldCatalog[singular])
-                    };
-                }
-
+                // Fallback to first key
                 const firstKey = Object.keys(fieldCatalog).find(function(key) {
                     return isFieldMapCandidate(fieldCatalog[key]);
                 });
                 if (firstKey) {
                     console.log("Using firstKey fallback:", firstKey);
+                    const result = normalizeFieldMap(fieldCatalog[firstKey]);
+                    console.log("Normalized result:", result);
                     return {
                         groupName: firstKey,
-                        activeFields: normalizeFieldMap(fieldCatalog[firstKey])
+                        activeFields: result
                     };
                 }
 
