@@ -1042,7 +1042,7 @@
                         <div class="wizard-steps">
                             <button id="stepPill0" class="wizard-step-pill active">1. Login</button>
                             <button id="stepPill1" class="wizard-step-pill">2. Repositories</button>
-                            <button id="stepPill2" class="wizard-step-pill">3. Files</button>
+                            <button id="stepPill2" class="wizard-step-pill">3. Data</button>
                             <button id="stepPill3" class="wizard-step-pill">4. Editor</button>
                         </div>
                         <div id="wizardTrack" class="wizard-track">
@@ -1084,14 +1084,14 @@
                                 <h2>Stage 3: Load Data</h2>
                                 <div class="two-col">
                                     <div>
-                                        <label for="jsonFileSelect">Site JSON file</label>
+                                        <label for="jsonFileSelect">Site Data</label>
                                         <select id="jsonFileSelect"></select>
                                         <div class="row" style="margin-top:0.7rem;">
-                                            <button id="loadJsonBtn" class="primary">Load Selected File</button>
+                                            <button id="loadJsonBtn" class="primary">Load Selected data</button>
                                         </div>
                                     </div>
                                     <div>
-                                        <h3>Configured File Targets</h3>
+                                        <h3>Configured Data Sources</h3>
                                         <ul id="configuredFilesList" class="list"></ul>
                                     </div>
                                 </div>
@@ -1119,8 +1119,10 @@
                                 </div>
 
                                 <div id="crmMode" style="margin-top:0.8rem;">
+                                    <!--
                                     <p>CRM mode expects either an object or an array of objects.</p>
                                     <p style="color: var(--muted);">For drag-and-drop reordering, the root JSON must be an array of objects.</p>
+                                    -->
                                     <div class="row" style="margin-bottom:0.7rem;">
                                         <button id="crmNewRecordBtn">Add Record</button>
                                         <button id="crmDuplicateRecordBtn">Duplicate Selected</button>
@@ -2817,7 +2819,7 @@
 
                     const item = document.createElement("li");
                     item.className = "mono";
-                    item.textContent = key + " -> " + path;
+                    item.textContent = formatKeyString(key) + " -> " + path;
                     el.configuredFilesList.appendChild(item);
 
                     const option = document.createElement("option");
