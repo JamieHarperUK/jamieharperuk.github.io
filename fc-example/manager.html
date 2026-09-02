@@ -197,7 +197,7 @@
             }
 
             textarea {
-                min-height: 300px;
+                min-height: 150px;
                 resize: vertical;
                 font-family: var(--mono);
                 font-size: 0.86rem;
@@ -4653,12 +4653,8 @@
                     pos.textContent = "#" + (row.position ?? (rowIndex + 1));
                     const team = document.createElement("span");
                     team.textContent = String(row.team || "Unknown Team");
-                    const stats = document.createElement("span");
-                    stats.style.color = "var(--muted)";
-                    stats.textContent = (row.gameweek_points ?? 0) + " gwp · " + (row.total_points ?? 0) + " total";
                     info.appendChild(pos);
                     info.appendChild(team);
-                    // info.appendChild(stats);
                     entry.appendChild(info);
 
                     const actions = document.createElement("div");
