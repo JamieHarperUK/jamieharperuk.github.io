@@ -16,11 +16,11 @@
         "fmt_posts": "fm-template/data/posts.json",
         "fmt_teams": "fm-template/data/teams.json",
 
-        "fc_posts": "fc-template/data/posts.json",
-        "fc_games": "fc-template/data/games.json",
-        "fc_teams": "fc-template/data/teams.json",
-        "fc_tickets": "fc-template/data/tickets.json",
-        "fc_tables": "fc-template/data/tables.json",
+        "fc_posts": "fc-example/data/posts.json",
+        "fc_games": "fc-example/data/games.json",
+        "fc_teams": "fc-example/data/teams.json",
+        "fc_tickets": "fc-example/data/tickets.json",
+        "fc_tables": "fc-example/data/tables.json",
 
         "jhuk_sites": "data/sites.json"
     }
