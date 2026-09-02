@@ -2879,7 +2879,8 @@
 
             function isFcTemplateFile() {
                 const path = String(state.currentJsonPath || "").toLowerCase();
-                return path.includes("fc-template/") || path.includes("/fc-template/");
+                // Recognize all fc-* directories (fc-template, fc-example, fc-share-worker, etc)
+                return path.includes("fc-") && (path.includes("/data/") || path.includes("\\data\\"));
             }
 
             function toTeamSlug(name) {
@@ -2981,24 +2982,22 @@
             function normalizePlayerRow(row) {
                 const isFc = isFcTemplateFile();
                 
-                // Handle object format (new fc-template format)
+                // Handle object format (fc-* standard format with object players)
                 if (typeof row === "object" && row !== null && !Array.isArray(row)) {
-                    if (isFc) {
-                        return {
-                            position: String(row.position ?? ""),
-                            name: String(row.name ?? ""),
-                            yellow: Number(row.yellow ?? 0),
-                            red: Number(row.red ?? 0),
-                            injury: Number(row.injury ?? 0),
-                            number: String(row.number ?? ""),
-                            imageUrl: String(row.imageUrl ?? ""),
-                            goals: Number(row.goals ?? 0),
-                            assists: Number(row.assists ?? 0),
-                            appearances: Number(row.appearances ?? 0),
-                            notes: String(row.notes ?? "")
-                        };
-                    }
-                    return buildDefaultPlayerRow();
+                    // Always preserve object format for fc-* files
+                    return {
+                        position: String(row.position ?? ""),
+                        name: String(row.name ?? ""),
+                        yellow: Number(row.yellow ?? 0),
+                        red: Number(row.red ?? 0),
+                        injury: Number(row.injury ?? 0),
+                        number: String(row.number ?? ""),
+                        imageUrl: String(row.imageUrl ?? ""),
+                        goals: Number(row.goals ?? 0),
+                        assists: Number(row.assists ?? 0),
+                        appearances: Number(row.appearances ?? 0),
+                        notes: String(row.notes ?? "")
+                    };
                 }
 
                 // Support legacy array format for backwards compatibility
@@ -5228,6 +5227,10 @@
                         label.textContent = field.label;
                         const input = document.createElement("input");
                         input.type = "text";
+                        // Ensure field exists in record before reading
+                        if (!(field.key in record)) {
+                            record[field.key] = "";
+                        }
                         input.value = record[field.key] == null ? "" : String(record[field.key]);
                         input.addEventListener("input", function(event) {
                             const rawValue = event.target.value;
@@ -5385,6 +5388,10 @@
                         label.textContent = field.label;
                         const input = document.createElement("input");
                         input.type = "text";
+                        // Ensure field exists in record before reading
+                        if (!(field.key in record)) {
+                            record[field.key] = "";
+                        }
                         input.value = record[field.key] == null ? "" : String(record[field.key]);
                         input.addEventListener("input", function(event) {
                             record[field.key] = event.target.value;
@@ -5403,6 +5410,10 @@
 
                     const playersCount = document.createElement("div");
                     playersCount.className = "pill mono";
+                    // Ensure players array exists before normalizing
+                    if (!Array.isArray(record.players)) {
+                        record.players = [];
+                    }
                     const normalizedPlayers = ensureTeamPlayersArray(record);
                     playersCount.textContent = "Total players: " + normalizedPlayers.length;
                     playersWrapper.appendChild(playersCount);
@@ -5440,6 +5451,10 @@
                         input.type = field.key === "description" ? "textarea" : "text";
                         if (input.type === "textarea") {
                             input.rows = 4;
+                        }
+                        // Ensure field exists in record before reading
+                        if (!(field.key in record)) {
+                            record[field.key] = "";
                         }
                         input.value = record[field.key] == null ? "" : String(record[field.key]);
                         input.addEventListener("input", function(event) {
@@ -5515,6 +5530,10 @@
                         if (input.type === "textarea") {
                             input.rows = 3;
                         }
+                        // Ensure field exists in record before reading
+                        if (!(field.key in record)) {
+                            record[field.key] = "";
+                        }
                         input.value = record[field.key] == null ? "" : String(record[field.key]);
                         input.addEventListener("input", function(event) {
                             record[field.key] = event.target.value;
@@ -5540,6 +5559,10 @@
                         label.textContent = field.label;
                         const input = document.createElement("input");
                         input.type = "text";
+                        // Ensure field exists in record before reading
+                        if (!(field.key in record)) {
+                            record[field.key] = "";
+                        }
                         input.value = record[field.key] == null ? "" : String(record[field.key]);
                         input.addEventListener("input", function(event) {
                             record[field.key] = event.target.value;
