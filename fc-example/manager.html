@@ -3348,7 +3348,11 @@
                     };
                 }
 
+                console.log("resolveActiveFieldGroup called with:", { fieldCatalog, dataKey });
+
                 const normalizedCatalog = normalizeFieldMap(fieldCatalog);
+                console.log("normalizedCatalog result:", normalizedCatalog);
+                
                 if (Object.keys(normalizedCatalog).length) {
                     return {
                         groupName: "",
@@ -3357,6 +3361,7 @@
                 }
 
                 if (fieldCatalog[dataKey] && isFieldMapCandidate(fieldCatalog[dataKey])) {
+                    console.log("Found matching field group for dataKey:", dataKey);
                     return {
                         groupName: dataKey,
                         activeFields: normalizeFieldMap(fieldCatalog[dataKey])
@@ -3364,7 +3369,9 @@
                 }
 
                 const singular = String(dataKey || "").replace(/s$/i, "");
+                console.log("Trying singular form:", singular);
                 if (singular && fieldCatalog[singular] && isFieldMapCandidate(fieldCatalog[singular])) {
+                    console.log("Found matching field group for singular:", singular);
                     return {
                         groupName: singular,
                         activeFields: normalizeFieldMap(fieldCatalog[singular])
@@ -3375,6 +3382,7 @@
                     return isFieldMapCandidate(fieldCatalog[key]);
                 });
                 if (firstKey) {
+                    console.log("Using firstKey fallback:", firstKey);
                     return {
                         groupName: firstKey,
                         activeFields: normalizeFieldMap(fieldCatalog[firstKey])
