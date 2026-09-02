@@ -5769,6 +5769,16 @@
                 const homeTeamIsDropdown = homeOrAway === "Home";
                 const awayTeamIsDropdown = homeOrAway === "Away";
 
+                // Find the competition field to insert team fields before it
+                const allCards = targetContainer.querySelectorAll('.crm-field-card');
+                let competitionFieldCard = null;
+                allCards.forEach(function(card) {
+                    const labels = card.querySelectorAll('label');
+                    if (labels.length > 0 && labels[0].textContent === "Competition") {
+                        competitionFieldCard = card;
+                    }
+                });
+
                 // Render home_team field
                 const homeTeamWrapper = document.createElement("div");
                 homeTeamWrapper.className = "crm-field-card";
@@ -5812,7 +5822,12 @@
                     homeTeamWrapper.appendChild(input);
                 }
 
-                targetContainer.appendChild(homeTeamWrapper);
+                // Insert before competition field or append if not found
+                if (competitionFieldCard) {
+                    targetContainer.insertBefore(homeTeamWrapper, competitionFieldCard);
+                } else {
+                    targetContainer.appendChild(homeTeamWrapper);
+                }
 
                 // Render away_team field
                 const awayTeamWrapper = document.createElement("div");
@@ -5857,7 +5872,12 @@
                     awayTeamWrapper.appendChild(input);
                 }
 
-                targetContainer.appendChild(awayTeamWrapper);
+                // Insert before competition field or append if not found
+                if (competitionFieldCard) {
+                    targetContainer.insertBefore(awayTeamWrapper, competitionFieldCard);
+                } else {
+                    targetContainer.appendChild(awayTeamWrapper);
+                }
             }
 
             function renderCrmFields(targetContainer = el.crmFields, recordIndex = state.crmModel.selectedIndex) {
