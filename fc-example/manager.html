@@ -1134,8 +1134,8 @@
                 <p><span id="yearNow"></span> <span id="footerTitle">Oakshift WebEditor</span></p>
                 <small>
                     Powered by <a href="https://oakshift.co.uk/" target="_blank" class="site-link">Oakshift Software</a>
-                    <span aria-hidden="true"> | </span>
-                    <a href="#" id="footerEulaLink" class="site-link" onclick="openEulaModal(); return false;">EULA</a>
+                    <span style="margin: 0 0.4rem; opacity: 0.7;">|</span>
+                    <button id="footerEulaLink" type="button" class="link-button" style="padding: 0; background: none; border: none; color: var(--accent); text-decoration: underline; cursor: pointer; font: inherit;">Read EULA</button>
                 </small>
             </footer>
 
@@ -6475,10 +6475,8 @@
                     });
                 }
 
-                const footerEulaLink = document.getElementById("footerEulaLink");
-                if (footerEulaLink) {
-                    footerEulaLink.addEventListener("click", function(event) {
-                        event.preventDefault();
+                if (document.getElementById("footerEulaLink")) {
+                    document.getElementById("footerEulaLink").addEventListener("click", function() {
                         openEulaModal();
                     });
                 }
