@@ -851,9 +851,7 @@ const app = {
         if (notesContent) {
             notesContent.innerHTML = `
                 <strong>${clubName}</strong><br>
-                <span>${clubDescription}</span><br><br>
-                <span><strong>Home venue:</strong> ${clubVenue}</span><br>
-                <span><strong>Based in:</strong> ${clubLocation}</span>
+                <span>${clubDescription}</span>
             `;
         }
 
@@ -1922,7 +1920,7 @@ const app = {
                 <p class="notes-content">Player images and squad numbers are shown below. Fixtures have moved to the dedicated Fixtures page.</p>
             </section>
 
-            <section class="panel">
+            <section class="panel" style="margin-bottom: 0;">
                 <h2 class="panel-title">Squad</h2>
                 <div class="roster-grid" id="team-roster-${teamId}"></div>
             </section>
