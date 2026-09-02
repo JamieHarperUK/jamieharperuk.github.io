@@ -1673,6 +1673,14 @@
                 json_object: "object"
             };
 
+            function formatKeyString(str) {
+                return str
+                    .replace(/^[^_]+_/, '')
+                    .split('_')
+                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join(' ');
+            }
+
             const API_BASE = "https://api.github.com";
             const TARGET_REPO_FULL_NAME = String(WEBEDITOR_CONFIG.repository.targetRepoFullName || "").toLowerCase();
             const REPOSITORY_FILE_MAP = (function resolveRepositoryFileMap() {
@@ -2814,7 +2822,7 @@
 
                     const option = document.createElement("option");
                     option.value = path;
-                    option.textContent = key + " (" + path + ")";
+                    option.textContent = formatKeyString(key);
                     if (DEFAULT_FILE_KEY && key === DEFAULT_FILE_KEY) {
                         option.selected = true;
                     } else if (!DEFAULT_FILE_KEY && idx === 0) {
