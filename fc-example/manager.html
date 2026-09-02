@@ -1132,7 +1132,11 @@
 
             <footer>
                 <p><span id="yearNow"></span> <span id="footerTitle">Oakshift WebEditor</span></p>
-                <small>Powered by <a href="https://oakshift.co.uk/" target="_blank" class="site-link">Oakshift Software</a></small>
+                <small>
+                    Powered by <a href="https://oakshift.co.uk/" target="_blank" class="site-link">Oakshift Software</a>
+                    <span aria-hidden="true"> | </span>
+                    <a href="#" id="footerEulaLink" class="site-link" onclick="openEulaModal(); return false;">EULA</a>
+                </small>
             </footer>
 
             <div id="valueEditModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="valueEditTitle">
@@ -6467,6 +6471,14 @@
 
                 if (el.readEulaBtn) {
                     el.readEulaBtn.addEventListener("click", function() {
+                        openEulaModal();
+                    });
+                }
+
+                const footerEulaLink = document.getElementById("footerEulaLink");
+                if (footerEulaLink) {
+                    footerEulaLink.addEventListener("click", function(event) {
+                        event.preventDefault();
                         openEulaModal();
                     });
                 }
