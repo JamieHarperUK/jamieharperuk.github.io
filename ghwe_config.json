@@ -16,7 +16,6 @@
         "fmt_posts": "fm-template/data/posts.json",
         "fmt_teams": "fm-template/data/teams.json",
 
-        "fc_club": "fc-example/data/fc_club.json",
         "fc_posts": "fc-example/data/fc_posts.json",
         "fc_games": "fc-example/data/fc_games.json",
         "fc_teams": "fc-example/data/fc_teams.json",
