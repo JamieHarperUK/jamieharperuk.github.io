@@ -908,6 +908,9 @@ main {
 .roster-table.roster-players td {
     vertical-align: middle;
 }
+.roster-panel {
+    margin-bottom: 0 !important;
+}
 .player-thumb-wrap {
     display: flex;
     align-items: center;
