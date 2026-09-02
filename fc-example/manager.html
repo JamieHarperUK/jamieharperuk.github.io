@@ -1624,14 +1624,16 @@
         </div>
 
         <script>
+            const siteDomain = "https://jhuk.co.uk/";
+            const siteDirectory = "fc-example/";
             const WEBEDITOR_CONFIG = {
                 branding: {
-                    appTitle: "Oakshift WebEditor",
+                    appTitle: "Football Club WebEditor",
                     tagline: "A repository-locked JSON editor, for your site content publishing needs.",
                     homeTitle: "Welcome",
                     homeIntro: "This tool runs entirely in the browser and can authenticate to GitHub, verify write access to the configured repository, then edit and commit configured JSON files.",
                     aboutTitle: "About",
-                    aboutIntro: "Oakshift WebEditor is a browser-based Single Page Application for maintaining JSON data files for static websites."
+                    aboutIntro: "Football Club WebEditor is a browser-based Single Page Application for maintaining JSON data files for static websites."
                 },
                 oauth: {
                     clientId: "Ov23liJxZCIXpxYWlATm",
@@ -1644,35 +1646,20 @@
                 repository: {
                     targetRepoFullName: "jamieharperuk/jamieharperuk.github.io",
                     files: {
-                        // JHUK Football Management
-                        posts: "fm/data/posts.json",
-                        games: "fm/data/games.json",
-                        teams: "fm/data/teams.json",
-                        fpl_teams: "fm/data/fpl-teams.json",
-
-                        // FM Template
-                        fmt_posts: "fm-template/data/posts.json",
-                        fmt_games: "fm-template/data/games.json",
-                        fmt_teams: "fm-template/data/teams.json",
-
-                        // FC Template
-                        fc_posts: "fc-template/data/posts.json",
-                        fc_games: "fc-template/data/games.json",
-                        fc_teams: "fc-template/data/teams.json",
-                        fc_tickets: "fc-template/data/tickets.json",
-                        fc_tables: "fc-template/data/tables.json",
-
-                        // JHUK Root
-                        sites: "data/sites.json"
+                        fc_posts: `${siteDirectory}data/posts.json`,
+                        fc_games: `${siteDirectory}data/games.json`,
+                        fc_teams: `${siteDirectory}data/teams.json`,
+                        fc_tickets: `${siteDirectory}data/tickets.json`,
+                        fc_tables: `${siteDirectory}data/tables.json`,
                     },
                     defaultFileKey: "posts"
                 },
                 notifications: {
-                    enabled: true,
-                    notifyEndpoint: "https://push.jhuk.co.uk/notify",
-                    authToken: "T3MqM6IcYizOk0rNN5eec4E/zW0YZdVjY4XP4vVWHTMJ+RA3HhN8Jm2cuBCVvfTy",
-                    siteId: "fm",
-                    siteBaseUrl: "https://jhuk.co.uk/fm/",
+                    enabled: false,
+                    notifyEndpoint: "", // e.g. https://push.jhuk.co.uk/notify
+                    authToken: "",
+                    siteId: "fc",
+                    siteBaseUrl: `${siteDomain}${siteDirectory}`,
                     delayMs: 75000
                 }
             }; 
