@@ -5328,10 +5328,37 @@
                         hoaWrapper.appendChild(radioContainer);
                         targetContainer.appendChild(hoaWrapper);
                         
-                        // Render other fields
-                        const fieldDefinitions = [
+                        // Render fields BEFORE team fields (date, time)
+                        const fieldsBeforeTeams = [
                             { key: "date", label: "Date" },
-                            { key: "time", label: "Time" },
+                            { key: "time", label: "Time" }
+                        ];
+                        
+                        fieldsBeforeTeams.forEach(function(field) {
+                            const wrapper = document.createElement("div");
+                            wrapper.className = "crm-field-card";
+                            const label = document.createElement("label");
+                            label.textContent = field.label;
+                            const input = document.createElement("input");
+                            input.type = "text";
+                            if (!(field.key in record)) {
+                                record[field.key] = "";
+                            }
+                            input.value = record[field.key] == null ? "" : String(record[field.key]);
+                            input.addEventListener("input", function(event) {
+                                record[field.key] = event.target.value;
+                                syncCrmToJsonText();
+                            });
+                            wrapper.appendChild(label);
+                            wrapper.appendChild(input);
+                            targetContainer.appendChild(wrapper);
+                        });
+                        
+                        // Render team fields with dynamic dropdowns
+                        renderTeamFieldsForGames(targetContainer, record, recordIndex, teamNames);
+                        
+                        // Render fields AFTER team fields (competition, scores, venue, winner)
+                        const fieldsAfterTeams = [
                             { key: "competition", label: "Competition" },
                             { key: "home_score", label: "Home Score" },
                             { key: "away_score", label: "Away Score" },
@@ -5339,7 +5366,7 @@
                             { key: "winner", label: "Winner" }
                         ];
                         
-                        fieldDefinitions.forEach(function(field) {
+                        fieldsAfterTeams.forEach(function(field) {
                             const wrapper = document.createElement("div");
                             wrapper.className = "crm-field-card";
                             const label = document.createElement("label");
@@ -5363,9 +5390,6 @@
                             wrapper.appendChild(input);
                             targetContainer.appendChild(wrapper);
                         });
-                        
-                        // Render team fields with dynamic dropdowns
-                        renderTeamFieldsForGames(targetContainer, record, recordIndex, teamNames);
                     })();
                     
                     return true;
