@@ -27,9 +27,9 @@
       "time": "01:45",
       "competition": "Placeholder League",
       "venue": "Stadium Name",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
+      "home_score": "1",
+      "away_score": "0",
+      "winner": "Team A"
     }
   ]
 }
