@@ -1646,11 +1646,11 @@
                 repository: {
                     targetRepoFullName: "jamieharperuk/jamieharperuk.github.io",
                     files: {
-                        fc_posts: `${siteDirectory}data/posts.json`,
-                        fc_games: `${siteDirectory}data/games.json`,
-                        fc_teams: `${siteDirectory}data/teams.json`,
-                        fc_tickets: `${siteDirectory}data/tickets.json`,
-                        fc_tables: `${siteDirectory}data/tables.json`,
+                        fc_posts: `${siteDirectory}data/fc_posts.json`,
+                        fc_games: `${siteDirectory}data/fc_games.json`,
+                        fc_teams: `${siteDirectory}data/fc_teams.json`,
+                        fc_tickets: `${siteDirectory}data/fc_tickets.json`,
+                        fc_tables: `${siteDirectory}data/fc_tables.json`,
                     },
                     defaultFileKey: "posts"
                 },
@@ -2853,26 +2853,23 @@
                 if (path.endsWith("/fpl-teams.json") || path.endsWith("fpl-teams.json")) {
                     return "fpl_teams";
                 }
-                if (path.includes("fc_teams.json") || path.endsWith("teams.json")) {
+                if (path.includes("fc_teams.json")) {
                     return "teams";
                 }
-                if (path.includes("fc_games.json") || path.endsWith("games.json")) {
+                if (path.includes("fc_games.json")) {
                     return "games";
                 }
-                if (path.includes("fc_posts.json") || path.endsWith("posts.json")) {
+                if (path.includes("fc_posts.json")) {
                     return "posts";
                 }
-                if (path.includes("fc_club.json") || path.endsWith("club.json")) {
+                if (path.includes("fc_club.json")) {
                     return "club";
                 }
-                if (path.includes("fc_tickets.json") || path.endsWith("tickets.json")) {
+                if (path.includes("fc_tickets.json")) {
                     return "tickets";
                 }
-                if (path.includes("fc_tables.json") || path.endsWith("tables.json")) {
+                if (path.includes("fc_tables.json")) {
                     return "tables";
-                }
-                if (path.endsWith("/sites.json") || path.endsWith("sites.json")) {
-                    return "sites";
                 }
                 return "generic";
             }
@@ -4174,7 +4171,7 @@
 
                 // Special hardcoded schema for fc_teams.json to bypass metadata loading
                 const currentPath = String(state.currentJsonPath || "").toLowerCase();
-                if (currentPath.includes("teams.json") && state.currentJsonData.teams && Array.isArray(state.currentJsonData.teams)) {
+                if (currentPath.includes("fc_teams.json") && state.currentJsonData.teams && Array.isArray(state.currentJsonData.teams)) {
                     console.log("=== FC_TEAMS HARDCODED SCHEMA ACTIVATED ===");
                     console.log("Raw JSON teams[0]:", JSON.stringify(state.currentJsonData.teams[0]));
                     
