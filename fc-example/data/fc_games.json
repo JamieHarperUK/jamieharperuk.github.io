@@ -20,13 +20,25 @@
   },
   "games": [
     {
+      "home_or_away": "Away",
+      "home_team": "Team B",
+      "away_team": "Team A",
+      "date": "02-09-2026",
+      "time": "12:00",
+      "competition": "Placeholder League",
+      "venue": "Stadium B Name",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
       "home_or_away": "Home",
       "home_team": "Team A",
       "away_team": "Team B",
       "date": "12-08-2026",
       "time": "01:45",
       "competition": "Placeholder League",
-      "venue": "Stadium Name",
+      "venue": "Stadium A Name",
       "home_score": "",
       "away_score": "",
       "winner": ""
