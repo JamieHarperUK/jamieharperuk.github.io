@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Home",
-      "home_team": "Harper FC",
-      "away_team": "Calabria Fc",
-      "date": "02-09-2026",
-      "time": "17:37",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "League Level 2",
-      "venue": "The Concourse",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Away",
       "home_team": "Scunthorpe United",
       "away_team": "Altrincham FC",
@@ -99,6 +86,19 @@
       "winner": ""
     },
     {
+      "home_or_away": "Home",
+      "home_team": "ip fc",
+      "away_team": "Harper FC",
+      "date": "03-09-2026",
+      "time": "21:24",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 2",
+      "venue": "ip fc's stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
       "home_or_away": "Away",
       "home_team": "New Arsenal FC",
       "away_team": "Cheshire Harriers FC",
@@ -110,6 +110,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "Calabria Fc",
+      "date": "02-09-2026",
+      "time": "17:37",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 2",
+      "venue": "The Concourse",
+      "home_score": "10",
+      "away_score": "0",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Home",
