@@ -23,19 +23,6 @@
     {
       "home_or_away": "Home",
       "home_team": "Harper FC",
-      "away_team": "GRACELLO FC",
-      "date": "04-09-2026",
-      "time": "11:15",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "League Level 2",
-      "venue": "The Concourse",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Home",
-      "home_team": "Harper FC",
       "away_team": "BM",
       "date": "04-09-2026",
       "time": "15:27",
@@ -99,6 +86,19 @@
       "winner": ""
     },
     {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "Vivien FC",
+      "date": "05-09-2026",
+      "time": "20:24",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 2",
+      "venue": "The Concourse",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
       "home_or_away": "Away",
       "home_team": "New Arsenal FC",
       "away_team": "Cheshire Harriers FC",
@@ -110,6 +110,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "GRACELLO FC",
+      "date": "04-09-2026",
+      "time": "11:15",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 2",
+      "venue": "The Concourse",
+      "home_score": "11",
+      "away_score": "0",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Home",
