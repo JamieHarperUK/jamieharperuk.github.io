@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Away",
-      "home_team": "Jabbawocgeege FC",
-      "away_team": "Harper FC",
-      "date": "03-09-2026",
-      "time": "17:17",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "Elite League (Semi-Finals)",
-      "venue": "Jabbawocgeege FC Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Home",
       "home_team": "Altrincham FC",
       "away_team": "FC Hornchurch",
@@ -86,6 +73,19 @@
       "winner": ""
     },
     {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "BM",
+      "date": "04-09-2026",
+      "time": "15:27",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Elite League (Final)",
+      "venue": "BM Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
       "home_or_away": "Away",
       "home_team": "Le Carre FC",
       "away_team": "Greyhound AFC",
@@ -110,6 +110,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Jabbawocgeege FC",
+      "away_team": "Harper FC",
+      "date": "03-09-2026",
+      "time": "17:17",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Elite League (Semi-Finals)",
+      "venue": "Jabbawocgeege FC Stadium",
+      "home_score": "0",
+      "away_score": "2",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Away",
