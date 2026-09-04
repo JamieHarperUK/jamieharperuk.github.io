@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Home",
-      "home_team": "Manchester United",
-      "away_team": "Coventry City",
-      "date": "03-09-2026",
-      "time": "22:52",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 1st Division",
-      "venue": "Old Trafford",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Home",
       "home_team": "Harper FC",
       "away_team": "GRACELLO FC",
       "date": "04-09-2026",
@@ -87,6 +74,19 @@
     },
     {
       "home_or_away": "Away",
+      "home_team": "Nottingham  Forest",
+      "away_team": "Manchester United",
+      "date": "04-09-2026",
+      "time": "22:52",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 1st Division",
+      "venue": "The City Ground",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
       "home_team": "Sutton United",
       "away_team": "Altrincham FC",
       "date": "05-09-2026",
@@ -110,6 +110,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Manchester United",
+      "away_team": "Coventry City",
+      "date": "03-09-2026",
+      "time": "22:52",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 1st Division",
+      "venue": "Old Trafford",
+      "home_score": "4",
+      "away_score": "0",
+      "winner": "Manchester United"
     },
     {
       "home_or_away": "Home",
