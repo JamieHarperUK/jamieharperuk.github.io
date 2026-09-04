@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Away",
-      "home_team": "Le Carre FC",
-      "away_team": "Greyhound AFC",
-      "date": "04-09-2026",
-      "time": "16:00",
-      "osm_or_top_eleven": "Ladder FM",
-      "competition": "England Tier 1 League",
-      "venue": "Le Carre",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "Bristol City",
       "away_team": "Portsmouth",
       "date": "04-09-2026",
@@ -68,6 +55,19 @@
       "osm_or_top_eleven": "Top Eleven",
       "competition": "Ultimate Cup",
       "venue": "Neutral Ground",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Greyhound AFC",
+      "away_team": "fcv",
+      "date": "05-09-2026",
+      "time": "16:00",
+      "osm_or_top_eleven": "Ladder FM",
+      "competition": "England Tier 1 League",
+      "venue": "do",
       "home_score": "",
       "away_score": "",
       "winner": ""
@@ -110,6 +110,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Le Carre FC",
+      "away_team": "Greyhound AFC",
+      "date": "04-09-2026",
+      "time": "16:00",
+      "osm_or_top_eleven": "Ladder FM",
+      "competition": "England Tier 1 League",
+      "venue": "Le Carre",
+      "home_score": "0",
+      "away_score": "0",
+      "winner": "Draw"
     },
     {
       "home_or_away": "Home",
