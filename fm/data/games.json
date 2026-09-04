@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Away",
-      "home_team": "City",
-      "away_team": "Greyhound AFC",
-      "date": "03-09-2026",
-      "time": "16:00",
-      "osm_or_top_eleven": "Ladder FM",
-      "competition": "England Tier 1 League",
-      "venue": "Etihad",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "Jabbawocgeege FC",
       "away_team": "Harper FC",
       "date": "03-09-2026",
@@ -100,6 +87,19 @@
     },
     {
       "home_or_away": "Away",
+      "home_team": "Le Carre FC",
+      "away_team": "Greyhound AFC",
+      "date": "04-09-2026",
+      "time": "16:00",
+      "osm_or_top_eleven": "Ladder FM",
+      "competition": "England Tier 1 League",
+      "venue": "Le Carre",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
       "home_team": "New Arsenal FC",
       "away_team": "Cheshire Harriers FC",
       "date": "06-09-2026",
@@ -110,6 +110,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "City",
+      "away_team": "Greyhound AFC",
+      "date": "03-09-2026",
+      "time": "16:00",
+      "osm_or_top_eleven": "Ladder FM",
+      "competition": "England Tier 1 League",
+      "venue": "Etihad",
+      "home_score": "0",
+      "away_score": "1",
+      "winner": "Greyhound AFC"
     },
     {
       "home_or_away": "Away",
