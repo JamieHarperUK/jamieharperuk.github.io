@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Home",
-      "home_team": "Portsmouth",
-      "away_team": "Sothampton",
-      "date": "03-09-2026",
-      "time": "22:16",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 2nd Division",
-      "venue": "Fratton Park",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Home",
       "home_team": "Manchester United",
       "away_team": "Coventry City",
       "date": "03-09-2026",
@@ -87,6 +74,19 @@
     },
     {
       "home_or_away": "Away",
+      "home_team": "Bristol City",
+      "away_team": "Portsmouth",
+      "date": "04-09-2026",
+      "time": "22:16",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Ashton Gate Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
       "home_team": "Sutton United",
       "away_team": "Altrincham FC",
       "date": "05-09-2026",
@@ -110,6 +110,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Portsmouth",
+      "away_team": "Sothampton",
+      "date": "03-09-2026",
+      "time": "22:16",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Fratton Park",
+      "home_score": "0",
+      "away_score": "1",
+      "winner": "Southampton"
     },
     {
       "home_or_away": "Away",
