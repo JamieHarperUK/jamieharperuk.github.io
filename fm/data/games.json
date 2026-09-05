@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Home",
-      "home_team": "Harper FC",
-      "away_team": "B.W.S FC",
-      "date": "05-09-2026",
-      "time": "11:18",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "Ultimate Cup",
-      "venue": "Neutral Ground",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Home",
       "home_team": "Greyhound AFC",
       "away_team": "fcv",
       "date": "05-09-2026",
@@ -110,6 +97,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "B.W.S FC",
+      "date": "05-09-2026",
+      "time": "11:18",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Ultimate Cup",
+      "venue": "Neutral Ground",
+      "home_score": "3",
+      "away_score": "1",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Away",
