@@ -734,8 +734,8 @@
           "0"
         ],
         [
-          "LW",
-          "Ivan Romero",
+          "RW",
+          "Michael Olise",
           "0",
           "0",
           "0"
@@ -748,22 +748,15 @@
           "0"
         ],
         [
-          "ST",
+          "RW",
           "Cyriel Dessers",
           "0",
           "0",
           "0"
         ],
         [
-          "RW",
-          "Louis Mafouta",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "ST",
-          "Halil Akbunar",
+          "LW",
+          "Ivan Romero",
           "0",
           "0",
           "0"
@@ -790,7 +783,7 @@
           "0"
         ],
         [
-          "CM",
+          "CAM",
           "Giacomo Faticanti",
           "1",
           "0",
@@ -804,15 +797,22 @@
           "0"
         ],
         [
-          "CM",
-          "Kai Klefisch",
-          "1",
+          "LB",
+          "Neco Williams",
+          "0",
           "0",
           "0"
         ],
         [
           "CB",
           "Marc Guehi",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "RB",
+          "Denzel Dumfries",
           "0",
           "0",
           "0"
@@ -832,13 +832,6 @@
           "0"
         ],
         [
-          "LB",
-          "Neco Williams",
-          "0",
-          "0",
-          "0"
-        ],
-        [
           "RB",
           "Tristan Crama",
           "0",
@@ -849,13 +842,6 @@
           "CB",
           "Evan N'Dicka",
           "0",
-          "0",
-          "0"
-        ],
-        [
-          "CB",
-          "Justin de Haas",
-          "2",
           "0",
           "0"
         ],
