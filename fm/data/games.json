@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Away",
-      "home_team": "Sutton United",
-      "away_team": "Altrincham FC",
-      "date": "05-09-2026",
-      "time": "20:20",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 5th Division",
-      "venue": "Borough Sports Ground",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Home",
       "home_team": "Harper FC",
       "away_team": "Vivien FC",
@@ -94,6 +81,32 @@
       "osm_or_top_eleven": "Hattrick",
       "competition": "Series: VI.251",
       "venue": "Arsenal Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Sutton United",
+      "away_team": "Altrincham FC",
+      "date": "05-09-2026",
+      "time": "20:20",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 5th Division",
+      "venue": "Borough Sports Ground",
+      "home_score": "0",
+      "away_score": "7",
+      "winner": "Altrincham FC"
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Altrincham FC",
+      "away_team": "Barrow",
+      "date": "06-09-2026",
+      "time": "20:20",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 5th Division",
+      "venue": "J. Davidson Stadium",
       "home_score": "",
       "away_score": "",
       "winner": ""
