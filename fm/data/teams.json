@@ -892,7 +892,7 @@
           "0"
         ],
         [
-          "LW",
+          "RW",
           "Josh Murphy",
           "0",
           "0",
@@ -927,6 +927,20 @@
           "0"
         ],
         [
+          "CM",
+          "Federico Valverde",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Luka Modrić",
+          "0",
+          "0",
+          "0"
+        ],
+        [
           "CDM",
           "Caio Alexandre",
           "0",
@@ -944,6 +958,13 @@
           "CAM",
           "John Swift",
           "1",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "William Saliba",
+          "0",
           "0",
           "0"
         ],
@@ -986,20 +1007,6 @@
           "CB",
           "Albian Hajdari",
           "1",
-          "0",
-          "0"
-        ],
-        [
-          "LB",
-          "Zak Swanson",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CB",
-          "Conor Shaughnessy",
-          "2",
           "0",
           "0"
         ],
