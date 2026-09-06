@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Home",
-      "home_team": "Altrincham FC",
-      "away_team": "Barrow",
-      "date": "06-09-2026",
-      "time": "20:20",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 5th Division",
-      "venue": "J. Davidson Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Home",
       "home_team": "Harper FC",
       "away_team": "anriel FC",
       "date": "06-09-2026",
@@ -86,6 +73,19 @@
       "winner": ""
     },
     {
+      "home_or_away": "Away",
+      "home_team": "Eastleigh",
+      "away_team": "Altrincham FC",
+      "date": "07-09-2026",
+      "time": "20:20",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 5th Division",
+      "venue": "Silverlake Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
       "home_or_away": "Home",
       "home_team": "Cheshire Harriers FC",
       "away_team": "New Arsenal FC",
@@ -97,6 +97,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Altrincham FC",
+      "away_team": "Barrow",
+      "date": "06-09-2026",
+      "time": "20:20",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 5th Division",
+      "venue": "J. Davidson Stadium",
+      "home_score": "2",
+      "away_score": "1",
+      "winner": "Altrincham FC"
     },
     {
       "home_or_away": "Away",
