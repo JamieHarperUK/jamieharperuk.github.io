@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Home",
-      "home_team": "Harper FC",
-      "away_team": "anriel FC",
-      "date": "06-09-2026",
-      "time": "21:31",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "Cup (First Round)",
-      "venue": "The Concourse",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Away",
       "home_team": "Blackburn Rovers",
       "away_team": "Portsmouth",
@@ -73,6 +60,19 @@
       "winner": ""
     },
     {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "fc goa",
+      "date": "07-09-2026",
+      "time": "16:40",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Elite League (Round 1)",
+      "venue": "The Concourse",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
       "home_or_away": "Away",
       "home_team": "Eastleigh",
       "away_team": "Altrincham FC",
@@ -81,6 +81,19 @@
       "osm_or_top_eleven": "OSM",
       "competition": "England 5th Division",
       "venue": "Silverlake Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "anriel FC",
+      "away_team": "Harper FC",
+      "date": "07-09-2026",
+      "time": "21:29",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Cup (First Round)",
+      "venue": "Estadio do anriel FC",
       "home_score": "",
       "away_score": "",
       "winner": ""
@@ -97,6 +110,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "anriel FC",
+      "date": "06-09-2026",
+      "time": "21:39",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Cup (First Round)",
+      "venue": "The Concourse",
+      "home_score": "9",
+      "away_score": "0",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Home",
