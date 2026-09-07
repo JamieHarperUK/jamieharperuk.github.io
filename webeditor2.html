@@ -4258,6 +4258,7 @@
                     const gamePlatform = record.osm_or_top_eleven || "";
                     const date = record.date || "";
                     const time = record.time || "";
+                    const gameCompetition = record.competition || "";
                     const homeScore = record.home_score ?? record.homeScore ?? "";
                     const awayScore = record.away_score ?? record.awayScore ?? "";
                     const scoreText = (homeScore === "" && awayScore === "") ? "" : "· (" + String(homeScore) + "-" + String(awayScore) + ")";
@@ -4270,8 +4271,10 @@
                         }
                         let gameTeams = home + homeS + " vs " + away + awayS;
                         // gameTeams = gameTeams + " [" + gamePlatform + "]";
+                        let gameComp = gameCompetition ? " · " + gameCompetition : "";
                         const parts = ["[" + date + " · " + time + "]"];
                         if (home && away) parts.push(gameTeams);
+                        if (gameComp) parts.push(gameComp);
                         // if (scoreText) parts.push(scoreText);
                         return parts.join(" ");
                     }
