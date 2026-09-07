@@ -27,20 +27,20 @@
       "end_state": null,
       "league_table": [
         {
-          "position": 2439660,
+          "position": 2759161,
           "team": "North West Athletic",
-          "gameweek_points": 102,
-          "total_points": 146
+          "gameweek_points": 49,
+          "total_points": 195
         }
       ],
       "stats": {
-        "gameweek_points": 102,
-        "overall_points": 146,
-        "overall_rank": 2439660,
+        "gameweek_points": 49,
+        "overall_points": 195,
+        "overall_rank": 2759161,
         "free_transfers": 1,
         "gameweek_transfers_made": 0,
         "bank": 0,
-        "team_value": 100.4
+        "team_value": 100.2
       },
       "players": [
         [
