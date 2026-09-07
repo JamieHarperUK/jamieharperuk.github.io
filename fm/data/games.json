@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Home",
-      "home_team": "Greyhound AFC",
-      "away_team": "Dubilin",
-      "date": "07-09-2026",
-      "time": "16:00",
-      "osm_or_top_eleven": "Ladder FM",
-      "competition": "England Tier 1 League",
-      "venue": "The Coursing Ground",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Home",
       "home_team": "Harper FC",
       "away_team": "fc goa",
       "date": "07-09-2026",
@@ -100,6 +87,19 @@
     },
     {
       "home_or_away": "Away",
+      "home_team": "Tokatkale FK",
+      "away_team": "Greyhound AFC",
+      "date": "08-09-2026",
+      "time": "16:00",
+      "osm_or_top_eleven": "Ladder FM",
+      "competition": "England Tier 1 League",
+      "venue": "Gaziosmanpasa Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
       "home_team": "Faleza ComeBack",
       "away_team": "Cheshire Harriers FC",
       "date": "09-09-2026",
@@ -123,6 +123,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Greyhound AFC",
+      "away_team": "Dubilin",
+      "date": "07-09-2026",
+      "time": "16:00",
+      "osm_or_top_eleven": "Ladder FM",
+      "competition": "England Tier 1 League",
+      "venue": "The Coursing Ground",
+      "home_score": "2",
+      "away_score": "1",
+      "winner": "Greyhound AFC"
     },
     {
       "home_or_away": "Away",
