@@ -4261,7 +4261,7 @@
                     const gameCompetition = record.competition || "";
                     const homeScore = record.home_score ?? record.homeScore ?? "";
                     const awayScore = record.away_score ?? record.awayScore ?? "";
-                    const scoreText = (homeScore === "" && awayScore === "") ? "" : "· (" + String(homeScore) + "-" + String(awayScore) + ")";
+                    const scoreText = (homeScore === "" && awayScore === "") ? "" : "· (" + String(homeScore) + " - " + String(awayScore) + ")";
                     if (home && away && date && time) {
                         let homeS = "";
                         let awayS = "";
@@ -4273,12 +4273,10 @@
                         let gameTeams = home + " vs " + away;
                         // gameTeams = gameTeams + " [" + gamePlatform + "]";
                         let gameComp = gameCompetition ? " · " + gameCompetition : "";
-                        let gameScore = ` (${homeScore} - ${awayScore})`;
                         const parts = ["[" + date + " · " + time + "]"];
                         if (home && away) parts.push(gameTeams);
                         if (gameComp) parts.push(gameComp);
-                        if (gameScore) parts.push(gameScore);
-                        // if (scoreText) parts.push(scoreText);
+                        if (scoreText) parts.push(scoreText);
                         return parts.join(" ");
                     }
                 }
