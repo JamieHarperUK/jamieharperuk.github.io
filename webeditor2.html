@@ -4269,12 +4269,15 @@
                             homeS = ` (${homeScore})`;
                             awayS = ` (${awayScore})`;
                         }
-                        let gameTeams = home + homeS + " vs " + away + awayS;
+                        // let gameTeams = home + homeS + " vs " + away + awayS;
+                        let gameTeams = home + " vs " + away;
                         // gameTeams = gameTeams + " [" + gamePlatform + "]";
                         let gameComp = gameCompetition ? " · " + gameCompetition : "";
+                        let gameScore = ` (${homeScore} - ${awayScore})`;
                         const parts = ["[" + date + " · " + time + "]"];
                         if (home && away) parts.push(gameTeams);
                         if (gameComp) parts.push(gameComp);
+                        if (gameScore) parts.push(gameScore);
                         // if (scoreText) parts.push(scoreText);
                         return parts.join(" ");
                     }
