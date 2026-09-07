@@ -727,7 +727,7 @@
           "0"
         ],
         [
-          "RW",
+          "LW",
           "Bryan Mbeumo",
           "0",
           "0",
@@ -797,6 +797,13 @@
           "0"
         ],
         [
+          "CB",
+          "Marquinhos",
+          "0",
+          "0",
+          "0"
+        ],
+        [
           "RB",
           "Denzel Dumfries",
           "0",
@@ -812,21 +819,14 @@
         ],
         [
           "CB",
-          "Marquinhos",
-          "2",
+          "Evan N'Dicka",
+          "0",
           "0",
           "0"
         ],
         [
           "RB",
           "Tristan Crama",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CB",
-          "Evan N'Dicka",
           "0",
           "0",
           "0"
@@ -922,12 +922,12 @@
         [
           "CM",
           "Luka Modrić",
-          "0",
+          "1",
           "0",
           "0"
         ],
         [
-          "CDM",
+          "CAM",
           "Caio Alexandre",
           "0",
           "0",
@@ -941,16 +941,16 @@
           "0"
         ],
         [
-          "CAM",
-          "John Swift",
-          "1",
+          "CB",
+          "William Saliba",
+          "0",
           "0",
           "0"
         ],
         [
-          "CB",
-          "William Saliba",
-          "0",
+          "RB",
+          "Daniel Munoz",
+          "1",
           "0",
           "0"
         ],
@@ -962,16 +962,9 @@
           "0"
         ],
         [
-          "RB",
-          "Josip Stanisic",
-          "1",
-          "0",
-          "0"
-        ],
-        [
           "LB",
           "Theo Hernandez",
-          "0",
+          "1",
           "0",
           "0"
         ],
@@ -983,16 +976,23 @@
           "0"
         ],
         [
+          "RB",
+          "Josip Stanisic",
+          "2",
+          "0",
+          "0"
+        ],
+        [
           "CB",
-          "Bafode Diakite",
+          "Josko Gvardiol",
           "0",
           "0",
           "0"
         ],
         [
           "CB",
-          "Albian Hajdari",
-          "1",
+          "Bafode Diakite",
+          "0",
           "0",
           "0"
         ],
