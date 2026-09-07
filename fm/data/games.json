@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Home",
-      "home_team": "Manchester United",
-      "away_team": "Leeds United",
-      "date": "07-09-2026",
-      "time": "22:52",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 1st Division",
-      "venue": "Old Trafford",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Away",
       "home_team": "Tokatkale FK",
       "away_team": "Greyhound AFC",
@@ -68,6 +55,19 @@
       "osm_or_top_eleven": "OSM",
       "competition": "England 2nd Division",
       "venue": "Fratton Park",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Manchester United",
+      "away_team": "Brighton and Hove Albion",
+      "date": "08-09-2026",
+      "time": "22:52",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 1st Division",
+      "venue": "Neutral Ground",
       "home_score": "",
       "away_score": "",
       "winner": ""
@@ -110,6 +110,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Manchester United",
+      "away_team": "Leeds United",
+      "date": "07-09-2026",
+      "time": "22:52",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 1st Division",
+      "venue": "Old Trafford",
+      "home_score": "3",
+      "away_score": "0",
+      "winner": "Manchester United"
     },
     {
       "home_or_away": "Home",
