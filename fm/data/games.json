@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Home",
-      "home_team": "Harper FC",
-      "away_team": "StarRange8105",
-      "date": "08-09-2026",
-      "time": "16:43",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "League Level 3",
-      "venue": "The Concourse",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Home",
       "home_team": "Altrincham FC",
       "away_team": "Wealdstone FC",
       "date": "08-09-2026",
@@ -125,6 +112,19 @@
       "winner": ""
     },
     {
+      "home_or_away": "Away",
+      "home_team": "UFC Jennersdorf",
+      "away_team": "Harper FC",
+      "date": "09-09-2026",
+      "time": "18:50",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 3",
+      "venue": "UFC Jennersdorf Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
       "home_or_away": "Home",
       "home_team": "Cheshire Harriers FC",
       "away_team": "New Arsenal FC",
@@ -136,6 +136,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "StarRange8105",
+      "date": "08-09-2026",
+      "time": "16:43",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 3",
+      "venue": "The Concourse",
+      "home_score": "13",
+      "away_score": "0",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Away",
