@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Home",
-      "home_team": "Harper FC",
-      "away_team": "BADUT FC",
-      "date": "08-09-2026",
-      "time": "21:52",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "Cup (Round of 32)",
-      "venue": "The Concourse",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Home",
       "home_team": "Portsmouth",
       "away_team": "Watford",
       "date": "08-09-2026",
@@ -120,6 +107,19 @@
       "osm_or_top_eleven": "OSM",
       "competition": "England 5th Division",
       "venue": "Victoria Park",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "BADUT FC",
+      "away_team": "Harper FC",
+      "date": "10-09-2026",
+      "time": "17:06",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Cup (Round of 32)",
+      "venue": "Stadion BADUT FC",
       "home_score": "",
       "away_score": "",
       "winner": ""
