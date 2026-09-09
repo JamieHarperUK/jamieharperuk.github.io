@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Away",
-      "home_team": "Moaaz eweda FC",
-      "away_team": "Harper FC",
-      "date": "09-09-2026",
-      "time": "10:25",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "Elite League",
-      "venue": "Moaaz eweda FC Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Home",
       "home_team": "Greyhound AFC",
       "away_team": "Nordic United FC",
@@ -113,6 +100,19 @@
     },
     {
       "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "primeiro d'gosto",
+      "date": "11-09-2026",
+      "time": "21:17",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Elite League",
+      "venue": "The Concourse",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
       "home_team": "Cheshire Harriers FC",
       "away_team": "New Arsenal FC",
       "date": "13-09-2026",
@@ -123,6 +123,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Moaaz eweda FC",
+      "away_team": "Harper FC",
+      "date": "09-09-2026",
+      "time": "10:25",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Elite League",
+      "venue": "Moaaz eweda FC Stadium",
+      "home_score": "0",
+      "away_score": "9",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Away",
