@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Away",
-      "home_team": "Faleza ComeBack",
-      "away_team": "Cheshire Harriers FC",
-      "date": "09-09-2026",
-      "time": "09:00",
-      "osm_or_top_eleven": "Hattrick",
-      "competition": "Friendly",
-      "venue": "Faleza Dome",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "Moaaz eweda FC",
       "away_team": "Harper FC",
       "date": "09-09-2026",
@@ -136,6 +123,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Faleza ComeBack",
+      "away_team": "Cheshire Harriers FC",
+      "date": "09-09-2026",
+      "time": "09:00",
+      "osm_or_top_eleven": "Hattrick",
+      "competition": "Friendly",
+      "venue": "Faleza Dome",
+      "home_score": "2",
+      "away_score": "0",
+      "winner": "Faleza ComeBack"
     },
     {
       "home_or_away": "Home",
