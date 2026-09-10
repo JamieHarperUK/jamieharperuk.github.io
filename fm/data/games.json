@@ -112,6 +112,19 @@
       "winner": ""
     },
     {
+      "home_or_away": "Away",
+      "home_team": "Bolton Wanderers",
+      "away_team": "Portsmouth",
+      "date": "10-09-2026",
+      "time": "22:16",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Toughsheet Community Stadium",
+      "home_score": "0",
+      "away_score": "3",
+      "winner": "Portsmouth"
+    },
+    {
       "home_or_away": "Home",
       "home_team": "Harper FC",
       "away_team": "gbr ft",
