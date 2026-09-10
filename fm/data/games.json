@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Away",
-      "home_team": "Bolton Wanderers",
-      "away_team": "Portsmouth",
-      "date": "10-09-2026",
-      "time": "22:16",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 2nd Division",
-      "venue": "Toughsheet Community Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "Newcastle United",
       "away_team": "Manchester United",
       "date": "10-09-2026",
@@ -94,6 +81,19 @@
       "osm_or_top_eleven": "Top Eleven",
       "competition": "Elite League",
       "venue": "The Concourse",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Portsmouth",
+      "away_team": "Stoke City",
+      "date": "11-09-2026",
+      "time": "22:16",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Fratton Park",
       "home_score": "",
       "away_score": "",
       "winner": ""
