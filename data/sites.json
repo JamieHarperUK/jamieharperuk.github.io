@@ -15,6 +15,19 @@
   },
   "sites": [
     {
+      "site_title": "Xeno Championship",
+      "description": "An official website for the Xeno Championship esports tournament, featuring current standings, match schedules, and a Hall of Fame.",
+      "technologies": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "JSON",
+        "Google Analytics"
+      ],
+      "image": "#",
+      "link": "https://xenochampionship.co.uk/"
+    },
+    {
       "site_title": "JHUK Football Management",
       "description": "A football management website that showcases the saves and runs of Jamie Harper's career on Top Eleven, Online Soccer Manager, and Hattrick.",
       "technologies": [
@@ -54,19 +67,6 @@
       ],
       "image": "#",
       "link": "https://sinisterexp.github.io/"
-    },
-    {
-      "site_title": "Xeno Championship",
-      "description": "An official website for the Xeno Championship esports tournament, featuring current standings, match schedules, and a Hall of Fame.",
-      "technologies": [
-        "HTML",
-        "CSS",
-        "JavaScript",
-        "JSON",
-        "Google Analytics"
-      ],
-      "image": "#",
-      "link": "https://xenochampionship.co.uk/"
     },
     {
       "site_title": "Oakshift Software",
