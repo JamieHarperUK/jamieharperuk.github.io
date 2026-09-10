@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Away",
-      "home_team": "BADUT FC",
-      "away_team": "Harper FC",
-      "date": "10-09-2026",
-      "time": "17:06",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "Cup (Round of 32)",
-      "venue": "Stadion BADUT FC",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Home",
       "home_team": "Altrincham FC",
       "away_team": "FC Halifax Town",
@@ -123,6 +110,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "BADUT FC",
+      "away_team": "Harper FC",
+      "date": "10-09-2026",
+      "time": "17:06",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Cup (Round of 32)",
+      "venue": "Stadion BADUT FC",
+      "home_score": "0",
+      "away_score": "12",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Away",
