@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Away",
-      "home_team": "PFC LEVSKI",
-      "away_team": "Harper FC",
-      "date": "11-09-2026",
-      "time": "15:05",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "League Level 3",
-      "venue": "PFC LEVSKI's Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "Truth Valley FC",
       "away_team": "Greyhound AFC",
       "date": "11-09-2026",
@@ -100,6 +87,19 @@
     },
     {
       "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "FC Unkown",
+      "date": "12-09-2026",
+      "time": "19:34",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 3",
+      "venue": "FC Unknown's Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
       "home_team": "Cheshire Harriers FC",
       "away_team": "New Arsenal FC",
       "date": "13-09-2026",
@@ -110,6 +110,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "PFC LEVSKI",
+      "away_team": "Harper FC",
+      "date": "11-09-2026",
+      "time": "15:05",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 3",
+      "venue": "PFC LEVSKI's Stadium",
+      "home_score": "0",
+      "away_score": "2",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Away",
