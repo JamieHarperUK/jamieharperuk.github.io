@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Home",
-      "home_team": "Harper FC",
-      "away_team": "FC Unkown",
-      "date": "12-09-2026",
-      "time": "19:34",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "League Level 3",
-      "venue": "FC Unknown's Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Home",
       "home_team": "Altrincham FC",
       "away_team": "FC Boreham Wood",
       "date": "12-09-2026",
@@ -97,6 +84,32 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "bida prime f.c.",
+      "date": "14-09-2026",
+      "time": "15:20",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 3",
+      "venue": "The Concourse",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "FC Unkown",
+      "date": "12-09-2026",
+      "time": "19:34",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 3",
+      "venue": "FC Unknown's Stadium",
+      "home_score": "9",
+      "away_score": "0",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Home",
