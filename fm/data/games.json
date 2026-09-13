@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Away",
-      "home_team": "Truth Valley FC",
-      "away_team": "Greyhound AFC",
-      "date": "11-09-2026",
-      "time": "16:00",
-      "osm_or_top_eleven": "Ladder FM",
-      "competition": "England Tier 1 League",
-      "venue": "The Truth",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "Solihull Moors",
       "away_team": "Altrincham FC",
       "date": "11-09-2026",
@@ -110,6 +97,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Truth Valley FC",
+      "away_team": "Greyhound AFC",
+      "date": "11-09-2026",
+      "time": "16:00",
+      "osm_or_top_eleven": "Ladder FM",
+      "competition": "England Tier 1 League",
+      "venue": "The Truth",
+      "home_score": "1",
+      "away_score": "2",
+      "winner": "Greyhound AFC"
     },
     {
       "home_or_away": "Away",
