@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Away",
-      "home_team": "Charlton Athletic",
-      "away_team": "Portsmouth",
-      "date": "12-09-2026",
-      "time": "22:16",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 2nd Division",
-      "venue": "The Valley",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Aqay",
       "home_team": "Bournemouth",
       "away_team": "Manchester United",
@@ -87,6 +74,19 @@
     },
     {
       "home_or_away": "Home",
+      "home_team": "Portsmouth",
+      "away_team": "Swansea City",
+      "date": "13-09-2026",
+      "time": "22:16",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "The Valley",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
       "home_team": "Harper FC",
       "away_team": "bida prime f.c.",
       "date": "14-09-2026",
@@ -97,6 +97,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Charlton Athletic",
+      "away_team": "Portsmouth",
+      "date": "12-09-2026",
+      "time": "22:16",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "The Valley",
+      "home_score": "0",
+      "away_score": "4",
+      "winner": "Portsmouth"
     },
     {
       "home_or_away": "Home",
