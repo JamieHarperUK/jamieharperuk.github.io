@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Home",
-      "home_team": "Harper FC",
-      "away_team": "primeiro d'gosto",
-      "date": "11-09-2026",
-      "time": "21:17",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "Elite League",
-      "venue": "The Concourse",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Home",
       "home_team": "Portsmouth",
       "away_team": "Stoke City",
       "date": "11-09-2026",
@@ -97,6 +84,32 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "trifgoal ROMANIA",
+      "date": "13-09-2026",
+      "time": "19:32",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Elite League",
+      "venue": "trifgoal ROMANIA's Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "primeiro d'gosto",
+      "date": "11-09-2026",
+      "time": "21:17",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Elite League",
+      "venue": "The Concourse",
+      "home_score": "8",
+      "away_score": "0",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Away",
