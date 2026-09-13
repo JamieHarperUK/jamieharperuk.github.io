@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Aqay",
-      "home_team": "Bournemouth",
-      "away_team": "Manchester United",
-      "date": "12-09-2026",
-      "time": "22:52",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 1st Division",
-      "venue": "Vitality Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Home",
       "home_team": "Cheshire Harriers FC",
       "away_team": "New Arsenal FC",
@@ -86,6 +73,19 @@
       "winner": ""
     },
     {
+      "home_or_away": "Away",
+      "home_team": "Manchester United",
+      "away_team": "Tottenham Hotspur",
+      "date": "13-09-2026",
+      "time": "22:52",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 1st Division",
+      "venue": "Old Trafford",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
       "home_or_away": "Home",
       "home_team": "Harper FC",
       "away_team": "bida prime f.c.",
@@ -97,6 +97,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Bournemouth",
+      "away_team": "Manchester United",
+      "date": "12-09-2026",
+      "time": "22:52",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 1st Division",
+      "venue": "Vitality Stadium",
+      "home_score": "0",
+      "away_score": "4",
+      "winner": "Manchester United"
     },
     {
       "home_or_away": "Away",
