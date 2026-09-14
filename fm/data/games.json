@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Away",
-      "home_team": "Middlesbrough",
-      "away_team": "Portsmouth",
-      "date": "14-09-2026",
-      "time": "22:16",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 2nd Division",
-      "venue": "Riverside Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "Arsenal",
       "away_team": "Manchester United",
       "date": "14-09-2026",
@@ -68,6 +55,19 @@
       "osm_or_top_eleven": "Top Eleven",
       "competition": "Elite League",
       "venue": "cdnice555 FC Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Portsmouth",
+      "away_team": "Norwich City",
+      "date": "15-09-2026",
+      "time": "22:16",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Fratton Park",
       "home_score": "",
       "away_score": "",
       "winner": ""
@@ -110,6 +110,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Middlesbrough",
+      "away_team": "Portsmouth",
+      "date": "14-09-2026",
+      "time": "22:16",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "Riverside Stadium",
+      "home_score": "0",
+      "away_score": "6",
+      "winner": "Portsmouth"
     },
     {
       "home_or_away": "Away",
