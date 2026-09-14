@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Away",
-      "home_team": "tanishsharma FC",
-      "away_team": "Harper FC",
-      "date": "14-09-2026",
-      "time": "20:59",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "Cup (Round of 16)",
-      "venue": "tanishsharma FC Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "Middlesbrough",
       "away_team": "Portsmouth",
       "date": "14-09-2026",
@@ -123,6 +110,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "tanishsharma FC",
+      "away_team": "Harper FC",
+      "date": "14-09-2026",
+      "time": "20:59",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Cup (Round of 16)",
+      "venue": "tanishsharma FC Stadium",
+      "home_score": "0",
+      "away_score": "11",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Home",
