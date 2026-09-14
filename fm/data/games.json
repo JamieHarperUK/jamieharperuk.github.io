@@ -48,6 +48,19 @@
     },
     {
       "home_or_away": "Away",
+      "home_team": "tanishsharma FC",
+      "away_team": "Harper FC",
+      "date": "14-09-2026",
+      "time": "20:59",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Cup (Round of 16)",
+      "venue": "tanishsharma FC Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
       "home_team": "Middlesbrough",
       "away_team": "Portsmouth",
       "date": "14-09-2026",
@@ -97,6 +110,32 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Lower Palin Sentinels",
+      "away_team": "Greyhound AFC",
+      "date": "21-09-2026",
+      "time": "16:00",
+      "osm_or_top_eleven": "Ladder FM",
+      "competition": "England Tier 2 League",
+      "venue": "LPS Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "DreadedViabil FC",
+      "away_team": "Harper FC",
+      "date": "13-09-2026",
+      "time": "15:31",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 3",
+      "venue": "DreadedViabil FC Stadium",
+      "home_score": "1",
+      "away_score": "10",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Home",
@@ -162,6 +201,19 @@
       "home_score": "0",
       "away_score": "1",
       "winner": "New Arsenal FC"
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "tanishsharma FC",
+      "date": "12-09-2026",
+      "time": "11:38",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Cup (Round of 16)",
+      "venue": "The Concourse",
+      "home_score": "10",
+      "away_score": "0",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Away",
