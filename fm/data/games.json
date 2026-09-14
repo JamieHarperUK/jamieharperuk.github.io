@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Away",
-      "home_team": "Manchester United",
-      "away_team": "Tottenham Hotspur",
-      "date": "13-09-2026",
-      "time": "22:52",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 1st Division",
-      "venue": "Old Trafford",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Home",
       "home_team": "Harper FC",
       "away_team": "bida prime f.c.",
@@ -74,6 +61,19 @@
     },
     {
       "home_or_away": "Away",
+      "home_team": "Arsenal",
+      "away_team": "Manchester United",
+      "date": "14-09-2026",
+      "time": "22:52",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 1st Division",
+      "venue": "Emirates Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
       "home_team": "Boris prep",
       "away_team": "Harper FC",
       "date": "15-09-2026",
@@ -97,6 +97,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Manchester United",
+      "away_team": "Tottenham Hotspur",
+      "date": "13-09-2026",
+      "time": "22:52",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 1st Division",
+      "venue": "Old Trafford",
+      "home_score": "2",
+      "away_score": "1",
+      "winner": "Manchester United"
     },
     {
       "home_or_away": "Home",
