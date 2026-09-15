@@ -21,19 +21,6 @@
   },
   "games": [
     {
-      "home_or_away": "Away",
-      "home_team": "Boris prep",
-      "away_team": "Harper FC",
-      "date": "15-09-2026",
-      "time": "21:18",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "Elite League",
-      "venue": "cdnice555 FC Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
       "home_or_away": "Home",
       "home_team": "Portsmouth",
       "away_team": "Norwich City",
@@ -87,6 +74,19 @@
     },
     {
       "home_or_away": "Away",
+      "home_team": "Kursat15 FC",
+      "away_team": "Harper FC",
+      "date": "17-09-2026",
+      "time": "17:38",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Elite League",
+      "venue": "Kursat15 FC Stadium",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
       "home_team": "tabas cf",
       "away_team": "Cheshire Harriers FC",
       "date": "20-09-2026",
@@ -110,6 +110,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Boris prep",
+      "away_team": "Harper FC",
+      "date": "15-09-2026",
+      "time": "21:18",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Elite League",
+      "venue": "cdnice555 FC Stadium",
+      "home_score": "0",
+      "away_score": "11",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Away",
