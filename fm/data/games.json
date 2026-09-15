@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Away",
-      "home_team": "nak fc",
-      "away_team": "Harper FC",
-      "date": "15-09-2026",
-      "time": "12:41",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "League Level 3",
-      "venue": "nak fc's Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "Boris prep",
       "away_team": "Harper FC",
       "date": "15-09-2026",
@@ -68,6 +55,19 @@
       "osm_or_top_eleven": "OSM",
       "competition": "England 1st Division",
       "venue": "Old Trafford",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Harper FC",
+      "away_team": "fire Storm Fc",
+      "date": "16-09-2026",
+      "time": "18:20",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 3",
+      "venue": "The Concourse",
       "home_score": "",
       "away_score": "",
       "winner": ""
@@ -110,6 +110,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "nak fc",
+      "away_team": "Harper FC",
+      "date": "15-09-2026",
+      "time": "12:41",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "League Level 3",
+      "venue": "nak fc's Stadium",
+      "home_score": "1",
+      "away_score": "5",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Away",
