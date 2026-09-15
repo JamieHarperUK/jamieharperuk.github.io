@@ -22,13 +22,13 @@
   "games": [
     {
       "home_or_away": "Home",
-      "home_team": "Manchester United",
-      "away_team": "Sunderland",
-      "date": "15-09-2026",
-      "time": "22:52",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 1st Division",
-      "venue": "Old Trafford",
+      "home_team": "Harper FC",
+      "away_team": "AFC winsdale",
+      "date": "16-09-2026",
+      "time": "11:14",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Cup (Quarter-Finals)",
+      "venue": "The Concourse",
       "home_score": "",
       "away_score": "",
       "winner": ""
@@ -61,6 +61,32 @@
     },
     {
       "home_or_away": "Away",
+      "home_team": "West Bromwich Albion",
+      "away_team": "Portsmouth",
+      "date": "16-09-2026",
+      "time": "22:16",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 2nd Division",
+      "venue": "The Hawthorns",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "Crystal Palace",
+      "away_team": "Manchester United",
+      "date": "16-09-2026",
+      "time": "22:52",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 1st Division",
+      "venue": "Selhurst Park",
+      "home_score": "",
+      "away_score": "",
+      "winner": ""
+    },
+    {
+      "home_or_away": "Away",
       "home_team": "Kursat15 FC",
       "away_team": "Harper FC",
       "date": "17-09-2026",
@@ -68,19 +94,6 @@
       "osm_or_top_eleven": "Top Eleven",
       "competition": "Elite League",
       "venue": "Kursat15 FC Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
-      "home_team": "West Bromwich Albion",
-      "away_team": "Portsmouth",
-      "date": "17-09-2026",
-      "time": "22:16",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 2nd Division",
-      "venue": "The Hawthorns",
       "home_score": "",
       "away_score": "",
       "winner": ""
@@ -110,6 +123,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Home",
+      "home_team": "Manchester United",
+      "away_team": "Sunderland",
+      "date": "15-09-2026",
+      "time": "22:52",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 1st Division",
+      "venue": "Old Trafford",
+      "home_score": "4",
+      "away_score": "0",
+      "winner": "Manchester United"
     },
     {
       "home_or_away": "Home",
