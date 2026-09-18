@@ -704,150 +704,6 @@
       ]
     },
     {
-      "team_name": "Altrincham FC",
-      "osm_or_top_eleven": "OSM",
-      "competition": "England 5th Division",
-      "country": "England",
-      "home_venue": "J. Davidson Stadium",
-      "start_date": "29-07-2026",
-      "end_state": null,
-      "players": [
-        [
-          "RW",
-          "Michael Olise",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "ST",
-          "Bukayo Saka",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "LW",
-          "Bryan Mbeumo",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "RW",
-          "Cyriel Dessers",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "LW",
-          "Ivan Romero",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CM",
-          "Wallace Davi Nunes Da Silva Dias",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "CDM",
-          "Rodrigo Hernandez Cascante",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CM",
-          "Fransisco Roman Alarcon Suarez",
-          "2",
-          "0",
-          "0"
-        ],
-        [
-          "CAM",
-          "Ismael Saibari",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "CAM",
-          "Giacomo Faticanti",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "LB",
-          "Neco Williams",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "RB",
-          "Denzel Dumfries",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "LB",
-          "Marquinhos",
-          "1",
-          "0",
-          "0"
-        ],
-        [
-          "CB",
-          "Joachim Andersen",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CB",
-          "Marc Guehi",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CB",
-          "Evan N'Dicka",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "RB",
-          "Tristan Crama",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "GK",
-          "Alfonso Herrero",
-          "2",
-          "0",
-          "0"
-        ],
-        [
-          "GK",
-          "Owen Evans",
-          "0",
-          "0",
-          "0"
-        ]
-      ]
-    },
-    {
       "team_name": "Portsmouth",
       "osm_or_top_eleven": "OSM",
       "competition": "England 2nd Division",
@@ -1006,6 +862,150 @@
         [
           "GK",
           "Nicolas Schmid",
+          "0",
+          "0",
+          "0"
+        ]
+      ]
+    },
+    {
+      "team_name": "Altrincham FC",
+      "osm_or_top_eleven": "OSM",
+      "competition": "England 5th Division",
+      "country": "England",
+      "home_venue": "J. Davidson Stadium",
+      "start_date": "29-07-2026",
+      "end_state": null,
+      "players": [
+        [
+          "RW",
+          "Michael Olise",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "ST",
+          "Bukayo Saka",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "LW",
+          "Bryan Mbeumo",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "RW",
+          "Cyriel Dessers",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "LW",
+          "Ivan Romero",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Wallace Davi Nunes Da Silva Dias",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "CDM",
+          "Rodrigo Hernandez Cascante",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CM",
+          "Fransisco Roman Alarcon Suarez",
+          "2",
+          "0",
+          "0"
+        ],
+        [
+          "CAM",
+          "Ismael Saibari",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "CAM",
+          "Giacomo Faticanti",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "LB",
+          "Neco Williams",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "RB",
+          "Denzel Dumfries",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "LB",
+          "Marquinhos",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Joachim Andersen",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Marc Guehi",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Evan N'Dicka",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "RB",
+          "Tristan Crama",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "GK",
+          "Alfonso Herrero",
+          "2",
+          "0",
+          "0"
+        ],
+        [
+          "GK",
+          "Owen Evans",
           "0",
           "0",
           "0"
