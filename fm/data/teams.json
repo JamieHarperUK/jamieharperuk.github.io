@@ -875,7 +875,10 @@
       "country": "England",
       "home_venue": "J. Davidson Stadium",
       "start_date": "29-07-2026",
-      "end_state": null,
+      "end_state": {
+        "final_place": "3rd",
+        "end_date": "17-09-2026"
+      },
       "players": [
         [
           "RW",
