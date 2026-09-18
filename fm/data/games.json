@@ -22,19 +22,6 @@
   "games": [
     {
       "home_or_away": "Away",
-      "home_team": "AFC winsdale",
-      "away_team": "Harper FC",
-      "date": "18-09-2026",
-      "time": "16:14",
-      "osm_or_top_eleven": "Top Eleven",
-      "competition": "Cup (Quarter-Finals)",
-      "venue": "AFC winsdale Stadium",
-      "home_score": "",
-      "away_score": "",
-      "winner": ""
-    },
-    {
-      "home_or_away": "Away",
       "home_team": "Ivan FC",
       "away_team": "Harper FC",
       "date": "18-09-2026",
@@ -110,6 +97,19 @@
       "home_score": "",
       "away_score": "",
       "winner": ""
+    },
+    {
+      "home_or_away": "Away",
+      "home_team": "AFC winsdale",
+      "away_team": "Harper FC",
+      "date": "18-09-2026",
+      "time": "16:14",
+      "osm_or_top_eleven": "Top Eleven",
+      "competition": "Cup (Quarter-Finals)",
+      "venue": "AFC winsdale Stadium",
+      "home_score": "0",
+      "away_score": "8",
+      "winner": "Harper FC"
     },
     {
       "home_or_away": "Home",
