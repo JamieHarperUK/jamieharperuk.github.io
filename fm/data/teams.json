@@ -713,15 +713,15 @@
       "end_state": null,
       "players": [
         [
-          "ST",
-          "Bukayo Saka",
-          "0",
+          "RW",
+          "Michael Olise",
+          "1",
           "0",
           "0"
         ],
         [
-          "RW",
-          "Michael Olise",
+          "ST",
+          "Bukayo Saka",
           "0",
           "0",
           "0"
@@ -755,9 +755,9 @@
           "0"
         ],
         [
-          "CAM",
-          "Ismael Saibari",
-          "1",
+          "CDM",
+          "Rodrigo Hernandez Cascante",
+          "0",
           "0",
           "0"
         ],
@@ -770,14 +770,14 @@
         ],
         [
           "CAM",
-          "Giacomo Faticanti",
+          "Ismael Saibari",
           "1",
           "0",
           "0"
         ],
         [
-          "CM",
-          "Jack Hinchy",
+          "CAM",
+          "Giacomo Faticanti",
           "1",
           "0",
           "0"
@@ -785,21 +785,7 @@
         [
           "LB",
           "Neco Williams",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CB",
-          "Marc Guehi",
-          "0",
-          "0",
-          "0"
-        ],
-        [
-          "CB",
-          "Marquinhos",
-          "0",
+          "1",
           "0",
           "0"
         ],
@@ -811,8 +797,22 @@
           "0"
         ],
         [
+          "LB",
+          "Marquinhos",
+          "1",
+          "0",
+          "0"
+        ],
+        [
           "CB",
           "Joachim Andersen",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "CB",
+          "Marc Guehi",
           "0",
           "0",
           "0"
@@ -834,7 +834,7 @@
         [
           "GK",
           "Alfonso Herrero",
-          "1",
+          "2",
           "0",
           "0"
         ],
