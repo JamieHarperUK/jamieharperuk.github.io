@@ -39,6 +39,7 @@ header {
     margin: 0;
     display: inline-flex;
     width: var(--wfa);
+    align-content: space-between;
 }
 
 main {
@@ -55,7 +56,7 @@ footer {
 
 /* Component Styling */
 .brand {
-    align-content: space-between;
+    display: block;
 }
 
 .brand-logo {
