@@ -224,7 +224,7 @@ async function loadAllianceSite() {
     const homeSystem = Number.isInteger(homeSystemIndex) ? systems[homeSystemIndex] : null;
     const allianceName = info.alliance_name || "Alliance Name";
 
-    setText("[data-alliance-name]", allianceName);
+    // setText("[data-alliance-name]", allianceName);
     setText(".brand-name", allianceName);
     setText("[data-alliance-description]", info.alliance_description || "A community of explorers making a home among the stars.");
     setText("[data-home-system]", homeSystem?.system_info?.name || "Uncharted");
