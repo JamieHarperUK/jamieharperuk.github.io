@@ -6,7 +6,14 @@ const source_files = {
     systems: `${source_dir}/data/systems.json`
 };
 
-const pageIds = ["home", "members", "territory", "bases", "join"];
+const pageIds = ["home", "members", "territory", "join"];
+const systemColors = {
+    yellow: "#e5c94f",
+    red: "#e26c64",
+    blue: "#70a9e8",
+    green: "#70bd87",
+    purple: "#b392d9"
+};
 const emptyData = {
     alliance: { info: {}, roles: [] },
     bases: { bases: [] },
@@ -71,7 +78,7 @@ function renderMembers(members) {
     });
 }
 
-function renderSystems(systems) {
+function renderSystems(systems, bases) {
     const container = document.querySelector("[data-systems-list]");
     container.replaceChildren();
     if (!systems.length) {
@@ -79,14 +86,33 @@ function renderSystems(systems) {
         return;
     }
 
-    systems.forEach((system) => {
+    systems.forEach((system, systemIndex) => {
         const info = system.system_info || {};
-        const card = makeElement("article", "system-card");
-        const heading = makeElement("div", "system-head");
-        heading.append(
-            makeElement("h2", "", info.name || "Unnamed system"),
-            makeElement("p", "", [info.region, info.galaxy].filter(Boolean).join(" · "))
-        );
+        const card = document.createElement("details");
+        card.className = "system-card system-accordion";
+        card.open = systemIndex === 0;
+        const colorName = String(info.system_color || "").trim().toLowerCase();
+        if (systemColors[colorName]) {
+            card.dataset.systemColor = colorName;
+            card.style.setProperty("--system-accent", systemColors[colorName]);
+        }
+
+        const heading = document.createElement("summary");
+        heading.className = "system-head";
+        heading.append(makeElement("h2", "", info.name || "Unnamed system"));
+        if (systemColors[colorName]) {
+            const colorLabel = makeElement("span", "system-color", colorName);
+            colorLabel.setAttribute("aria-label", `${colorName} system`);
+            heading.append(colorLabel);
+        }
+
+        const systemInfo = makeElement("dl", "system-info");
+        [["Station", info.station_name], ["Region", info.region], ["Galaxy", info.galaxy]].forEach(([label, value]) => {
+            if (!value) return;
+            const row = makeElement("div", "system-info-item");
+            row.append(makeElement("dt", "", label), makeElement("dd", "", value));
+            systemInfo.append(row);
+        });
         const bodyList = makeElement("div", "body-list");
         const bodies = Array.isArray(system.bodies) ? system.bodies : [];
 
@@ -94,14 +120,27 @@ function renderSystems(systems) {
             bodyList.append(makeElement("p", "empty-state", "No worlds recorded in this system."));
         }
 
-        bodies.forEach((body) => {
-            const bodyCard = makeElement("section", "body-card");
-            bodyCard.append(
+        bodies.forEach((body, bodyIndex) => {
+            const bodyCard = document.createElement("details");
+            bodyCard.className = "body-card body-accordion";
+            const bodyHeading = document.createElement("summary");
+            bodyHeading.className = "body-head";
+            bodyHeading.append(
                 makeElement("h3", "", body.name || "Unnamed body"),
                 makeElement("p", "", [body.type, body.environment].filter(Boolean).join(" · "))
             );
+            const bodyContent = makeElement("div", "body-content");
             if (Array.isArray(body.glyphs) && body.glyphs.length) {
-                bodyCard.append(makeElement("p", "glyphs", `Glyphs · ${body.glyphs.join(" ")}`));
+                const glyphLabel = makeElement("span", "glyph-label", "Portal glyphs");
+                const glyphCode = makeElement("span", "glyph-code", body.glyphs.map((glyph) => (
+                    Number.isInteger(glyph) && glyph >= 0 && glyph <= 15
+                        ? glyph.toString(16).toUpperCase()
+                        : "?"
+                )).join(""));
+                glyphCode.setAttribute("aria-label", `Portal glyph sequence ${body.glyphs.join(", ")}`);
+                const glyphLine = makeElement("p", "glyphs");
+                glyphLine.append(glyphLabel, glyphCode);
+                bodyContent.append(glyphLine);
             }
 
             const details = document.createElement("dl");
@@ -112,43 +151,33 @@ function renderSystems(systems) {
                     makeElement("dd", "", values.join(", "))
                 );
             });
-            bodyCard.append(details);
+            bodyContent.append(details);
+
+            const bodyBases = bases.filter((base) => (
+                base.location?.system === systemIndex && base.location?.planet === bodyIndex
+            ));
+            if (bodyBases.length) {
+                const baseList = makeElement("div", "body-bases");
+                baseList.append(makeElement("h4", "", `Bases · ${bodyBases.length}`));
+                bodyBases.forEach((base) => {
+                    const baseEntry = makeElement("article", "body-base");
+                    baseEntry.append(
+                        makeElement("h5", "", base.name || "Unnamed base"),
+                        makeElement("p", "", base.description || ""),
+                        makeElement("p", "body-base-creator", base.creator ? `Built by ${base.creator}` : "")
+                    );
+                    baseList.append(baseEntry);
+                });
+                bodyContent.append(baseList);
+            }
+
+            bodyCard.append(bodyHeading, bodyContent);
             bodyList.append(bodyCard);
         });
 
-        card.append(heading, bodyList);
-        container.append(card);
-    });
-}
-
-function resolveBaseLocation(location, systems) {
-    if (!location || !Number.isInteger(location.system)) return "Location not specified";
-    const system = systems[location.system];
-    if (!system) return "System not found";
-    const systemName = system.system_info?.name || `System ${location.system + 1}`;
-    const planetIndex = location.planet;
-    if (!Number.isInteger(planetIndex)) return systemName;
-    const bodyName = system.bodies?.[planetIndex]?.name || `Body ${planetIndex + 1}`;
-    return `${systemName} · ${bodyName}`;
-}
-
-function renderBases(bases, systems) {
-    const container = document.querySelector("[data-bases-list]");
-    container.replaceChildren();
-    if (!bases.length) {
-        addEmptyState(container, "No alliance bases have been listed yet.");
-        return;
-    }
-
-    bases.forEach((base) => {
-        const card = makeElement("article", "base-card");
-        card.append(
-            makeElement("h2", "", base.name || "Unnamed base"),
-            makeElement("p", "", base.description || ""),
-            makeElement("p", "", base.creator ? `Built by ${base.creator}` : "")
-        );
-        const location = makeElement("p", "base-location coordinates", resolveBaseLocation(base.location, systems));
-        card.append(location);
+        card.append(heading);
+        if (systemInfo.childElementCount) card.append(systemInfo);
+        card.append(bodyList);
         container.append(card);
     });
 }
@@ -208,9 +237,7 @@ async function loadAllianceSite() {
     renderRoles(roles, document.querySelector("[data-role-list]"));
     renderRoles(roles, document.querySelector("[data-join-roles]"));
     renderMembers(members);
-    renderSystems(systems);
-    renderBases(bases, systems);
-
+    renderSystems(systems, bases);
     const status = document.getElementById("load-status");
     if (failures.length) {
         status.classList.add("error");

@@ -6383,6 +6383,25 @@
                 } else if (requiredArrayByFile[fileKey] && !Array.isArray(parsed[requiredArrayByFile[fileKey]])) {
                     throw new Error(fileKey + ".json requires a " + requiredArrayByFile[fileKey] + " array.");
                 }
+
+                if (fileKey === "systems") {
+                    const allowedSystemColors = ["yellow", "red", "blue", "green", "purple"];
+                    parsed.systems.forEach(function(system, index) {
+                        const systemInfo = system && system.system_info;
+                        if (systemInfo == null) {
+                            return;
+                        }
+                        if (typeof systemInfo !== "object" || Array.isArray(systemInfo)) {
+                            throw new Error("System " + (index + 1) + " requires system_info to be an object.");
+                        }
+                        if (systemInfo.station_name != null && typeof systemInfo.station_name !== "string") {
+                            throw new Error("System " + (index + 1) + " station_name must be a string.");
+                        }
+                        if (systemInfo.system_color != null && !allowedSystemColors.includes(String(systemInfo.system_color).trim().toLowerCase())) {
+                            throw new Error("System " + (index + 1) + " system_color must be yellow, red, blue, green, or purple.");
+                        }
+                    });
+                }
             }
 
             function parseAndNormalizeEditorJson() {

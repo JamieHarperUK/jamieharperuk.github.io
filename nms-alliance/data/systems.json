@@ -5,7 +5,9 @@
             "system_info": {
                 "name": "Test System",
                 "region": "Test Region",
-                "galaxy": "Euclid"
+                "galaxy": "Euclid",
+                "station_name": "Station Name",
+                "system_color": "yellow"
             },
             "bodies": [
                 {
