@@ -54,6 +54,15 @@ footer {
 }
 
 /* Component Styling */
+.brand {
+    align-content: space-between;
+}
+
+.brand-logo {
+    width: 100px;
+    height: auto;
+}
+
 .page {
     margin: 0;
     display: block;

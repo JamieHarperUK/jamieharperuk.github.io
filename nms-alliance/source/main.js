@@ -1,6 +1,7 @@
+const source_url = "https://jhuk.co.uk/nms-alliance";
 const data_source_files = {
-    alliance: "data/alliance.json",
-    bases: "data/bases.json",
-    members: "data/members.json",
-    systems: "data/systems.json"
+    alliance: `${source_url}/data/alliance.json`,
+    bases: `${source_url}/data/bases.json`,
+    members: `${source_url}/data/members.json`,
+    systems: `${source_url}/data/systems.json`
 };
