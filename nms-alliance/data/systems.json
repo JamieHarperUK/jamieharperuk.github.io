@@ -1,0 +1,23 @@
+{
+    "data_prompt": "This file contains the Systems within the No Man's Sky Alliance territory, as shown in the game. Glyphs are not necessary for Planets, however if the are added, they are stored as an array of 12 integers, each representing a glyph in the order they are used to form the planet's address.",
+    "systems": [
+        {
+            "system_info": {
+                "name": "Test System",
+                "region": "Test Region",
+                "galaxy": "Euclid"
+            },
+            "bodies": [
+                {
+                    "name": "Test Planet",
+                    "type": "Planet",
+                    "environment": "Toxic",
+                    "glyphs": null,
+                    "resources": ["Test Resource 1", "Test Resource 2"],
+                    "flora": ["Test Flora 1", "Test Flora 2"],
+                    "fauna": ["Test Fauna 1", "Test Fauna 2"]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "data_prompt": "This file contains info on No Man's Sky bases, created by and for the Alliance, as shown in the game.",
+    "bases": [
+        {
+            "name": "Test Base",
+            "description": "This is a test base for demonstration purposes.",
+            "creator": "Test Owner",
+            "location": {
+                "system": 0,
+                "planet": 0
+            }
+        }
+    ]
+}

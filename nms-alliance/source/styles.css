@@ -1,0 +1,63 @@
+@font-face {
+    font-family: "NMSFont";
+    src: url("../fonts/NMSFuturaProBook_Kerned.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: normal;
+}
+
+@font-face {
+    font-family: "NMSGlyphs";
+    src: url("../fonts/NMS-Glyphs-Mono.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: normal;
+}
+
+:root {
+    /* Fonts */
+    --nms-font: "NMSFont", sans-serif;
+    --nms-glyphs: "NMSGlyphs", monospace;
+
+    /* Colour Scheme */
+    --primary-color: #1a1a1a;
+    --secondary-color: #2a2a2a;
+    --accent-color: #ffcc00;
+
+    /* Useful Variables */
+    --wfa: -webkit-fill-available;
+}
+
+/* Main Layout Styling */
+body {
+    margin: 0;
+    font-family: var(--nms-font);
+    width: var(--wfa);
+}
+
+header {
+    margin: 0;
+    display: inline-flex;
+    width: var(--wfa);
+}
+
+main {
+    margin: 0;
+    display: block;
+    width: var(--wfa);
+}
+
+footer {
+    margin: 0;
+    display: block;
+    width: var(--wfa);
+}
+
+/* Component Styling */
+.page {
+    margin: 0;
+    display: block;
+    width: var(--wfa);
+}
+
+/* Media Queries */

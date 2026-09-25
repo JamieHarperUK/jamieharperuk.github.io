@@ -1,0 +1,13 @@
+{
+    "data_prompt": "This file contains a list of the showcased Members of the No Man's Sky Alliance, as shown in the game. NMS Friend Codes are not required to be shared, but if you wish to share your NMS Friend Code, please do so in the 'nms_friend_code' field.",
+    "members": [
+        {
+            "info": {
+                "name": "Member Name",
+                "role": "Founder",
+                "joined_date": "25-09-2026",
+                "nms_friend_code": null
+            }
+        }
+    ]
+}
