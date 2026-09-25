@@ -1,3 +1,19 @@
+@font-face {
+    font-family: 'NMSFont';
+    src: url('fonts/NMSFuturaProBook_Kerned.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'NMSGlyphs';
+    src: url('fonts/NMS-Glyphs-Mono.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 :root {
     --bg: #10130f;
     --surface: #191d17;
@@ -8,8 +24,9 @@
     --accent: #d4e36f;
     --accent-ink: #15190c;
     --warm: #e09b62;
-    --font: "Trebuchet MS", "Segoe UI", sans-serif;
+    --font: "NMSFont", sans-serif;
     --mono: "Cascadia Code", Consolas, monospace;
+    --glyphs: "NMSGlyphs", monospace;
 }
 
 * { box-sizing: border-box; }
