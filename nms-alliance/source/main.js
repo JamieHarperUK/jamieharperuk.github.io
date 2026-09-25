@@ -243,7 +243,7 @@ async function loadAllianceSite() {
         status.classList.add("error");
         status.textContent = `Some alliance records could not be loaded: ${failures.join(", ")}.`;
     } else {
-        status.textContent = "Alliance records updated.";
+        status.textContent = "";
     }
 }
 
