@@ -112,9 +112,9 @@ h1, h2, h3, p { margin-top: 0; }
 
 .page-intro { padding: 2rem 0 2.2rem; border-bottom: 1px solid var(--line); }
 .page-intro h1 { margin: 0 0 0.55rem; font-size: 3.8rem; font-weight: 500; }
-.page-intro > p:last-child { max-width: 60ch; margin-bottom: 0; color: var(--muted); line-height: 1.6; }
+.page-intro > p:last-child { width: var(--wfa); margin-bottom: 0; color: var(--muted); line-height: 1.6; }
 .member-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1px; margin-top: 1.5rem; border: 1px solid var(--line); background: var(--line); }
-.member-card { min-height: 170px; padding: 1.25rem; background: var(--surface); }
+.member-card { min-height: auto; padding: 1.25rem; background: var(--surface); }
 .member-card::before { display: block; width: 30px; height: 3px; margin-bottom: 1.15rem; background: var(--warm); content: ""; }
 .member-card h2 { margin-bottom: 0.35rem; font-size: 1.18rem; font-weight: 500; }
 .member-card p { margin-bottom: 0.45rem; color: var(--muted); font-size: 0.87rem; }
