@@ -5,23 +5,14 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <!-- Google Analytics Code Snippet Goes Here -->
-
-        <!-- Social Metadata Goes Here -->
-        <meta property="og:title" content="" />
-        <meta property="og:description" content="" />
-        <meta property="og:image" content="" />
-
-        <meta property="twitter:title" content="" />
-        <meta property="twitter:description" content="" />
-        <meta property="twitter:image" content="" />
-
-        <!-- Other Configuration Data Goes Here -->
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="">
+        <meta name="description" content="Explore the alliance, its members, and its territory in No Man's Sky.">
+        <meta name="theme-color" content="#10130f">
+        <meta property="og:title" content="No Man's Sky Alliance">
+        <meta property="og:description" content="Explore the alliance, its members, and its territory.">
         <link rel="stylesheet" href="source/styles.css">
-        <title>NMS Alliance Site</title>
+        <title>No Man's Sky Alliance</title>
     </head>
     <body>
         <header>
@@ -31,38 +22,65 @@
             </div>
             <div>
                 <nav>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#members">Members</a></li>
-                        <li><a href="#territory">Territory</a></li>
-                        <li><a href="#join">Join</a></li>
+                    <ul aria-label="Main navigation">
+                        <li><a href="#home" data-page="home">Home</a></li>
+                        <li><a href="#members" data-page="members">Members</a></li>
+                        <li><a href="#territory" data-page="territory">Territory</a></li>
+                        <li><a href="#bases" data-page="bases">Bases</a></li>
+                        <li><a href="#join" data-page="join">Join</a></li>
                     </ul>
                 </nav>
             </div>
         </header>
         <main id="app">
-            <div id="home" class="page active">
-                <!-- Home page content goes here -->
+            <div id="home" class="page active" aria-labelledby="home-title">
+                <section class="hero">
+                    <div class="hero-copy">
+                        <p class="eyebrow">No Man's Sky · Alliance Network</p>
+                        <h1 id="home-title" data-alliance-name>Alliance Name</h1>
+                        <p class="hero-description" data-alliance-description></p>
+                        <a class="action-link" href="#members">Meet the members <span aria-hidden="true">→</span></a>
+                    </div>
+                    <div class="hero-mark" aria-hidden="true"><span>✳</span></div>
+                    <div class="hero-meta">
+                        <div><span class="meta-label">Home system</span><strong data-home-system>Uncharted</strong></div>
+                        <div><span class="meta-label">Leaderboard score</span><strong data-leaderboard-score>0</strong></div>
+                    </div>
+                </section>
+                <section class="home-overview" aria-label="Alliance overview">
+                    <div class="section-heading"><p class="eyebrow">Field report</p><h2>Across the stars</h2></div>
+                    <div class="overview-stats">
+                        <a href="#members"><strong data-member-count>0</strong><span>Members</span></a>
+                        <a href="#territory"><strong data-system-count>0</strong><span>Systems</span></a>
+                        <a href="#bases"><strong data-base-count>0</strong><span>Alliance bases</span></a>
+                    </div>
+                    <div class="role-list" data-role-list></div>
+                </section>
             </div>
-            <div id="members" class="page">
-                <!-- Members page content goes here -->
+            <div id="members" class="page" aria-labelledby="members-title">
+                <section class="page-intro"><p class="eyebrow">The people behind the signal</p><h1 id="members-title">Members</h1><p>Meet the explorers building this alliance.</p></section>
+                <div class="member-grid" data-members-list></div>
             </div>
-            <div id="territory" class="page">
-                <!-- Territory page content goes here -->
+            <div id="territory" class="page" aria-labelledby="territory-title">
+                <section class="page-intro"><p class="eyebrow">Charted space</p><h1 id="territory-title">Territory</h1><p>Systems and worlds recorded by the alliance.</p></section>
+                <div class="system-list" data-systems-list></div>
             </div>
-            <div id="bases" class="page">
-                <!-- Bases page content goes here -->
+            <div id="bases" class="page" aria-labelledby="bases-title">
+                <section class="page-intro"><p class="eyebrow">Places to land</p><h1 id="bases-title">Alliance bases</h1><p>Member-built outposts across our territory.</p></section>
+                <div class="base-grid" data-bases-list></div>
             </div>
-            <div id="join" class="page">
-                <!-- Join page content goes here -->
+            <div id="join" class="page" aria-labelledby="join-title">
+                <section class="page-intro"><p class="eyebrow">New horizons</p><h1 id="join-title">Join the alliance</h1><p>Interested in exploring with us? Find an alliance member in-game and ask about joining.</p></section>
+                <div class="join-content"><h2>Our roles</h2><div class="role-list" data-join-roles></div></div>
             </div>
+            <p class="load-status" id="load-status" role="status" aria-live="polite">Connecting to alliance records…</p>
         </main>
         <footer>
             <div class="footer-content">
-                &copy; 2026 Alliance Name. All rights reserved.<br />
-                <small><a href="#">Disclaimer</a> | Website by <a href="https://jhuk.co.uk">Jamie Harper</a></small>
+                <span>&copy; <span id="current-year"></span> <span data-alliance-name>Alliance Name</span></span>
+                <small>Independent community showcase · Website by <a href="https://jhuk.co.uk">Jamie Harper</a></small>
             </div>
         </footer>
-        <script src="source/scripts.js"></script>
+        <script src="source/main.js" defer></script>
     </body>
 </html>

@@ -6,13 +6,13 @@
 
         <meta property="og:title" content="NMS Alliance Manager" />
         <meta property="og:description" content="NMS Alliance Manager - WebEditor used for managing NMS Alliance data." />
-        <meta property="og:image" content="https://oakshiftsoftware.github.io/source/images/headers/img-5.png" />
+        <meta property="og:image" content="source/images/alliance-logo.png" />
 
         <meta property="twitter:title" content="NMS Alliance Manager" />
         <meta property="twitter:description" content="NMS Alliance Manager - WebEditor used for managing NMS Alliance data." />
-        <meta property="twitter:image" content="https://oakshiftsoftware.github.io/source/images/headers/img-5.png" />
+        <meta property="twitter:image" content="source/images/alliance-logo.png" />
 
-        <link rel="shortcut icon" href="source/images/xc-new-t.png" type="image/png">
+        <link rel="shortcut icon" href="source/images/alliance-logo.png" type="image/png">
         <title>NMS Alliance Manager</title>
         <meta name="description" content="NMS Alliance Manager - WebEditor used for managing NMS Alliance data.">
 
@@ -85,7 +85,7 @@
             }
 
             .brand-logo {
-                background-image: url(source/images/xc-new-t.png);
+                background-image: url(source/images/alliance-logo.png);
                 background-size: contain;
                 background-repeat: no-repeat;
                 width: 60px;
@@ -1037,11 +1037,7 @@
                 }
             }
 
-            /* Match the Xeno Championship site's visual language. */
-            @font-face {
-                font-family: "NMSFuturaProBook";
-                src: url("https://font.nmscd.com/assets/font/NMSFuturaProBook_Kerned/Web-TT/NMSFuturaProBook_Kerned.woff") format("woff");
-            }
+            /* Alliance palette */
 
             :root {
                 --bg: #050505;
@@ -1229,6 +1225,48 @@
             a.site-link {
                 color: #00c6ff;
             }
+
+            :root {
+                --bg: #10130f;
+                --card: #191d17;
+                --ink: #f4f1e6;
+                --muted: #a7ad9f;
+                --line: #3b4335;
+                --brand: #d4e36f;
+                --brand-strong: #b5c64d;
+                --ok: #68d7a3;
+                --warn: #e6aa69;
+                --bad: #ff8975;
+                --shadow: 0 8px 28px rgba(0, 0, 0, 0.28);
+            }
+
+            html { background: var(--bg); }
+            body {
+                font-family: var(--font);
+                background: radial-gradient(circle at 12% 8%, rgba(212, 227, 111, 0.12), transparent 28%), linear-gradient(145deg, #10130f, #1b2118 60%, #11150f);
+                color: var(--ink);
+            }
+            header { border-color: var(--line); background: rgba(16, 19, 15, 0.9); box-shadow: 0 0 22px rgba(212, 227, 111, 0.08); }
+            .brand h1, h2, h3, .hero-title, .mini-stat-value { color: var(--ink); text-shadow: none; }
+            .card, .wizard-shell, .modal-card { background: rgba(25, 29, 23, 0.94); border-color: var(--line); box-shadow: var(--shadow); }
+            .hero-card { background: radial-gradient(circle at top right, rgba(212, 227, 111, 0.12), transparent 34%), linear-gradient(145deg, #20261e, #151914); }
+            .mini-stat, .feature-card, .about-card, .workflow-step, .config-card, .crm-field-card, .player-summary-card,
+            .crm-drag-item, .node-item, .repo-list, input, select, textarea, button {
+                background: rgba(12, 15, 11, 0.72);
+                color: var(--ink);
+                border-color: var(--line);
+            }
+            input::placeholder, textarea::placeholder { color: rgba(244, 241, 230, 0.42); }
+            button:hover, .nav-link:hover, .nav-link.active, button.primary { background: var(--brand); border-color: var(--brand); color: #171a10; box-shadow: 0 0 12px rgba(212, 227, 111, 0.2); }
+            button.primary:hover { background: var(--brand-strong); border-color: var(--brand-strong); }
+            .eyebrow, .pill, .repo-badge, .node-type-pill { border-color: rgba(212, 227, 111, 0.42); background: rgba(212, 227, 111, 0.08); color: var(--brand); }
+            .step-marker { background: linear-gradient(135deg, #b4c34f, #e09b62); }
+            .status { background: rgba(212, 227, 111, 0.08); border-left-color: var(--brand); }
+            .status.ok { background: rgba(104, 215, 163, 0.1); border-left-color: var(--ok); }
+            .status.bad { background: rgba(255, 137, 117, 0.1); border-left-color: var(--bad); }
+            .drop-zone { border-color: rgba(212, 227, 111, 0.52); background: rgba(212, 227, 111, 0.04); }
+            .drop-zone.drag, .crm-drag-item.active, .node-item.active, .repo-item.active { border-color: var(--brand); background: rgba(212, 227, 111, 0.1); box-shadow: 0 0 12px rgba(212, 227, 111, 0.12); }
+            a.site-link { color: var(--brand); }
         </style>
     </head>
     <body>
@@ -1242,17 +1280,17 @@
                     </div>
                 </div>
                 <nav aria-label="Editor context">
-                    <span class="pill">CRM editor</span>
+                    <span class="pill">Alliance data editor</span>
                 </nav>
             </header>
 
             <main>
                 <section id="home" class="page card hero-card">
-                    <div class="eyebrow">Oakshift Tooling</div>
+                    <div class="eyebrow">Alliance Operations</div>
                     <div class="hero-grid">
                         <div>
                             <h2 id="homeTitle" class="hero-title">Publish structured site content without leaving the browser.</h2>
-                            <p id="homeIntro" class="hero-copy">This editor authenticates with GitHub and provides focused management for NMS Alliance members and systems while preserving the site's required JSON structures.</p>
+                            <p id="homeIntro" class="hero-copy">Update alliance details, members, systems, and bases directly in the site's JSON data, then publish the selected file to GitHub.</p>
                             <div class="hero-actions">
                                 <a class="hero-link primary" href="#editor">Open Editor</a>
                                 <a class="hero-link" href="#about">How It Works</a>
@@ -1269,7 +1307,7 @@
                             </article>
                             <article class="mini-stat">
                                 <div class="mini-stat-label">Edit Modes</div>
-                                <div class="mini-stat-value">Drag, CRM, Text</div>
+                                <div class="mini-stat-value">JSON</div>
                             </article>
                             <article class="mini-stat">
                                 <div class="mini-stat-label">Client Fit</div>
@@ -1278,7 +1316,7 @@
                         </div>
                     </div>
 
-                    <p class="section-copy" style="margin-top:1.2rem;">Use this as a site-specific deployment or transplant the same file into another client repository and reconfigure the target repo, file map, branding, and optional notification worker.</p>
+                    <p class="section-copy" style="margin-top:1.2rem;">Choose one of the four alliance data files, edit its JSON, validate it, and commit the update to the configured website repository.</p>
 
                     <div class="feature-grid">
                         <article class="feature-card">
@@ -1291,7 +1329,7 @@
                         </article>
                         <article class="feature-card">
                             <h3>Structured Record Editing</h3>
-                            <p>CRM mode supports schema-aware fields, drag reordering, record duplication, and focused modal editing for content teams who should not be hand-editing JSON blobs.</p>
+                            <p>The editor works with the alliance's existing JSON structures, including alliance information and roles, members, star systems, worlds, and bases.</p>
                         </article>
                     </div>
 
@@ -1364,7 +1402,7 @@
                             <section class="wizard-panel">
                                 <h2>Stage 4: Edit and Commit</h2>
                                 <div class="row" style="margin-bottom:0.7rem;">
-                                    <span class="pill">CRM editing mode</span>
+                                    <span class="pill">Alliance JSON</span>
                                     <span class="pill mono" id="currentFilePill">No file loaded</span>
                                 </div>
 
@@ -1381,8 +1419,8 @@
                                     </div>
                                 </div>
 
-                                <div id="crmMode" style="margin-top:0.8rem;">
-                                    <p>Manage the fixed Xeno Championship player and fixture records below. Changes are written back to their existing array without changing the surrounding JSON structure.</p>
+                                <div id="crmMode" class="hidden" style="margin-top:0.8rem;">
+                                    <p>Structured record controls are disabled for this alliance data editor.</p>
                                     <div class="row" style="margin-bottom:0.7rem;">
                                         <button id="crmNewRecordBtn">Add Entry</button>
                                         <button id="crmDuplicateRecordBtn">Duplicate Selected</button>
@@ -1412,8 +1450,9 @@
                                     <div id="crmFields" class="field-grid" style="display: none;"></div>
                                 </div>
 
-                                <div id="textMode" class="hidden" style="margin-top:0.8rem;">
+                                <div id="textMode" style="margin-top:0.8rem;">
                                     <label for="jsonTextArea" style="margin-top:0.8rem;">JSON content</label>
+                                    <p style="color: var(--muted);">Edit the selected alliance data file. Keep its existing top-level keys and data structure intact.</p>
                                     <textarea id="jsonTextArea" spellcheck="false"></textarea>
                                     <div class="row" style="margin-top:0.7rem;">
                                         <button id="formatJsonBtn">Format JSON</button>
@@ -1424,7 +1463,7 @@
                                 <div style="margin-top:0.85rem;" class="stack">
                                     <div>
                                         <label for="commitMessage">Update Label</label>
-                                        <input id="commitMessage" type="text" placeholder="Update JSON content via GHWE">
+                                        <input id="commitMessage" type="text" placeholder="Update alliance data">
                                     </div>
                                     <div id="notifyOnCommitWrap" class="row hidden" style="margin-top:0.15rem;">
                                         <label style="display:flex; align-items:center; gap:0.45rem; margin:0;">
@@ -1901,12 +1940,12 @@
         <script>
             const WEBEDITOR_CONFIG = {
                 branding: {
-                    appTitle: "Xeno Championship Manager",
-                    tagline: "Used to maintain the Xeno Championship site content.",
+                    appTitle: "NMS Alliance Manager",
+                    tagline: "Used to maintain the NMS Alliance site content.",
                     homeTitle: "Welcome",
                     homeIntro: "This tool runs entirely in the browser and can authenticate to GitHub, verify write access to the configured repository, then edit and commit configured JSON files.",
                     aboutTitle: "About",
-                    aboutIntro: "Xeno Championship Manager is a browser-based Single Page Application for maintaining JSON data files for static websites."
+                    aboutIntro: "NMS Alliance Manager is a browser-based Single Page Application for maintaining JSON data files for static websites."
                 },
                 oauth: {
                     clientId: "Ov23liJxZCIXpxYWlATm",
@@ -1917,12 +1956,14 @@
                     ttlSeconds: 8 * 60 * 60
                 },
                 repository: {
-                    targetRepoFullName: "xenochampionship/xenochampionship.github.io",
+                    targetRepoFullName: "jamieharperuk/jamieharperuk.github.io",
                     files: {
-                        players: "source/data/xc26.json",
-                        fixtures: "source/data/fixtures.json"
+                        alliance: "nms-alliance/data/alliance.json",
+                        bases: "nms-alliance/data/bases.json",
+                        members: "nms-alliance/data/members.json",
+                        systems: "nms-alliance/data/systems.json"
                     },
-                    defaultFileKey: "players"
+                    defaultFileKey: "alliance"
                 },
                 notifications: {
                     enabled: false,
@@ -1932,10 +1973,6 @@
                     siteBaseUrl: "",
                     delayMs: 75000
                 },
-                fixtureCards: {
-                    postEndpoint: "https://fixture-card-worker.oakshiftsoftware.workers.dev",
-                    authToken: "0eKUb86nF5bFGnO7lYa0/kexHKxNR4fMpq504KIRAQVTKiL2zQBu6tiOyWxKV/Lu"
-                }
             }; 
 
             const JSON_OBJECT_NODE_TYPES = {
@@ -1948,19 +1985,6 @@
             };
 
             const API_BASE = "https://api.github.com";
-            const ALLOWED_FIXTURE_IDS = [
-                "Qualifier",
-                "Quarter-Final",
-                "Semi-Final",
-                "Third Place Match",
-                "Grand Final"
-            ];
-            const FIXTURE_STATUS_OPTIONS = [
-                { value: "planning", label: "Planning" },
-                { value: "scheduled", label: "Scheduled" },
-                { value: "live", label: "Live" },
-                { value: "completed", label: "Completed" }
-            ];
             const TARGET_REPO_FULL_NAME = String(WEBEDITOR_CONFIG.repository.targetRepoFullName || "").toLowerCase();
             const REPOSITORY_FILE_MAP = (function resolveRepositoryFileMap() {
                 const configured = WEBEDITOR_CONFIG.repository && WEBEDITOR_CONFIG.repository.files;
@@ -3061,19 +3085,9 @@
                 }
 
                 entries.forEach(function(entry, idx) {
-                    function _getXcYearFromPath(path) {
-                        const match = String(path).match(/xc(\d{2})\.json$/i);
-                        if (match && match[1]) {
-                            return "20" + match[1];
-                        }
-                        return "";
-                    }
                     const key = entry[0];
                     const path = entry[1];
                     const safeKeyLabel = String(key[0]).toUpperCase() + String(key).slice(1);
-
-                    // 
-                    const xcYearFromPath = _getXcYearFromPath(path);
 
                     const item = document.createElement("li");
                     item.className = "mono";
@@ -3082,7 +3096,7 @@
 
                     const option = document.createElement("option");
                     option.value = path;
-                    option.textContent = safeKeyLabel + (xcYearFromPath ? " (" + xcYearFromPath + ")" : "");
+                    option.textContent = safeKeyLabel;
                     if (DEFAULT_FILE_KEY && key === DEFAULT_FILE_KEY) {
                         option.selected = true;
                     } else if (!DEFAULT_FILE_KEY && idx === 0) {
@@ -3108,49 +3122,31 @@
                 state.currentJsonPath = file.path;
                 state.currentJsonSha = file.sha;
                 state.currentJsonData = parsed;
-                state.fixturePlayerOptions = [];
                 el.jsonTextArea.value = JSON.stringify(parsed, null, 2);
-
-                if (getCurrentEditorFileKind() === "xeno_fixtures") {
-                    await loadFixturePlayerOptions(parsed);
-                }
-
-                hydrateCrmFromCurrentJson();
-                updateCommitNotificationChoiceVisibility();
                 el.currentFilePill.textContent = file.path;
                 setStatus(el.fileStatus, "Loaded " + file.path + ". Continue to editor stage.", "ok");
                 setEditorStep(3);
             }
 
-            function switchEditorMode(mode) {
-                const isCrm = mode === "crm";
-
+            function switchEditorMode() {
                 if (el.dndMode) {
                     el.dndMode.classList.toggle("hidden", true);
                 }
                 if (el.crmMode) {
-                    el.crmMode.classList.toggle("hidden", !isCrm);
+                    el.crmMode.classList.toggle("hidden", true);
                 }
                 if (el.textMode) {
-                    el.textMode.classList.toggle("hidden", true);
+                    el.textMode.classList.toggle("hidden", false);
                 }
 
                 if (el.modeDndBtn) {
                     el.modeDndBtn.classList.toggle("active", false);
                 }
                 if (el.modeCrmBtn) {
-                    el.modeCrmBtn.classList.toggle("active", isCrm);
+                    el.modeCrmBtn.classList.toggle("active", false);
                 }
                 if (el.modeTextBtn) {
-                    el.modeTextBtn.classList.toggle("active", false);
-                }
-
-                if (isCrm) {
-                    if (state.currentJsonData) {
-                        hydrateCrmFromCurrentJson();
-                    } else if (el.jsonTextArea && el.jsonTextArea.value) {
-                        hydrateCrmFromTextarea();
-                    }
+                    el.modeTextBtn.classList.toggle("active", true);
                 }
             }
 
@@ -3159,13 +3155,6 @@
             }
 
             function getCurrentEditorFileKind() {
-                const path = String(state.currentJsonPath || "").toLowerCase();
-                if (path.endsWith("/xc26.json") || path.endsWith("xc26.json")) {
-                    return "xeno_players";
-                }
-                if (path.endsWith("/fixtures.json") || path.endsWith("fixtures.json")) {
-                    return "xeno_fixtures";
-                }
                 return "generic";
             }
 
@@ -6370,8 +6359,35 @@
                 }
             }
 
+            function validateAllianceJsonStructure(parsed) {
+                if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+                    throw new Error("The file must contain a JSON object at the top level.");
+                }
+
+                const fileKey = Object.keys(REPOSITORY_FILE_MAP).find(function(key) {
+                    return REPOSITORY_FILE_MAP[key] === state.currentJsonPath;
+                });
+                const requiredArrayByFile = {
+                    bases: "bases",
+                    members: "members",
+                    systems: "systems"
+                };
+
+                if (fileKey === "alliance") {
+                    if (!parsed.info || typeof parsed.info !== "object" || Array.isArray(parsed.info)) {
+                        throw new Error("alliance.json requires an info object.");
+                    }
+                    if (!Array.isArray(parsed.roles)) {
+                        throw new Error("alliance.json requires a roles array.");
+                    }
+                } else if (requiredArrayByFile[fileKey] && !Array.isArray(parsed[requiredArrayByFile[fileKey]])) {
+                    throw new Error(fileKey + ".json requires a " + requiredArrayByFile[fileKey] + " array.");
+                }
+            }
+
             function parseAndNormalizeEditorJson() {
                 const parsed = JSON.parse(el.jsonTextArea.value);
+                validateAllianceJsonStructure(parsed);
                 state.currentJsonData = parsed;
                 return parsed;
             }
@@ -7003,10 +7019,11 @@
 
                 el.validateJsonBtn.addEventListener("click", function() {
                     try {
-                        JSON.parse(el.jsonTextArea.value);
-                        setStatus(el.editorStatus, "Valid JSON.", "ok");
+                        const parsed = JSON.parse(el.jsonTextArea.value);
+                        validateAllianceJsonStructure(parsed);
+                        setStatus(el.editorStatus, "Valid alliance JSON structure.", "ok");
                     } catch (error) {
-                        setStatus(el.editorStatus, "Invalid JSON: " + error.message, "bad");
+                        setStatus(el.editorStatus, "Invalid alliance data: " + error.message, "bad");
                     }
                 });
 

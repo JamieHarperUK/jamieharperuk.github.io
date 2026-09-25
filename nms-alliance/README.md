@@ -1,1 +1,2 @@
 # No Man's Sky Alliance Showcase Website
+This website template is designed to offer a No Man's Sky Alliances the ability to showcase and promote their alliance, and use the dedicated WebEditor (manager.html) to manage and update the relevant information.
