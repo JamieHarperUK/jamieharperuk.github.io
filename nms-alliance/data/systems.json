@@ -3,43 +3,39 @@
   "systems": [
     {
       "system_info": {
-        "name": "Test System",
-        "region": "Test Region",
+        "name": "Katamba-Papl",
+        "region": "Upiado Mass",
         "galaxy": "Euclid",
-        "station_name": "Station Name",
+        "station_name": "Katamba-Papl Terminus",
         "system_color": "yellow"
       },
       "bodies": [
         {
-          "name": "Test Planet",
+          "name": "Nitako",
           "type": "Planet",
-          "environment": "Toxic",
+          "environment": "Verdant Planet",
           "glyphs": [
-            2,
-            1,
-            5,
-            9,
+            4,
             16,
-            2,
-            14,
-            2,
+            1,
+            13,
+            15,
+            13,
+            5,
+            7,
+            8,
             11,
-            6,
-            11,
-            5
+            10,
+            4
           ],
           "resources": [
-            "Test Resource 1",
-            "Test Resource 2"
+            "Star Bulb",
+            "Copper",
+            "Paraffinium",
+            "Magnetised Ferrite"
           ],
-          "flora": [
-            "Test Flora 1",
-            "Test Flora 2"
-          ],
-          "fauna": [
-            "Test Fauna 1",
-            "Test Fauna 2"
-          ]
+          "flora": [],
+          "fauna": []
         }
       ]
     }
