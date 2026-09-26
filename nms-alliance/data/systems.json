@@ -34,8 +34,12 @@
             "Paraffinium",
             "Magnetised Ferrite"
           ],
-          "flora": [],
-          "fauna": []
+          "flora": [
+            "Example Plant"
+          ],
+          "fauna": [
+            "Example Fauna"
+          ]
         }
       ]
     }
