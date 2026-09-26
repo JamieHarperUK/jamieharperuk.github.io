@@ -38,7 +38,48 @@
             "Example Plant"
           ],
           "fauna": [
-            "Example Fauna"
+            "Example Animal"
+          ]
+        }
+      ]
+    },
+    {
+      "system_info": {
+        "name": "Zikimry XVII",
+        "region": "Pebacos Nebula",
+        "galaxy": "Euclid",
+        "station_name": "Zikimry XVII Terminus",
+        "system_color": "green"
+      },
+      "bodies": [
+        {
+          "name": "Kawa V",
+          "type": "Planet",
+          "environment": "REDACTED",
+          "glyphs": [
+            2,
+            16,
+            8,
+            7,
+            15,
+            12,
+            11,
+            2,
+            14,
+            4,
+            13,
+            15
+          ],
+          "resources": [
+            "Sodium",
+            "Phosphorus",
+            "Cadmium"
+          ],
+          "flora": [
+            "Example Plant"
+          ],
+          "fauna": [
+            "Example Animal"
           ]
         }
       ]
