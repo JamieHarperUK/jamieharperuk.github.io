@@ -7699,7 +7699,7 @@
                     );
 
                     state.currentJsonSha = result.fileBlobShas[state.currentJsonPath] || state.currentJsonSha;
-                    setStatus(el.editorStatus, "Committed " + state.currentJsonPath + " in one commit.", "ok");
+                    setStatus(el.editorStatus, "Change committed successfully. Please allow up to 3 minutes for this change to be updated on the site. Do NOT make further changes until you see your changed content on your site.", "ok");
 
                     const notificationConfig = WEBEDITOR_CONFIG.notifications || {};
                     const notifyDelayMs = Math.max(0, Number(notificationConfig.delayMs || 0));
@@ -7719,14 +7719,14 @@
                                         delayMs: 0
                                     });
                                     if (!notificationResult.skipped) {
-                                        showNotificationModal("Committed " + state.currentJsonPath + " and notified subscribers.", "ok", "Success");
+                                        showNotificationModal("Change committed successfully. Please allow up to 3 minutes for this change to be updated on the site. Do NOT make further changes until you see your changed content on your site.", "ok", "Success");
                                     } else {
                                         const reasonText = notificationResult.reason === "teams"
                                             ? "Teams updates do not trigger notifications."
                                             : notificationResult.reason === "no-completed-result"
                                                 ? "No completed result was detected for notification."
                                                 : "Notifications were not sent for this update.";
-                                        showNotificationModal("Committed " + state.currentJsonPath + ". " + reasonText, "ok", "Success");
+                                        showNotificationModal("Change committed successfully. Please allow up to 3 minutes for this change to be updated on the site. Do NOT make further changes until you see your changed content on your site.", "ok", "Success");
                                     }
                                 } catch (notifyError) {
                                     showNotificationModal("Commit succeeded, but push notify failed: " + notifyError.message, "bad", "Notification Error");
@@ -7739,17 +7739,17 @@
                             delayMs: 0
                         });
                         if (!notificationResult.skipped) {
-                            showNotificationModal("Committed " + state.currentJsonPath + " and notified subscribers.", "ok", "Success");
+                            showNotificationModal("Change committed successfully. Please allow up to 3 minutes for this change to be updated on the site. Do NOT make further changes until you see your changed content on your site.", "ok", "Success");
                         } else {
                             const reasonText = notificationResult.reason === "teams"
                                 ? "Teams updates do not trigger notifications."
                                 : notificationResult.reason === "no-completed-result"
                                     ? "No completed result was detected for notification."
                                     : "Notifications were not sent for this update.";
-                            showNotificationModal("Committed " + state.currentJsonPath + ". " + reasonText, "ok", "Success");
+                            showNotificationModal("Change committed successfully. Please allow up to 3 minutes for this change to be updated on the site. Do NOT make further changes until you see your changed content on your site.", "ok", "Success");
                         }
                     } else {
-                        showNotificationModal("Committed " + state.currentJsonPath + " without sending notifications.", "ok", "Success");
+                        showNotificationModal("Change committed successfully. Please allow up to 3 minutes for this change to be updated on the site. Do NOT make further changes until you see your changed content on your site.", "ok", "Success");
                     }
                 } catch (error) {
                     if (error.message.includes("push notify")) {
