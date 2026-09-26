@@ -1,25 +1,47 @@
 {
-    "data_prompt": "This file contains the Systems within the No Man's Sky Alliance territory, as shown in the game. Glyphs are not necessary for Planets, however if the are added, they are stored as an array of 12 integers, each representing a glyph in the order they are used to form the planet's address.",
-    "systems": [
+  "data_prompt": "This file contains the Systems within the No Man's Sky Alliance territory, as shown in the game. Glyphs are not necessary for Planets, however if the are added, they are stored as an array of 12 integers, each representing a glyph in the order they are used to form the planet's address.",
+  "systems": [
+    {
+      "system_info": {
+        "name": "Test System",
+        "region": "Test Region",
+        "galaxy": "Euclid",
+        "station_name": "Station Name",
+        "system_color": "yellow"
+      },
+      "bodies": [
         {
-            "system_info": {
-                "name": "Test System",
-                "region": "Test Region",
-                "galaxy": "Euclid",
-                "station_name": "Station Name",
-                "system_color": "yellow"
-            },
-            "bodies": [
-                {
-                    "name": "Test Planet",
-                    "type": "Planet",
-                    "environment": "Toxic",
-                    "glyphs": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-                    "resources": ["Test Resource 1", "Test Resource 2"],
-                    "flora": ["Test Flora 1", "Test Flora 2"],
-                    "fauna": ["Test Fauna 1", "Test Fauna 2"]
-                }
-            ]
+          "name": "Test Planet",
+          "type": "Planet",
+          "environment": "Toxic",
+          "glyphs": [
+            2,
+            1,
+            5,
+            9,
+            16,
+            2,
+            14,
+            2,
+            11,
+            6,
+            11,
+            5
+          ],
+          "resources": [
+            "Test Resource 1",
+            "Test Resource 2"
+          ],
+          "flora": [
+            "Test Flora 1",
+            "Test Flora 2"
+          ],
+          "fauna": [
+            "Test Fauna 1",
+            "Test Fauna 2"
+          ]
         }
-    ]
+      ]
+    }
+  ]
 }
