@@ -3315,11 +3315,14 @@
 
                 if (fileKey === "systems") {
                     state.allianceEditor.systemsForBaseLocations = Array.isArray(parsed.systems) ? deepClone(parsed.systems) : [];
-                } else if (fileKey === "bases") {
+                } else if (fileKey === "bases" || fileKey === "alliance") {
                     const systemsPath = REPOSITORY_FILE_MAP.systems;
-                    if (!systemsPath) throw new Error("Configure systems.json to select base locations.");
-                    const systemsFile = await loadRepoJsonFile(state.selectedRepo.full_name, systemsPath);
-                    state.allianceEditor.systemsForBaseLocations = Array.isArray(systemsFile.data.systems) ? systemsFile.data.systems : [];
+                    if (systemsPath) {
+                        const systemsFile = await loadRepoJsonFile(state.selectedRepo.full_name, systemsPath);
+                        state.allianceEditor.systemsForBaseLocations = Array.isArray(systemsFile.data.systems) ? systemsFile.data.systems : [];
+                    } else if (fileKey === "bases") {
+                        throw new Error("Configure systems.json to select base locations.");
+                    }
                 }
 
                 state.currentJsonPath = file.path;
@@ -3529,7 +3532,21 @@
                     if (!data.info || typeof data.info !== "object" || Array.isArray(data.info)) data.info = {};
                     data.info.alliance_name = value;
                 }));
-                fields.appendChild(createAllianceFormField("Home system index", info.home_system, { type: "number", min: 0 }, function(value) {
+                const systems = state.allianceEditor.systemsForBaseLocations || [];
+                const homeSystemChoices = [{ value: "", label: "Select a home system" }].concat(systems.map(function(system, index) {
+                    const systemInfo = system && system.system_info || {};
+                    const systemName = systemInfo.name || "System " + (index + 1);
+                    const galaxy = systemInfo.galaxy ? " · " + systemInfo.galaxy : "";
+                    return { value: String(index), label: systemName + galaxy };
+                }));
+                const selectedHomeSystem = Number.isInteger(info.home_system) && systems[info.home_system]
+                    ? String(info.home_system)
+                    : info.home_system == null ? "" : String(info.home_system);
+                fields.appendChild(createAllianceFormField("Home system", selectedHomeSystem, {
+                    type: "select",
+                    choices: homeSystemChoices,
+                    disabled: systems.length === 0
+                }, function(value) {
                     if (!data.info || typeof data.info !== "object" || Array.isArray(data.info)) data.info = {};
                     data.info.home_system = value === "" ? null : Number(value);
                 }));
