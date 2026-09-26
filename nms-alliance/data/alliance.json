@@ -4,12 +4,19 @@
         "alliance_name": "Alliance Name",
         "alliance_description": "The Alliance description goes here. This is a brief description of the alliance, its purpose, and any other relevant information.",
         "home_system": 0,
-        "leaderboard_score": 0
+        "leaderboard_score": 0,
+        "socials": {
+            "discord": "",
+            "facebook": "",
+            "twitter": "",
+            "youtube": "",
+            "reddit": ""
+        }
     },
     "roles": [
         {
             "name": "Founder",
-            "description": "The Founder role is assigned to the original creators of the alliance."
+            "description": "The Founder role is assigned to the founding members of the alliance."
         },
         {
             "name": "Leader",

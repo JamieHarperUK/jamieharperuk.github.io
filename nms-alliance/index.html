@@ -85,8 +85,36 @@
                 <div class="system-list" data-systems-list></div>
             </div>
             <div id="join" class="page" aria-labelledby="join-title">
-                <section class="page-intro"><p class="eyebrow">New horizons</p><h1 id="join-title">Join the alliance</h1><p>Interested in exploring with us? Find an alliance member in-game and ask about joining.</p></section>
-                <div class="join-content"><h2>Our roles</h2><div class="role-list" data-join-roles></div></div>
+                <section class="join-hero">
+                    <div class="join-hero-copy">
+                        <p class="eyebrow">New horizons · Shared discoveries</p>
+                        <h1 id="join-title">Find your place among the stars.</h1>
+                        <p>Explorers make the journey. An alliance makes it a shared one. Meet our community, find a role that fits, and begin your next chapter with us.</p>
+                        <div class="hero-actions">
+                            <a class="action-link" href="#join-roles">Explore alliance roles <span aria-hidden="true">→</span></a>
+                            <a class="text-link" href="#join-socials">Connect with the alliance</a>
+                        </div>
+                    </div>
+                    <figure class="join-emblem" aria-hidden="true">
+                        <img src="source/images/alliance-logo.png" alt="">
+                        <figcaption>One signal · many worlds</figcaption>
+                    </figure>
+                    <div class="join-hero-footer"><span>Independent explorers</span><span>Across the galaxies</span></div>
+                </section>
+                <section id="join-socials" class="join-socials" data-social-section hidden aria-labelledby="join-socials-title">
+                    <div class="join-section-heading">
+                        <div><p class="eyebrow">Open channels</p><h2 id="join-socials-title">Find us in the community</h2></div>
+                        <p>Choose a channel and say hello.</p>
+                    </div>
+                    <div class="social-links" data-social-links></div>
+                </section>
+                <section id="join-roles" class="join-roles-section" aria-labelledby="join-roles-title">
+                    <div class="join-section-heading">
+                        <div><p class="eyebrow">A place for every explorer</p><h2 id="join-roles-title">Choose your path</h2></div>
+                        <p>Every role helps shape the alliance and the worlds we share.</p>
+                    </div>
+                    <div class="join-role-grid" data-join-roles></div>
+                </section>
             </div>
             <p class="load-status" id="load-status" role="status" aria-live="polite">Connecting to alliance records…</p>
         </main>

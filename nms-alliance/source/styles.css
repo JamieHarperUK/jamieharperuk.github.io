@@ -179,8 +179,42 @@ h1, h2, h3, p { margin-top: 0; }
 .body-base h5 { margin: 0 0 0.25rem; font-size: 0.88rem; font-weight: 500; }
 .body-base p { margin: 0.2rem 0; color: var(--muted); font-size: 0.8rem; }
 .body-base .body-base-creator { color: var(--warm); font-size: 0.72rem; }
-.join-content { max-width: 780px; padding-top: 2rem; }
-.join-content h2 { margin-bottom: 1rem; }
+.join-hero { position: relative; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(220px, 0.7fr); align-items: center; gap: 2.5rem; min-height: 390px; overflow: hidden; padding: 2.6rem 3rem 0; border: 1px solid #596047; background: linear-gradient(115deg, #20271e, #151a14 62%, #252b1e); }
+.join-hero::before { position: absolute; inset: 0; content: ""; opacity: 0.2; background-image: linear-gradient(#d4e36f18 1px, transparent 1px), linear-gradient(90deg, #d4e36f18 1px, transparent 1px); background-size: 42px 42px; mask-image: linear-gradient(90deg, black, transparent 90%); pointer-events: none; }
+.join-hero-copy, .join-emblem, .join-hero-footer { position: relative; z-index: 1; }
+.join-hero-copy { max-width: 670px; padding-bottom: 2.4rem; }
+.join-hero h1 { max-width: 12ch; margin: 0 0 0.9rem; font-size: 4rem; font-weight: 500; line-height: 1.02; }
+.join-hero-copy > p:not(.eyebrow) { max-width: 54ch; margin: 0 0 1.5rem; color: #d0d3c7; font-size: 1rem; line-height: 1.65; }
+.join-emblem { display: grid; justify-items: center; gap: 0.9rem; margin: 0 0 2rem; }
+.join-emblem img { display: block; width: min(100%, 225px); max-height: 225px; object-fit: contain; padding: 1rem; border: 1px solid #d4e36f62; background: #10130f78; box-shadow: 10px 10px 0 #d4e36f12; }
+.join-emblem figcaption { color: var(--muted); font: 0.7rem var(--mono); text-transform: uppercase; }
+.join-hero-footer { grid-column: 1 / -1; display: flex; justify-content: space-between; gap: 1rem; padding: 0.8rem 0; border-top: 1px solid #ffffff24; color: var(--muted); font: 0.66rem var(--mono); text-transform: uppercase; }
+.join-socials { padding: 2.4rem 0 2rem; border-bottom: 1px solid var(--line); }
+.join-socials[hidden] { display: none !important; }
+.join-section-heading { display: flex; justify-content: space-between; align-items: end; gap: 1.5rem; margin-bottom: 1rem; }
+.join-section-heading h2 { margin: 0; font-size: 1.7rem; font-weight: 500; }
+.join-section-heading .eyebrow { margin-bottom: 0.45rem; }
+.join-section-heading > p { max-width: 34ch; margin: 0 0 0.15rem; color: var(--muted); font-size: 0.84rem; text-align: right; }
+.social-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.55rem; }
+.social-link { display: grid; grid-template-columns: 2.55rem minmax(0, 1fr) auto; align-items: center; gap: 0.75rem; min-width: 0; padding: 0.65rem; border: 1px solid var(--line); color: var(--ink); background: #171c15; text-decoration: none; transition: border-color 160ms ease, background 160ms ease, transform 160ms ease; }
+.social-link:hover { border-color: var(--social-accent, var(--accent)); background: #20271d; transform: translateY(-2px); }
+.social-icon { display: grid; width: 2.55rem; height: 2.55rem; place-items: center; color: var(--social-accent, var(--accent)); border: 1px solid color-mix(in srgb, var(--social-accent, var(--accent)) 50%, transparent); background: #10130f; font: 700 1rem var(--mono); }
+.social-name { min-width: 0; overflow-wrap: anywhere; font-size: 0.88rem; }
+.social-outbound { color: var(--muted); font-size: 1rem; }
+.social-discord { --social-accent: #9aa5ff; }
+.social-facebook { --social-accent: #73aaff; }
+.social-twitter { --social-accent: #f4f1e6; }
+.social-youtube { --social-accent: #ff736d; }
+.social-reddit { --social-accent: #ff9b60; }
+.join-roles-section { padding-top: 2.3rem; }
+.join-role-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; margin-top: 1.2rem; border: 1px solid var(--line); background: var(--line); }
+.join-role { display: grid; align-content: start; gap: 0.65rem; min-height: 165px; padding: 1.2rem; border-top: 2px solid var(--role-accent, var(--warm)); background: var(--surface); }
+.join-role:nth-child(3n + 2) { --role-accent: var(--accent); }
+.join-role:nth-child(3n) { --role-accent: #70bd87; }
+.join-role-index { color: var(--role-accent, var(--warm)); font: 0.68rem var(--mono); }
+.join-role h3 { margin: 0; font-size: 1.15rem; font-weight: 500; }
+.join-role p { margin: 0; color: var(--muted); font-size: 0.84rem; line-height: 1.55; }
+.join-role-empty { margin-top: 1rem; border: 1px solid var(--line); }
 .empty-state { grid-column: 1 / -1; padding: 1.3rem; color: var(--muted); background: var(--surface); }
 .load-status { margin: 1rem 0 0; color: var(--muted); font: 0.75rem var(--mono); }
 .load-status.error { color: #ff9a80; }
@@ -232,6 +266,18 @@ footer a { color: var(--accent); text-decoration: underline; text-underline-offs
     .hero-meta .meta-label { font-size: 0.58rem; }
     .hero-meta strong { font-size: 0.8rem; overflow-wrap: anywhere; }
     .home-overview { grid-template-columns: 1fr; gap: 1.5rem; padding-top: 2rem; }
+    .join-hero { grid-template-columns: minmax(0, 1fr) 100px; gap: 0.5rem; min-height: 0; padding: 2rem 1.2rem 0; }
+    .join-hero-copy { padding-bottom: 1.4rem; }
+    .join-hero h1 { max-width: 10ch; font-size: 2.6rem; }
+    .join-hero-copy > p:not(.eyebrow) { font-size: 0.93rem; }
+    .join-emblem { gap: 0; margin-bottom: 1.5rem; }
+    .join-emblem img { width: 100px; max-height: 100px; padding: 0.6rem; box-shadow: 5px 5px 0 #d4e36f12; }
+    .join-emblem figcaption { display: none; }
+    .join-hero-footer { font-size: 0.56rem; }
+    .join-section-heading { align-items: flex-start; flex-direction: column; gap: 0.55rem; }
+    .join-section-heading > p { text-align: left; }
+    .social-links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .join-role-grid { grid-template-columns: minmax(0, 1fr); }
     .members-intro { align-items: flex-start; flex-direction: column; gap: 1rem; }
     .members-total { display: flex; align-items: baseline; gap: 0.6rem; padding: 0 0 0 0.8rem; }
     .members-total strong { font-size: 1.5rem; }
@@ -242,6 +288,9 @@ footer a { color: var(--accent); text-decoration: underline; text-underline-offs
 
 @media (max-width: 390px) {
     .hero { grid-template-columns: minmax(0, 1fr) 76px; }
+    .join-hero { grid-template-columns: minmax(0, 1fr) 76px; }
+    .join-hero h1 { font-size: 2.3rem; }
+    .join-emblem img { width: 76px; max-height: 76px; }
     .hero-emblem, .hero-emblem-frame { width: 76px; }
     .hero h1 { font-size: 2.35rem; }
     .hero-meta div { min-width: 0; }

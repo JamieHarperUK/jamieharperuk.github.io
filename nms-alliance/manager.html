@@ -3543,6 +3543,19 @@
                 }));
                 section.appendChild(fields);
                 container.appendChild(section);
+
+                const socials = info.socials && typeof info.socials === "object" && !Array.isArray(info.socials) ? info.socials : {};
+                const socialSection = createAllianceEditorSection("Community links", "Leave a platform blank to hide it from the public Join page.");
+                const socialFields = document.createElement("div");
+                socialFields.className = "alliance-form-grid";
+                [["discord", "Discord"], ["facebook", "Facebook"], ["twitter", "X / Twitter"], ["youtube", "YouTube"], ["reddit", "Reddit"]].forEach(function(platform) {
+                    socialFields.appendChild(createAllianceFormField(platform[1] + " URL", socials[platform[0]], { placeholder: "https://" }, function(value) {
+                        if (!data.info.socials || typeof data.info.socials !== "object" || Array.isArray(data.info.socials)) data.info.socials = {};
+                        data.info.socials[platform[0]] = value.trim();
+                    }));
+                });
+                socialSection.appendChild(socialFields);
+                container.appendChild(socialSection);
             }
 
             function renderAllianceRolesForm(container, data) {

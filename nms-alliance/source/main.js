@@ -14,6 +14,13 @@ const systemColors = {
     green: "#70bd87",
     purple: "#b392d9"
 };
+const socialPlatforms = [
+    { key: "discord", label: "Discord", mark: "D" },
+    { key: "facebook", label: "Facebook", mark: "f" },
+    { key: "twitter", label: "X / Twitter", mark: "X" },
+    { key: "youtube", label: "YouTube", mark: "▶" },
+    { key: "reddit", label: "Reddit", mark: "r/" }
+];
 const emptyData = {
     alliance: { info: {}, roles: [] },
     bases: { bases: [] },
@@ -53,6 +60,113 @@ function renderRoles(roles, container) {
         );
         container.append(item);
     });
+}
+
+function renderJoinRoles(roles) {
+    const container = document.querySelector("[data-join-roles]");
+    container.replaceChildren();
+    if (!roles.length) {
+        addEmptyState(container, "Alliance roles have not been listed yet.");
+        container.firstElementChild.classList.add("join-role-empty");
+        return;
+    }
+
+    roles.forEach((role, index) => {
+        const item = makeElement("article", "join-role");
+        item.append(
+            makeElement("span", "join-role-index", String(index + 1).padStart(2, "0")),
+            makeElement("h3", "", role.name || "Alliance role"),
+            makeElement("p", "", role.description || "")
+        );
+        container.append(item);
+    });
+}
+
+function normalizeSocialUrl(value) {
+    const raw = String(value || "").trim();
+    if (!raw || raw === "#") return "";
+
+    try {
+        const url = new URL(/^[a-z][a-z\d+.-]*:/i.test(raw) ? raw : `https://${raw}`);
+        return url.protocol === "https:" || url.protocol === "http:" ? url.href : "";
+    } catch {
+        return "";
+    }
+}
+
+function renderSocialLinks(socials) {
+    const section = document.querySelector("[data-social-section]");
+    const container = document.querySelector("[data-social-links]");
+    const platforms = [
+        { key: "discord", label: "Discord", mark: "D" },
+        { key: "facebook", label: "Facebook", mark: "f" },
+        { key: "twitter", label: "X / Twitter", mark: "X" },
+        { key: "youtube", label: "YouTube", mark: "▶" },
+        { key: "reddit", label: "Reddit", mark: "r/" }
+    ];
+    container.replaceChildren();
+
+    platforms.forEach(({ key, label, mark }) => {
+        const href = normalizeSocialUrl(socials && socials[key]);
+        if (!href) return;
+
+        const link = document.createElement("a");
+        link.className = `social-link social-${key}`;
+        link.href = href;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.setAttribute("aria-label", `Open ${label} in a new tab`);
+
+        const icon = makeElement("span", "social-icon", mark);
+        icon.setAttribute("aria-hidden", "true");
+        link.append(icon, makeElement("span", "social-name", label));
+        const outbound = makeElement("span", "social-outbound", "↗");
+        outbound.setAttribute("aria-hidden", "true");
+        link.append(outbound);
+        container.append(link);
+    });
+
+    section.hidden = container.childElementCount === 0;
+}
+
+function normalizeSocialUrl(value) {
+    const raw = String(value || "").trim();
+    if (!raw || raw === "#") return "";
+
+    try {
+        const url = new URL(/^[a-z][a-z\d+.-]*:/i.test(raw) ? raw : `https://${raw}`);
+        return url.protocol === "https:" || url.protocol === "http:" ? url.href : "";
+    } catch {
+        return "";
+    }
+}
+
+function renderSocialLinks(socials) {
+    const section = document.querySelector("[data-social-section]");
+    const container = document.querySelector("[data-social-links]");
+    container.replaceChildren();
+
+    socialPlatforms.forEach(({ key, label, mark }) => {
+        const href = normalizeSocialUrl(socials && socials[key]);
+        if (!href) return;
+
+        const link = document.createElement("a");
+        link.className = `social-link social-${key}`;
+        link.href = href;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.setAttribute("aria-label", `Open ${label} in a new tab`);
+
+        const icon = makeElement("span", "social-icon", mark);
+        icon.setAttribute("aria-hidden", "true");
+        link.append(icon, makeElement("span", "social-name", label));
+        const outbound = makeElement("span", "social-outbound", "↗");
+        outbound.setAttribute("aria-hidden", "true");
+        link.append(outbound);
+        container.append(link);
+    });
+
+    section.hidden = container.childElementCount === 0;
 }
 
 function renderMembers(members) {
@@ -279,6 +393,7 @@ async function loadAllianceSite() {
     const systems = Array.isArray(data.systems.systems) ? data.systems.systems : [];
     const bases = Array.isArray(data.bases.bases) ? data.bases.bases : [];
     const roles = Array.isArray(data.alliance.roles) ? data.alliance.roles : [];
+    const socials = info.socials && typeof info.socials === "object" && !Array.isArray(info.socials) ? info.socials : {};
     const homeSystemIndex = Number(info.home_system);
     const homeSystem = Number.isInteger(homeSystemIndex) ? systems[homeSystemIndex] : null;
     const allianceName = info.alliance_name || "Alliance Name";
@@ -294,7 +409,9 @@ async function loadAllianceSite() {
     setText("#current-year", new Date().getFullYear());
     document.title = `${allianceName} | No Man's Sky Alliance`;
     renderRoles(roles, document.querySelector("[data-role-list]"));
-    renderRoles(roles, document.querySelector("[data-join-roles]"));
+    renderJoinRoles(roles);
+    renderSocialLinks(socials);
+    renderSocialLinks(info.socials);
     renderMembers(members);
     renderSystems(systems, bases);
     const status = document.getElementById("load-status");
