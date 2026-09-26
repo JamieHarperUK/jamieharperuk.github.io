@@ -204,6 +204,36 @@ function renderSystems(systems, bases) {
             bodyList.append(bodyCard);
         });
 
+        const asteroidBases = bases.filter((base) => (
+            base.location?.system === systemIndex
+            && (base.location?.body_type === "habitable_asteroid" || base.location?.planet === -1)
+        ));
+        if (asteroidBases.length) {
+            const asteroidCard = document.createElement("details");
+            asteroidCard.className = "body-card body-accordion asteroid-accordion";
+            const asteroidHeading = document.createElement("summary");
+            asteroidHeading.className = "body-head";
+            asteroidHeading.append(
+                makeElement("h3", "", "Habitable Asteroid"),
+                makeElement("p", "", `${asteroidBases.length} ${asteroidBases.length === 1 ? "base" : "bases"}`)
+            );
+            const asteroidContent = makeElement("div", "body-content");
+            const baseList = makeElement("div", "body-bases asteroid-bases");
+            baseList.append(makeElement("h4", "", `Bases · ${asteroidBases.length}`));
+            asteroidBases.forEach((base) => {
+                const baseEntry = makeElement("article", "body-base");
+                baseEntry.append(
+                    makeElement("h5", "", base.name || "Unnamed base"),
+                    makeElement("p", "", base.description || ""),
+                    makeElement("p", "body-base-creator", base.creator ? `Built by ${base.creator}` : "")
+                );
+                baseList.append(baseEntry);
+            });
+            asteroidContent.append(baseList);
+            asteroidCard.append(asteroidHeading, asteroidContent);
+            bodyList.append(asteroidCard);
+        }
+
         card.append(heading);
         if (systemInfo.childElementCount) card.append(systemInfo);
         card.append(bodyList);

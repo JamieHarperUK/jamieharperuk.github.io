@@ -2042,6 +2042,24 @@
                 </div>
             </div>
 
+            <div id="allianceBaseModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="allianceBaseModalTitle">
+                <div class="modal-card alliance-editor-modal alliance-base-modal">
+                    <div class="modal-head">
+                        <div>
+                            <p class="eyebrow">Alliance outpost</p>
+                            <h3 id="allianceBaseModalTitle">Edit base</h3>
+                        </div>
+                        <button id="allianceBaseModalCloseBtn" type="button" class="warn">Close</button>
+                    </div>
+                    <div id="allianceBaseModalFields" class="alliance-form-grid alliance-modal-body"></div>
+                    <p class="alliance-modal-hint">System and world selections use zero-based array indexes. Habitable Asteroid is stored with planet index -1 and a body_type marker.</p>
+                    <div class="row alliance-modal-actions">
+                        <button id="allianceBaseSaveBtn" class="primary" type="button">Save base</button>
+                        <button id="allianceBaseCancelBtn" type="button">Cancel</button>
+                    </div>
+                </div>
+            </div>
+
             <div id="portalGlyphModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="portalGlyphModalTitle">
                 <div class="modal-card alliance-editor-modal glyph-picker-modal">
                     <div class="modal-head">
@@ -2218,6 +2236,9 @@
                 allianceEditor: {
                     systemDraft: null,
                     editingSystemIndex: -1,
+                    baseDraft: null,
+                    editingBaseIndex: -1,
+                    systemsForBaseLocations: [],
                     worldDraft: null,
                     editingWorldIndex: -1,
                     glyphDraft: null,
@@ -2399,6 +2420,12 @@
                 allianceWorldSaveBtn: document.getElementById("allianceWorldSaveBtn"),
                 allianceGlyphSummary: document.getElementById("allianceGlyphSummary"),
                 openPortalGlyphModalBtn: document.getElementById("openPortalGlyphModalBtn"),
+                allianceBaseModal: document.getElementById("allianceBaseModal"),
+                allianceBaseModalTitle: document.getElementById("allianceBaseModalTitle"),
+                allianceBaseModalFields: document.getElementById("allianceBaseModalFields"),
+                allianceBaseModalCloseBtn: document.getElementById("allianceBaseModalCloseBtn"),
+                allianceBaseCancelBtn: document.getElementById("allianceBaseCancelBtn"),
+                allianceBaseSaveBtn: document.getElementById("allianceBaseSaveBtn"),
                 portalGlyphModal: document.getElementById("portalGlyphModal"),
                 portalGlyphModalCloseBtn: document.getElementById("portalGlyphModalCloseBtn"),
                 portalGlyphSlots: document.getElementById("portalGlyphSlots"),
@@ -3085,6 +3112,7 @@
                 state.currentJsonPath = "";
                 state.currentJsonSha = "";
                 state.currentJsonData = null;
+                state.allianceEditor.systemsForBaseLocations = [];
                 state.lastNotificationPreferenceKind = "";
                 clearStoredAuthSession();
                 el.authPill.textContent = "Not authenticated";
@@ -3281,6 +3309,18 @@
                 const loaded = await loadRepoJsonFile(state.selectedRepo.full_name, filePath);
                 const file = loaded.fileMeta;
                 const parsed = loaded.data;
+                const fileKey = Object.keys(REPOSITORY_FILE_MAP).find(function(key) {
+                    return REPOSITORY_FILE_MAP[key] === file.path;
+                });
+
+                if (fileKey === "systems") {
+                    state.allianceEditor.systemsForBaseLocations = Array.isArray(parsed.systems) ? deepClone(parsed.systems) : [];
+                } else if (fileKey === "bases") {
+                    const systemsPath = REPOSITORY_FILE_MAP.systems;
+                    if (!systemsPath) throw new Error("Configure systems.json to select base locations.");
+                    const systemsFile = await loadRepoJsonFile(state.selectedRepo.full_name, systemsPath);
+                    state.allianceEditor.systemsForBaseLocations = Array.isArray(systemsFile.data.systems) ? systemsFile.data.systems : [];
+                }
 
                 state.currentJsonPath = file.path;
                 state.currentJsonSha = file.sha;
@@ -3316,14 +3356,17 @@
                     input.value = value == null ? "" : String(value);
                 } else if (type === "select") {
                     input = document.createElement("select");
-                    (options.values || []).forEach(function(optionValue) {
+                    const optionList = options.choices || (options.values || []).map(function(optionValue) {
+                        return { value: optionValue, label: optionValue };
+                    });
+                    optionList.forEach(function(optionDefinition) {
                         const option = document.createElement("option");
-                        option.value = optionValue;
-                        option.textContent = optionValue || "Select a value";
+                        option.value = String(optionDefinition.value);
+                        option.textContent = optionDefinition.label;
                         input.appendChild(option);
                     });
                     const currentValue = value == null ? "" : String(value);
-                    if (currentValue && !(options.values || []).includes(currentValue)) {
+                    if (currentValue && !optionList.some(function(optionDefinition) { return String(optionDefinition.value) === currentValue; })) {
                         const currentOption = document.createElement("option");
                         currentOption.value = currentValue;
                         currentOption.textContent = currentValue + " (current)";
@@ -3340,6 +3383,7 @@
                     }
                     if (options.placeholder) input.placeholder = options.placeholder;
                 }
+                if (options && options.disabled) input.disabled = true;
 
                 input.addEventListener(type === "select" ? "change" : "input", function() {
                     onUpdate(input.value, input);
@@ -3853,48 +3897,156 @@
             }
 
             function renderAllianceBasesForm(container, data) {
-                const bases = Array.isArray(data.bases) ? data.bases : [];
-                const section = createAllianceEditorSection("Alliance bases", "Locations refer to zero-based system and world indexes in the systems file.");
-                const list = document.createElement("div");
-                list.className = "alliance-record-list";
+                if (!Array.isArray(data.bases)) data.bases = [];
+                const bases = data.bases;
+                const systems = state.allianceEditor.systemsForBaseLocations || [];
+                const section = createAllianceEditorSection("Alliance bases", "Drag to reorder bases. Choose a system first, then select one of its worlds or a habitable asteroid.");
+                const list = document.createElement("ul");
+                list.className = "alliance-sortable-list";
                 bases.forEach(function(base, index) {
-                    const entry = base && typeof base === "object" ? base : {};
-                    const location = entry.location && typeof entry.location === "object" ? entry.location : {};
-                    const card = createAllianceRecord(entry.name || "Base " + (index + 1), function() {
-                        data.bases.splice(index, 1);
-                        syncAllianceFormToJson();
-                        renderAllianceCrmEditor();
-                    });
-                    const fields = document.createElement("div");
-                    fields.className = "alliance-form-grid";
-                    [["name", "Base name"], ["creator", "Creator"]].forEach(function(field) {
-                        fields.appendChild(createAllianceFormField(field[1], entry[field[0]], {}, function(value) {
-                            data.bases[index][field[0]] = value;
-                            if (field[0] === "name") card.querySelector("h4").textContent = value || "Base " + (index + 1);
-                        }));
-                    });
-                    fields.appendChild(createAllianceFormField("Description", entry.description, { type: "textarea", rows: 2 }, function(value) {
-                        data.bases[index].description = value;
-                    }));
-                    fields.appendChild(createAllianceFormField("System index", location.system, { type: "number", min: 0 }, function(value) {
-                        if (!data.bases[index].location || typeof data.bases[index].location !== "object") data.bases[index].location = {};
-                        data.bases[index].location.system = value === "" ? null : Number(value);
-                    }));
-                    fields.appendChild(createAllianceFormField("World index", location.planet, { type: "number", min: 0 }, function(value) {
-                        if (!data.bases[index].location || typeof data.bases[index].location !== "object") data.bases[index].location = {};
-                        data.bases[index].location.planet = value === "" ? null : Number(value);
-                    }));
-                    card.appendChild(fields);
-                    list.appendChild(card);
+                    const location = base && base.location && typeof base.location === "object" ? base.location : {};
+                    const system = Number.isInteger(location.system) ? systems[location.system] : null;
+                    const bodies = system && Array.isArray(system.bodies) ? system.bodies : [];
+                    let worldLabel = "Location not selected";
+                    if (location.body_type === "habitable_asteroid" || location.planet === -1) worldLabel = "Habitable Asteroid";
+                    else if (Number.isInteger(location.planet) && bodies[location.planet]) worldLabel = bodies[location.planet].name || "World " + (location.planet + 1);
+                    const summary = [system && system.system_info && system.system_info.name, worldLabel].filter(Boolean).join(" · ");
+                    list.appendChild(createAllianceSortableRow(
+                        bases,
+                        index,
+                        base && base.name || "Base " + (index + 1),
+                        summary,
+                        function() { openAllianceBaseModal(index); },
+                        function(fromIndex, toIndex, alreadyMoved) {
+                            if (!alreadyMoved) moveAllianceArrayItem(bases, fromIndex, toIndex);
+                            syncAllianceFormToJson();
+                            renderAllianceCrmEditor();
+                        }
+                    ));
                 });
                 section.appendChild(list);
+                if (!systems.length) {
+                    const help = document.createElement("p");
+                    help.className = "alliance-modal-hint";
+                    help.textContent = "Load systems.json with repository access to enable base location choices.";
+                    section.appendChild(help);
+                }
                 section.appendChild(createAllianceAddButton("Add base", function() {
-                    if (!Array.isArray(data.bases)) data.bases = [];
-                    data.bases.push({ name: "", description: "", creator: "", location: { system: 0, planet: 0 } });
-                    syncAllianceFormToJson();
-                    renderAllianceCrmEditor();
+                    openAllianceBaseModal(-1);
                 }));
                 container.appendChild(section);
+            }
+
+            function renderAllianceBaseModalFields() {
+                const draft = state.allianceEditor.baseDraft;
+                if (!draft || !el.allianceBaseModalFields) return;
+                if (!draft.location || typeof draft.location !== "object") draft.location = {};
+                const fields = el.allianceBaseModalFields;
+                fields.replaceChildren();
+                fields.appendChild(createAllianceFormField("Base name", draft.name, { sync: false }, function(value) {
+                    draft.name = value;
+                    el.allianceBaseModalTitle.textContent = value || "Edit base";
+                }));
+                fields.appendChild(createAllianceFormField("Creator", draft.creator, { sync: false }, function(value) {
+                    draft.creator = value;
+                }));
+                fields.appendChild(createAllianceFormField("Description", draft.description, { type: "textarea", rows: 3, sync: false }, function(value) {
+                    draft.description = value;
+                }));
+
+                const systems = state.allianceEditor.systemsForBaseLocations || [];
+                const systemChoices = [{ value: "", label: "Select a system" }].concat(systems.map(function(system, index) {
+                    const info = system && system.system_info || {};
+                    return { value: String(index), label: info.name || "System " + (index + 1) };
+                }));
+                const selectedSystemIndex = Number.isInteger(draft.location.system) && systems[draft.location.system]
+                    ? draft.location.system
+                    : -1;
+                fields.appendChild(createAllianceFormField("System", selectedSystemIndex >= 0 ? String(selectedSystemIndex) : "", {
+                    type: "select",
+                    choices: systemChoices,
+                    disabled: systems.length === 0,
+                    sync: false
+                }, function(value) {
+                    draft.location.system = value === "" ? null : Number(value);
+                    draft.location.planet = null;
+                    delete draft.location.body_type;
+                    renderAllianceBaseModalFields();
+                }));
+
+                const selectedSystem = selectedSystemIndex >= 0 ? systems[selectedSystemIndex] : null;
+                const bodies = selectedSystem && Array.isArray(selectedSystem.bodies) ? selectedSystem.bodies : [];
+                const isAsteroid = draft.location.body_type === "habitable_asteroid" || draft.location.planet === -1;
+                const worldChoices = [{ value: "", label: "Select a world" }].concat(bodies.map(function(body, index) {
+                    return { value: String(index), label: body && body.name || "World " + (index + 1) };
+                }));
+                worldChoices.push({ value: "habitable_asteroid", label: "Habitable Asteroid" });
+                const worldValue = isAsteroid ? "habitable_asteroid" : Number.isInteger(draft.location.planet) && draft.location.planet >= 0 ? String(draft.location.planet) : "";
+                fields.appendChild(createAllianceFormField("World / body", worldValue, {
+                    type: "select",
+                    choices: worldChoices,
+                    disabled: selectedSystemIndex < 0,
+                    sync: false
+                }, function(value) {
+                    if (value === "habitable_asteroid") {
+                        draft.location.planet = -1;
+                        draft.location.body_type = "habitable_asteroid";
+                    } else if (value === "") {
+                        draft.location.planet = null;
+                        delete draft.location.body_type;
+                    } else {
+                        draft.location.planet = Number(value);
+                        delete draft.location.body_type;
+                    }
+                }));
+            }
+
+            function openAllianceBaseModal(baseIndex) {
+                state.allianceEditor.editingBaseIndex = baseIndex;
+                state.allianceEditor.baseDraft = baseIndex >= 0
+                    ? deepClone(state.currentJsonData.bases[baseIndex])
+                    : { name: "", description: "", creator: "", location: { system: null, planet: null } };
+                renderAllianceBaseModalFields();
+                el.allianceBaseModalTitle.textContent = state.allianceEditor.baseDraft.name || "Edit base";
+                el.allianceBaseModal.classList.remove("hidden");
+                el.allianceBaseModalCloseBtn.focus();
+            }
+
+            function closeAllianceBaseModal() {
+                el.allianceBaseModal.classList.add("hidden");
+                state.allianceEditor.baseDraft = null;
+                state.allianceEditor.editingBaseIndex = -1;
+            }
+
+            function saveAllianceBaseModal() {
+                const draft = state.allianceEditor.baseDraft;
+                if (!draft) return;
+                const location = draft.location || {};
+                const systems = state.allianceEditor.systemsForBaseLocations || [];
+                const systemIndex = location.system;
+                if (!Number.isInteger(systemIndex) || !systems[systemIndex]) {
+                    setStatus(el.editorStatus, "Select a system for this base.", "bad");
+                    return;
+                }
+                if (location.body_type === "habitable_asteroid" || location.planet === -1) {
+                    location.planet = -1;
+                    location.body_type = "habitable_asteroid";
+                } else {
+                    const bodies = Array.isArray(systems[systemIndex].bodies) ? systems[systemIndex].bodies : [];
+                    if (!Number.isInteger(location.planet) || location.planet < 0 || !bodies[location.planet]) {
+                        setStatus(el.editorStatus, "Select a world or habitable asteroid for this base.", "bad");
+                        return;
+                    }
+                    delete location.body_type;
+                }
+                draft.location = location;
+                const index = state.allianceEditor.editingBaseIndex;
+                if (index < 0) state.currentJsonData.bases.push(draft);
+                else state.currentJsonData.bases[index] = draft;
+                syncAllianceFormToJson();
+                closeAllianceBaseModal();
+                renderAllianceCrmEditor();
+                clearStatus(el.editorStatus);
             }
 
             function renderAllianceCrmEditor() {
@@ -7693,11 +7845,18 @@
                 el.portalGlyphModal.addEventListener("click", function(event) {
                     if (event.target === el.portalGlyphModal) closePortalGlyphModal(true);
                 });
+                el.allianceBaseModalCloseBtn.addEventListener("click", closeAllianceBaseModal);
+                el.allianceBaseCancelBtn.addEventListener("click", closeAllianceBaseModal);
+                el.allianceBaseSaveBtn.addEventListener("click", saveAllianceBaseModal);
+                el.allianceBaseModal.addEventListener("click", function(event) {
+                    if (event.target === el.allianceBaseModal) closeAllianceBaseModal();
+                });
                 document.addEventListener("keydown", function(event) {
                     if (event.key !== "Escape") return;
                     if (!el.portalGlyphModal.classList.contains("hidden")) closePortalGlyphModal(true);
                     else if (!el.allianceWorldModal.classList.contains("hidden")) closeAllianceWorldModal(true);
                     else if (!el.allianceSystemModal.classList.contains("hidden")) closeAllianceSystemModal();
+                    else if (!el.allianceBaseModal.classList.contains("hidden")) closeAllianceBaseModal();
                 });
 
                 el.notificationCloseBtn.addEventListener("click", function() {
