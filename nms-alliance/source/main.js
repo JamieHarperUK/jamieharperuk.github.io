@@ -63,16 +63,45 @@ function renderMembers(members) {
         return;
     }
 
-    members.forEach((member) => {
+    members.forEach((member, index) => {
         const info = member.info || {};
         const card = makeElement("article", "member-card");
-        card.append(
-            makeElement("h2", "", info.name || "Alliance member"),
-            makeElement("p", "member-role", info.role || "Member"),
-            makeElement("p", "", info.joined_date ? `Joined ${info.joined_date}` : "")
+        const name = String(info.name || "Alliance member").trim();
+        const initials = name.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join("").toUpperCase();
+        const role = String(info.role || "Member").trim();
+        card.dataset.role = role.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+
+        const cardTop = makeElement("div", "member-card-top");
+        cardTop.append(
+            makeElement("span", "member-index", `Explorer ${String(index + 1).padStart(2, "0")}`),
+            makeElement("span", "member-role", role)
         );
+
+        const identity = makeElement("div", "member-identity");
+        identity.append(
+            makeElement("span", "member-monogram", initials || "N"),
+            makeElement("div", "member-identity-copy")
+        );
+        const identityCopy = identity.querySelector(".member-identity-copy");
+        identityCopy.append(makeElement("h2", "", name));
+        if (info.joined_date) {
+            const joined = makeElement("p", "member-joined");
+            joined.append(makeElement("span", "", "Joined"));
+            const date = makeElement("time", "", info.joined_date);
+            const dateParts = String(info.joined_date).match(/^(\d{2})-(\d{2})-(\d{4})$/);
+            if (dateParts) date.dateTime = `${dateParts[3]}-${dateParts[2]}-${dateParts[1]}`;
+            joined.append(date);
+            identityCopy.append(joined);
+        }
+
+        card.append(cardTop, identity);
         if (info.nms_friend_code) {
-            card.append(makeElement("p", "member-code", `Friend code · ${info.nms_friend_code}`));
+            const friendCode = makeElement("div", "member-code");
+            friendCode.append(
+                makeElement("span", "member-code-label", "Friend code"),
+                makeElement("span", "member-code-value", info.nms_friend_code)
+            );
+            card.append(friendCode);
         }
         container.append(card);
     });
@@ -249,6 +278,26 @@ async function loadAllianceSite() {
 
 window.addEventListener("hashchange", route);
 route();
+
+const disclaimerDialog = document.getElementById("disclaimer");
+document.getElementById("open-disclaimer").addEventListener("click", (event) => {
+    event.preventDefault();
+    disclaimerDialog.showModal();
+});
+document.querySelectorAll("[data-close-disclaimer]").forEach((button) => {
+    button.addEventListener("click", () => disclaimerDialog.close());
+});
+disclaimerDialog.addEventListener("click", (event) => {
+    if (event.target === disclaimerDialog) disclaimerDialog.close();
+});
+disclaimerDialog.addEventListener("cancel", (event) => {
+    event.preventDefault();
+    disclaimerDialog.close();
+});
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && disclaimerDialog.open) disclaimerDialog.close();
+});
+
 loadAllianceSite().catch((error) => {
     const status = document.getElementById("load-status");
     status.classList.add("error");
