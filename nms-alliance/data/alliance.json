@@ -6,11 +6,11 @@
     "home_system": 0,
     "leaderboard_score": 0,
     "socials": {
-      "discord": "#",
+      "discord": "https://discord.com/",
       "facebook": "https://www.facebook.com/xenochampionship/",
-      "twitter": "#",
-      "youtube": "#",
-      "reddit": "#"
+      "twitter": "https://x.com",
+      "youtube": "https://youtube.com/",
+      "reddit": "https://reddit.com/"
     }
   },
   "roles": [
