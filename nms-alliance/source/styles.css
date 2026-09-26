@@ -162,14 +162,14 @@ h1, h2, h3, p { margin-top: 0; }
 .body-head::-webkit-details-marker { display: none; }
 .body-head::after { flex: 0 0 auto; color: var(--accent); content: "+"; font: 1.1rem var(--mono); }
 .body-accordion[open] > .body-head::after { content: "−"; }
-.body-head h3 { margin: 0; font-size: 1rem; font-weight: 500; }
+.body-head h3 { margin: 0; font-size: 1.5rem; font-weight: 500; }
 .body-head p { margin: 0; color: var(--muted); font-size: 0.78rem; }
 .body-content { padding: 0 1.2rem 1rem; }
 .body-content > p { color: var(--muted); font-size: 0.82rem; }
 .body-content dl { display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 0.8rem; margin: 0.8rem 0 0; font-size: 0.78rem; }
 .body-content dt { color: var(--muted); }
 .body-content dd { margin: 0; overflow-wrap: anywhere; }
-.glyphs { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.65rem; color: var(--muted); }
+.glyphs { display: grid; flex-wrap: wrap; align-items: baseline; gap: 0.65rem; color: var(--muted); }
 .glyph-label { font-size: 0.72rem; text-transform: uppercase; }
 .glyph-code { color: var(--accent); font-family: var(--glyphs); font-size: 1.5rem; font-variant-ligatures: none; line-height: 1.2; }
 .body-bases { margin-top: 1rem; padding-top: 0.8rem; border-top: 1px solid var(--line); }
