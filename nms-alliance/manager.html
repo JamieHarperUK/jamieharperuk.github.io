@@ -1267,6 +1267,32 @@
             .drop-zone { border-color: rgba(212, 227, 111, 0.52); background: rgba(212, 227, 111, 0.04); }
             .drop-zone.drag, .crm-drag-item.active, .node-item.active, .repo-item.active { border-color: var(--brand); background: rgba(212, 227, 111, 0.1); box-shadow: 0 0 12px rgba(212, 227, 111, 0.12); }
             a.site-link { color: var(--brand); }
+
+            .alliance-crm-editor { display: grid; gap: 1.4rem; margin-top: 1rem; }
+            .alliance-editor-section { display: grid; gap: 0.8rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+            .alliance-editor-section-head h3 { margin: 0 0 0.25rem; font-size: 1.05rem; }
+            .alliance-editor-section-head p { margin: 0; color: var(--muted); font-size: 0.86rem; }
+            .alliance-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+            .alliance-form-field { min-width: 0; }
+            .alliance-form-field:has(textarea) { grid-column: 1 / -1; }
+            .alliance-form-field label { margin: 0; color: var(--ink); font-size: 0.82rem; font-weight: 600; }
+            .alliance-form-field input, .alliance-form-field select, .alliance-form-field textarea { margin-top: 0.32rem; border-radius: 6px; background: rgba(12, 15, 11, 0.84); }
+            .alliance-form-field textarea { min-height: 80px; resize: vertical; }
+            .alliance-record-list { display: grid; gap: 0.75rem; }
+            .alliance-record-card { min-width: 0; padding: 0.9rem; border: 1px solid var(--line); border-radius: 7px; background: rgba(12, 15, 11, 0.42); }
+            .alliance-record-head { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; margin-bottom: 0.8rem; }
+            .alliance-record-head h4 { min-width: 0; margin: 0; overflow-wrap: anywhere; font-size: 0.9rem; font-weight: 600; }
+            .alliance-remove-button { flex: 0 0 auto; padding: 0.35rem 0.55rem; color: var(--bad); border-color: rgba(255, 137, 117, 0.42); background: transparent; font-size: 0.76rem; }
+            .alliance-remove-button:hover { color: #171a10; border-color: var(--bad); background: var(--bad); }
+            .alliance-add-button { justify-self: start; padding: 0.45rem 0.65rem; color: var(--brand); border-color: rgba(212, 227, 111, 0.45); background: rgba(212, 227, 111, 0.06); font-size: 0.8rem; }
+            .alliance-add-button:hover { color: #171a10; border-color: var(--brand); background: var(--brand); }
+            .alliance-world-list .alliance-record-card { padding: 0.8rem 0 0; border: 0; border-top: 1px solid var(--line); border-radius: 0; background: transparent; }
+            .alliance-world-list .alliance-record-head { margin-bottom: 0.65rem; }
+            @media (max-width: 640px) {
+                .alliance-form-grid { grid-template-columns: minmax(0, 1fr); }
+                .alliance-form-field:has(textarea) { grid-column: auto; }
+                .alliance-record-card { padding: 0.75rem; }
+            }
         </style>
     </head>
     <body>
@@ -1402,7 +1428,7 @@
                             <section class="wizard-panel">
                                 <h2>Stage 4: Edit and Commit</h2>
                                 <div class="row" style="margin-bottom:0.7rem;">
-                                    <span class="pill">Alliance JSON</span>
+                                    <span class="pill">Alliance CRM</span>
                                     <span class="pill mono" id="currentFilePill">No file loaded</span>
                                 </div>
 
@@ -1419,38 +1445,25 @@
                                     </div>
                                 </div>
 
-                                <div id="crmMode" class="hidden" style="margin-top:0.8rem;">
-                                    <p>Structured record controls are disabled for this alliance data editor.</p>
-                                    <div class="row" style="margin-bottom:0.7rem;">
-                                        <button id="crmNewRecordBtn">Add Entry</button>
-                                        <button id="crmDuplicateRecordBtn">Duplicate Selected</button>
-                                        <button id="crmDeleteRecordBtn" class="warn">Delete Selected</button>
-                                    </div>
-                                    <div class="two-col">
-                                        <div>
-                                            <label for="crmRecordSelect">Entries</label>
-                                            <select id="crmRecordSelect"></select>
+                                <div id="crmMode" style="margin-top:0.8rem;">
+                                    <p style="color:var(--muted);">Edit alliance information through structured forms. Changes remain in the loaded file structure.</p>
+                                    <div id="crmFields" class="alliance-crm-editor"></div>
+                                    <div class="hidden" aria-hidden="true">
+                                        <div class="row" style="margin-bottom:0.7rem;">
+                                            <button id="crmNewRecordBtn">Add Entry</button>
+                                            <button id="crmDuplicateRecordBtn">Duplicate Selected</button>
+                                            <button id="crmDeleteRecordBtn" class="warn">Delete Selected</button>
                                         </div>
-                                        <div>
-                                            <label for="crmRootMode">Data type</label>
-                                            <select id="crmRootMode">
-                                                <option value="array">Array of objects</option>
-                                                <option value="object">Single object</option>
-                                            </select>
+                                        <div class="two-col">
+                                            <div><label for="crmRecordSelect">Entries</label><select id="crmRecordSelect"></select></div>
+                                            <div><label for="crmRootMode">Data type</label><select id="crmRootMode"><option value="array">Array of objects</option><option value="object">Single object</option></select></div>
                                         </div>
+                                        <div id="gamesRecordLimitWrap" class="row hidden"><span id="gamesRecordLimitInfo" class="pill mono"></span><button id="gamesRecordLoadMoreBtn" type="button">Load 10 more</button></div>
+                                        <div id="crmDragPanel" class="crm-drag-panel"><label>Reorder objects</label><ul id="crmDragList" class="crm-drag-list"></ul></div>
                                     </div>
-                                    <div id="gamesRecordLimitWrap" class="row hidden" style="margin-top:0.7rem;">
-                                        <span id="gamesRecordLimitInfo" class="pill mono"></span>
-                                        <button id="gamesRecordLoadMoreBtn" type="button">Load 10 more</button>
-                                    </div>
-                                    <div id="crmDragPanel" class="crm-drag-panel">
-                                        <label>Reorder objects (drag and drop)</label>
-                                        <ul id="crmDragList" class="crm-drag-list"></ul>
-                                    </div>
-                                    <div id="crmFields" class="field-grid" style="display: none;"></div>
                                 </div>
 
-                                <div id="textMode" style="margin-top:0.8rem;">
+                                <div id="textMode" class="hidden" style="margin-top:0.8rem;">
                                     <label for="jsonTextArea" style="margin-top:0.8rem;">JSON content</label>
                                     <p style="color: var(--muted);">Edit the selected alliance data file. Keep its existing top-level keys and data structure intact.</p>
                                     <textarea id="jsonTextArea" spellcheck="false"></textarea>
@@ -3124,8 +3137,391 @@
                 state.currentJsonData = parsed;
                 el.jsonTextArea.value = JSON.stringify(parsed, null, 2);
                 el.currentFilePill.textContent = file.path;
+                renderAllianceCrmEditor();
                 setStatus(el.fileStatus, "Loaded " + file.path + ". Continue to editor stage.", "ok");
                 setEditorStep(3);
+            }
+
+            function getAllianceFileKey() {
+                return Object.keys(REPOSITORY_FILE_MAP).find(function(key) {
+                    return REPOSITORY_FILE_MAP[key] === state.currentJsonPath;
+                }) || "";
+            }
+
+            function syncAllianceFormToJson() {
+                el.jsonTextArea.value = JSON.stringify(state.currentJsonData, null, 2);
+            }
+
+            function createAllianceFormField(labelText, value, options, onUpdate) {
+                const field = document.createElement("div");
+                field.className = "alliance-form-field";
+                const label = document.createElement("label");
+                label.textContent = labelText;
+                const type = options && options.type || "text";
+                let input;
+
+                if (type === "textarea") {
+                    input = document.createElement("textarea");
+                    input.rows = options.rows || 3;
+                    input.value = value == null ? "" : String(value);
+                } else if (type === "select") {
+                    input = document.createElement("select");
+                    (options.values || []).forEach(function(optionValue) {
+                        const option = document.createElement("option");
+                        option.value = optionValue;
+                        option.textContent = optionValue || "Select a value";
+                        input.appendChild(option);
+                    });
+                    const currentValue = value == null ? "" : String(value);
+                    if (currentValue && !(options.values || []).includes(currentValue)) {
+                        const currentOption = document.createElement("option");
+                        currentOption.value = currentValue;
+                        currentOption.textContent = currentValue + " (current)";
+                        input.appendChild(currentOption);
+                    }
+                    input.value = currentValue;
+                } else {
+                    input = document.createElement("input");
+                    input.type = type;
+                    input.value = value == null ? "" : String(value);
+                    if (type === "number") {
+                        input.step = options.step || "1";
+                        if (options.min != null) input.min = String(options.min);
+                    }
+                    if (options.placeholder) input.placeholder = options.placeholder;
+                }
+
+                input.addEventListener(type === "select" ? "change" : "input", function() {
+                    onUpdate(input.value, input);
+                    syncAllianceFormToJson();
+                });
+                label.appendChild(input);
+                field.appendChild(label);
+                return field;
+            }
+
+            function createAllianceEditorSection(title, description) {
+                const section = document.createElement("section");
+                section.className = "alliance-editor-section";
+                const heading = document.createElement("div");
+                heading.className = "alliance-editor-section-head";
+                const copy = document.createElement("div");
+                const titleElement = document.createElement("h3");
+                titleElement.textContent = title;
+                copy.appendChild(titleElement);
+                if (description) {
+                    const descriptionElement = document.createElement("p");
+                    descriptionElement.textContent = description;
+                    copy.appendChild(descriptionElement);
+                }
+                heading.appendChild(copy);
+                section.appendChild(heading);
+                return section;
+            }
+
+            function createAllianceRecord(title, onRemove) {
+                const card = document.createElement("article");
+                card.className = "alliance-record-card";
+                const heading = document.createElement("div");
+                heading.className = "alliance-record-head";
+                const name = document.createElement("h4");
+                name.textContent = title;
+                heading.appendChild(name);
+                if (onRemove) {
+                    const remove = document.createElement("button");
+                    remove.type = "button";
+                    remove.className = "alliance-remove-button";
+                    remove.textContent = "Remove";
+                    remove.addEventListener("click", onRemove);
+                    heading.appendChild(remove);
+                }
+                card.appendChild(heading);
+                return card;
+            }
+
+            function createAllianceAddButton(label, onClick) {
+                const button = document.createElement("button");
+                button.type = "button";
+                button.className = "alliance-add-button";
+                button.textContent = "+ " + label;
+                button.addEventListener("click", onClick);
+                return button;
+            }
+
+            function renderAllianceInfoForm(container, data) {
+                const info = data.info && typeof data.info === "object" && !Array.isArray(data.info) ? data.info : {};
+                const section = createAllianceEditorSection("Alliance information", "These details appear across the alliance showcase.");
+                const fields = document.createElement("div");
+                fields.className = "alliance-form-grid";
+                fields.appendChild(createAllianceFormField("Alliance name", info.alliance_name, {}, function(value) {
+                    if (!data.info || typeof data.info !== "object" || Array.isArray(data.info)) data.info = {};
+                    data.info.alliance_name = value;
+                }));
+                fields.appendChild(createAllianceFormField("Home system index", info.home_system, { type: "number", min: 0 }, function(value) {
+                    if (!data.info || typeof data.info !== "object" || Array.isArray(data.info)) data.info = {};
+                    data.info.home_system = value === "" ? null : Number(value);
+                }));
+                fields.appendChild(createAllianceFormField("Leaderboard score", info.leaderboard_score, { type: "number", min: 0 }, function(value) {
+                    if (!data.info || typeof data.info !== "object" || Array.isArray(data.info)) data.info = {};
+                    data.info.leaderboard_score = value === "" ? 0 : Number(value);
+                }));
+                fields.appendChild(createAllianceFormField("Alliance description", info.alliance_description, { type: "textarea", rows: 4 }, function(value) {
+                    if (!data.info || typeof data.info !== "object" || Array.isArray(data.info)) data.info = {};
+                    data.info.alliance_description = value;
+                }));
+                section.appendChild(fields);
+                container.appendChild(section);
+            }
+
+            function renderAllianceRolesForm(container, data) {
+                const roles = Array.isArray(data.roles) ? data.roles : [];
+                const section = createAllianceEditorSection("Alliance roles", "Describe the responsibilities and expectations of each role.");
+                const list = document.createElement("div");
+                list.className = "alliance-record-list";
+                roles.forEach(function(role, index) {
+                    const record = role && typeof role === "object" ? role : {};
+                    const card = createAllianceRecord(record.name || "Role " + (index + 1), function() {
+                        data.roles.splice(index, 1);
+                        syncAllianceFormToJson();
+                        renderAllianceCrmEditor();
+                    });
+                    const fields = document.createElement("div");
+                    fields.className = "alliance-form-grid";
+                    fields.appendChild(createAllianceFormField("Role name", record.name, {}, function(value) {
+                        if (!data.roles[index] || typeof data.roles[index] !== "object") data.roles[index] = {};
+                        data.roles[index].name = value;
+                        card.querySelector("h4").textContent = value || "Role " + (index + 1);
+                    }));
+                    fields.appendChild(createAllianceFormField("Description", record.description, { type: "textarea", rows: 2 }, function(value) {
+                        if (!data.roles[index] || typeof data.roles[index] !== "object") data.roles[index] = {};
+                        data.roles[index].description = value;
+                    }));
+                    card.appendChild(fields);
+                    list.appendChild(card);
+                });
+                section.appendChild(list);
+                section.appendChild(createAllianceAddButton("Add role", function() {
+                    if (!Array.isArray(data.roles)) data.roles = [];
+                    data.roles.push({ name: "New role", description: "" });
+                    syncAllianceFormToJson();
+                    renderAllianceCrmEditor();
+                }));
+                container.appendChild(section);
+            }
+
+            function formatAllianceDateForInput(value) {
+                const match = String(value || "").match(/^(\d{2})-(\d{2})-(\d{4})$/);
+                return match ? match[3] + "-" + match[2] + "-" + match[1] : String(value || "");
+            }
+
+            function formatAllianceDateForStorage(value) {
+                const match = String(value || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
+                return match ? match[3] + "-" + match[2] + "-" + match[1] : String(value || "");
+            }
+
+            function renderAllianceMembersForm(container, data) {
+                const members = Array.isArray(data.members) ? data.members : [];
+                const section = createAllianceEditorSection("Members", "Manage the member profiles shown on the public alliance site.");
+                const list = document.createElement("div");
+                list.className = "alliance-record-list";
+                members.forEach(function(member, index) {
+                    const entry = member && typeof member === "object" ? member : {};
+                    const info = entry.info && typeof entry.info === "object" ? entry.info : {};
+                    const card = createAllianceRecord(info.name || "Member " + (index + 1), function() {
+                        data.members.splice(index, 1);
+                        syncAllianceFormToJson();
+                        renderAllianceCrmEditor();
+                    });
+                    const fields = document.createElement("div");
+                    fields.className = "alliance-form-grid";
+                    fields.appendChild(createAllianceFormField("Name", info.name, {}, function(value) {
+                        if (!data.members[index].info || typeof data.members[index].info !== "object") data.members[index].info = {};
+                        data.members[index].info.name = value;
+                        card.querySelector("h4").textContent = value || "Member " + (index + 1);
+                    }));
+                    fields.appendChild(createAllianceFormField("Role", info.role, {}, function(value) {
+                        if (!data.members[index].info || typeof data.members[index].info !== "object") data.members[index].info = {};
+                        data.members[index].info.role = value;
+                    }));
+                    fields.appendChild(createAllianceFormField("Joined date", formatAllianceDateForInput(info.joined_date), { type: "date" }, function(value) {
+                        if (!data.members[index].info || typeof data.members[index].info !== "object") data.members[index].info = {};
+                        data.members[index].info.joined_date = formatAllianceDateForStorage(value);
+                    }));
+                    fields.appendChild(createAllianceFormField("NMS friend code (optional)", info.nms_friend_code, { placeholder: "Leave blank to keep private" }, function(value) {
+                        if (!data.members[index].info || typeof data.members[index].info !== "object") data.members[index].info = {};
+                        data.members[index].info.nms_friend_code = value.trim() || null;
+                    }));
+                    card.appendChild(fields);
+                    list.appendChild(card);
+                });
+                section.appendChild(list);
+                section.appendChild(createAllianceAddButton("Add member", function() {
+                    if (!Array.isArray(data.members)) data.members = [];
+                    data.members.push({ info: { name: "", role: "Member", joined_date: "", nms_friend_code: null } });
+                    syncAllianceFormToJson();
+                    renderAllianceCrmEditor();
+                }));
+                container.appendChild(section);
+            }
+
+            function renderAllianceSystemsForm(container, data) {
+                const systems = Array.isArray(data.systems) ? data.systems : [];
+                const section = createAllianceEditorSection("Star systems", "Edit system records and the worlds listed in each system.");
+                const list = document.createElement("div");
+                list.className = "alliance-record-list";
+                const colorValues = ["yellow", "red", "blue", "green", "purple"];
+
+                systems.forEach(function(system, systemIndex) {
+                    const entry = system && typeof system === "object" ? system : {};
+                    const info = entry.system_info && typeof entry.system_info === "object" ? entry.system_info : {};
+                    const card = createAllianceRecord(info.name || "System " + (systemIndex + 1), function() {
+                        data.systems.splice(systemIndex, 1);
+                        syncAllianceFormToJson();
+                        renderAllianceCrmEditor();
+                    });
+                    const infoFields = document.createElement("div");
+                    infoFields.className = "alliance-form-grid";
+                    [["name", "System name"], ["station_name", "Station name"], ["region", "Region"], ["galaxy", "Galaxy"]].forEach(function(field) {
+                        infoFields.appendChild(createAllianceFormField(field[1], info[field[0]], {}, function(value) {
+                            if (!data.systems[systemIndex].system_info || typeof data.systems[systemIndex].system_info !== "object") data.systems[systemIndex].system_info = {};
+                            data.systems[systemIndex].system_info[field[0]] = value;
+                            if (field[0] === "name") card.querySelector("h4").textContent = value || "System " + (systemIndex + 1);
+                        }));
+                    });
+                    infoFields.appendChild(createAllianceFormField("System color", info.system_color, { type: "select", values: colorValues }, function(value) {
+                        if (!data.systems[systemIndex].system_info || typeof data.systems[systemIndex].system_info !== "object") data.systems[systemIndex].system_info = {};
+                        data.systems[systemIndex].system_info.system_color = value;
+                    }));
+                    card.appendChild(infoFields);
+
+                    const bodies = Array.isArray(entry.bodies) ? entry.bodies : [];
+                    const worlds = createAllianceEditorSection("Worlds", "Planet and body records for this system.");
+                    const bodyList = document.createElement("div");
+                    bodyList.className = "alliance-record-list alliance-world-list";
+                    bodies.forEach(function(body, bodyIndex) {
+                        const bodyData = body && typeof body === "object" ? body : {};
+                        const bodyCard = createAllianceRecord(bodyData.name || "World " + (bodyIndex + 1), function() {
+                            data.systems[systemIndex].bodies.splice(bodyIndex, 1);
+                            syncAllianceFormToJson();
+                            renderAllianceCrmEditor();
+                        });
+                        const bodyFields = document.createElement("div");
+                        bodyFields.className = "alliance-form-grid";
+                        [["name", "World name"], ["type", "Body type"], ["environment", "Environment"]].forEach(function(field) {
+                            bodyFields.appendChild(createAllianceFormField(field[1], bodyData[field[0]], {}, function(value) {
+                                data.systems[systemIndex].bodies[bodyIndex][field[0]] = value;
+                                if (field[0] === "name") bodyCard.querySelector("h4").textContent = value || "World " + (bodyIndex + 1);
+                            }));
+                        });
+                        bodyFields.appendChild(createAllianceFormField("Portal glyphs (12 values, 0-15)", Array.isArray(bodyData.glyphs) ? bodyData.glyphs.join(" ") : "", { placeholder: "Example: 1 2 3 4 5 6 7 8 9 10 11 12" }, function(value) {
+                            const normalized = value.trim();
+                            if (!normalized) {
+                                data.systems[systemIndex].bodies[bodyIndex].glyphs = null;
+                                return;
+                            }
+                            const glyphs = normalized.split(/[ ,]+/).map(Number);
+                            if (glyphs.length !== 12 || glyphs.some(function(glyph) { return !Number.isInteger(glyph) || glyph < 0 || glyph > 15; })) {
+                                setStatus(el.editorStatus, "Portal glyphs must contain exactly 12 values from 0 to 15.", "bad");
+                                return;
+                            }
+                            data.systems[systemIndex].bodies[bodyIndex].glyphs = glyphs;
+                            clearStatus(el.editorStatus);
+                        }));
+                        [["resources", "Resources"], ["flora", "Flora"], ["fauna", "Fauna"]].forEach(function(field) {
+                            bodyFields.appendChild(createAllianceFormField(field[1] + " (one per line)", Array.isArray(bodyData[field[0]]) ? bodyData[field[0]].join("\n") : "", { type: "textarea", rows: 2 }, function(value) {
+                                data.systems[systemIndex].bodies[bodyIndex][field[0]] = value.split(/\n|,/).map(function(item) { return item.trim(); }).filter(Boolean);
+                            }));
+                        });
+                        bodyCard.appendChild(bodyFields);
+                        bodyList.appendChild(bodyCard);
+                    });
+                    worlds.appendChild(bodyList);
+                    worlds.appendChild(createAllianceAddButton("Add world", function() {
+                        if (!Array.isArray(data.systems[systemIndex].bodies)) data.systems[systemIndex].bodies = [];
+                        data.systems[systemIndex].bodies.push({ name: "", type: "Planet", environment: "", glyphs: null, resources: [], flora: [], fauna: [] });
+                        syncAllianceFormToJson();
+                        renderAllianceCrmEditor();
+                    }));
+                    card.appendChild(worlds);
+                    list.appendChild(card);
+                });
+
+                section.appendChild(list);
+                section.appendChild(createAllianceAddButton("Add system", function() {
+                    if (!Array.isArray(data.systems)) data.systems = [];
+                    data.systems.push({ system_info: { name: "", region: "", galaxy: "Euclid", station_name: "", system_color: "yellow" }, bodies: [] });
+                    syncAllianceFormToJson();
+                    renderAllianceCrmEditor();
+                }));
+                container.appendChild(section);
+            }
+
+            function renderAllianceBasesForm(container, data) {
+                const bases = Array.isArray(data.bases) ? data.bases : [];
+                const section = createAllianceEditorSection("Alliance bases", "Locations refer to zero-based system and world indexes in the systems file.");
+                const list = document.createElement("div");
+                list.className = "alliance-record-list";
+                bases.forEach(function(base, index) {
+                    const entry = base && typeof base === "object" ? base : {};
+                    const location = entry.location && typeof entry.location === "object" ? entry.location : {};
+                    const card = createAllianceRecord(entry.name || "Base " + (index + 1), function() {
+                        data.bases.splice(index, 1);
+                        syncAllianceFormToJson();
+                        renderAllianceCrmEditor();
+                    });
+                    const fields = document.createElement("div");
+                    fields.className = "alliance-form-grid";
+                    [["name", "Base name"], ["creator", "Creator"]].forEach(function(field) {
+                        fields.appendChild(createAllianceFormField(field[1], entry[field[0]], {}, function(value) {
+                            data.bases[index][field[0]] = value;
+                            if (field[0] === "name") card.querySelector("h4").textContent = value || "Base " + (index + 1);
+                        }));
+                    });
+                    fields.appendChild(createAllianceFormField("Description", entry.description, { type: "textarea", rows: 2 }, function(value) {
+                        data.bases[index].description = value;
+                    }));
+                    fields.appendChild(createAllianceFormField("System index", location.system, { type: "number", min: 0 }, function(value) {
+                        if (!data.bases[index].location || typeof data.bases[index].location !== "object") data.bases[index].location = {};
+                        data.bases[index].location.system = value === "" ? null : Number(value);
+                    }));
+                    fields.appendChild(createAllianceFormField("World index", location.planet, { type: "number", min: 0 }, function(value) {
+                        if (!data.bases[index].location || typeof data.bases[index].location !== "object") data.bases[index].location = {};
+                        data.bases[index].location.planet = value === "" ? null : Number(value);
+                    }));
+                    card.appendChild(fields);
+                    list.appendChild(card);
+                });
+                section.appendChild(list);
+                section.appendChild(createAllianceAddButton("Add base", function() {
+                    if (!Array.isArray(data.bases)) data.bases = [];
+                    data.bases.push({ name: "", description: "", creator: "", location: { system: 0, planet: 0 } });
+                    syncAllianceFormToJson();
+                    renderAllianceCrmEditor();
+                }));
+                container.appendChild(section);
+            }
+
+            function renderAllianceCrmEditor() {
+                if (!el.crmFields || !state.currentJsonData) return;
+                el.crmFields.replaceChildren();
+                const fileKey = getAllianceFileKey();
+                const data = state.currentJsonData;
+
+                if (fileKey === "alliance") {
+                    renderAllianceInfoForm(el.crmFields, data);
+                    renderAllianceRolesForm(el.crmFields, data);
+                } else if (fileKey === "members") {
+                    renderAllianceMembersForm(el.crmFields, data);
+                } else if (fileKey === "systems") {
+                    renderAllianceSystemsForm(el.crmFields, data);
+                } else if (fileKey === "bases") {
+                    renderAllianceBasesForm(el.crmFields, data);
+                } else {
+                    const message = document.createElement("p");
+                    message.className = "status";
+                    message.textContent = "No CRM form is configured for this file. Use the raw JSON editor to edit it.";
+                    el.crmFields.appendChild(message);
+                }
             }
 
             function switchEditorMode() {
@@ -3133,10 +3529,10 @@
                     el.dndMode.classList.toggle("hidden", true);
                 }
                 if (el.crmMode) {
-                    el.crmMode.classList.toggle("hidden", true);
+                    el.crmMode.classList.toggle("hidden", false);
                 }
                 if (el.textMode) {
-                    el.textMode.classList.toggle("hidden", false);
+                    el.textMode.classList.toggle("hidden", true);
                 }
 
                 if (el.modeDndBtn) {
@@ -3146,8 +3542,9 @@
                     el.modeCrmBtn.classList.toggle("active", false);
                 }
                 if (el.modeTextBtn) {
-                    el.modeTextBtn.classList.toggle("active", true);
+                    el.modeTextBtn.classList.toggle("active", false);
                 }
+                renderAllianceCrmEditor();
             }
 
             function deepClone(value) {
