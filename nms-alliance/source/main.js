@@ -162,8 +162,8 @@ function renderSystems(systems, bases) {
             if (Array.isArray(body.glyphs) && body.glyphs.length) {
                 const glyphLabel = makeElement("span", "glyph-label", "Portal glyphs");
                 const glyphCode = makeElement("span", "glyph-code", body.glyphs.map((glyph) => (
-                    Number.isInteger(glyph) && glyph >= 0 && glyph <= 15
-                        ? glyph.toString(16).toUpperCase()
+                    Number.isInteger(glyph) && glyph >= 1 && glyph <= 16
+                        ? (glyph === 16 ? "0" : glyph.toString(16).toUpperCase())
                         : "?"
                 )).join(""));
                 glyphCode.setAttribute("aria-label", `Portal glyph sequence ${body.glyphs.join(", ")}`);
