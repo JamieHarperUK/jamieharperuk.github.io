@@ -361,7 +361,7 @@ function showMonsterDrops(modal, monster, version) {
 function renderAccounts() {
     document.title = `Featured Accounts | ${site_config.site_title}`;
     const accounts = appData.accounts.accounts || [];
-    const acc_lu = appData.accounts.last_updated;
+    const acc_lu = appData.accounts.meta.last_updated;
     document.getElementById("app").innerHTML = `
         <section class="page-heading">
             <p class="eyebrow">Notable challengers</p>
