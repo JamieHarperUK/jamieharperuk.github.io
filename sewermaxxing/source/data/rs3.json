@@ -4,7 +4,7 @@
         "description": "This file containts the guide and steps pertaining to SewerMaxxing in RuneScape 3 only."
     },
     "guide_title": "RuneScape 3 - SewerMaxxing Guide",
-    "last_updated": "02-11-2026",
+    "last_updated": "04-11-2026",
     "getting_started": {
         "introduction": "Welcome to the SewerMaxxing guide for RuneScape 3! This guide will help you maximize your success while living in the Varrock Sewers.",
         "requirements": [
@@ -33,7 +33,10 @@
                 "title": "Phase 1: Getting Started",
                 "overview": [
                     "In comparison to OSRS SewerMaxxing, and due to changes in the combat mechanics and scaling, you will be unable to start SewerMaxxing with absolutely nothing.",
-                    "Instead, you must retain the Bronze Dagger that you get from Tutorial Island, and you can safely drop everything else."
+                    "Instead, you must retain the Bronze Dagger that you get from Tutorial Island, and you can safely drop everything else before descending below.",
+                    "Pay close attention to you character's Abilities, as the regular useage of both 'Regenerate' and 'Assault' will be particularly useful at these early levels.",
+                    "A good cycle to get into at low level is to attack low level enemies to collect Adrenaline, use the Adrenaline to Regenerate any lost HP (repeating as many times as necessary to refill your HP bar), then using the same technique to collect more Adrenaline to take into your next higher level monster fight.",
+                    "Using this technique wil allow you to use abilities like Assault straight away without havin to wait for Adrenaline to build up."
                 ],
                 "required": {
                     "stats": [
@@ -51,8 +54,8 @@
                 },
                 "objectives": [
                     {
-                        "objective": "Objective 1",
-                        "description": "Description."
+                        "objective": "Levelling Up",
+                        "description": "Aim to each level 10."
                     },
                     {
                         "objective": "Objective 2",
