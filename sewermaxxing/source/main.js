@@ -194,8 +194,8 @@ function renderHome() {
         <section class="home-grid">
             <article class="feature-panel">
                 <p class="eyebrow">The challenge</p>
-                <h2>One account.<br>Three metres.</h2>
-                <p>Build a self-imposed life in the Varrock Sewers, track every milestone, and make the most of every encounter.</p>
+                <h2>One account.<br>Ten goals.</h2>
+                <p>Live a self-imposed subteranean life in the Varrock Sewers, track each challenge milestone, and make the most of every tip and trick. You too can be a SewerMaxxer</p>
             </article>
             <article class="stat-panel">
                 <p class="eyebrow">Field resources</p>
@@ -390,7 +390,7 @@ function renderAccounts() {
         <section class="page-heading">
             <p class="eyebrow">Notable challengers</p>
             <h1>Featured accounts</h1>
-            <p>Featured accounts known to have taken part in the SewerMaxxing challenge.</p>
+            <p>Featured accounts known to have taken part, or are currently taking part, in the SewerMaxxing challenge.</p>
             <p>Last Updated:  ${acc_lu}</p>
         </section>
         <div class="account-grid">
