@@ -41,6 +41,12 @@ async function responseToJson(response) {
     return response.json();
 }
 
+function freshDataUrl(url) {
+    const refreshedUrl = new URL(url);
+    refreshedUrl.searchParams.set("_", Date.now().toString());
+    return refreshedUrl.href;
+}
+
 function escapeHtml(value) {
     const element = document.createElement("span");
     element.textContent = String(value ?? "");
@@ -101,11 +107,11 @@ function getRoute() {
 
 function loadSiteData() {
     Promise.all([
-        fetch(rs_data.OSRS.guide_data).then(responseToJson),
-        fetch(rs_data.RS3.guide_data).then(responseToJson),
-        fetch(rs_data.OSRS.drops_data).then(responseToJson),
-        fetch(rs_data.RS3.drops_data).then(responseToJson),
-        fetch(featured_sewermaxxers).then(responseToJson)
+        fetch(freshDataUrl(rs_data.OSRS.guide_data), { cache: "no-store" }).then(responseToJson),
+        fetch(freshDataUrl(rs_data.RS3.guide_data), { cache: "no-store" }).then(responseToJson),
+        fetch(freshDataUrl(rs_data.OSRS.drops_data), { cache: "no-store" }).then(responseToJson),
+        fetch(freshDataUrl(rs_data.RS3.drops_data), { cache: "no-store" }).then(responseToJson),
+        fetch(freshDataUrl(featured_sewermaxxers), { cache: "no-store" }).then(responseToJson)
     ]).then(([osrs, rs3, osrsDrops, rs3Drops, accounts]) => {
         appData = { osrs, rs3, osrsDrops, rs3Drops, accounts };
         renderRoute();
@@ -122,9 +128,27 @@ function loadSiteData() {
 
 function renderNavigation() {
     const route = getRoute();
-    document.getElementById("main-nav").innerHTML = site_pages.map(([page, label]) =>
+    const navigation = document.getElementById("main-nav");
+    navigation.innerHTML = site_pages.map(([page, label]) =>
         `<a href="#${page}" class="${route === page ? "active" : ""}">${escapeHtml(label)}</a>`
     ).join("");
+    navigation.querySelectorAll("a").forEach(link => link.addEventListener("click", closeMobileMenu));
+}
+
+function closeMobileMenu() {
+    const navigation = document.getElementById("main-nav");
+    const toggle = document.getElementById("menu-toggle");
+    navigation.classList.remove("open");
+    toggle.setAttribute("aria-expanded", "false");
+}
+
+function bindMobileMenu() {
+    const navigation = document.getElementById("main-nav");
+    const toggle = document.getElementById("menu-toggle");
+    toggle.addEventListener("click", () => {
+        const isOpen = navigation.classList.toggle("open");
+        toggle.setAttribute("aria-expanded", String(isOpen));
+    });
 }
 
 function renderRoute() {
@@ -408,4 +432,7 @@ function renderNotFound() {
 }
 
 window.addEventListener("hashchange", renderRoute);
-document.addEventListener("DOMContentLoaded", loadSiteData);
+document.addEventListener("DOMContentLoaded", () => {
+    bindMobileMenu();
+    loadSiteData();
+});
