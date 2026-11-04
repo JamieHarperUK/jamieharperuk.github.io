@@ -1,0 +1,86 @@
+{
+    "meta": {
+        "//": "This meta information is informational only and for notes pertaining to site development.",
+        "description": "Selected featured OSRS and RS3 SewerMaxxing accounts. These will typicaly be displayed on their own page."
+    },
+    "accounts": [
+        {
+            "player_name": "JHSewerMax",
+            "account_type": "Ironman",
+            "account_tier": "Free To Play",
+            "version": "RS3",
+            "default_world": 11,
+            "stats": {
+                "combat_level": 11,
+                "total_level": 67,
+                "skills": {
+                    "attack": 9,
+                    "strength": 9,
+                    "defence": 9,
+                    "ranged": 1,
+                    "prayer": 1,
+                    "magic": 1,
+                    "runecrafting": 1,
+                    "construction": 1,
+                    "dungeoneering": 1,
+                    "archeology": 1,
+                    "constitution": 14,
+                    "agility": 1,
+                    "herblore": 1,
+                    "thieving": 1,
+                    "crafting": 1,
+                    "fletching": 1,
+                    "slayer": 1,
+                    "hunter": 1,
+                    "divination": 1,
+                    "necromancy": 1,
+                    "mining": 1,
+                    "smithing": 1,
+                    "fishing": 1,
+                    "cooking": 2,
+                    "firemaking": 1,
+                    "woodcutting": 1,
+                    "farming": 1,
+                    "summoning": 1,
+                    "invention": 1
+                }
+            }
+        },
+        {
+            "player_name": "JHSewerMax",
+            "account_type": "Ironman",
+            "account_tier": "Free To Play",
+            "version": "OSRS",
+            "default_world": 380,
+            "stats": {
+                "combat_level": 56,
+                "total_level": 300,
+                "skills": {
+                    "attack": 47,
+                    "strength": 45,
+                    "defence": 45,
+                    "hitpoints": 45,
+                    "ranged": 1,
+                    "prayer": 31,
+                    "magic": 6,
+                    "cooking": 31,
+                    "woodcutting": 18,
+                    "fletching": 1,
+                    "fishing": 1,
+                    "firemaking": 15,
+                    "crafting": 1,
+                    "smithing": 1,
+                    "mining": 1,
+                    "herblore": 1,
+                    "agility": 1,
+                    "thieving": 1,
+                    "slayer": 1,
+                    "farming": 1,
+                    "runecrafting": 1,
+                    "hunter": 1,
+                    "construction": 1
+                }
+            }
+        }
+    ]
+}

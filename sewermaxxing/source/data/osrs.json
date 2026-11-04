@@ -1,0 +1,92 @@
+{
+    "meta": {
+        "//": "This meta information is informational only and for notes pertaining to site development.",
+        "description": "This file containts the guide and steps pertaining to SewerMaxxing in Old School RuneScape only."
+    },
+    "guide_title": "Old School RuneScape - SewerMaxxing Guide",
+    "last_updated": "02-11-2026",
+    "getting_started": {
+        "introduction": "Welcome to the SewerMaxxing guide for Old School RuneScape (OSRS)! This guide will help you maximize your success while living in the Varrock Sewers.",
+        "requirements": [
+            "An OSRS account",
+            "Basic knowledge of the game mechanics",
+            "Access to the internet"
+        ],
+        "challenge_objectives": [
+            ["Attack", 99],
+            ["Strength", 99],
+            ["Defence", 99],
+            ["Hitpoints", 99],
+            ["Prayer", 99],
+            ["Magic", 99],
+            ["Cooking", 99],
+            ["Woodcutting", 99],
+            ["Firemaking", 99],
+            ["GP", 10000000]
+        ],
+        "area_restrictions": [
+            "Varrock Sewers Only"
+        ],
+        "steps": [
+            {
+                "title": "Phase 1: Getting Started",
+                "overview": [
+                    "After leaving Tutorial Island, and arriving in Lumbridge, proceed immediately to Varrock and the sewer entrance.",
+                    "Before entering the Varrock Sewers ensure you drop any an all accquired equipment, weapons and items."
+                ],
+                "required": {
+                    "stats": [
+                        ["None", 0]
+                    ],
+                    "equipment": [
+                        ["None", 0]
+                    ],
+                    "weapons": [
+                        ["None", 0]
+                    ],
+                    "armour": [
+                        ["None", 0]
+                    ]
+                },
+                "objectives": [
+                    {
+                        "objective": "Combat Level 6",
+                        "description": "Reach a Combat Level of 6 to be able to more easily take on Level 3 and Level 6 Giant Rats."
+                    },
+                    {
+                        "objective": "Objective 2",
+                        "description": "Description."
+                    }
+                ]
+            },
+            {
+                "title": "Phase 2: Gaining Power #1",
+                "overview": "Description.",
+                "required": {
+                    "stats": [
+                        ["None", 0]
+                    ],
+                    "equipment": [
+                        ["None", 0]
+                    ],
+                    "weapons": [
+                        ["None", 0]
+                    ],
+                    "armour": [
+                        ["None", 0]
+                    ]
+                },
+                "objectives": [
+                    {
+                        "objective": "Combat Level 6",
+                        "description": "Reach a Combat Level of 6 to be able to more easily take on Level 3 and Level 6 Giant Rats."
+                    },
+                    {
+                        "objective": "Objective 2",
+                        "description": "Description."
+                    }
+                ]
+            }
+        ]
+    }
+}
