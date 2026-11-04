@@ -32,7 +32,11 @@
                 "title": "Phase 1: Getting Started",
                 "overview": [
                     "After leaving Tutorial Island, and arriving in Lumbridge, proceed immediately to Varrock and the sewer entrance.",
-                    "Before entering the Varrock Sewers ensure you drop any an all accquired equipment, weapons and items."
+                    "Before entering the Varrock Sewers ensure you drop any an all accquired equipment, weapons and items.",
+                    "When you first enter the Varrock Sewers, your first task should be to focus on the Level 1 Rats. These are such low level that you can effectively grind these until you reach at least Combat Level 7.",
+                    "At that point you should be able to safely move on to facing the Level 3 Giant Rats. Just be aware that while these will no longer be immediately aggressive to you, the Level 6 Giant Rats  will be, and you may need to take breaks from Giant Rats in favour of Level 1 Rats to let your HP regenerate naturally.",
+                    "Once you hit Combat Level 13 using this strategy, the Level 6 Rats will stop attacking you at will, this will give you the freedom to stop immediately jumping into combat without running away, and let your HP regenerate wherever you want in this first area.",
+                    "You should continue this way until you fulfil the 'Levelling Up' objective listed below, then move on to Phase 2."
                 ],
                 "required": {
                     "stats": [
@@ -50,21 +54,26 @@
                 },
                 "objectives": [
                     {
-                        "objective": "Combat Level 6",
-                        "description": "Reach a Combat Level of 6 to be able to more easily take on Level 3 and Level 6 Giant Rats."
+                        "objective": "Levelling Up",
+                        "description": "Reach at least Level 20 in Attack, Strength and Defence before continuing onto the next phase, as the Zombies are considerably higher levelled."
                     },
                     {
-                        "objective": "Objective 2",
-                        "description": "Description."
+                        "objective": "Loot Selection",
+                        "description": "Without reliable access to a Tinderbox or Wood, safely ignore Raw Rat Meat, but do pick up and bury all the Bones that are dropped to help level up your Prayer."
                     }
                 ]
             },
             {
                 "title": "Phase 2: Gaining Power #1",
-                "overview": "Description.",
+                "overview": [
+                    "Phase text is currently being created."
+                ],
                 "required": {
                     "stats": [
-                        ["None", 0]
+                        ["Attack", 17],
+                        ["Strength", 17],
+                        ["Defence", 17],
+                        ["Hitpoints", 19]
                     ],
                     "equipment": [
                         ["None", 0]
@@ -78,12 +87,12 @@
                 },
                 "objectives": [
                     {
-                        "objective": "Combat Level 6",
-                        "description": "Reach a Combat Level of 6 to be able to more easily take on Level 3 and Level 6 Giant Rats."
+                        "objective": "TBD",
+                        "description": "Description coming soon."
                     },
                     {
-                        "objective": "Objective 2",
-                        "description": "Description."
+                        "objective": "TBD",
+                        "description": "Description coming soon."
                     }
                 ]
             }

@@ -55,11 +55,44 @@
                 "objectives": [
                     {
                         "objective": "Levelling Up",
-                        "description": "Aim to each level 10."
+                        "description": "Reach at least level 15 in Attack, Strength and Defence. This will put you in a healthy position to advance to the next phase with th higher levelled monsters."
                     },
                     {
-                        "objective": "Objective 2",
-                        "description": "Description."
+                        "objective": "Loot Selection",
+                        "description": "Without reliable access to a Tinderbox or Wood, safely ignore Raw Rat Meat, but do pick up and bury all the Bones that are dropped to help level up your Prayer."
+                    }
+                ]
+            },
+            {
+                "title": "Phase 2: Gaining Power #1",
+                "overview": [
+                    "In comparison to OSRS SewerMaxxing, and due to changes in the combat mechanics and scaling, you will be unable to start SewerMaxxing with absolutely nothing."
+                ],
+                "required": {
+                    "stats": [
+                        ["Attack", 17],
+                        ["Strength", 17],
+                        ["Defence", 17],
+                        ["Hitpoints", 19]
+                    ],
+                    "equipment": [
+                        ["None", 0]
+                    ],
+                    "weapons": [
+                        ["None", 0]
+                    ],
+                    "armour": [
+                        ["None", 0]
+                    ]
+                },
+                "objectives": [
+                    {
+                        "objective": "TBD",
+                        "description": "Description coming soon."
+                    },
+                    {
+                        "objective": "TBD",
+                        "description": "Description coming soon."
                     }
                 ]
             }
