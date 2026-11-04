@@ -114,6 +114,41 @@
                     "construction": 1
                 }
             }
+        },
+        {
+            "player_name": "Royal Ratman",
+            "account_type": "Ultimate Ironman",
+            "account_tier": "Free To Play",
+            "version": "OSRS",
+            "stats": {
+                "combat_level": 52,
+                "total_level": 283,
+                "skills": {
+                    "attack": 42,
+                    "strength": 45,
+                    "defence": 40,
+                    "hitpoints": 42,
+                    "ranged": 1,
+                    "prayer": 28,
+                    "magic": 1,
+                    "cooking": 36,
+                    "woodcutting": 16,
+                    "fletching": 1,
+                    "fishing": 1,
+                    "firemaking": 18,
+                    "crafting": 1,
+                    "smithing": 1,
+                    "mining": 1,
+                    "herblore": 1,
+                    "agility": 1,
+                    "thieving": 1,
+                    "slayer": 1,
+                    "farming": 1,
+                    "runecrafting": 1,
+                    "hunter": 1,
+                    "construction": 1
+                }
+            }
         }
     ]
 }
