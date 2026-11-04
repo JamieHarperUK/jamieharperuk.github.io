@@ -63,7 +63,7 @@ a {
     margin-top: 7px;
     color: var(--gold);
     font-size: .66rem;
-    letter-spacing: 14.5px;
+    letter-spacing: 14px;
     text-transform: uppercase;
 }
 
@@ -574,7 +574,6 @@ a {
 }
 
 .drops-modal {
-    width: min(1100px, 96vw);
     max-height: 88vh;
     overflow-y: auto;
     background: var(--paper-light);
@@ -602,7 +601,7 @@ a {
     width: 42px;
     height: 42px;
     border: 1px solid rgba(255, 255, 255, .2);
-    border-radius: 50%;
+    border-radius: 250px;
     background: transparent;
     color: white;
     font-size: 1.7rem;
@@ -610,7 +609,6 @@ a {
 }
 
 .goals-modal {
-    width: min(760px, 96vw);
     max-height: 88vh;
     overflow-y: auto;
     background: var(--paper-light);
@@ -811,7 +809,7 @@ a {
 
 .page-heading,
 .simple-page {
-    padding: 75px 8vw;
+    padding: 75px 8vw 25px 8vw;
 }
 
 .page-heading>p:last-child {
@@ -980,12 +978,12 @@ footer {
     }
 
     .brand {
-        margin: auto;
+        margin: 0rem auto;
     }
 
     .menu-toggle {
         height: 42px;
-        margin: 1rem auto;
+        margin: 0rem auto;
         display: inline-flex;
         align-items: center;
         gap: 12px;
@@ -1123,6 +1121,11 @@ footer {
     .quick-facts article {
         border-right: 0;
         border-bottom: 1px solid var(--line);
+        text-align: center;
+    }
+
+    .quick-fact-button {
+        background-color: #b3bbac;
     }
 
     .guide-meta {
