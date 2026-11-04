@@ -9,7 +9,6 @@
             "account_type": "Ironman",
             "account_tier": "Free To Play",
             "version": "RS3",
-            "default_world": 11,
             "stats": {
                 "combat_level": 11,
                 "total_level": 67,
@@ -51,7 +50,6 @@
             "account_type": "Ironman",
             "account_tier": "Free To Play",
             "version": "OSRS",
-            "default_world": 380,
             "stats": {
                 "combat_level": 56,
                 "total_level": 300,
@@ -68,6 +66,41 @@
                     "fletching": 1,
                     "fishing": 1,
                     "firemaking": 15,
+                    "crafting": 1,
+                    "smithing": 1,
+                    "mining": 1,
+                    "herblore": 1,
+                    "agility": 1,
+                    "thieving": 1,
+                    "slayer": 1,
+                    "farming": 1,
+                    "runecrafting": 1,
+                    "hunter": 1,
+                    "construction": 1
+                }
+            }
+        },
+        {
+            "player_name": "SewerMaxxing",
+            "account_type": "Ultimate Ironman",
+            "account_tier": "Member",
+            "version": "OSRS",
+            "stats": {
+                "combat_level": 78,
+                "total_level": 460,
+                "skills": {
+                    "attack": 63,
+                    "strength": 66,
+                    "defence": 60,
+                    "hitpoints": 63,
+                    "ranged": 1,
+                    "prayer": 46,
+                    "magic": 36,
+                    "cooking": 43,
+                    "woodcutting": 25,
+                    "fletching": 5,
+                    "fishing": 15,
+                    "firemaking": 25,
                     "crafting": 1,
                     "smithing": 1,
                     "mining": 1,

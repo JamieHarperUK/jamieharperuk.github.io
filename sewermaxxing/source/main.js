@@ -377,7 +377,6 @@ function renderAccounts() {
                         <div class="account-stats">
                             <div><span>Combat</span><strong>${escapeHtml(account.stats.combat_level)}</strong></div>
                             <div><span>Total level</span><strong>${escapeHtml(account.stats.total_level)}</strong></div>
-                            <div><span>World</span><strong>${escapeHtml(account.default_world)}</strong></div>
                         </div>
                         <details>
                             <summary>View skills</summary>
