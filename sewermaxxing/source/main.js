@@ -361,11 +361,13 @@ function showMonsterDrops(modal, monster, version) {
 function renderAccounts() {
     document.title = `Featured Accounts | ${site_config.site_title}`;
     const accounts = appData.accounts.accounts || [];
+    const acc_lu = appData.accounts.last_updated;
     document.getElementById("app").innerHTML = `
         <section class="page-heading">
             <p class="eyebrow">Notable challengers</p>
             <h1>Featured accounts</h1>
-            <p>Accounts currently taking part in the SewerMaxxing challenge.</p>
+            <p>Featured accounts known to have taken part in the SewerMaxxing challenge.</p>
+            <p>Last Updated:  ${acc_lu}</p>
         </section>
         <div class="account-grid">
             ${accounts.map(account => `
