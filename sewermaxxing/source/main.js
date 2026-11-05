@@ -421,7 +421,7 @@ function renderDisclaimer() {
         <section class="simple-page">
             <p class="eyebrow">Community project</p>
             <h1>Disclaimer</h1>
-            <p>SewerMaxxing Guide Book is a community-made fan project. It is not affiliated with, endorsed by, or supported by Jagex Limited.</p>
+            <p>The SewerMaxxing Guide Book is a community-made fan project. It is not affiliated with, endorsed by, or supported by Jagex Limited.</p>
             <p>RuneScape and Old School RuneScape are trademarks of Jagex Limited. All game names, imagery and related marks belong to their respective owners.</p>
             <p>Content is provided for general guidance and may change as the challenge evolves.</p>
         </section>`;
