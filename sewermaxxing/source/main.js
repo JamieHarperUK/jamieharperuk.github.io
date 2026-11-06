@@ -35,6 +35,7 @@ const site_pages = [
 
 let appData = {};
 const progressStoragePrefix = "sewermaxxing-progress-";
+const accordionStoragePrefix = "sewermaxxing-accordion-";
 
 async function responseToJson(response) {
     if (!response.ok) throw new Error(`${response.status} loading ${response.url}`);
@@ -66,6 +67,23 @@ function saveGuideProgress(version, progress) {
     localStorage.setItem(progressStoragePrefix + version.toLowerCase(), JSON.stringify(progress));
 }
 
+function getGuideAccordionState(version) {
+    try {
+        return JSON.parse(localStorage.getItem(accordionStoragePrefix + version.toLowerCase()) || "null");
+    } catch (error) {
+        console.warn(`Unable to read ${version} accordion state.`, error);
+        return null;
+    }
+}
+
+function saveGuideAccordionState(version, states) {
+    try {
+        localStorage.setItem(accordionStoragePrefix + version.toLowerCase(), JSON.stringify(states));
+    } catch (error) {
+        console.warn(`Unable to save ${version} accordion state.`, error);
+    }
+}
+
 function formatGoalValue(goal, value) {
     if (goal === "GP") {
         return Number(value).toLocaleString("en-GB") + " GP";
@@ -80,6 +98,25 @@ function bindProgressCheckboxes(version) {
             progress[checkbox.dataset.progressKey] = checkbox.checked;
             saveGuideProgress(version, progress);
             updatePhaseProgress(version, checkbox);
+        });
+    });
+}
+
+function bindGuideAccordions(version) {
+    const storedState = getGuideAccordionState(version);
+    const chapters = [...document.querySelectorAll(".chapter")];
+
+    chapters.forEach((chapter, index) => {
+        const accordion = chapter.querySelector("details");
+        accordion.open = storedState === null ? index === 0 : Boolean(storedState[index]);
+
+        accordion.addEventListener("toggle", () => {
+            const states = chapters.map(item => item.querySelector("details").open);
+            saveGuideAccordionState(version, states);
+        });
+
+        chapter.querySelector(".progress-check")?.addEventListener("click", event => {
+            event.stopPropagation();
         });
     });
 }
@@ -248,40 +285,48 @@ function renderGuide(version) {
             <div class="chapter-list">
                 ${(started.steps || []).map((step, index) => `
                     <article class="chapter">
-                        <div class="chapter-marker">${String(index + 1).padStart(2, "0")}</div>
-                        <div>
-                            <p class="chapter-kicker">Phase</p>
-                            <div class="phase-heading">
-                                <h2>${escapeHtml(step.title)}</h2>
-                                <label class="progress-check">
-                                    <input class="phase-check" type="checkbox" data-progress-key="phase-${index}" ${progress[`phase-${index}`] ? "checked" : ""}>
-                                    <span>Complete phase</span>
-                                </label>
-                            </div>
-                            ${normaliseOverview(step.overview).map(text => `<p>${escapeHtml(text)}</p>`).join("")}
-                            <div class="requirement-grid">
-                                ${Object.entries(step.required || {}).map(([type, items]) => `
-                                    <div>
-                                        <h3>${escapeHtml(type.replace(/_/g, " "))}</h3>
-                                        ${items.length ? items.map(([name, amount]) => `<p><span>${escapeHtml(name)}</span><b>${escapeHtml(amount)}</b></p>`).join("") : `<p>None required</p>`}
-                                    </div>`).join("")}
-                            </div>
-                            <div class="objectives">
-                                ${(step.objectives || []).map((item, objectiveIndex) => `
-                                    <article>
-                                        <span>&#9878;</span>
-                                        <div><h3>${escapeHtml(item.objective)}</h3><p>${escapeHtml(item.description)}</p></div>
-                                        <label class="objective-progress" title="Mark objective complete">
-                                            <input class="objective-check" type="checkbox" data-progress-key="phase-${index}-objective-${objectiveIndex}" ${progress[`phase-${index}-objective-${objectiveIndex}`] ? "checked" : ""}>
-                                            <span>Done</span>
+                        <details>
+                            <summary>
+                                <div class="chapter-marker">${String(index + 1).padStart(2, "0")}</div>
+                                <div class="phase-summary">
+                                    <p class="chapter-kicker">Phase</p>
+                                    <div class="phase-heading">
+                                        <h2>${escapeHtml(step.title)}</h2>
+                                        <label class="progress-check">
+                                            <input class="phase-check" type="checkbox" data-progress-key="phase-${index}" ${progress[`phase-${index}`] ? "checked" : ""}>
+                                            <span>Complete phase</span>
                                         </label>
-                                    </article>`).join("")}
+                                    </div>
+                                </div>
+                                <span class="accordion-indicator" aria-hidden="true"></span>
+                            </summary>
+                            <div class="chapter-content">
+                                ${normaliseOverview(step.overview).map(text => `<p>${escapeHtml(text)}</p>`).join("")}
+                                <div class="requirement-grid">
+                                    ${Object.entries(step.required || {}).map(([type, items]) => `
+                                        <div>
+                                            <h3>${escapeHtml(type.replace(/_/g, " "))}</h3>
+                                            ${items.length ? items.map(([name, amount]) => `<p><span>${escapeHtml(name)}</span><b>${escapeHtml(amount)}</b></p>`).join("") : `<p>None required</p>`}
+                                        </div>`).join("")}
+                                </div>
+                                <div class="objectives">
+                                    ${(step.objectives || []).map((item, objectiveIndex) => `
+                                        <article>
+                                            <span>&#9878;</span>
+                                            <div><h3>${escapeHtml(item.objective)}</h3><p>${escapeHtml(item.description)}</p></div>
+                                            <label class="objective-progress" title="Mark objective complete">
+                                                <input class="objective-check" type="checkbox" data-progress-key="phase-${index}-objective-${objectiveIndex}" ${progress[`phase-${index}-objective-${objectiveIndex}`] ? "checked" : ""}>
+                                                <span>Done</span>
+                                            </label>
+                                        </article>`).join("")}
+                                </div>
                             </div>
-                        </div>
+                        </details>
                     </article>`).join("")}
             </div>
         </div>`;
     bindProgressCheckboxes(version);
+    bindGuideAccordions(version);
     document.querySelector("[data-open-drops]").addEventListener("click", () => openDrops(version));
     document.querySelector("[data-open-goals]").addEventListener("click", () => openChallengeGoals(version));
 }

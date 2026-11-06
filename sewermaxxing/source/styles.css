@@ -430,12 +430,62 @@ a {
 }
 
 .chapter {
-    display: grid;
-    grid-template-columns: 70px 1fr;
-    gap: 18px;
     padding-bottom: 65px;
     border-bottom: 1px solid var(--line);
     margin-bottom: 55px;
+}
+
+.chapter details {
+    width: 100%;
+}
+
+.chapter summary {
+    display: grid;
+    grid-template-columns: 70px 1fr 24px;
+    gap: 18px;
+    align-items: start;
+    cursor: pointer;
+    list-style: none;
+}
+
+.chapter summary::-webkit-details-marker {
+    display: none;
+}
+
+.chapter summary::marker {
+    display: none;
+}
+
+.accordion-indicator {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    margin-top: 28px;
+}
+
+.accordion-indicator::before,
+.accordion-indicator::after {
+    content: "";
+    position: absolute;
+    top: 9px;
+    left: 3px;
+    width: 14px;
+    height: 2px;
+    background: var(--rust);
+    transition: transform .2s ease;
+}
+
+.accordion-indicator::after {
+    transform: rotate(90deg);
+}
+
+.chapter details[open] .accordion-indicator::after {
+    transform: rotate(0);
+}
+
+.chapter-content {
+    margin-left: 88px;
+    padding-top: 22px;
 }
 
 .chapter-marker {
@@ -483,7 +533,7 @@ a {
     cursor: pointer;
 }
 
-.chapter>div>p {
+.chapter-content>p {
     line-height: 1.65;
     color: #596057;
 }
@@ -1146,7 +1196,14 @@ footer {
     }
 
     .chapter {
-        grid-template-columns: 50px 1fr;
+        grid-template-columns: 1fr;
+    }
+    .chapter summary {
+        grid-template-columns: 50px 1fr 20px;
+        gap: 12px;
+    }
+    .chapter-content {
+        margin-left: 62px;
     }
 
     .requirement-grid,
